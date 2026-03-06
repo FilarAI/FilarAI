@@ -4,57 +4,84 @@ import { Button } from '../ui/Button';
 import { FormInput } from '../ui/FormInput';
 import { SocialIcons } from '../ui/SocialIcons';
 
-export const Footer = () => (
-    <footer id="contact" className="bg-[#0F1B3C] py-16 md:py-24 px-4 md:px-6 lg:px-10 text-[#FFFFFF]">
-        <div className="max-w-[1440px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16">
+export const Footer = () => {
+    return (
+        <footer className="bg-dark-bg text-white pt-24 pb-12 overflow-hidden border-t-[8px] border-accent-500">
+            <div className="container-padding max-w-[1200px]">
 
-            {/* Left Column: CTA & Info */}
-            <div className="flex flex-col items-start gap-8 opacity-0 animate-[fadeInUp_0.6s_ease-out_forwards]">
-                <h2 className="font-heading text-[32px] md:text-[48px] font-bold">Ready to automate your workflow?</h2>
-                <p className="font-body text-[#F1F5F9] opacity-90 text-[18px]">
-                    No credit card. No sales pressure.
-                </p>
-                <Button variant="primary" href="https://calendar.app.google/oxdocXuk5a2ohKZf9" target="_blank" rel="noopener noreferrer" className="text-[16px] px-8 py-4 mb-4">
-                    Schedule Your Free Strategy Call
-                </Button>
-                <div className="w-full h-px bg-[#FFFFFF]/20 my-4" /> {/* Divider */}
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-8 mb-20 items-start">
 
-                <div className="flex flex-col sm:flex-row gap-8 w-full">
-                    <div className="flex flex-col gap-2 font-body text-[#F1F5F9]">
-                        <a href="tel:+48534458418" className="hover:text-[#06B6D4] transition-colors">+48 534 458 418</a>
-                        <a href="mailto:kacperfilarkontakt@gmail.com" className="hover:text-[#06B6D4] transition-colors">kacperfilarkontakt@gmail.com</a>
+                    {/* Left Column (Info & CTA) */}
+                    <div className="lg:col-span-6 opacity-0 animate-[fadeInUp_0.6s_ease-out_forwards]">
+                        <span className="text-accent-500 font-bold uppercase tracking-widest text-sm mb-4 block [letter-spacing:0.15em]">
+                            Rozpocznij transformację
+                        </span>
+                        <h2 className="heading-serif text-h2 md:text-[48px] font-bold mb-6 leading-tight">
+                            Gotów na transformację Twojej agencji?
+                        </h2>
+                        <p className="font-body text-gray-secondary text-lg mb-10 max-w-md">
+                            Porozmawiajmy o tym, co możemy zautomatyzować. Bez zobowiązań, bez agresywnej sprzedaży. Tylko czysta wartość dla Twojego biznesu.
+                        </p>
+
+                        <Button variant="primary" href="https://calendar.app.google/oxdocXuk5a2ohKZf9" target="_blank" rel="noopener noreferrer" className="mb-12 py-4 px-8 text-lg">
+                            Zaplanuj bezpłatną konsultację
+                        </Button>
+
+                        <div className="w-full h-px bg-white/10 mb-8" />
+
+                        <div className="flex flex-col sm:flex-row gap-8 sm:gap-16">
+                            <div className="flex flex-col gap-3 font-body text-gray-secondary">
+                                <a href="tel:+48534458418" className="hover:text-accent-500 transition-colors font-medium tabular-nums">+48 534 458 418</a>
+                                <a href="mailto:kacperfilarkontakt@gmail.com" className="hover:text-accent-500 transition-colors font-medium">kacperfilarkontakt@gmail.com</a>
+                            </div>
+                            <SocialIcons className="text-white opacity-80" size="24" />
+                        </div>
                     </div>
-                    <SocialIcons className="text-[#FFFFFF] bg-[#FFFFFF]/10 p-2 rounded" />
+
+                    {/* Spacer */}
+                    <div className="hidden lg:block lg:col-span-1" />
+
+                    {/* Right Column (Contact Form) */}
+                    <div className="lg:col-span-5 bg-white rounded-xl p-8 shadow-xl opacity-0 animate-[fadeInUp_0.6s_ease-out_0.2s_forwards] relative">
+                        {/* Soft shadow effect behind form */}
+                        <div className="absolute -inset-1 bg-gradient-to-br from-accent-500/20 to-transparent blur-xl -z-10 rounded-xl"></div>
+
+                        <h3 className="heading-serif text-3xl font-bold text-text-primary mb-2">Napisz do nas</h3>
+                        <p className="text-secondary text-sm mb-8">Odpowiadamy w ciągu 24 godzin.</p>
+
+                        <form className="flex flex-col gap-5" onSubmit={(e) => e.preventDefault()}>
+                            <FormInput id="name" label="Imię i nazwisko" required />
+                            <FormInput id="email" type="email" label="Adres e-mail" required />
+
+                            <div className="flex flex-col gap-2 w-full">
+                                <label className="font-body text-sm font-medium text-text-primary">Kategoria biznesu</label>
+                                <select className="w-full bg-white border-2 border-gray-border rounded px-4 py-3 font-body text-text-primary focus:outline-none focus:border-accent-500 focus:ring-4 focus:ring-accent-500/10 transition-all duration-300">
+                                    <option>Salon / Spa</option>
+                                    <option>Klinika Medyczna</option>
+                                    <option>Agencja / Software House</option>
+                                    <option>Inny model rezerwacyjny</option>
+                                </select>
+                            </div>
+
+                            <FormInput id="message" type="textarea" label="Jak możemy Ci pomóc?" required />
+
+                            <button type="submit" className="btn-primary w-full mt-4 justify-center py-4 bg-text-primary hover:bg-black">
+                                Wyślij wiadomość
+                            </button>
+                        </form>
+                    </div>
+
+                </div>
+
+                {/* Copyright Footer */}
+                <div className="border-t border-white/10 pt-8 mt-12 flex flex-col md:flex-row justify-between items-center gap-4 text-gray-gray text-sm font-body opacity-60">
+                    <p>© 2026 Filar AI (Kacper Filar). Wszelkie prawa zastrzeżone.</p>
+                    <div className="flex gap-6">
+                        <a href="#" className="hover:text-white transition-colors">Polityka prywatności</a>
+                        <a href="#" className="hover:text-white transition-colors">Regulamin</a>
+                    </div>
                 </div>
             </div>
-
-            {/* Right Column: Contact Form */}
-            <div className="bg-[#FFFFFF] rounded-lg p-6 md:p-8 text-[#0F1B3C] shadow-lg opacity-0 animate-[fadeInUp_0.6s_ease-out_0.2s_forwards]">
-                <h3 className="font-heading text-[24px] font-bold mb-6">Send a Message</h3>
-                <p className="font-body text-[#64748B] text-[14px] mb-6">Alternatively, reach us directly at: <strong>kacperfilarkontakt@gmail.com</strong></p>
-                <form className="flex flex-col gap-4" onSubmit={(e) => e.preventDefault()}>
-                    <FormInput id="name" label="Name" required />
-                    <FormInput id="email" type="email" label="Email" required />
-                    <div className="flex flex-col gap-2">
-                        <label className="font-body text-[14px] font-medium text-[#0F1B3C]">Business Type</label>
-                        <select className="w-full bg-[#FFFFFF] border-2 border-[#E2E8F0] rounded px-4 py-3 font-body focus:outline-none focus:border-[#06B6D4] focus:ring-4 focus:ring-[#06B6D4]/10 transition-all duration-300">
-                            <option>Salon / Spa</option>
-                            <option>Medical Clinic</option>
-                            <option>Wellness Center</option>
-                            <option>Other Booking Business</option>
-                        </select>
-                    </div>
-                    <FormInput id="message" type="textarea" label="How can we help?" required />
-                    <Button variant="primary" className="mt-2 text-[16px] w-full">
-                        Submit Inquiry
-                    </Button>
-                </form>
-            </div>
-
-        </div>
-
-        <div className="max-w-[1440px] mx-auto mt-16 pt-8 border-t border-[#FFFFFF]/20 text-center font-body text-[12px] text-[#F1F5F9]/60">
-            <p>© 2026 Filar AI. Wszelkie prawa zastrzeżone.</p>
-        </div>
-    </footer>
-);
+        </footer>
+    );
+};

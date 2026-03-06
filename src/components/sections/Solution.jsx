@@ -2,31 +2,40 @@ import { Card } from '../ui/Card';
 
 export const Solution = () => {
     const services = [
-        { title: "Budowa Automatyzacji", description: "Łączenie ze sobą systemów, automatyzowanie powtarzalnych czynności." },
-        { title: "Agentic Workflow", description: "Bardziej zaawansowane automatyzacje, które same myślą, same się naprawiają." },
-        { title: "Budowa Web Appów Customowych", description: "Łączenie różnych aplikacji w jedną całość, tworzenie dashboardów." },
-        { title: "Budowa Stron Internetowych", description: "Nowoczesne, responsywne i profesjonalne strony gotowe do reklam i automatyzacji." }
+        { title: "Budowa Automatyzacji", description: "Łączenie i automatyzowanie systemów firmowych. Pozwól technologii wykonywać powtarzalne czynności za Twój zespół." },
+        { title: "Agentic Workflow", description: "Wdrażanie zaawansowanych systemów AI, które samodzielnie analizują dane, podejmują decyzje i rozwiązują problemy." },
+        { title: "Web App Customowe", description: "Dedykowane aplikacje i panele integrujące różne narzędzia w jeden przejrzysty ekosystem operacyjny." },
+        { title: "Strony Internetowe", description: "Nowoczesne, responsywne i profesjonalne wizytówki gotowe na reklamy oraz zintegrowane z automatyzacjami." }
     ];
 
     return (
-        <section id="solution" className="bg-[#0F1B3C] py-16 md:py-24 px-4 md:px-6 lg:px-10">
-            <div className="max-w-[1440px] mx-auto">
-                <div className="text-center mb-12 md:mb-16">
-                    <h2 className="font-heading text-[28px] md:text-[36px] text-[#FFFFFF] font-bold opacity-0 animate-[fadeInUp_0.6s_ease-out_forwards]">
-                        Our AI-Powered Solutions
+        <section className="section-spacing bg-white border-t border-gray-border">
+            <div className="container-padding max-w-[1000px]">
+                <div className="text-center mb-16 opacity-0 animate-[fadeInUp_0.6s_ease-out_forwards]">
+                    <span className="text-accent-500 font-bold uppercase tracking-widest text-sm mb-4 block [letter-spacing:0.15em]">
+                        Usługi
+                    </span>
+                    <h2 className="heading-serif text-h2 md:text-[42px] leading-tight">
+                        Rozwiązania na miarę Twoich potrzeb
                     </h2>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     {services.map((service, idx) => (
-                        <div key={idx} className="opacity-0 animate-[fadeInUp_0.6s_ease-out_forwards]" style={{ animationDelay: `${(idx + 1) * 0.1}s` }}>
-                            <Card variant="accent" className="bg-transparent border-[#06B6D4] text-[#FFFFFF] h-full flex flex-col">
-                                <h3 className="font-heading text-[20px] font-bold mb-3">{service.title}</h3>
-                                <p className="font-body text-[#F1F5F9] opacity-90 text-[16px] leading-[1.6] flex-grow">{service.description}</p>
-                                <div className="mt-6">
-                                    <span className="text-[#06B6D4] font-medium hover:text-[#FFFFFF] transition-colors cursor-pointer flex items-center gap-2">
-                                        Learn More <span>→</span>
-                                    </span>
+                        <div key={idx} className="opacity-0 animate-[fadeInUp_0.6s_ease-out_forwards]" style={{ animationDelay: `${(idx + 1) * 0.15}s` }}>
+                            <Card variant="standard" className="h-full flex flex-col group hover:border-accent-500 hover:shadow-medium border-gray-border">
+                                <div className="w-12 h-12 bg-gray-light rounded-lg flex items-center justify-center text-text-primary mb-6 group-hover:bg-accent-500 group-hover:text-white transition-colors duration-300 shadow-sm">
+                                    <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                        <path d="M5 12h14M12 5l7 7-7 7" />
+                                    </svg>
+                                </div>
+                                <h3 className="heading-serif text-h3 mb-3">{service.title}</h3>
+                                <p className="text-secondary text-base leading-relaxed flex-grow">{service.description}</p>
+                                <div className="mt-8">
+                                    <a href="/oferta" className="inline-flex items-center text-accent-500 font-semibold hover:text-accent-600 transition-colors">
+                                        Dowiedz się więcej
+                                        <span className="ml-2 group-hover:translate-x-1 transition-transform">→</span>
+                                    </a>
                                 </div>
                             </Card>
                         </div>
