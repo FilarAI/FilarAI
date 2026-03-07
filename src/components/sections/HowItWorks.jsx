@@ -8,7 +8,7 @@ export const HowItWorks = () => {
     ];
 
     return (
-        <section className="section-spacing bg-gray-light">
+        <section className="section-spacing bg-gray-light dark:bg-[#1A1A1A]">
             <div className="container-padding max-w-[800px]">
                 <div className="text-center mb-16 opacity-0 animate-[fadeInUp_0.6s_ease-out_forwards]">
                     <span className="text-accent-500 font-bold uppercase tracking-widest text-sm mb-4 block [letter-spacing:0.15em] border-b-2 border-accent-500 pb-1 inline-block mx-auto">

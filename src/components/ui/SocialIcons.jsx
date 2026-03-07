@@ -1,5 +1,5 @@
 export const SocialIcons = ({ className = '', size = "24" }) => {
-  const iconBaseClass = "text-text-primary hover:text-accent-500 hover:scale-110 transition-all duration-300 cursor-pointer z-10 flex items-center justify-center";
+  const iconBaseClass = "text-text-primary dark:text-white hover:text-accent-500 hover:scale-110 transition-all duration-300 cursor-pointer z-10 flex items-center justify-center";
   const sizeClass = size === "32" ? "w-8 h-8 text-[24px]" : "w-6 h-6 text-[18px]";
   
   return (

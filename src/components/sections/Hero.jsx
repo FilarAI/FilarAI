@@ -9,7 +9,7 @@ export const Hero = ({
   showSocials = true
 }) => {
   return (
-    <section className="section-spacing bg-white relative overflow-hidden">
+    <section className="section-spacing bg-white dark:bg-dark-bg relative overflow-hidden">
       {/* Background subtle diagonal lines pattern representing "Superplan style" */}
       <div
         className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none"
@@ -17,7 +17,7 @@ export const Hero = ({
       ></div>
 
       <div className="container-padding relative z-10 text-center flex flex-col items-center">
-        <h1 className="heading-serif text-h1 md:text-[56px] text-text-primary mb-6 max-w-4xl mx-auto leading-tight animate-[fadeInUp_0.6s_ease-out_forwards]">
+        <h1 className="heading-serif text-h1 md:text-[56px] text-text-primary dark:text-white mb-6 max-w-4xl mx-auto leading-tight animate-[fadeInUp_0.6s_ease-out_forwards]">
           {headline}
         </h1>
 

@@ -1,4 +1,5 @@
 import { Playfair_Display, Inter } from "next/font/google";
+import { ThemeProvider } from "@/components/ThemeProvider";
 import "./globals.css";
 
 const playfair = Playfair_Display({
@@ -20,12 +21,15 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="pl" className="scroll-smooth">
+    <html lang="pl" className="scroll-smooth" suppressHydrationWarning>
       <body
-        className={`${playfair.variable} ${inter.variable} antialiased selection:bg-[#FF1B6D] selection:text-white`}
+        className={`${playfair.variable} ${inter.variable} antialiased selection:bg-[#FF1B6D] selection:text-white dark:bg-[#0A0A0A] dark:text-[#FFFFFF] transition-colors duration-300`}
       >
-        {children}
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange={false}>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
 }
+

@@ -9,7 +9,7 @@ export const Solution = () => {
     ];
 
     return (
-        <section className="section-spacing bg-white border-t border-gray-border">
+        <section className="section-spacing bg-white dark:bg-dark-bg border-t border-gray-border dark:border-white/10">
             <div className="container-padding max-w-[1000px]">
                 <div className="text-center mb-16 opacity-0 animate-[fadeInUp_0.6s_ease-out_forwards]">
                     <span className="text-accent-500 font-bold uppercase tracking-widest text-sm mb-4 block [letter-spacing:0.15em]">
@@ -23,8 +23,8 @@ export const Solution = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     {services.map((service, idx) => (
                         <div key={idx} className="opacity-0 animate-[fadeInUp_0.6s_ease-out_forwards]" style={{ animationDelay: `${(idx + 1) * 0.15}s` }}>
-                            <Card variant="standard" className="h-full flex flex-col group hover:border-accent-500 hover:shadow-medium border-gray-border">
-                                <div className="w-12 h-12 bg-gray-light rounded-lg flex items-center justify-center text-text-primary mb-6 group-hover:bg-accent-500 group-hover:text-white transition-colors duration-300 shadow-sm">
+                            <Card variant="standard" className="h-full flex flex-col group hover:border-accent-500 hover:shadow-medium border-gray-border dark:border-white/10">
+                                <div className="w-12 h-12 bg-gray-light dark:bg-[#1A1A1A] rounded-lg flex items-center justify-center text-text-primary dark:text-white mb-6 group-hover:bg-accent-500 group-hover:text-white transition-colors duration-300 shadow-sm">
                                     <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                         <path d="M5 12h14M12 5l7 7-7 7" />
                                     </svg>

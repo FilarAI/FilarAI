@@ -8,7 +8,7 @@ export const Testimonials = () => {
     ];
 
     return (
-        <section className="section-spacing bg-white">
+        <section className="section-spacing bg-white dark:bg-dark-bg">
             <div className="container-padding">
                 <div className="flex flex-col md:flex-row justify-between items-end mb-16 opacity-0 animate-[fadeInUp_0.6s_ease-out_forwards]">
                     <div>
@@ -19,7 +19,7 @@ export const Testimonials = () => {
                             Co mówią klienci
                         </h2>
                     </div>
-                    <a href="/portfolio" className="hidden md:inline-flex items-center text-text-primary border-b-2 border-transparent hover:border-accent-500 hover:text-accent-500 transition-all duration-300 font-bold pb-1">
+                    <a href="/portfolio" className="hidden md:inline-flex items-center text-text-primary dark:text-white border-b-2 border-transparent hover:border-accent-500 hover:text-accent-500 transition-all duration-300 font-bold pb-1">
                         Więcej opinii <span className="ml-2">→</span>
                     </a>
                 </div>
@@ -31,16 +31,16 @@ export const Testimonials = () => {
                                 {/* Quotation Mark Icon overlay */}
                                 <div className="absolute top-6 left-6 text-6xl font-display text-gray-border leading-none opacity-50">"</div>
 
-                                <p className="font-display text-lg italic text-text-primary mb-8 relative z-10 flex-grow font-medium leading-relaxed">
+                                <p className="font-display text-lg italic text-text-primary dark:text-white mb-8 relative z-10 flex-grow font-medium leading-relaxed">
                                     {test.text}
                                 </p>
 
-                                <div className="flex items-center gap-4 pt-6 border-t border-gray-border/50">
+                                <div className="flex items-center gap-4 pt-6 border-t border-gray-border dark:border-white/10/50">
                                     <div className="w-12 h-12 rounded-full bg-dark-bg text-white flex items-center justify-center font-bold font-display">
                                         {test.initial}
                                     </div>
                                     <div>
-                                        <p className="font-bold text-text-primary text-base">{test.name}</p>
+                                        <p className="font-bold text-text-primary dark:text-white text-base">{test.name}</p>
                                         <p className="text-sm text-gray-text">{test.company}</p>
                                     </div>
                                 </div>

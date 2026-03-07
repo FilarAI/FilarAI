@@ -10,7 +10,7 @@ export const metadata = {
 };
 
 const ServiceDetail = ({ title, description, features, reverse, number }) => (
-    <section className="section-spacing bg-white border-b border-gray-border overflow-hidden">
+    <section className="section-spacing bg-white dark:bg-dark-bg border-b border-gray-border dark:border-white/10 overflow-hidden">
         <div className={`container-padding flex flex-col ${reverse ? 'lg:flex-row-reverse' : 'lg:flex-row'} items-center gap-16 lg:gap-24`}>
             <div className="lg:w-1/2 opacity-0 animate-[fadeInUp_0.6s_ease-out_forwards]">
                 <span className="text-secondary font-bold uppercase tracking-widest text-sm mb-4 block [letter-spacing:0.15em]">
@@ -20,7 +20,7 @@ const ServiceDetail = ({ title, description, features, reverse, number }) => (
                 <p className="font-body text-text-secondary text-lg leading-relaxed mb-8">{description}</p>
                 <ul className="flex flex-col gap-4 mb-10">
                     {features.map((feat, idx) => (
-                        <li key={idx} className="flex items-center gap-3 text-text-primary font-medium">
+                        <li key={idx} className="flex items-center gap-3 text-text-primary dark:text-white font-medium">
                             <span className="text-accent-500 font-bold">✓</span> {feat}
                         </li>
                     ))}
@@ -30,9 +30,9 @@ const ServiceDetail = ({ title, description, features, reverse, number }) => (
                 </a>
             </div>
             <div className="lg:w-1/2 w-full opacity-0 animate-[fadeInUp_0.6s_ease-out_0.2s_forwards]">
-                <div className="w-full aspect-[4/3] bg-gray-light rounded-2xl border border-gray-border shadow-subtle flex items-center justify-center p-8 relative overflow-hidden group">
+                <div className="w-full aspect-[4/3] bg-gray-light dark:bg-[#1A1A1A] rounded-2xl border border-gray-border dark:border-white/10 shadow-subtle flex items-center justify-center p-8 relative overflow-hidden group">
                     <div className="absolute inset-0 bg-gradient-to-tr from-accent-500/5 to-transparent"></div>
-                    <div className="w-24 h-24 bg-white rounded-2xl shadow-medium flex items-center justify-center text-4xl group-hover:scale-110 transition-transform duration-500 text-accent-500 font-bold font-display">
+                    <div className="w-24 h-24 bg-white dark:bg-dark-bg rounded-2xl shadow-medium flex items-center justify-center text-4xl group-hover:scale-110 transition-transform duration-500 text-accent-500 font-bold font-display">
                         {number}
                     </div>
                 </div>
@@ -43,11 +43,11 @@ const ServiceDetail = ({ title, description, features, reverse, number }) => (
 
 export default function OfertaPage() {
     return (
-        <main className="min-h-screen bg-white text-text-primary">
+        <main className="min-h-screen bg-white dark:bg-dark-bg text-text-primary dark:text-white">
             <Header />
 
             {/* Hero Section Oferta */}
-            <section className="pt-24 pb-16 md:pt-32 md:pb-24 bg-gray-light border-b border-gray-border text-center">
+            <section className="pt-24 pb-16 md:pt-32 md:pb-24 bg-gray-light dark:bg-[#1A1A1A] border-b border-gray-border dark:border-white/10 text-center">
                 <div className="container-padding max-w-4xl opacity-0 animate-[fadeInUp_0.6s_ease-out_forwards]">
                     <h1 className="heading-serif text-h1 md:text-[56px] leading-tight mb-6">Nasze Rozwiązania</h1>
                     <p className="font-body text-text-secondary text-lg md:text-xl mb-12 max-w-2xl mx-auto leading-relaxed">
@@ -89,7 +89,7 @@ export default function OfertaPage() {
                 reverse={true}
             />
 
-            <div className="py-24 bg-white text-center">
+            <div className="py-24 bg-white dark:bg-dark-bg text-center">
                 <h2 className="heading-serif text-3xl mb-4">Jak realizujemy rozwiązania?</h2>
             </div>
 

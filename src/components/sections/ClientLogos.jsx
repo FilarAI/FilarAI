@@ -9,7 +9,7 @@ export const ClientLogos = () => {
     ];
 
     return (
-        <section className="py-12 bg-white border-b border-gray-border">
+        <section className="py-12 bg-white dark:bg-dark-bg border-b border-gray-border dark:border-white/10">
             <div className="container-padding max-w-[1200px]">
                 <p className="text-center text-sm font-medium text-gray-text uppercase tracking-widest mb-8">
                     Zaufali nam liderzy swoich branż
@@ -18,7 +18,7 @@ export const ClientLogos = () => {
                     {logos.map((logo, idx) => (
                         <div
                             key={idx}
-                            className="grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-300 cursor-pointer text-text-primary font-display font-bold text-xl select-none"
+                            className="grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-300 cursor-pointer text-text-primary dark:text-white font-display font-bold text-xl select-none"
                             style={{ animationDelay: `${idx * 0.1}s` }}
                         >
                             {logo.content}

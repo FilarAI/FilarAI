@@ -20,11 +20,11 @@ export default function PortfolioPage() {
     const filters = ["Wszystkie", "Automatyzacja", "Web Apps", "Strony", "Agentic Workflow"];
 
     return (
-        <main className="min-h-screen bg-white text-text-primary">
+        <main className="min-h-screen bg-white dark:bg-dark-bg text-text-primary dark:text-white">
             <Header />
 
             {/* Hero Section Portfolio */}
-            <section className="pt-24 pb-16 md:pt-32 md:pb-24 bg-gray-light border-b border-gray-border text-center">
+            <section className="pt-24 pb-16 md:pt-32 md:pb-24 bg-gray-light dark:bg-[#1A1A1A] border-b border-gray-border dark:border-white/10 text-center">
                 <div className="container-padding max-w-4xl opacity-0 animate-[fadeInUp_0.6s_ease-out_forwards]">
                     <h1 className="heading-serif text-h1 md:text-[56px] leading-tight mb-6">Portfolio & Opinie</h1>
                     <p className="font-body text-text-secondary text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
@@ -34,10 +34,10 @@ export default function PortfolioPage() {
             </section>
 
             {/* Filter Buttons */}
-            <section className="py-12 bg-white">
+            <section className="py-12 bg-white dark:bg-dark-bg">
                 <div className="container-padding flex flex-wrap justify-center gap-4 opacity-0 animate-[fadeIn_0.6s_ease-out_forwards]">
                     {filters.map((f, idx) => (
-                        <button key={idx} className={`px-6 py-2 rounded-full font-body font-medium text-sm transition-all duration-300 ${idx === 0 ? 'bg-text-primary text-white border-none' : 'bg-transparent text-text-secondary border border-gray-border hover:border-accent-500 hover:text-accent-500'}`}>
+                        <button key={idx} className={`px-6 py-2 rounded-full font-body font-medium text-sm transition-all duration-300 ${idx === 0 ? 'bg-text-primary text-white border-none' : 'bg-transparent text-text-secondary border border-gray-border dark:border-white/10 hover:border-accent-500 hover:text-accent-500'}`}>
                             {f}
                         </button>
                     ))}
@@ -45,12 +45,12 @@ export default function PortfolioPage() {
             </section>
 
             {/* Project Grid */}
-            <section className="pb-24 bg-white border-b border-gray-border">
+            <section className="pb-24 bg-white dark:bg-dark-bg border-b border-gray-border dark:border-white/10">
                 <div className="container-padding">
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
                         {projects.map((proj, idx) => (
                             <div key={idx} className="group cursor-pointer opacity-0 animate-[fadeInUp_0.6s_ease-out_forwards]" style={{ animationDelay: `${(idx + 1) * 0.1}s` }}>
-                                <div className="w-full aspect-video bg-gray-light border border-gray-border rounded-lg mb-6 overflow-hidden relative shadow-subtle group-hover:shadow-medium transition-all duration-300">
+                                <div className="w-full aspect-video bg-gray-light dark:bg-[#1A1A1A] border border-gray-border dark:border-white/10 rounded-lg mb-6 overflow-hidden relative shadow-subtle group-hover:shadow-medium transition-all duration-300">
                                     <div className="w-full h-full flex items-center justify-center text-5xl text-gray-border font-display font-bold group-hover:scale-105 transition-transform duration-500">
                                         {proj.imgPlaceholder}
                                     </div>
@@ -71,7 +71,7 @@ export default function PortfolioPage() {
             <Testimonials />
 
             {/* Final Mini CTA before Footer */}
-            <section className="py-24 bg-gray-light text-center border-t border-gray-border">
+            <section className="py-24 bg-gray-light dark:bg-[#1A1A1A] text-center border-t border-gray-border dark:border-white/10">
                 <div className="container-padding max-w-2xl opacity-0 animate-[fadeInUp_0.6s_ease-out_forwards]">
                     <h2 className="heading-serif text-h2 mb-8">Chcesz być następny?</h2>
                     <a href="https://calendar.app.google/oxdocXuk5a2ohKZf9" target="_blank" rel="noopener noreferrer" className="btn-primary text-lg px-8 py-4">

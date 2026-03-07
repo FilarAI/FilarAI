@@ -27,7 +27,7 @@ export const Footer = () => {
                             Zaplanuj bezpłatną konsultację
                         </Button>
 
-                        <div className="w-full h-px bg-white/10 mb-8" />
+                        <div className="w-full h-px bg-white dark:bg-dark-bg/10 mb-8" />
 
                         <div className="flex flex-col sm:flex-row gap-8 sm:gap-16">
                             <div className="flex flex-col gap-3 font-body text-gray-secondary">
@@ -42,11 +42,11 @@ export const Footer = () => {
                     <div className="hidden lg:block lg:col-span-1" />
 
                     {/* Right Column (Contact Form) */}
-                    <div className="lg:col-span-5 bg-white rounded-xl p-8 shadow-xl opacity-0 animate-[fadeInUp_0.6s_ease-out_0.2s_forwards] relative">
+                    <div className="lg:col-span-5 bg-white dark:bg-dark-bg rounded-xl p-8 shadow-xl opacity-0 animate-[fadeInUp_0.6s_ease-out_0.2s_forwards] relative">
                         {/* Soft shadow effect behind form */}
                         <div className="absolute -inset-1 bg-gradient-to-br from-accent-500/20 to-transparent blur-xl -z-10 rounded-xl"></div>
 
-                        <h3 className="heading-serif text-3xl font-bold text-text-primary mb-2">Napisz do nas</h3>
+                        <h3 className="heading-serif text-3xl font-bold text-text-primary dark:text-white mb-2">Napisz do nas</h3>
                         <p className="text-secondary text-sm mb-8">Odpowiadamy w ciągu 24 godzin.</p>
 
                         <form className="flex flex-col gap-5" onSubmit={(e) => e.preventDefault()}>
@@ -54,8 +54,8 @@ export const Footer = () => {
                             <FormInput id="email" type="email" label="Adres e-mail" required />
 
                             <div className="flex flex-col gap-2 w-full">
-                                <label className="font-body text-sm font-medium text-text-primary">Kategoria biznesu</label>
-                                <select className="w-full bg-white border-2 border-gray-border rounded px-4 py-3 font-body text-text-primary focus:outline-none focus:border-accent-500 focus:ring-4 focus:ring-accent-500/10 transition-all duration-300">
+                                <label className="font-body text-sm font-medium text-text-primary dark:text-white">Kategoria biznesu</label>
+                                <select className="w-full bg-white dark:bg-dark-bg border-2 border-gray-border dark:border-white/10 rounded px-4 py-3 font-body text-text-primary dark:text-white focus:outline-none focus:border-accent-500 focus:ring-4 focus:ring-accent-500/10 transition-all duration-300">
                                     <option>Salon / Spa</option>
                                     <option>Klinika Medyczna</option>
                                     <option>Agencja / Software House</option>

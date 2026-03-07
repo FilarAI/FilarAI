@@ -18,11 +18,11 @@ export default function AboutPage() {
     const skills = ["Automatyzacja", "AI / LLM", "Next.js & React", "Python", "NoCode / LowCode", "Systemy CRM"];
 
     return (
-        <main className="min-h-screen bg-white text-text-primary overflow-x-hidden">
+        <main className="min-h-screen bg-white dark:bg-dark-bg text-text-primary dark:text-white overflow-x-hidden">
             <Header />
 
             {/* Hero Section About */}
-            <section className="pt-24 pb-16 md:pt-32 md:pb-24 bg-white border-b border-gray-border text-center relative">
+            <section className="pt-24 pb-16 md:pt-32 md:pb-24 bg-white dark:bg-dark-bg border-b border-gray-border dark:border-white/10 text-center relative">
                 <div className="absolute inset-0 z-0 bg-gradient-to-b from-gray-light to-white pointer-events-none"></div>
                 <div className="container-padding max-w-4xl relative z-10 opacity-0 animate-[fadeInUp_0.6s_ease-out_forwards]">
                     <h1 className="heading-serif text-h1 md:text-[56px] leading-tight mb-6">Poznaj Filar AI</h1>
@@ -33,7 +33,7 @@ export default function AboutPage() {
             </section>
 
             {/* Story Section */}
-            <section className="py-24 bg-white border-b border-gray-border">
+            <section className="py-24 bg-white dark:bg-dark-bg border-b border-gray-border dark:border-white/10">
                 <div className="container-padding flex flex-col md:flex-row items-center gap-16 lg:gap-24">
                     <div className="md:w-1/2 opacity-0 animate-[fadeInUp_0.6s_ease-out_forwards]">
                         <h2 className="heading-serif text-3xl md:text-4xl mb-6">Historia twórcy</h2>
@@ -53,14 +53,14 @@ export default function AboutPage() {
             </section>
 
             {/* Values */}
-            <section className="py-24 bg-gray-light">
+            <section className="py-24 bg-gray-light dark:bg-[#1A1A1A]">
                 <div className="container-padding">
                     <h2 className="heading-serif text-3xl md:text-4xl text-center mb-16 opacity-0 animate-[fadeInUp_0.6s_ease-out_forwards]">Cztery fundamenty</h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                         {values.map((val, idx) => (
                             <div key={idx} className="opacity-0 animate-[fadeInUp_0.6s_ease-out_forwards]" style={{ animationDelay: `${(idx + 1) * 0.15}s` }}>
-                                <Card variant="standard" className="h-full group hover:border-accent-500 border-gray-border">
-                                    <div className="w-12 h-12 bg-white border border-gray-border text-text-primary rounded-xl flex items-center justify-center text-2xl mb-6 shadow-sm group-hover:scale-110 group-hover:border-accent-500 group-hover:text-accent-500 transition-all duration-300">
+                                <Card variant="standard" className="h-full group hover:border-accent-500 border-gray-border dark:border-white/10">
+                                    <div className="w-12 h-12 bg-white dark:bg-dark-bg border border-gray-border dark:border-white/10 text-text-primary dark:text-white rounded-xl flex items-center justify-center text-2xl mb-6 shadow-sm group-hover:scale-110 group-hover:border-accent-500 group-hover:text-accent-500 transition-all duration-300">
                                         {val.icon}
                                     </div>
                                     <h3 className="heading-serif text-xl font-bold mb-3">{val.title}</h3>
@@ -73,12 +73,12 @@ export default function AboutPage() {
             </section>
 
             {/* Expertise & Skills */}
-            <section className="py-24 bg-white border-y border-gray-border text-center">
+            <section className="py-24 bg-white dark:bg-dark-bg border-y border-gray-border dark:border-white/10 text-center">
                 <div className="container-padding opacity-0 animate-[fadeInUp_0.6s_ease-out_forwards]">
                     <h2 className="heading-serif text-3xl mb-12">Kompetencje techniczne</h2>
                     <div className="flex flex-wrap justify-center gap-4 max-w-3xl mx-auto">
                         {skills.map((skill, idx) => (
-                            <span key={idx} className="px-6 py-3 bg-gray-light text-text-primary font-bold font-body rounded-full border border-gray-border hover:border-accent-500 hover:text-accent-500 transition-colors shadow-sm cursor-default">
+                            <span key={idx} className="px-6 py-3 bg-gray-light dark:bg-[#1A1A1A] text-text-primary dark:text-white font-bold font-body rounded-full border border-gray-border dark:border-white/10 hover:border-accent-500 hover:text-accent-500 transition-colors shadow-sm cursor-default">
                                 {skill}
                             </span>
                         ))}

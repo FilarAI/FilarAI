@@ -7,7 +7,7 @@ export const Expertise = () => {
     ];
 
     return (
-        <section className="section-spacing bg-white border-y border-gray-border">
+        <section className="section-spacing bg-white dark:bg-dark-bg border-y border-gray-border dark:border-white/10">
             <div className="container-padding flex flex-col lg:flex-row gap-16 lg:gap-24 items-start">
 
                 {/* Left Col - Context / Story */}
@@ -28,7 +28,7 @@ export const Expertise = () => {
                             {/* <img src="/avatar.jpg" alt="Kacper Filar" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-300" /> */}
                         </div>
                         <div>
-                            <p className="font-bold text-text-primary text-lg">Kacper Filar</p>
+                            <p className="font-bold text-text-primary dark:text-white text-lg">Kacper Filar</p>
                             <p className="text-sm text-gray-text uppercase tracking-wider">Filar AI Founder</p>
                         </div>
                     </div>

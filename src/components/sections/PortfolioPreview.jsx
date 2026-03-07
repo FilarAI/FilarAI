@@ -6,7 +6,7 @@ export const PortfolioPreview = () => {
     ];
 
     return (
-        <section className="section-spacing bg-gray-light border-y border-gray-border">
+        <section className="section-spacing bg-gray-light dark:bg-[#1A1A1A] border-y border-gray-border dark:border-white/10">
             <div className="container-padding">
 
                 <div className="flex flex-col md:flex-row justify-between items-end mb-12 opacity-0 animate-[fadeInUp_0.6s_ease-out_forwards]">
@@ -18,7 +18,7 @@ export const PortfolioPreview = () => {
                             Sprawdź co robimy
                         </h2>
                     </div>
-                    <a href="/portfolio" className="hidden md:inline-flex items-center text-text-primary border-b-2 border-transparent hover:border-accent-500 hover:text-accent-500 transition-all duration-300 font-bold pb-1">
+                    <a href="/portfolio" className="hidden md:inline-flex items-center text-text-primary dark:text-white border-b-2 border-transparent hover:border-accent-500 hover:text-accent-500 transition-all duration-300 font-bold pb-1">
                         Więcej prac <span className="ml-2">→</span>
                     </a>
                 </div>
@@ -26,7 +26,7 @@ export const PortfolioPreview = () => {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
                     {projects.map((proj, idx) => (
                         <div key={idx} className="group cursor-pointer opacity-0 animate-[fadeInUp_0.6s_ease-out_forwards]" style={{ animationDelay: `${(idx + 1) * 0.15}s` }}>
-                            <div className="w-full aspect-video bg-white border border-gray-border rounded-lg mb-6 overflow-hidden relative shadow-subtle group-hover:shadow-medium transition-shadow duration-300">
+                            <div className="w-full aspect-video bg-white dark:bg-dark-bg border border-gray-border dark:border-white/10 rounded-lg mb-6 overflow-hidden relative shadow-subtle group-hover:shadow-medium transition-shadow duration-300">
                                 {/* Image Placeholder */}
                                 <div className="w-full h-full flex items-center justify-center text-4xl text-gray-secondary font-display font-bold group-hover:scale-105 transition-transform duration-500">
                                     {proj.imgPlaceholder}
