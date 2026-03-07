@@ -80,7 +80,6 @@ h4,
 h5,
 h6 {
   font-family: var(--font-display);
-  color: var(--color-text-primary);
 }
 
 /* Custom Utilities based on SPECIFICATION */

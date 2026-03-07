@@ -2,11 +2,11 @@ export const TimelineStep = ({ stepNumber, title, description, isLast = false })
     <div className="relative flex gap-6 md:gap-8 group">
         {/* Line connector */}
         {!isLast && (
-            <div className="absolute left-[20px] top-[40px] bottom-[-24px] w-[2px] bg-gray-border md:left-1/2 md:-ml-[1px]" />
+            <div className="absolute left-[20px] top-[40px] bottom-[-24px] w-[2px] bg-gray-border dark:bg-white/10 md:left-1/2 md:-ml-[1px]" />
         )}
 
         {/* Step Number Circle */}
-        <div className="relative z-10 flex-shrink-0 w-10 h-10 rounded-full bg-text-primary text-white flex items-center justify-center font-display font-bold text-[18px] border-4 border-white shadow-subtle md:mx-auto transition-transform duration-300 group-hover:scale-110 group-hover:bg-accent-500">
+        <div className="relative z-10 flex-shrink-0 w-10 h-10 rounded-full bg-text-primary dark:bg-white text-white dark:text-text-primary flex items-center justify-center font-display font-bold text-[18px] border-4 border-gray-light dark:border-[#1A1A1A] shadow-subtle md:mx-auto transition-transform duration-300 group-hover:scale-110 group-hover:bg-accent-500 dark:group-hover:bg-accent-500 dark:group-hover:text-white">
             {stepNumber}
         </div>
 

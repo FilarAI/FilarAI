@@ -44,8 +44,8 @@ export default function AboutPage() {
                         </div>
                     </div>
                     <div className="md:w-1/2 w-full opacity-0 animate-[fadeInUp_0.6s_ease-out_0.2s_forwards]">
-                        <div className="aspect-[3/4] max-h-[600px] w-full bg-gray-border rounded-xl shadow-strong flex items-center justify-center text-text-secondary font-display font-bold text-2xl relative overflow-hidden group">
-                            <div className="absolute inset-0 bg-dark-bg/5 group-hover:bg-transparent transition-colors duration-500"></div>
+                        <div className="aspect-[3/4] max-h-[600px] w-full bg-gray-border dark:bg-white/10 rounded-xl shadow-strong flex items-center justify-center text-text-secondary dark:text-gray-secondary font-display font-bold text-2xl relative overflow-hidden group">
+                            <div className="absolute inset-0 bg-dark-bg/5 dark:bg-white/5 group-hover:bg-transparent transition-colors duration-500"></div>
                             PHOTO: Kacper Filar
                         </div>
                     </div>
