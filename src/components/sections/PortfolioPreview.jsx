@@ -1,9 +1,12 @@
+"use client";
+
+import { useState } from 'react';
+import { projectsData } from '@/data/projects';
+import { ProjectModal } from '@/components/ui/ProjectModal';
+
 export const PortfolioPreview = () => {
-    const projects = [
-        { title: "System CRM z AI", category: "Agentic Workflow", imgPlaceholder: "CRM" },
-        { title: "Automatyczny Kalendarz", category: "Automatyzacja", imgPlaceholder: "KAL" },
-        { title: "Aplikacja dla Gabinetu", category: "Web App", imgPlaceholder: "APP" }
-    ];
+    const [selectedProject, setSelectedProject] = useState(null);
+    const projects = projectsData.slice(0, 3);
 
     return (
         <section className="section-spacing bg-gray-light dark:bg-[#1A1A1A] border-y border-gray-border dark:border-white/10">
@@ -25,8 +28,13 @@ export const PortfolioPreview = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
                     {projects.map((proj, idx) => (
-                        <div key={idx} className="group cursor-pointer opacity-0 animate-[fadeInUp_0.6s_ease-out_forwards]" style={{ animationDelay: `${(idx + 1) * 0.15}s` }}>
-                            <div className="w-full aspect-video bg-white dark:bg-dark-bg border border-gray-border dark:border-white/10 rounded-lg mb-6 overflow-hidden relative shadow-subtle group-hover:shadow-medium transition-shadow duration-300">
+                        <div
+                            key={proj.id}
+                            className="group cursor-pointer opacity-0 animate-[fadeInUp_0.6s_ease-out_forwards] flex flex-col"
+                            style={{ animationDelay: `${(idx + 1) * 0.15}s` }}
+                            onClick={() => setSelectedProject(proj)}
+                        >
+                            <div className="w-full aspect-video bg-white dark:bg-dark-bg border border-gray-border dark:border-white/10 rounded-lg mb-6 overflow-hidden relative shadow-subtle group-hover:shadow-medium transition-shadow duration-300 flex-shrink-0">
                                 {/* Image Placeholder */}
                                 <div className="w-full h-full flex items-center justify-center text-4xl text-gray-secondary font-display font-bold group-hover:scale-105 transition-transform duration-500">
                                     {proj.imgPlaceholder}
@@ -34,14 +42,15 @@ export const PortfolioPreview = () => {
 
                                 {/* Hover Overlay */}
                                 <div className="absolute inset-0 bg-dark-bg/80 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                    <span className="btn-primary transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+                                    <span className="btn-primary transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 pointer-events-none">
                                         Zobacz Detale
                                     </span>
                                 </div>
                             </div>
 
                             <h3 className="heading-serif font-bold text-xl mb-1 group-hover:text-accent-500 transition-colors">{proj.title}</h3>
-                            <p className="font-body text-gray-text text-sm uppercase tracking-wider">{proj.category}</p>
+                            <p className="font-body text-accent-500 text-xs uppercase tracking-wider font-bold mb-2">{proj.category}</p>
+                            <p className="font-body text-text-secondary dark:text-gray-secondary text-sm leading-relaxed">{proj.shortDesc}</p>
                         </div>
                     ))}
                 </div>
@@ -51,6 +60,11 @@ export const PortfolioPreview = () => {
                 </div>
 
             </div>
+
+            <ProjectModal
+                project={selectedProject}
+                onClose={() => setSelectedProject(null)}
+            />
         </section>
     );
 };
