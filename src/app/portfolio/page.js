@@ -1,23 +1,27 @@
+"use client";
+
+import { useState } from 'react';
 import { Header } from '@/components/sections/Header';
 import { Footer } from '@/components/sections/Footer';
 import { Testimonials } from '@/components/sections/Testimonials';
 
-export const metadata = {
-    title: "Portfolio & Opinie - Filar AI",
-    description: "Znamy się na rzeczy. Sprawdź, co już zbudowaliśmy i co o współpracy mówią nasi klienci.",
-};
-
 export default function PortfolioPage() {
+    const [activeFilter, setActiveFilter] = useState("Wszystkie");
+
     const projects = [
         { title: "System CRM z AI", category: "Agentic Workflow", imgPlaceholder: "CRM" },
         { title: "Automatyczny Kalendarz", category: "Automatyzacja", imgPlaceholder: "KAL" },
-        { title: "Aplikacja dla Gabinetu", category: "Web App", imgPlaceholder: "APP" },
+        { title: "Aplikacja dla Gabinetu", category: "Web Apps", imgPlaceholder: "APP" },
         { title: "Wizytówka Premium", category: "Strony", imgPlaceholder: "WWW" },
-        { title: "Panel Klienta", category: "Web App", imgPlaceholder: "B2B" },
+        { title: "Panel Klienta", category: "Web Apps", imgPlaceholder: "B2B" },
         { title: "Bot Odpowiadający", category: "Agentic Workflow", imgPlaceholder: "BOT" },
     ];
 
     const filters = ["Wszystkie", "Automatyzacja", "Web Apps", "Strony", "Agentic Workflow"];
+
+    const filteredProjects = activeFilter === "Wszystkie"
+        ? projects
+        : projects.filter(proj => proj.category === activeFilter);
 
     return (
         <main className="min-h-screen bg-white dark:bg-dark-bg text-text-primary dark:text-white">
@@ -37,7 +41,14 @@ export default function PortfolioPage() {
             <section className="py-12 bg-white dark:bg-dark-bg">
                 <div className="container-padding flex flex-wrap justify-center gap-4 opacity-0 animate-[fadeIn_0.6s_ease-out_forwards]">
                     {filters.map((f, idx) => (
-                        <button key={idx} className={`px-6 py-2 rounded-full font-body font-medium text-sm transition-all duration-300 ${idx === 0 ? 'bg-text-primary text-white border-none' : 'bg-transparent text-text-secondary border border-gray-border dark:border-white/10 hover:border-accent-500 hover:text-accent-500'}`}>
+                        <button
+                            key={idx}
+                            onClick={() => setActiveFilter(f)}
+                            className={`px-6 py-2 rounded-full font-body font-medium text-sm transition-all duration-300 ${activeFilter === f
+                                    ? 'bg-text-primary dark:bg-white text-white dark:text-text-primary border-none shadow-medium'
+                                    : 'bg-transparent text-text-secondary border border-gray-border dark:border-white/10 hover:border-accent-500 hover:text-accent-500'
+                                }`}
+                        >
                             {f}
                         </button>
                     ))}
@@ -48,8 +59,8 @@ export default function PortfolioPage() {
             <section className="pb-24 bg-white dark:bg-dark-bg border-b border-gray-border dark:border-white/10">
                 <div className="container-padding">
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-                        {projects.map((proj, idx) => (
-                            <div key={idx} className="group cursor-pointer opacity-0 animate-[fadeInUp_0.6s_ease-out_forwards]" style={{ animationDelay: `${(idx + 1) * 0.1}s` }}>
+                        {filteredProjects.map((proj, idx) => (
+                            <div key={`${proj.title}-${idx}`} className="group cursor-pointer opacity-0 animate-[fadeInUp_0.6s_ease-out_forwards]" style={{ animationDelay: `${(idx + 1) * 0.1}s` }}>
                                 <div className="w-full aspect-video bg-gray-light dark:bg-[#1A1A1A] border border-gray-border dark:border-white/10 rounded-lg mb-6 overflow-hidden relative shadow-subtle group-hover:shadow-medium transition-all duration-300">
                                     <div className="w-full h-full flex items-center justify-center text-5xl text-gray-border font-display font-bold group-hover:scale-105 transition-transform duration-500">
                                         {proj.imgPlaceholder}
