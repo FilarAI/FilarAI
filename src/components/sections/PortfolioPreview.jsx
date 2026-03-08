@@ -1,11 +1,7 @@
-"use client";
-
-import { useState } from 'react';
+import Link from 'next/link';
 import { projectsData } from '@/data/projects';
-import { ProjectModal } from '@/components/ui/ProjectModal';
 
 export const PortfolioPreview = () => {
-    const [selectedProject, setSelectedProject] = useState(null);
     const projects = projectsData.slice(0, 3);
 
     return (
@@ -28,11 +24,11 @@ export const PortfolioPreview = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
                     {projects.map((proj, idx) => (
-                        <div
+                        <Link
+                            href={`/portfolio/${proj.id}`}
                             key={proj.id}
                             className="group cursor-pointer opacity-0 animate-[fadeInUp_0.6s_ease-out_forwards] flex flex-col"
                             style={{ animationDelay: `${(idx + 1) * 0.15}s` }}
-                            onClick={() => setSelectedProject(proj)}
                         >
                             <div className="w-full aspect-video bg-white dark:bg-dark-bg border border-gray-border dark:border-white/10 rounded-lg mb-6 overflow-hidden relative shadow-subtle group-hover:shadow-medium transition-shadow duration-300 flex-shrink-0">
                                 {/* Image Placeholder */}
@@ -51,7 +47,7 @@ export const PortfolioPreview = () => {
                             <h3 className="heading-serif font-bold text-xl mb-1 group-hover:text-accent-500 transition-colors">{proj.title}</h3>
                             <p className="font-body text-accent-500 text-xs uppercase tracking-wider font-bold mb-2">{proj.category}</p>
                             <p className="font-body text-text-secondary dark:text-gray-secondary text-sm leading-relaxed">{proj.shortDesc}</p>
-                        </div>
+                        </Link>
                     ))}
                 </div>
 
@@ -60,11 +56,6 @@ export const PortfolioPreview = () => {
                 </div>
 
             </div>
-
-            <ProjectModal
-                project={selectedProject}
-                onClose={() => setSelectedProject(null)}
-            />
         </section>
     );
 };

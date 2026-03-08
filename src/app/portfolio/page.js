@@ -1,15 +1,14 @@
 "use client";
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { Header } from '@/components/sections/Header';
 import { Footer } from '@/components/sections/Footer';
 import { Testimonials } from '@/components/sections/Testimonials';
 import { projectsData } from '@/data/projects';
-import { ProjectModal } from '@/components/ui/ProjectModal';
 
 export default function PortfolioPage() {
     const [activeFilter, setActiveFilter] = useState("Wszystkie");
-    const [selectedProject, setSelectedProject] = useState(null);
 
     const filters = ["Wszystkie", "Automatyzacja", "Web Apps", "Strony", "Agentic Workflow"];
 
@@ -54,11 +53,11 @@ export default function PortfolioPage() {
                 <div className="container-padding">
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
                         {filteredProjects.map((proj, idx) => (
-                            <div
+                            <Link
+                                href={`/portfolio/${proj.id}`}
                                 key={proj.id}
                                 className="group cursor-pointer opacity-0 animate-[fadeInUp_0.6s_ease-out_forwards] flex flex-col"
                                 style={{ animationDelay: `${(idx + 1) * 0.1}s` }}
-                                onClick={() => setSelectedProject(proj)}
                             >
                                 <div className="w-full aspect-video bg-gray-light dark:bg-[#1A1A1A] border border-gray-border dark:border-white/10 rounded-lg mb-6 overflow-hidden relative shadow-subtle group-hover:shadow-medium transition-all duration-300 flex-shrink-0">
                                     <div className="w-full h-full flex items-center justify-center text-5xl text-gray-border font-display font-bold group-hover:scale-105 transition-transform duration-500">
@@ -73,7 +72,7 @@ export default function PortfolioPage() {
                                 <h3 className="heading-serif font-bold text-2xl mb-2 group-hover:text-accent-500 transition-colors">{proj.title}</h3>
                                 <p className="font-body text-accent-500 text-xs uppercase tracking-widest font-bold mb-3">{proj.category}</p>
                                 <p className="font-body text-text-secondary dark:text-gray-secondary text-sm leading-relaxed">{proj.shortDesc}</p>
-                            </div>
+                            </Link>
                         ))}
                     </div>
                 </div>
@@ -92,11 +91,6 @@ export default function PortfolioPage() {
             </section>
 
             <Footer />
-
-            <ProjectModal
-                project={selectedProject}
-                onClose={() => setSelectedProject(null)}
-            />
         </main>
     );
 }

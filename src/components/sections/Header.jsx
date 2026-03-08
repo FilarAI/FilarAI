@@ -40,14 +40,17 @@ export const Header = () => {
                     </Button>
                 </div>
 
-                {/* Mobile Menu Toggle */}
-                <button
-                    className="md:hidden text-text-primary dark:text-white text-2xl"
-                    aria-label="Menu"
-                    onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                >
-                    {isMobileMenuOpen ? '✕' : '☰'}
-                </button>
+                {/* Mobile Menu Toggle & Theme */}
+                <div className="md:hidden flex items-center gap-4">
+                    <ThemeToggle />
+                    <button
+                        className="text-text-primary dark:text-white text-2xl"
+                        aria-label="Menu"
+                        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                    >
+                        {isMobileMenuOpen ? '✕' : '☰'}
+                    </button>
+                </div>
             </div>
 
             {/* Mobile Nav */}
@@ -55,7 +58,6 @@ export const Header = () => {
                 <div className="md:hidden bg-white dark:bg-dark-bg border-b border-gray-border dark:border-white/10 px-4 py-6 shadow-medium absolute w-full left-0 top-20 flex flex-col gap-6">
                     <div className="flex items-center justify-between mb-2">
                         <span className="font-body text-sm font-bold uppercase tracking-widest text-gray-text">Menu</span>
-                        <ThemeToggle />
                     </div>
                     {links.map((link, idx) => (
                         <a key={idx} href={link.href} className="font-body text-lg font-medium text-text-primary dark:text-white hover:text-accent-500">
