@@ -15,9 +15,9 @@ export default function Home() {
     <main className="min-h-screen bg-white dark:bg-dark-bg text-text-primary dark:text-white">
       <Header />
       <Hero />
+      <ClientLogos />
       <Benefits />
       <Problem />
-      <ClientLogos />
       <Solution />
       <HowItWorks />
       <Expertise />
