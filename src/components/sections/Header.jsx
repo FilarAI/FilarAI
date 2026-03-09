@@ -30,11 +30,11 @@ export const Header = () => {
                             {link.label}
                         </a>
                     ))}
-                    <ThemeToggle />
                 </nav>
 
-                {/* Desktop CTA */}
-                <div className="hidden md:block">
+                {/* Desktop CTA & Theme */}
+                <div className="hidden md:flex items-center gap-4">
+                    <ThemeToggle />
                     <Button variant="primary" href="https://calendar.app.google/oxdocXuk5a2ohKZf9" target="_blank" rel="noopener noreferrer">
                         Zaplanuj konsultację
                     </Button>

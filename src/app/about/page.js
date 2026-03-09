@@ -18,7 +18,7 @@ export default function AboutPage() {
     const skills = ["Automatyzacja", "AI / LLM", "Next.js & React", "Python", "NoCode / LowCode", "Systemy CRM"];
 
     return (
-        <main className="min-h-screen bg-white dark:bg-dark-bg text-text-primary dark:text-white overflow-x-hidden">
+        <main className="min-h-screen bg-white dark:bg-dark-bg text-text-primary dark:text-white">
             <Header />
 
             {/* Hero Section About */}
