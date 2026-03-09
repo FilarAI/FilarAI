@@ -56,11 +56,11 @@ export default function PortfolioPage() {
                             <Link
                                 href={`/portfolio/${proj.id}`}
                                 key={proj.id}
-                                className="group cursor-pointer opacity-0 animate-[fadeInUp_0.6s_ease-out_forwards] flex flex-col"
+                                className="group card-default cursor-pointer opacity-0 animate-[fadeInUp_0.6s_ease-out_forwards] flex flex-col p-0 overflow-hidden"
                                 style={{ animationDelay: `${(idx + 1) * 0.1}s` }}
                             >
-                                <div className="w-full aspect-video bg-gray-light dark:bg-[#1A1A1A] border border-gray-border dark:border-white/10 rounded-lg mb-6 overflow-hidden relative shadow-subtle group-hover:shadow-medium transition-all duration-300 flex-shrink-0">
-                                    <div className="w-full h-full flex items-center justify-center text-5xl text-gray-border font-display font-bold group-hover:scale-105 transition-transform duration-500">
+                                <div className="w-full aspect-video bg-gray-light dark:bg-[#1A1A1A] border-b border-gray-border dark:border-white/10 relative flex-shrink-0">
+                                    <div className="w-full h-full flex items-center justify-center text-5xl text-gray-border dark:text-white/10 font-display font-bold group-hover:scale-105 transition-transform duration-500">
                                         {proj.imgPlaceholder}
                                     </div>
                                     <div className="absolute inset-0 bg-dark-bg/80 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 backdrop-blur-sm">
@@ -69,9 +69,16 @@ export default function PortfolioPage() {
                                         </span>
                                     </div>
                                 </div>
-                                <h3 className="heading-serif font-bold text-2xl mb-2 group-hover:text-accent-500 transition-colors">{proj.title}</h3>
-                                <p className="font-body text-accent-500 text-xs uppercase tracking-widest font-bold mb-3">{proj.category}</p>
-                                <p className="font-body text-text-secondary dark:text-gray-secondary text-sm leading-relaxed">{proj.shortDesc}</p>
+                                <div className="p-6 md:p-8 flex flex-col flex-grow">
+                                    <h3 className="heading-serif font-bold text-2xl mb-2 group-hover:text-accent-500 transition-colors">{proj.title}</h3>
+                                    <p className="font-body text-accent-500 text-xs uppercase tracking-widest font-bold mb-3">{proj.category}</p>
+                                    <p className="font-body text-text-secondary dark:text-gray-secondary text-sm leading-relaxed mb-6 line-clamp-3">{proj.shortDesc}</p>
+
+                                    <div className="mt-auto pt-4 border-t border-gray-border dark:border-white/10 flex items-center justify-between text-accent-500 font-bold group-hover:translate-x-2 transition-transform duration-300">
+                                        <span className="text-sm uppercase tracking-widest">Dowiedz się więcej</span>
+                                        <span className="text-lg">→</span>
+                                    </div>
+                                </div>
                             </Link>
                         ))}
                     </div>

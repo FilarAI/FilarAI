@@ -136,6 +136,19 @@ export default function ProjectPage({ params }) {
                                 </p>
                             </div>
                         </div>
+
+                        {/* Additional Reference Images Gallery */}
+                        <div className="pt-16 border-t border-gray-border dark:border-white/10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <div className="w-full aspect-[4/3] bg-white dark:bg-[#222222] border border-gray-border dark:border-white/10 rounded-xl flex items-center justify-center text-3xl text-gray-border dark:text-gray-dark font-display shadow-subtle hover:scale-[1.02] transition-transform">
+                                🖼️ Detal 1
+                            </div>
+                            <div className="w-full aspect-[4/3] bg-white dark:bg-[#222222] border border-gray-border dark:border-white/10 rounded-xl flex items-center justify-center text-3xl text-gray-border dark:text-gray-dark font-display shadow-subtle hover:scale-[1.02] transition-transform">
+                                🖼️ Detal 2
+                            </div>
+                            <div className="w-full aspect-[4/3] bg-white dark:bg-[#222222] border border-gray-border dark:border-white/10 rounded-xl flex items-center justify-center text-3xl text-gray-border dark:text-gray-dark font-display shadow-subtle hover:scale-[1.02] transition-transform hidden lg:flex">
+                                🖼️ Detal 3
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>

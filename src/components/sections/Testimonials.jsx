@@ -19,9 +19,6 @@ export const Testimonials = () => {
                             Co mówią klienci
                         </h2>
                     </div>
-                    <a href="/portfolio" className="hidden md:inline-flex items-center text-text-primary dark:text-white border-b-2 border-transparent hover:border-accent-500 hover:text-accent-500 transition-all duration-300 font-bold pb-1">
-                        Więcej opinii <span className="ml-2">→</span>
-                    </a>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -49,9 +46,6 @@ export const Testimonials = () => {
                     ))}
                 </div>
 
-                <div className="md:hidden text-center mt-8 opacity-0 animate-[fadeInUp_0.6s_ease-out_0.6s_forwards]">
-                    <a href="/portfolio" className="btn-secondary w-full">Więcej opinii</a>
-                </div>
             </div>
         </section>
     );
