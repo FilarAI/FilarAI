@@ -10,7 +10,7 @@ export const metadata = {
     description: "Poznaj profesjonalne rozwiązania AI dostosowane do Twojej agencji. Automatyzacja, Agentic Workflow, Web App i Strony Internetowe.",
 };
 
-const ServiceDetail = ({ title, description, features, reverse, number }) => (
+const ServiceDetail = ({ title, description, features, reverse, number, slug }) => (
     <section className="section-spacing bg-white dark:bg-dark-bg border-b border-gray-border dark:border-white/10 overflow-hidden">
         <div className={`container-padding flex flex-col ${reverse ? 'lg:flex-row-reverse' : 'lg:flex-row'} items-center gap-16 lg:gap-24`}>
             <div className="lg:w-1/2 opacity-0 animate-[fadeInUp_0.6s_ease-out_forwards]">
@@ -26,7 +26,7 @@ const ServiceDetail = ({ title, description, features, reverse, number }) => (
                         </li>
                     ))}
                 </ul>
-                <Link href="/kontakt" className="btn-secondary">
+                <Link href={`/oferta/${slug}`} className="btn-secondary">
                     Dowiedz się więcej
                 </Link>
             </div>
@@ -60,34 +60,38 @@ export default function OfertaPage() {
             {/* Services List */}
             <ServiceDetail
                 number="01"
-                title="Budowa Automatyzacji"
+                title="Automatyzacja procesów biznesowych"
                 description="Łączymy używane przez Ciebie aplikacje (np. kalendarz, CRM, e-mail) w spójny organizm. Dzięki temu powtarzalne czynności wykonują się same."
                 features={["Szybka integracja z obecnymi narzędziami", "Eliminacja błędów ludzkich", "Odzyskany czas pracy zespołu"]}
                 reverse={false}
+                slug="automatyzacja-procesow-biznesowych"
             />
 
             <ServiceDetail
                 number="02"
-                title="Agentic Workflow"
-                description="Wdrażamy zaawansowane systemy sztucznej inteligencji, które potrafią analizować informacje, planować spotkania i samodzielnie dostosowywać rekomendacje dla Twoich klientów."
-                features={["Inteligentna analiza zgłoszeń", "Automatyczny follow-up klientów", "Wirtualny asystent 24/7"]}
+                title="Inteligentne narzędzia AI (Agenci i Aplikacje)"
+                description="Wdrażamy zaawansowane systemy sztucznej inteligencji, web apps oraz agentów, którzy potrafią analizować informacje i wyręczać Cię w procesach decyzyjnych."
+                features={["Inteligentna analiza zgłoszeń i danych", "Dedykowane aplikacje wewnętrzne", "Wirtualny asystent 24/7"]}
                 reverse={true}
+                slug="inteligentne-narzedzia-ai"
             />
 
             <ServiceDetail
                 number="03"
-                title="Web App Customowe"
-                description="Zbudujemy od podstaw dedykowane portale i wewnętrzne dashboardy, zamykając wszystkie procesy w jednym, niesamowicie przejrzystym narzędziu."
-                features={["Wszystkie dane w 1 miejscu", "Pełna kontrola ról i dostępów", "Indywidualny design (Superplan-style)"]}
+                title="Strony internetowe i cyfrowa obecność"
+                description="Zbudujemy od podstaw dedykowane, niesamowicie szybkie wizytówki, portale i platformy generujące leady dla Twojej agencji."
+                features={["Błyskawiczny czas ładowania", "CMS ułatwiający edycję treści", "Indywidualny design konwertujący ruch (Premium)"]}
                 reverse={false}
+                slug="strony-internetowe-i-cyfrowa-obecnosc"
             />
 
             <ServiceDetail
                 number="04"
-                title="Budowa Stron Internetowych"
-                description="Tworzymy profesjonalne, niesamowicie szybkie strony zoptymalizowane pod generowanie leadów. Gotowe do skalowania i podpięcia automatyzacji."
-                features={["Błyskawiczny czas ładowania", "Wersja responsywna", "System CMS ułatwiający edycję"]}
+                title="Audyt AI i mapa transformacji"
+                description="Kompleksowo zbadamy Twoje obecne procesy firmowe i przygotujemy szczegółową, dopasowaną strategię wdrożenia zautomatyzowanych rozwiązań AI tam, gdzie dadzą największy zwrot z inwestycji (ROI)."
+                features={["Szczegółowa mapa procesów AS-IS / TO-BE", "Identyfikacja wąskich gardeł w zespole", "Kalkulacja potencjalnego zwrotu z wdrożeń AI"]}
                 reverse={true}
+                slug="audyt-ai-i-mapa-transformacji"
             />
 
             <div className="py-24 bg-white dark:bg-dark-bg text-center">

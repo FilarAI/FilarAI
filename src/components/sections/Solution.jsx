@@ -2,10 +2,10 @@ import { Card } from '../ui/Card';
 
 export const Solution = () => {
     const services = [
-        { title: "Budowa Automatyzacji", description: "Łączenie i automatyzowanie systemów firmowych. Pozwól technologii wykonywać powtarzalne czynności za Twój zespół." },
-        { title: "Agentic Workflow", description: "Wdrażanie zaawansowanych systemów AI, które samodzielnie analizują dane, podejmują decyzje i rozwiązują problemy." },
-        { title: "Web App Customowe", description: "Dedykowane aplikacje i panele integrujące różne narzędzia w jeden przejrzysty ekosystem operacyjny." },
-        { title: "Strony Internetowe", description: "Nowoczesne, responsywne i profesjonalne wizytówki gotowe na reklamy oraz zintegrowane z automatyzacjami." }
+        { title: "Automatyzacja procesów biznesowych", description: "Łączenie i automatyzowanie systemów firmowych. Pozwól technologii wykonywać powtarzalne czynności za Twój zespół.", slug: "automatyzacja-procesow-biznesowych" },
+        { title: "Inteligentne narzędzia AI", description: "Wdrażanie zaawansowanych systemów AI, agentów i aplikacji, które potrafią analizować dane, planować zadania i dostosowywać się do procesów.", slug: "inteligentne-narzedzia-ai" },
+        { title: "Strony internetowe i cyfrowa obecność", description: "Nowoczesne, responsywne i niesamowicie szybkie wizytówki gotowe na generowanie leadów oraz skalowanie biznesu.", slug: "strony-internetowe-i-cyfrowa-obecnosc" },
+        { title: "Audyt AI i mapa transformacji", description: "Kompleksowa analiza procesów w firmie i zaplanowanie ścieżki wdrożenia innowacji, które przyniosą najwyższe ROI.", slug: "audyt-ai-i-mapa-transformacji" }
     ];
 
     return (
@@ -32,7 +32,7 @@ export const Solution = () => {
                                 <h3 className="heading-serif text-h3 mb-3">{service.title}</h3>
                                 <p className="text-secondary text-base leading-relaxed flex-grow">{service.description}</p>
                                 <div className="mt-8">
-                                    <a href="/oferta" className="inline-flex items-center text-accent-500 font-semibold hover:text-accent-600 transition-colors">
+                                    <a href={`/oferta/${service.slug}`} className="inline-flex items-center text-accent-500 font-semibold hover:text-accent-600 transition-colors">
                                         Dowiedz się więcej
                                         <span className="ml-2 group-hover:translate-x-1 transition-transform">→</span>
                                     </a>
