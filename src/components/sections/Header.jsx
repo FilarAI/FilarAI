@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { Button } from '../ui/Button';
 import { ThemeToggle } from '../ui/ThemeToggle';
 
@@ -18,9 +19,8 @@ export const Header = () => {
             <div className="container-padding h-20 flex items-center justify-between">
                 {/* Logo */}
                 <a href="/" className="flex items-center gap-3">
-                    {/* Logo Hexagon placeholder */}
-                    <div className="w-10 h-10 bg-dark-bg text-white flex items-center justify-center font-bold text-xl rounded">F</div>
-                    <span className="font-display font-bold text-text-primary dark:text-white text-xl">Filar AI</span>
+                    <Image src="/logo.png" alt="Filar AI Logo" width={40} height={40} className="w-10 h-10 object-contain dark:invert transition-all duration-300" priority />
+                    <span className="font-body font-bold text-text-primary dark:text-white text-xl">Filar AI</span>
                 </a>
 
                 {/* Desktop Nav */}
