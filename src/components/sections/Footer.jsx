@@ -23,7 +23,7 @@ export const Footer = () => {
                             Porozmawiajmy o tym, co możemy zautomatyzować. Bez zobowiązań, bez agresywnej sprzedaży. Tylko czysta wartość dla Twojego biznesu.
                         </p>
 
-                        <Button variant="primary" href="https://calendar.app.google/oxdocXuk5a2ohKZf9" target="_blank" rel="noopener noreferrer" className="mb-12 py-4 px-8 text-lg">
+                        <Button variant="primary" href="/kontakt" className="mb-12 py-4 px-8 text-lg">
                             Zaplanuj bezpłatną konsultację
                         </Button>
 

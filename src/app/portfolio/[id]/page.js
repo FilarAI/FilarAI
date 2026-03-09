@@ -195,9 +195,9 @@ export default function ProjectPage({ params }) {
                 <div className="container-padding relative z-10">
                     <h2 className="heading-serif text-h2 mb-6">Gotowy na podobne efekty?</h2>
                     <p className="font-body text-gray-text text-lg max-w-2xl mx-auto mb-10">Porozmawiajmy o tym, jak możemy zoptymalizować i zautomatyzować Twoje procesy B2B.</p>
-                    <a href="https://calendar.app.google/oxdocXuk5a2ohKZf9" target="_blank" rel="noopener noreferrer" className="btn-primary text-lg px-10 py-4 shadow-[0_0_30px_rgba(255,27,109,0.3)] hover:shadow-[0_0_40px_rgba(255,27,109,0.5)]">
+                    <Link href="/kontakt" className="btn-primary text-lg px-10 py-4 shadow-[0_0_30px_rgba(255,27,109,0.3)] hover:shadow-[0_0_40px_rgba(255,27,109,0.5)]">
                         Zarezerwuj darmową rozmowę
-                    </a>
+                    </Link>
                 </div>
             </section>
 

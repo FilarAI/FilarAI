@@ -35,7 +35,7 @@ export const Header = () => {
                 {/* Desktop CTA & Theme */}
                 <div className="hidden md:flex items-center gap-4">
                     <ThemeToggle />
-                    <Button variant="primary" href="https://calendar.app.google/oxdocXuk5a2ohKZf9" target="_blank" rel="noopener noreferrer">
+                    <Button variant="primary" href="/kontakt">
                         Zaplanuj konsultację
                     </Button>
                 </div>
@@ -64,7 +64,7 @@ export const Header = () => {
                             {link.label}
                         </a>
                     ))}
-                    <Button variant="primary" href="https://calendar.app.google/oxdocXuk5a2ohKZf9" target="_blank" rel="noopener noreferrer" className="w-full">
+                    <Button variant="primary" href="/kontakt" className="w-full">
                         Zaplanuj konsultację
                     </Button>
                 </div>

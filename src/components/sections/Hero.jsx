@@ -5,7 +5,7 @@ export const Hero = ({
   headline = "Automatyzacja AI na miarę Twojej agencji",
   subheadline = "Oszczędzaj czas, zwiększaj przychody, skaluj biznes bez dodatkowych kosztów personelu.",
   ctaText = "Zaplanuj bezpłatną konsultację",
-  ctaLink = "https://calendar.app.google/oxdocXuk5a2ohKZf9",
+  ctaLink = "/kontakt",
   showSocials = true
 }) => {
   return (
@@ -26,7 +26,7 @@ export const Hero = ({
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto opacity-0 animate-[fadeInUp_0.6s_ease-out_0.3s_forwards]">
-          <Button variant="primary" href={ctaLink} target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto text-lg px-8 py-4">
+          <Button variant="primary" href={ctaLink} className="w-full sm:w-auto text-lg px-8 py-4">
             {ctaText}
           </Button>
         </div>

@@ -86,9 +86,9 @@ export default function PortfolioPage() {
             <section className="py-24 bg-gray-light dark:bg-[#1A1A1A] text-center border-t border-gray-border dark:border-white/10">
                 <div className="container-padding max-w-2xl opacity-0 animate-[fadeInUp_0.6s_ease-out_forwards]">
                     <h2 className="heading-serif text-h2 mb-8">Chcesz być następny?</h2>
-                    <a href="https://calendar.app.google/oxdocXuk5a2ohKZf9" target="_blank" rel="noopener noreferrer" className="btn-primary text-lg px-8 py-4">
+                    <Link href="/kontakt" className="btn-primary text-lg px-8 py-4">
                         Zarezerwuj wstępną konsultację
-                    </a>
+                    </Link>
                 </div>
             </section>
 

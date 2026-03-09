@@ -3,6 +3,7 @@ import { Footer } from '@/components/sections/Footer';
 import { HowItWorks } from '@/components/sections/HowItWorks';
 import { Testimonials } from '@/components/sections/Testimonials';
 import { PortfolioPreview } from '@/components/sections/PortfolioPreview';
+import Link from 'next/link';
 
 export const metadata = {
     title: "Oferta - Filar AI",
@@ -25,9 +26,9 @@ const ServiceDetail = ({ title, description, features, reverse, number }) => (
                         </li>
                     ))}
                 </ul>
-                <a href="https://calendar.app.google/oxdocXuk5a2ohKZf9" target="_blank" rel="noopener noreferrer" className="btn-secondary">
+                <Link href="/kontakt" className="btn-secondary">
                     Dowiedz się więcej
-                </a>
+                </Link>
             </div>
             <div className="lg:w-1/2 w-full opacity-0 animate-[fadeInUp_0.6s_ease-out_0.2s_forwards]">
                 <div className="w-full aspect-[4/3] bg-gray-light dark:bg-[#1A1A1A] rounded-2xl border border-gray-border dark:border-white/10 shadow-subtle flex items-center justify-center p-8 relative overflow-hidden group">
