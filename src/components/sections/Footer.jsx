@@ -11,12 +11,11 @@ export const Footer = () => {
 
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-8 mb-20 items-start">
 
-                    {/* Left Column (Info & CTA) */}
-                    <div className="lg:col-span-6 opacity-0 animate-[fadeInUp_0.6s_ease-out_forwards]">
+                    <div className="lg:col-span-12 flex flex-col items-center text-center opacity-0 animate-[fadeInUp_0.6s_ease-out_forwards]">
                         <span className="text-accent-500 font-bold uppercase tracking-widest text-sm mb-4 block [letter-spacing:0.15em]">
                             Rozpocznij transformację
                         </span>
-                        <h2 className="heading-serif text-h2 md:text-[48px] font-bold mb-6 leading-tight">
+                        <h2 className="heading-serif text-h2 md:text-[48px] font-bold mb-6 leading-tight max-w-2xl">
                             Gotów na transformację Twojej agencji?
                         </h2>
                         <p className="font-body text-gray-secondary text-lg mb-10 max-w-md">
@@ -27,50 +26,16 @@ export const Footer = () => {
                             Zaplanuj bezpłatną konsultację
                         </Button>
 
-                        <div className="w-full h-px bg-white dark:bg-dark-bg/10 mb-8" />
+                        <div className="w-full max-w-2xl h-px bg-white dark:bg-dark-bg/10 mb-8" />
 
-                        <div className="flex flex-col sm:flex-row gap-8 sm:gap-16">
-                            <div className="flex flex-col gap-3 font-body text-gray-secondary">
+                        <div className="flex flex-col sm:flex-row gap-8 sm:gap-16 items-center">
+                            <div className="flex flex-col gap-3 font-body text-gray-secondary text-center sm:text-left">
                                 <a href="tel:+48534458418" className="hover:text-accent-500 transition-colors font-medium tabular-nums">+48 534 458 418</a>
                                 <a href="mailto:kacperfilarkontakt@gmail.com" className="hover:text-accent-500 transition-colors font-medium">kacperfilarkontakt@gmail.com</a>
                             </div>
                             <SocialIcons className="text-white opacity-80" size="24" />
                         </div>
                     </div>
-
-                    {/* Spacer */}
-                    <div className="hidden lg:block lg:col-span-1" />
-
-                    {/* Right Column (Contact Form) */}
-                    <div className="lg:col-span-5 bg-white dark:bg-dark-bg rounded-xl p-8 shadow-xl opacity-0 animate-[fadeInUp_0.6s_ease-out_0.2s_forwards] relative">
-                        {/* Soft shadow effect behind form */}
-                        <div className="absolute -inset-1 bg-gradient-to-br from-accent-500/20 to-transparent blur-xl -z-10 rounded-xl"></div>
-
-                        <h3 className="heading-serif text-3xl font-bold text-text-primary dark:text-white mb-2">Napisz do nas</h3>
-                        <p className="text-secondary text-sm mb-8">Odpowiadamy w ciągu 24 godzin.</p>
-
-                        <form className="flex flex-col gap-5" onSubmit={(e) => e.preventDefault()}>
-                            <FormInput id="name" label="Imię i nazwisko" required />
-                            <FormInput id="email" type="email" label="Adres e-mail" required />
-
-                            <div className="flex flex-col gap-2 w-full">
-                                <label className="font-body text-sm font-medium text-text-primary dark:text-white">Kategoria biznesu</label>
-                                <select className="w-full bg-white dark:bg-dark-bg border-2 border-gray-border dark:border-white/10 rounded px-4 py-3 font-body text-text-primary dark:text-white focus:outline-none focus:border-accent-500 focus:ring-4 focus:ring-accent-500/10 transition-all duration-300">
-                                    <option>Salon / Spa</option>
-                                    <option>Klinika Medyczna</option>
-                                    <option>Agencja / Software House</option>
-                                    <option>Inny model rezerwacyjny</option>
-                                </select>
-                            </div>
-
-                            <FormInput id="message" type="textarea" label="Jak możemy Ci pomóc?" required />
-
-                            <button type="submit" className="btn-primary w-full mt-4 justify-center py-4 bg-text-primary hover:bg-black">
-                                Wyślij wiadomość
-                            </button>
-                        </form>
-                    </div>
-
                 </div>
 
                 {/* Copyright Footer */}
