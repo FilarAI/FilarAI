@@ -59,14 +59,9 @@ export default function PortfolioPage() {
                                 className="group card-default cursor-pointer opacity-0 animate-[fadeInUp_0.6s_ease-out_forwards] flex flex-col p-0 overflow-hidden"
                                 style={{ animationDelay: `${(idx + 1) * 0.1}s` }}
                             >
-                                <div className="w-full aspect-video bg-gray-light dark:bg-[#1A1A1A] border-b border-gray-border dark:border-white/10 relative flex-shrink-0">
+                                <div className="w-full aspect-video bg-gray-light dark:bg-[#1A1A1A] border-b border-gray-border dark:border-white/10 relative flex-shrink-0 overflow-hidden">
                                     <div className="w-full h-full flex items-center justify-center text-5xl text-gray-border dark:text-white/10 font-display font-bold group-hover:scale-105 transition-transform duration-500">
                                         {proj.imgPlaceholder}
-                                    </div>
-                                    <div className="absolute inset-0 bg-dark-bg/80 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 backdrop-blur-sm">
-                                        <span className="btn-primary transform translate-y-4 group-hover:translate-y-0 transition-all duration-400 pointer-events-none">
-                                            Zobacz Detale
-                                        </span>
                                     </div>
                                 </div>
                                 <div className="p-6 md:p-8 flex flex-col flex-grow">
