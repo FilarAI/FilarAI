@@ -73,15 +73,30 @@ export default function AboutPage() {
             </section>
 
             {/* Expertise & Skills */}
-            <section className="py-24 bg-white dark:bg-dark-bg border-y border-gray-border dark:border-white/10 text-center">
+            <section className="py-24 bg-white dark:bg-dark-bg border-b border-gray-border dark:border-white/10 text-center">
                 <div className="container-padding opacity-0 animate-[fadeInUp_0.6s_ease-out_forwards]">
                     <h2 className="heading-serif text-3xl mb-12">Kompetencje techniczne</h2>
-                    <div className="flex flex-wrap justify-center gap-4 max-w-3xl mx-auto">
+                    <div className="flex flex-wrap justify-center gap-4 max-w-3xl mx-auto mb-20">
                         {skills.map((skill, idx) => (
                             <span key={idx} className="px-6 py-3 bg-gray-light dark:bg-[#1A1A1A] text-text-primary dark:text-white font-bold font-body rounded-full border border-gray-border dark:border-white/10 hover:border-accent-500 hover:text-accent-500 transition-colors shadow-sm cursor-default">
                                 {skill}
                             </span>
                         ))}
+                    </div>
+
+                    <div className="pt-20 border-t border-gray-border dark:border-white/10">
+                        <h3 className="heading-serif text-2xl mb-12">Ukończone kursy i certyfikacje</h3>
+                        <div className="flex flex-col md:flex-row items-center justify-center gap-12 md:gap-24 mb-10">
+                            <div className="h-12 md:h-16 flex items-center grayscale hover:grayscale-0 transition-all duration-300 opacity-70 hover:opacity-100">
+                                <img src="/images/logos/google-ai.png" alt="Google AI" className="h-full object-contain" />
+                            </div>
+                            <div className="h-10 md:h-14 flex items-center grayscale hover:grayscale-0 transition-all duration-300 opacity-70 hover:opacity-100">
+                                <img src="/images/logos/anthropic.png" alt="Anthropic" className="h-full object-contain" />
+                            </div>
+                        </div>
+                        <p className="font-body text-gray-text text-lg max-w-2xl mx-auto leading-relaxed italic">
+                            Systematycznie podnosimy nasze kompetencje, kończąc specjalistyczne certyfikacje liderów rynku AI. Skupiamy się na najnowszych modelach LLM, bezpieczeństwie danych oraz architekturze nowoczesnych agentów workflow, by dostarczać rozwiązania oparte o najświeższe standardy technologiczne.
+                        </p>
                     </div>
                 </div>
             </section>
