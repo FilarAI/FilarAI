@@ -10,6 +10,7 @@ export const FormInput = ({ id, label, type = 'text', placeholder, required = fa
             {type === 'textarea' ? (
                 <textarea
                     id={id}
+                    name={id}
                     placeholder={placeholder}
                     required={required}
                     className={`${inputBaseStyle} min-h-[120px] resize-y`}
@@ -17,6 +18,7 @@ export const FormInput = ({ id, label, type = 'text', placeholder, required = fa
             ) : (
                 <input
                     id={id}
+                    name={id}
                     type={type}
                     placeholder={placeholder}
                     required={required}

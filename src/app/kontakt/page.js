@@ -1,6 +1,6 @@
 import { Header } from '@/components/sections/Header';
 import { Footer } from '@/components/sections/Footer';
-import { FormInput } from '@/components/ui/FormInput';
+import { ContactForm } from '@/components/sections/ContactForm';
 import { Mail, Phone, Instagram, Calendar, FileText, MessageCircle } from 'lucide-react';
 
 export const metadata = {
@@ -114,66 +114,7 @@ export default function KontaktPage() {
                                 <p className="font-body text-gray-text text-lg">Wypełnij poniższy formularz, a my wrócimy do Ciebie z konkretnymi rozwiązaniami.</p>
                             </div>
 
-                            <form className="flex flex-col gap-6">
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                    <FormInput id="name" label="Imię i Nazwisko" placeholder="Kacper" required />
-                                    <FormInput id="company" label="Nazwa firmy" placeholder="FilarAI" required />
-                                </div>
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                    <FormInput id="email" type="email" label="Adres e-mail" placeholder="kacper@filarai.pl" required />
-                                    <FormInput id="phone" type="tel" label="Numer telefonu" placeholder="+48 534 458 418" required />
-                                </div>
-
-                                <div className="flex flex-col gap-2 w-full">
-                                    <label className="font-body text-sm font-medium text-text-primary dark:text-white">Twoja rola w firmie <span className="text-accent-500">*</span></label>
-                                    <select required defaultValue="" className="w-full bg-white dark:bg-dark-bg border-2 border-gray-border dark:border-white/10 rounded px-4 py-3 font-body text-text-primary dark:text-white focus:outline-none focus:border-accent-500 focus:ring-4 focus:ring-accent-500/10 transition-all duration-300">
-                                        <option value="" disabled>Wybierz opcję</option>
-                                        <option value="decyzyjna">Osoba decyzyjna</option>
-                                        <option value="niedecyzyjna">Osoba nie decyzyjna</option>
-                                    </select>
-                                </div>
-
-                                <div className="flex flex-col gap-2 w-full">
-                                    <label className="font-body text-sm font-medium text-text-primary dark:text-white">Temat zapytania <span className="text-accent-500">*</span></label>
-                                    <select required defaultValue="" className="w-full bg-white dark:bg-dark-bg border-2 border-gray-border dark:border-white/10 rounded px-4 py-3 font-body text-text-primary dark:text-white focus:outline-none focus:border-accent-500 focus:ring-4 focus:ring-accent-500/10 transition-all duration-300">
-                                        <option value="" disabled>Wybierz opcję</option>
-                                        <option value="automatyzacje">Automatyzacje</option>
-                                        <option value="narzedzia_ai">Narzędzia AI</option>
-                                        <option value="strona">Strona internetowa</option>
-                                        <option value="audyt">Audyt AI</option>
-                                        <option value="nie_wiem">Nie wiem jeszcze</option>
-                                        <option value="inne">Inne</option>
-                                    </select>
-                                </div>
-
-                                <div className="flex flex-col gap-2 w-full">
-                                    <label className="font-body text-sm font-medium text-text-primary dark:text-white">Orientacyjny budżet</label>
-                                    <select defaultValue="" className="w-full bg-white dark:bg-dark-bg border-2 border-gray-border dark:border-white/10 rounded px-4 py-3 font-body text-text-primary dark:text-white focus:outline-none focus:border-accent-500 focus:ring-4 focus:ring-accent-500/10 transition-all duration-300">
-                                        <option value="" disabled>Wybierz opcję</option>
-                                        <option value="do_1k">Do 1 000 zł</option>
-                                        <option value="1_3k">1 000 – 3 000 zł</option>
-                                        <option value="3_7k">3 000 – 7 000 zł</option>
-                                        <option value="powyzej_7k">Powyżej 7 000 zł</option>
-                                        <option value="nie_wiem">Nie wiem jeszcze</option>
-                                    </select>
-                                </div>
-
-                                <FormInput id="websiteUrl" label="Link do strony lub social media (mile widziany)" placeholder="filarai.agency" required={false} />
-
-                                <FormInput id="companyDesc" type="textarea" label="Opisz w 2-3 zdaniach czym zajmuje się Twoja firma" placeholder="Prowadzę biuro rachunkowe, chciałbym zautomatyzować faktury..." required />
-                                <FormInput id="goalsDesc" type="textarea" label="Co chcesz usprawnić/naprawić w swojej firmie? (2-3 zdania)" placeholder="Np. proces kwalifikacji leadów..." required={false} />
-
-                                <div className="flex items-start gap-3 mt-4">
-                                    <input type="checkbox" id="consent" required className="mt-1 w-5 h-5 accent-accent-500 bg-white dark:bg-dark-bg border-gray-border dark:border-white/10 rounded cursor-pointer" />
-                                    <label htmlFor="consent" className="font-body text-sm text-text-secondary dark:text-gray-secondary cursor-pointer leading-relaxed">
-                                        Wyrażam zgodę na przetwarzanie moich danych osobowych w celu kontaktu zwrotnego oraz przedstawienia oferty. <span className="text-accent-500">*</span>
-                                    </label>
-                                </div>
-
-                                <button type="button" className="btn-primary w-full mt-6 justify-center py-4 bg-accent-500 hover:bg-accent-600 shadow-medium">
-                                    Wyślij zapytanie
-                                </button>
-                            </form>
+                            <ContactForm />
                         </div>
                     </div>
 
