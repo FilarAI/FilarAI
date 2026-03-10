@@ -8,6 +8,7 @@ import { Clients } from '@/components/sections/Clients';
 import { Testimonials } from '@/components/sections/Testimonials';
 import { Process } from '@/components/sections/Process';
 import { About } from '@/components/sections/About';
+import { FinalCTA } from '@/components/sections/FinalCTA';
 import { Benefits } from '@/components/sections/Benefits';
 import { Problem } from '@/components/sections/Problem';
 import { ClientLogos } from '@/components/sections/ClientLogos';
@@ -30,6 +31,7 @@ export default function Home() {
       <Testimonials />
       <Process />
       <About />
+      <FinalCTA />
       <ClientLogos />
       <Benefits />
       <Problem />
