@@ -6,6 +6,7 @@ import { Services } from '@/components/sections/Services';
 import { Portfolio } from '@/components/sections/Portfolio';
 import { Clients } from '@/components/sections/Clients';
 import { Testimonials } from '@/components/sections/Testimonials';
+import { Process } from '@/components/sections/Process';
 import { Benefits } from '@/components/sections/Benefits';
 import { Problem } from '@/components/sections/Problem';
 import { ClientLogos } from '@/components/sections/ClientLogos';
@@ -26,6 +27,7 @@ export default function Home() {
       <Portfolio />
       <Clients />
       <Testimonials />
+      <Process />
       <ClientLogos />
       <Benefits />
       <Problem />
