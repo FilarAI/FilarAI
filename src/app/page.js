@@ -1,5 +1,6 @@
 import { Header } from '@/components/sections/Header';
 import { Hero } from '@/components/sections/Hero';
+import { Challenge } from '@/components/sections/Challenge';
 import { Benefits } from '@/components/sections/Benefits';
 import { Problem } from '@/components/sections/Problem';
 import { ClientLogos } from '@/components/sections/ClientLogos';
@@ -15,6 +16,7 @@ export default function Home() {
     <main className="min-h-screen bg-white dark:bg-dark-bg text-text-primary dark:text-white">
       <Header />
       <Hero />
+      <Challenge />
       <ClientLogos />
       <Benefits />
       <Problem />
