@@ -4,6 +4,7 @@ import { Challenge } from '@/components/sections/Challenge';
 import { Fomo } from '@/components/sections/Fomo';
 import { Services } from '@/components/sections/Services';
 import { Portfolio } from '@/components/sections/Portfolio';
+import { Clients } from '@/components/sections/Clients';
 import { Benefits } from '@/components/sections/Benefits';
 import { Problem } from '@/components/sections/Problem';
 import { ClientLogos } from '@/components/sections/ClientLogos';
@@ -23,6 +24,7 @@ export default function Home() {
       <Fomo />
       <Services />
       <Portfolio />
+      <Clients />
       <ClientLogos />
       <Benefits />
       <Problem />
