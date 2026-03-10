@@ -1,6 +1,7 @@
 import { Header } from '@/components/sections/Header';
 import { Hero } from '@/components/sections/Hero';
 import { Challenge } from '@/components/sections/Challenge';
+import { Fomo } from '@/components/sections/Fomo';
 import { Benefits } from '@/components/sections/Benefits';
 import { Problem } from '@/components/sections/Problem';
 import { ClientLogos } from '@/components/sections/ClientLogos';
@@ -17,6 +18,7 @@ export default function Home() {
       <Header />
       <Hero />
       <Challenge />
+      <Fomo />
       <ClientLogos />
       <Benefits />
       <Problem />
