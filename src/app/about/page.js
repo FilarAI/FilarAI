@@ -55,7 +55,12 @@ export default function AboutPage() {
             {/* Values */}
             <section className="py-24 bg-gray-light dark:bg-[#1A1A1A]">
                 <div className="container-padding">
-                    <h2 className="heading-serif text-3xl md:text-4xl text-center mb-16 opacity-0 animate-[fadeInUp_0.6s_ease-out_forwards]">Cztery fundamenty</h2>
+                    <div className="text-center mb-16 opacity-0 animate-[fadeInUp_0.6s_ease-out_forwards]">
+                        <h2 className="heading-serif text-3xl md:text-4xl mb-4">W co wierzymy i jak działamy</h2>
+                        <p className="font-body text-text-secondary text-lg max-w-2xl mx-auto leading-relaxed">
+                            Fundamenty Filar AI to obietnica partnerstwa, która w samym sercu utrzymuje niezawodność, pasję do technologii i pełną transparentność w każdym wdrożeniu.
+                        </p>
+                    </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                         {values.map((val, idx) => (
                             <div key={idx} className="opacity-0 animate-[fadeInUp_0.6s_ease-out_forwards]" style={{ animationDelay: `${(idx + 1) * 0.15}s` }}>
