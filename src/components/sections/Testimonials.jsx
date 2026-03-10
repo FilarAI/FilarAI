@@ -1,51 +1,405 @@
-import { Card } from '../ui/Card';
+"use client";
+import React, { useState, useEffect, useRef } from 'react';
 
+/**
+ * FilarAI Testimonials Section
+ * Features: Custom 3-card carousel (center focused), auto-advance with manual override,
+ * responsive design, and on-scroll animations.
+ */
 export const Testimonials = () => {
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+    const [isVisible, setIsVisible] = useState(false);
+    const sectionRef = useRef(null);
+    const autoPlayRef = useRef(null);
+
     const testimonials = [
-        { text: "Niesamowite jak AI potrafi zaoszczędzić na etatach administracyjnych. System Filar AI sprawił, że przestałem martwić się o kalendarz.", name: "Jan Kowalski", company: "Klinika Medyczna", initial: "J" },
-        { text: "Automatyczne przypomnienia i odzyskiwanie porzuconych rezerwacji obniżyło nam no-show o 60% w pierwszym miesiącu.", name: "Anna Nowak", company: "Salon Urody", initial: "A" },
-        { text: "Wszystko jest wreszcie w jednym miejscu. Nasi pracownicy uwielbiają nowy system, a ja mam jasne raporty na koniec dnia.", name: "Marek Wiśniewski", company: "Booking Agency", initial: "M" }
+        {
+            quote: "Przestałem spędzać piątki na przepisywaniu faktur. System robi to sam od ręki — zdjęcie i gotowe. Nie wierzę że tyle czasu na to traciłem.",
+            name: "Marek Kowalski",
+            role: "WŁAŚCICIEL · BIURO RACHUNKOWE",
+            initials: "MK"
+        },
+        {
+            quote: "Nasi pracownicy przestali bombardować mnie pytaniami o procedury. Agent AI wie wszystko i odpowiada w kilka sekund. Odzyskałem spokój w pracy.",
+            name: "Anna Wiśniewska",
+            role: "MANAGER · FIRMA USŁUGOWA",
+            initials: "AW"
+        },
+        {
+            quote: "Myślałem że to skomplikowane i drogie. Okazało się że pierwsze demo miałem po 48 godzinach. Teraz system kwalifikuje mi leady zanim zdążę odebrać telefon.",
+            name: "Piotr Nowak",
+            role: "CEO · AGENCJA MARKETINGOWA",
+            initials: "PN"
+        },
+        {
+            quote: "Zarządzanie zapasami w Excelu było koszmarem. Teraz każdy pracownik ma dostęp z telefonu i zamówienia składa w minutę. Nie wyobrażam sobie powrotu do starego.",
+            name: "Katarzyna Jabłońska",
+            role: "DYREKTOR OPERACYJNY · HANDEL",
+            initials: "KJ"
+        },
+        {
+            quote: "Strona zaczęła generować zapytania w pierwszym tygodniu. Chatbot obsługuje klientów w nocy kiedy śpię. To jak zatrudnić kogoś kto nigdy nie wychodzi z biura.",
+            name: "Tomasz Wróbel",
+            role: "WŁAŚCICIEL · GABINET STOMATOLOGICZNY",
+            initials: "TW"
+        },
+        {
+            quote: "Kacper nie sprzedał mi technologii — rozwiązał mi problem. Różnica jest ogromna. System działa, dokumentacja jest prosta i wiem dokładnie co się dzieje.",
+            name: "Magdalena Czarnecka",
+            role: "WŁAŚCICIEL · E-COMMERCE",
+            initials: "MC"
+        }
     ];
 
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    setIsVisible(true);
+                    observer.disconnect();
+                }
+            },
+            { threshold: 0.1 }
+        );
+        if (sectionRef.current) observer.observe(sectionRef.current);
+        return () => observer.disconnect();
+    }, []);
+
+    useEffect(() => {
+        if (isAutoPlaying) {
+            autoPlayRef.current = setInterval(() => {
+                setCurrentIndex((prev) => (prev + 1) % testimonials.length);
+            }, 6000);
+        }
+        return () => clearInterval(autoPlayRef.current);
+    }, [isAutoPlaying, testimonials.length]);
+
+    const handleNext = () => {
+        setIsAutoPlaying(false);
+        setCurrentIndex((prev) => (prev + 1) % testimonials.length);
+    };
+
+    const handlePrev = () => {
+        setIsAutoPlaying(false);
+        setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+    };
+
+    const handleManualSelect = (index) => {
+        setIsAutoPlaying(false);
+        setCurrentIndex(index);
+    };
+
+    // Helper to get card classes based on index
+    const getCardPosition = (index) => {
+        const diff = (index - currentIndex + testimonials.length) % testimonials.length;
+        if (diff === 0) return 'active';
+        if (diff === 1) return 'next';
+        if (diff === testimonials.length - 1) return 'prev';
+        return 'hidden';
+    };
+
     return (
-        <section className="section-spacing bg-white dark:bg-dark-bg">
-            <div className="container-padding">
-                <div className="flex flex-col md:flex-row justify-between items-end mb-16 opacity-0 animate-[fadeInUp_0.6s_ease-out_forwards]">
-                    <div>
-                        <span className="text-accent-500 font-bold uppercase tracking-widest text-sm mb-4 block [letter-spacing:0.15em] border-l-2 border-accent-500 pl-4 py-1">
-                            Opinie
-                        </span>
-                        <h2 className="heading-serif text-h2 md:text-[42px] leading-tight">
-                            Co mówią klienci
-                        </h2>
-                    </div>
-                </div>
+        <section
+            ref={sectionRef}
+            className={`relative w-full bg-[#080808] py-[96px] overflow-hidden transition-all duration-700 ${isVisible ? 'opacity-100' : 'opacity-0 translate-y-8'}`}
+        >
+            <style>{`
+        .testimonials-container {
+          max-width: 1400px;
+          margin: 0 auto;
+          position: relative;
+        }
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    {testimonials.map((test, idx) => (
-                        <div key={idx} className="opacity-0 animate-[fadeInUp_0.6s_ease-out_forwards]" style={{ animationDelay: `${(idx + 1) * 0.15}s` }}>
-                            <Card variant="standard" className="h-full flex flex-col relative pt-12">
-                                {/* Quotation Mark Icon overlay */}
-                                <div className="absolute top-6 left-6 text-6xl font-display text-gray-border leading-none opacity-50">"</div>
+        .section-header {
+          text-align: center;
+          margin-bottom: 64px;
+        }
 
-                                <p className="font-display text-lg italic text-text-primary dark:text-white mb-8 relative z-10 flex-grow font-medium leading-relaxed">
-                                    {test.text}
-                                </p>
+        .section-label {
+          font-family: var(--font-mono, 'JetBrains Mono', monospace);
+          font-size: 11px;
+          text-transform: uppercase;
+          letter-spacing: 0.12em;
+          color: var(--text-3, #5A5550);
+          display: block;
+          margin-bottom: 12px;
+        }
 
-                                <div className="flex items-center gap-4 pt-6 border-t border-gray-border dark:border-white/10/50">
-                                    <div className="w-12 h-12 rounded-full bg-dark-bg text-white flex items-center justify-center font-bold font-display">
-                                        {test.initial}
-                                    </div>
-                                    <div>
-                                        <p className="font-bold text-text-primary dark:text-white text-base">{test.name}</p>
-                                        <p className="text-sm text-gray-text">{test.company}</p>
+        .section-title {
+          font-family: var(--font-display, 'Syne', sans-serif);
+          font-size: clamp(32px, 5vw, 42px);
+          font-weight: 700;
+          letter-spacing: -0.02em;
+          color: var(--text-1, #F0EFEE);
+        }
+
+        .section-title span {
+          color: var(--red, #D93025);
+        }
+
+        /* Carousel Wrapper */
+        .carousel-view {
+          position: relative;
+          height: 480px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .testimonial-card {
+          position: absolute;
+          background: var(--bg-2, #141414);
+          border-radius: 12px;
+          padding: 48px;
+          display: flex;
+          flex-direction: column;
+          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+          user-select: none;
+        }
+
+        /* CARD STATES */
+        .testimonial-card.active {
+          width: 580px;
+          z-index: 10;
+          opacity: 1;
+          filter: blur(0);
+          transform: translateX(0) scale(1);
+          border: 1px solid var(--red, #D93025);
+          box-shadow: 0 0 32px rgba(217, 48, 37, 0.15);
+        }
+
+        .testimonial-card.prev {
+          width: 480px;
+          z-index: 5;
+          opacity: 0.25;
+          filter: blur(3px);
+          transform: translateX(-380px) scale(0.92);
+          border: 1px solid var(--bg-4, #222222);
+          cursor: pointer;
+        }
+
+        .testimonial-card.next {
+          width: 480px;
+          z-index: 5;
+          opacity: 0.25;
+          filter: blur(3px);
+          transform: translateX(380px) scale(0.92);
+          border: 1px solid var(--bg-4, #222222);
+          cursor: pointer;
+        }
+
+        .testimonial-card.hidden {
+          opacity: 0;
+          filter: blur(10px);
+          transform: scale(0.8);
+          pointer-events: none;
+        }
+
+        /* Card Elements */
+        .quote-mark {
+          font-family: var(--font-display, 'Syne', sans-serif);
+          font-size: 80px;
+          font-weight: 800;
+          color: var(--red, #D93025);
+          line-height: 0.8;
+          margin-bottom: 8px;
+        }
+
+        .quote-text {
+          font-family: var(--font-body, 'Outfit', sans-serif);
+          font-style: italic;
+          font-size: 18px;
+          line-height: 1.8;
+          color: var(--text-1, #F0EFEE);
+          max-width: 480px;
+        }
+
+        .card-divider {
+          height: 1px;
+          background: var(--bg-4, #222222);
+          margin: 28px 0;
+        }
+
+        .author-row {
+          display: flex;
+          align-items: center;
+          gap: 16px;
+        }
+
+        .avatar {
+          width: 48px;
+          height: 48px;
+          border-radius: 50%;
+          background: var(--bg-3, #1A1A1A);
+          border: 2px solid var(--red, #D93025);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-family: var(--font-display, 'Syne', sans-serif);
+          font-weight: 700;
+          font-size: 16px;
+          color: var(--red, #D93025);
+          flex-shrink: 0;
+        }
+
+        .author-info {
+          display: flex;
+          flex-direction: column;
+        }
+
+        .author-name {
+          font-family: var(--font-body, 'Outfit', sans-serif);
+          font-weight: 600;
+          font-size: 16px;
+          color: var(--text-1, #F0EFEE);
+        }
+
+        .author-role {
+          font-family: var(--font-mono, 'JetBrains Mono', monospace);
+          font-size: 11px;
+          text-transform: uppercase;
+          letter-spacing: 0.08em;
+          color: var(--text-3, #5A5550);
+          margin-top: 4px;
+        }
+
+        /* Navigation */
+        .carousel-nav {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          margin-top: 48px;
+        }
+
+        .nav-arrows {
+          display: flex;
+          gap: 16px;
+        }
+
+        .nav-btn {
+          width: 44px;
+          height: 44px;
+          border-radius: 50%;
+          background: var(--bg-2, #141414);
+          border: 1px solid var(--bg-4, #222222);
+          color: var(--text-2, #9A9590);
+          font-size: 18px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          transition: all 0.15s ease;
+        }
+
+        .nav-btn:hover {
+          border-color: var(--red, #D93025);
+          color: var(--red, #D93025);
+        }
+
+        .nav-btn.disabled {
+          opacity: 0.3;
+          pointer-events: none;
+        }
+
+        .nav-dots {
+          display: flex;
+          gap: 8px;
+          margin-top: 20px;
+        }
+
+        .dot {
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+          background: var(--bg-4, #222222);
+          cursor: pointer;
+          transition: all 0.3s ease;
+        }
+
+        .dot.active {
+          width: 24px;
+          height: 8px;
+          border-radius: 4px;
+          background: var(--red, #D93025);
+        }
+
+        @media (max-width: 768px) {
+          .testimonial-card.active {
+            width: calc(100% - 80px);
+            padding: 32px;
+          }
+          .testimonial-card.prev {
+            transform: translateX(-180px) scale(0.85);
+            opacity: 0.15;
+            filter: blur(4px);
+          }
+          .testimonial-card.next {
+            transform: translateX(180px) scale(0.85);
+            opacity: 0.15;
+            filter: blur(4px);
+          }
+          .quote-text {
+            font-size: 16px;
+          }
+        }
+      `}</style>
+
+            <div className="testimonials-container">
+                <header className="section-header">
+                    <span className="section-label">OPINIE</span>
+                    <h2 className="section-title">Co mówią ci, którzy wybrali <span>system</span>.</h2>
+                </header>
+
+                <div className="carousel-view">
+                    {testimonials.map((item, idx) => {
+                        const position = getCardPosition(idx);
+                        return (
+                            <div
+                                key={idx}
+                                className={`testimonial-card ${position}`}
+                                onClick={position === 'next' ? handleNext : position === 'prev' ? handlePrev : undefined}
+                            >
+                                <span className="quote-mark">„</span>
+                                <p className="quote-text">{item.quote}</p>
+                                <div className="card-divider" />
+                                <div className="author-row">
+                                    <div className="avatar">{item.initials}</div>
+                                    <div className="author-info">
+                                        <span className="author-name">{item.name}</span>
+                                        <span className="author-role">{item.role}</span>
                                     </div>
                                 </div>
-                            </Card>
-                        </div>
-                    ))}
+                            </div>
+                        );
+                    })}
                 </div>
 
+                <div className="carousel-nav">
+                    <div className="nav-arrows">
+                        <button
+                            className={`nav-btn ${currentIndex === 0 ? 'disabled' : ''}`}
+                            onClick={handlePrev}
+                        >
+                            ←
+                        </button>
+                        <button
+                            className="nav-btn"
+                            onClick={handleNext}
+                        >
+                            →
+                        </button>
+                    </div>
+                    <div className="nav-dots">
+                        {testimonials.map((_, idx) => (
+                            <div
+                                key={idx}
+                                className={`dot ${currentIndex === idx ? 'active' : ''}`}
+                                onClick={() => handleManualSelect(idx)}
+                            />
+                        ))}
+                    </div>
+                </div>
             </div>
         </section>
     );

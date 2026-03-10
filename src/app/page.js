@@ -5,6 +5,7 @@ import { Fomo } from '@/components/sections/Fomo';
 import { Services } from '@/components/sections/Services';
 import { Portfolio } from '@/components/sections/Portfolio';
 import { Clients } from '@/components/sections/Clients';
+import { Testimonials } from '@/components/sections/Testimonials';
 import { Benefits } from '@/components/sections/Benefits';
 import { Problem } from '@/components/sections/Problem';
 import { ClientLogos } from '@/components/sections/ClientLogos';
@@ -12,7 +13,6 @@ import { Solution } from '@/components/sections/Solution';
 import { HowItWorks } from '@/components/sections/HowItWorks';
 import { Expertise } from '@/components/sections/Expertise';
 import { PortfolioPreview } from '@/components/sections/PortfolioPreview';
-import { Testimonials } from '@/components/sections/Testimonials';
 import { Footer } from '@/components/sections/Footer';
 
 export default function Home() {
@@ -25,6 +25,7 @@ export default function Home() {
       <Services />
       <Portfolio />
       <Clients />
+      <Testimonials />
       <ClientLogos />
       <Benefits />
       <Problem />
@@ -32,7 +33,6 @@ export default function Home() {
       <HowItWorks />
       <Expertise />
       <PortfolioPreview />
-      <Testimonials />
       <Footer />
     </main>
   );
