@@ -7,6 +7,7 @@ import { Portfolio } from '@/components/sections/Portfolio';
 import { Clients } from '@/components/sections/Clients';
 import { Testimonials } from '@/components/sections/Testimonials';
 import { Process } from '@/components/sections/Process';
+import { About } from '@/components/sections/About';
 import { Benefits } from '@/components/sections/Benefits';
 import { Problem } from '@/components/sections/Problem';
 import { ClientLogos } from '@/components/sections/ClientLogos';
@@ -28,6 +29,7 @@ export default function Home() {
       <Clients />
       <Testimonials />
       <Process />
+      <About />
       <ClientLogos />
       <Benefits />
       <Problem />
