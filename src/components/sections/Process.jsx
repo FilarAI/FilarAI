@@ -7,81 +7,81 @@ import React, { useEffect, useRef, useState } from 'react';
  * No IntersectionObserver for steps, uses scroll listener for precise control.
  */
 export const Process = () => {
-    const [activeStep, setActiveStep] = useState(-1);
-    const containerRef = useRef(null);
-    const stepsRef = useRef([]);
+  const [activeStep, setActiveStep] = useState(-1);
+  const containerRef = useRef(null);
+  const stepsRef = useRef([]);
 
-    const steps = [
-        {
-            label: "KROK 01",
-            title: "Bezpłatna konsultacja",
-            description: "30 minut rozmowy o Twoich procesach i problemach. Bez zobowiązań. Wychodzisz z konkretnymi wnioskami nawet jeśli nie współpracujemy."
-        },
-        {
-            label: "KROK 02",
-            title: "Analiza i wycena",
-            description: "Dokładniej analizujemy wybrane procesy. Przygotowujemy wycenę z zakresem prac, harmonogramem i oczekiwanymi efektami. Wiesz z góry ile zapłacisz."
-        },
-        {
-            label: "KROK 03",
-            title: "Wdrożenie",
-            description: "Budujemy system. Na bieżąco informujemy o postępach. Typowy czas: 1–3 tygodnie zależnie od złożoności."
-        },
-        {
-            label: "KROK 04",
-            title: "Testy i odbiór",
-            description: "Testujemy razem z Tobą. Wprowadzamy poprawki. Dbamy o to żeby wszystko działało dokładnie tak jak ustalono."
-        },
-        {
-            label: "KROK 05",
-            title: "Dokumentacja i szkolenie",
-            description: "Przekazujemy pełną dokumentację i szkolimy Ciebie lub Twój zespół z obsługi systemu. Nie jesteś uzależniony od nas."
-        },
-        {
-            label: "KROK 06",
-            title: "Wsparcie i rozwój",
-            description: "Opcjonalny abonament utrzymaniowy: monitoring, aktualizacje, drobny rozwój. Stały kontakt i priorytetowe wsparcie gdy potrzebujesz."
+  const steps = [
+    {
+      label: "KROK 01",
+      title: "Bezpłatna konsultacja",
+      description: "30 minut rozmowy o Twoich procesach i problemach. Bez zobowiązań. Wychodzisz z konkretnymi wnioskami nawet jeśli nie współpracujemy."
+    },
+    {
+      label: "KROK 02",
+      title: "Analiza i wycena",
+      description: "Dokładniej analizujemy wybrane procesy. Przygotowujemy wycenę z zakresem prac, harmonogramem i oczekiwanymi efektami. Wiesz z góry ile zapłacisz."
+    },
+    {
+      label: "KROK 03",
+      title: "Wdrożenie",
+      description: "Budujemy system. Na bieżąco informujemy o postępach. Typowy czas: 1–3 tygodnie zależnie od złożoności."
+    },
+    {
+      label: "KROK 04",
+      title: "Testy i odbiór",
+      description: "Testujemy razem z Tobą. Wprowadzamy poprawki. Dbamy o to żeby wszystko działało dokładnie tak jak ustalono."
+    },
+    {
+      label: "KROK 05",
+      title: "Dokumentacja i szkolenie",
+      description: "Przekazujemy pełną dokumentację i szkolimy Ciebie lub Twój zespół z obsługi systemu. Nie jesteś uzależniony od nas."
+    },
+    {
+      label: "KROK 06",
+      title: "Wsparcie i rozwój",
+      description: "Opcjonalny abonament utrzymaniowy: monitoring, aktualizacje, drobny rozwój. Stały kontakt i priorytetowe wsparcie gdy potrzebujesz."
+    }
+  ];
+
+  useEffect(() => {
+    let ticking = false;
+
+    const updateScroll = () => {
+      const threshold = window.innerHeight * 0.55;
+      let currentActive = -1;
+
+      stepsRef.current.forEach((step, index) => {
+        if (!step) return;
+        const rect = step.getBoundingClientRect();
+
+        // Activation Logic: top < 55% AND bottom > 10%
+        if (rect.top < threshold && rect.bottom > window.innerHeight * 0.1) {
+          currentActive = index;
         }
-    ];
+      });
 
-    useEffect(() => {
-        let ticking = false;
+      setActiveStep(currentActive);
+      ticking = false;
+    };
 
-        const updateScroll = () => {
-            const threshold = window.innerHeight * 0.55;
-            let currentActive = -1;
+    const onScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(updateScroll);
+        ticking = true;
+      }
+    };
 
-            stepsRef.current.forEach((step, index) => {
-                if (!step) return;
-                const rect = step.getBoundingClientRect();
+    window.addEventListener('scroll', onScroll);
+    // Initial check
+    updateScroll();
 
-                // Activation Logic: top < 55% AND bottom > 10%
-                if (rect.top < threshold && rect.bottom > window.innerHeight * 0.1) {
-                    currentActive = index;
-                }
-            });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, [steps.length]);
 
-            setActiveStep(currentActive);
-            ticking = false;
-        };
-
-        const onScroll = () => {
-            if (!ticking) {
-                window.requestAnimationFrame(updateScroll);
-                ticking = true;
-            }
-        };
-
-        window.addEventListener('scroll', onScroll);
-        // Initial check
-        updateScroll();
-
-        return () => window.removeEventListener('scroll', onScroll);
-    }, [steps.length]);
-
-    return (
-        <section className="relative w-full bg-[#080808] py-[96px] overflow-hidden">
-            <style>{`
+  return (
+    <section className="relative w-full bg-[#080808] py-[96px] overflow-hidden">
+      <style>{`
         .process-container {
           max-width: 1200px;
           margin: 0 auto;
@@ -250,33 +250,33 @@ export const Process = () => {
         }
       `}</style>
 
-            <div className="process-container">
-                <header className="process-header">
-                    <span className="section-label">PROCES WSPÓŁPRACY</span>
-                    <h2 className="process-title">Od pierwszej rozmowy do działającego <span>systemu</span>.</h2>
-                    <p className="process-subtitle">Działamy według przejrzystego planu, eliminując niepewność na każdym etapie wdrożenia.</p>
-                </header>
+      <div className="process-container">
+        <header className="process-header">
+          <span className="section-label">PROCES WSPÓŁPRACY</span>
+          <h2 className="process-title">Od pierwszej rozmowy do działającego <span>systemu</span>.</h2>
+          <p className="process-subtitle">Działamy według przejrzystego planu, eliminując niepewność na każdym etapie wdrożenia.</p>
+        </header>
 
-                <div className="steps-wrapper" ref={containerRef}>
-                    <div className="timeline-line" />
-                    {steps.map((step, idx) => (
-                        <div
-                            key={idx}
-                            ref={(el) => (stepsRef.current[idx] = el)}
-                            className={`step-item ${activeStep === idx ? 'active' : ''}`}
-                        >
-                            <div className="step-dot" />
-                            <div className="step-progress-line" />
+        <div className="steps-wrapper" ref={containerRef}>
+          <div className="timeline-line" />
+          {steps.map((step, idx) => (
+            <div
+              key={idx}
+              ref={(el) => (stepsRef.current[idx] = el)}
+              className={`step-item ${idx <= activeStep ? 'active' : ''}`}
+            >
+              <div className="step-dot" />
+              <div className="step-progress-line" />
 
-                            <div className="step-content">
-                                <span className="step-label">{step.label}</span>
-                                <h3 className="step-title">{step.title}</h3>
-                                <p className="step-description">{step.description}</p>
-                            </div>
-                        </div>
-                    ))}
-                </div>
+              <div className="step-content">
+                <span className="step-label">{step.label}</span>
+                <h3 className="step-title">{step.title}</h3>
+                <p className="step-description">{step.description}</p>
+              </div>
             </div>
-        </section>
-    );
+          ))}
+        </div>
+      </div>
+    </section>
+  );
 };
