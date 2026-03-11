@@ -1,4 +1,4 @@
-import { Header } from '@/components/sections/Header';
+import { FloatingHeader } from '@/components/FloatingHeader';
 import { Footer } from '@/components/sections/Footer';
 import { ContactForm } from '@/components/sections/ContactForm';
 import { Mail, Phone, Instagram, Calendar, FileText, MessageCircle } from 'lucide-react';
@@ -11,7 +11,7 @@ export const metadata = {
 export default function KontaktPage() {
     return (
         <main className="min-h-screen bg-white dark:bg-dark-bg text-text-primary dark:text-white flex flex-col">
-            <Header />
+            <FloatingHeader />
 
             <section className="pt-20 md:pt-32 pb-16 md:pb-24 flex-grow">
                 <div className="container-padding max-w-5xl">

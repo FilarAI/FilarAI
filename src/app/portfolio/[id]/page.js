@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { Header } from '@/components/sections/Header';
+import { FloatingHeader } from '@/components/FloatingHeader';
 import { Footer } from '@/components/sections/Footer';
 import { projectsData } from '@/data/projects';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
@@ -36,7 +36,7 @@ export default function ProjectPage({ params }) {
 
     return (
         <main className="min-h-screen bg-white dark:bg-dark-bg text-text-primary dark:text-white flex flex-col">
-            <Header />
+            <FloatingHeader />
 
             {/* Back Button */}
             <div className="container-padding pt-12 pb-6 opacity-0 animate-[fadeIn_0.6s_ease-out_forwards]">

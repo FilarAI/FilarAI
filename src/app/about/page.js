@@ -1,4 +1,4 @@
-import { Header } from '@/components/sections/Header';
+import { FloatingHeader } from '@/components/FloatingHeader';
 import { Footer } from '@/components/sections/Footer';
 import { Card } from '@/components/ui/Card';
 
@@ -19,7 +19,7 @@ export default function AboutPage() {
 
     return (
         <main className="min-h-screen bg-white dark:bg-dark-bg text-text-primary dark:text-white">
-            <Header />
+            <FloatingHeader />
 
             {/* Hero Section About */}
             <section className="pt-24 pb-16 md:pt-32 md:pb-24 bg-white dark:bg-dark-bg border-b border-gray-border dark:border-white/10 text-center relative">

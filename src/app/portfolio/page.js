@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import { FloatingHeader } from '@/components/sections/FloatingHeader';
+import { FloatingHeader } from '@/components/FloatingHeader';
 import { PortfolioHero } from '@/components/sections/PortfolioHero';
 import { Portfolio } from '@/components/sections/Portfolio';
 import { Testimonials } from '@/components/sections/Testimonials';

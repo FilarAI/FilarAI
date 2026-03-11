@@ -1,4 +1,4 @@
-import { Header } from '@/components/sections/Header';
+import { FloatingHeader } from '@/components/FloatingHeader';
 import { Footer } from '@/components/sections/Footer';
 import { HowItWorks } from '@/components/sections/HowItWorks';
 import { Testimonials } from '@/components/sections/Testimonials';
@@ -45,7 +45,7 @@ const ServiceDetail = ({ title, description, features, reverse, number, slug }) 
 export default function OfertaPage() {
     return (
         <main className="min-h-screen bg-white dark:bg-dark-bg text-text-primary dark:text-white">
-            <Header />
+            <FloatingHeader />
 
             {/* Hero Section Oferta */}
             <section className="pt-24 pb-16 md:pt-32 md:pb-24 bg-gray-light dark:bg-[#1A1A1A] border-b border-gray-border dark:border-white/10 text-center">

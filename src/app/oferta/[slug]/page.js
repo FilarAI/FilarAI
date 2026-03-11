@@ -1,4 +1,4 @@
-import { Header } from '@/components/sections/Header';
+import { FloatingHeader } from '@/components/FloatingHeader';
 import { Footer } from '@/components/sections/Footer';
 import { Card } from '@/components/ui/Card';
 import Link from 'next/link';
@@ -69,7 +69,7 @@ export default function OfertaSlugPage({ params }) {
 
     return (
         <main className="min-h-screen bg-white dark:bg-dark-bg text-text-primary dark:text-white">
-            <Header />
+            <FloatingHeader />
 
             {/* Subpage Hero */}
             <section className="pt-32 pb-20 bg-gray-light dark:bg-[#1A1A1A] border-b border-gray-border dark:border-white/10 text-center relative overflow-hidden">

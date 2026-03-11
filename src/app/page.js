@@ -1,4 +1,4 @@
-import { FloatingHeader } from '@/components/sections/FloatingHeader';
+import { FloatingHeader } from '@/components/FloatingHeader';
 import { Hero } from '@/components/sections/Hero';
 import { Challenge } from '@/components/sections/Challenge';
 import { Fomo } from '@/components/sections/Fomo';
