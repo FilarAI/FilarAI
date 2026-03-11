@@ -123,8 +123,6 @@ export const Services = () => {
           color: var(--text-3, #5A5550);
           display: block;
           margin-bottom: 12px;
-          opacity: 0;
-          transform: translateY(12px);
           transition: opacity 0.4s ease, transform 0.4s ease;
         }
 
@@ -135,8 +133,6 @@ export const Services = () => {
           letter-spacing: -0.02em;
           color: var(--text-1, #F0EFEE);
           line-height: 1.1;
-          opacity: 0;
-          transform: translateY(12px);
           transition: opacity 0.4s ease, transform 0.4s ease;
           transition-delay: 0.1s;
         }
@@ -152,8 +148,6 @@ export const Services = () => {
           max-width: 520px;
           margin-top: 16px;
           line-height: 1.75;
-          opacity: 0;
-          transform: translateY(12px);
           transition: opacity 0.4s ease, transform 0.4s ease;
           transition-delay: 0.2s;
         }
@@ -172,8 +166,6 @@ export const Services = () => {
           display: flex;
           flex-direction: column;
           transition: all 0.2s ease;
-          opacity: 0;
-          transform: translateY(12px);
         }
 
         .service-card:hover {

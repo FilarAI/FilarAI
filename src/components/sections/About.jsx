@@ -71,8 +71,6 @@ export const About = () => {
         /* Left Column - Image & Facts */
         .about-left {
           flex: 0 0 100%;
-          opacity: 0;
-          transform: translateX(-20px);
           transition: all 0.5s ease;
         }
 
@@ -160,8 +158,6 @@ export const About = () => {
         }
 
         .stagger-item {
-          opacity: 0;
-          transform: translateY(12px);
           transition: all 0.4s ease;
         }
 

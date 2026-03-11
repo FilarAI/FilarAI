@@ -127,8 +127,6 @@ export const Clients = () => {
           display: flex;
           flex-direction: column;
           align-items: center;
-          opacity: 0;
-          transform: translateY(12px);
           transition: opacity 0.4s ease, transform 0.4s ease;
         }
 

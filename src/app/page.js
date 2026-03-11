@@ -9,13 +9,6 @@ import { Testimonials } from '@/components/sections/Testimonials';
 import { Process } from '@/components/sections/Process';
 import { About } from '@/components/sections/About';
 import { FinalCTA } from '@/components/sections/FinalCTA';
-import { Benefits } from '@/components/sections/Benefits';
-import { Problem } from '@/components/sections/Problem';
-import { ClientLogos } from '@/components/sections/ClientLogos';
-import { Solution } from '@/components/sections/Solution';
-import { HowItWorks } from '@/components/sections/HowItWorks';
-import { Expertise } from '@/components/sections/Expertise';
-import { PortfolioPreview } from '@/components/sections/PortfolioPreview';
 import { Footer } from '@/components/sections/Footer';
 
 export default function Home() {
@@ -32,13 +25,6 @@ export default function Home() {
       <Process />
       <About />
       <FinalCTA />
-      <ClientLogos />
-      <Benefits />
-      <Problem />
-      <Solution />
-      <HowItWorks />
-      <Expertise />
-      <PortfolioPreview />
       <Footer />
     </main>
   );

@@ -52,8 +52,6 @@ export const Fomo = () => {
           line-height: 1.1;
           letter-spacing: -0.02em;
           color: var(--text-1, #F0EFEE);
-          opacity: 0;
-          transform: translateY(16px);
           transition: opacity 0.4s ease, transform 0.4s ease;
         }
 
@@ -78,8 +76,6 @@ export const Fomo = () => {
           line-height: 1.75;
           color: var(--text-2, #9A9590);
           max-width: 560px;
-          opacity: 0;
-          transform: translateY(12px);
           transition: opacity 0.4s ease, transform 0.4s ease;
           transition-delay: 0.5s;
         }

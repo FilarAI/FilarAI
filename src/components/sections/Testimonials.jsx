@@ -102,7 +102,7 @@ export const Testimonials = () => {
     return (
         <section
             ref={sectionRef}
-            className={`relative w-full bg-[#080808] py-[96px] overflow-hidden transition-all duration-700 ${isVisible ? 'opacity-100' : 'opacity-0 translate-y-8'}`}
+            className={`relative w-full bg-[#080808] py-[96px] overflow-hidden transition-all duration-700`}
         >
             <style>{`
         .testimonials-container {

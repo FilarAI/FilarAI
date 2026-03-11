@@ -104,8 +104,6 @@ export const Challenge = () => {
           background-color: var(--bg-1, #0F0F0F);
           padding: 96px 20px;
           overflow: hidden;
-          opacity: 0;
-          transform: translateY(12px);
           transition: opacity 0.4s ease, transform 0.4s ease;
         }
 
