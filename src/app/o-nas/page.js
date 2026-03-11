@@ -3,6 +3,7 @@ import { Footer } from '@/components/sections/Footer';
 import { AboutHero } from '@/components/sections/AboutHero';
 import { HistoryMission } from '@/components/sections/HistoryMission';
 import { TechStack } from '@/components/sections/TechStack';
+import { WorkingPrinciples } from '@/components/sections/WorkingPrinciples';
 
 export const metadata = {
     title: "O Nas - Filar AI",
@@ -19,6 +20,8 @@ export default function AboutPage() {
             <HistoryMission />
 
             <TechStack />
+
+            <WorkingPrinciples />
 
             <Footer />
         </main>
