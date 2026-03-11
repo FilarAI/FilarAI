@@ -5,6 +5,7 @@ import { ServicesTabs } from '@/components/sections/ServicesTabs';
 import { OfertaDlaKogo } from '@/components/sections/OfertaDlaKogo';
 import { Process } from '@/components/sections/Process';
 import { OfertaFAQ } from '@/components/sections/OfertaFAQ';
+import { FinalCTA } from '@/components/sections/FinalCTA';
 
 export const metadata = {
     title: "Oferta - Filar AI",
@@ -27,8 +28,8 @@ export default function OfertaPage() {
             <Process />
 
             <OfertaFAQ />
-            
-            {/* Future sections will be added here */}
+
+            <FinalCTA />
         </main>
     );
 }
