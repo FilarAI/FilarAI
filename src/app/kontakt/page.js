@@ -1,5 +1,5 @@
 import { FloatingHeader } from '@/components/FloatingHeader';
-import { Footer } from '@/components/sections/Footer';
+import { FinalCTA } from '@/components/sections/FinalCTA';
 import { ContactForm } from '@/components/sections/ContactForm';
 import { Mail, Phone, Instagram, Calendar, FileText, MessageCircle } from 'lucide-react';
 
@@ -74,10 +74,22 @@ export default function KontaktPage() {
                                     <FileText size={32} />
                                 </div>
                                 <h3 className="heading-serif text-3xl font-bold mb-4">Wyślij zapytanie</h3>
-                                <p className="font-body text-text-secondary dark:text-gray-secondary text-lg leading-relaxed mb-8 flex-grow">
+                                <p className="font-body text-text-secondary dark:text-gray-secondary text-lg leading-relaxed mb-6">
                                     Opisz krótko swój projekt, wyzwanie lub problem za pomocą naszego formularza kontaktowego. Skontaktujemy się z Tobą najszybciej jak to możliwe z dopasowaną ofertą.
                                 </p>
-                                <a href="mailto:kontakt@filar-ai.pl?subject=Rozmowa z Filar AI - formularz kontaktowy" className="btn-secondary w-full md:w-auto text-center">
+                                
+                                {/* pulsing status */}
+                                <div className="flex items-center gap-3 mb-8 px-4 py-2 bg-green-500/5 border border-green-500/10 rounded-lg">
+                                    <span className="relative flex h-2.5 w-2.5">
+                                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                                        <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500"></span>
+                                    </span>
+                                    <span className="font-mono text-[11px] uppercase tracking-wider text-green-600 dark:text-green-400 font-semibold">
+                                        Odpowiadam z ofertą do 24h
+                                    </span>
+                                </div>
+
+                                <a href="#formularz" className="btn-secondary w-full md:w-auto text-center mt-auto scroll-smooth">
                                     Przejdź do formularza
                                 </a>
                             </div>
@@ -96,7 +108,7 @@ export default function KontaktPage() {
                                 <p className="font-body text-text-secondary dark:text-gray-secondary text-lg leading-relaxed mb-8 flex-grow">
                                     Wybierz dogodny dla siebie termin w naszym kalendarzu na szybką, 30-minutową i bezpłatną konsultację strategiczną online.
                                 </p>
-                                <a href="https://calendar.app.google/Pptg4M1BXR1kt58E8" target="_blank" rel="noopener noreferrer" className="btn-primary w-full md:w-auto text-center shadow-[0_0_20px_rgba(255,27,109,0.2)] group-hover:shadow-[0_0_30px_rgba(255,27,109,0.4)]">
+                                <a href="https://calendar.app.google/Pptg4M1BXR1kt58E8" target="_blank" rel="noopener noreferrer" className="btn-primary w-full md:w-auto text-center shadow-[0_0_20px_rgba(255,27,109,0.2)] group-hover:shadow-[0_0_30px_rgba(255,27,109,0.4)] mt-auto">
                                     Wybierz termin
                                 </a>
                             </div>
@@ -104,14 +116,14 @@ export default function KontaktPage() {
                     </div>
 
                     {/* Detailed Contact Form */}
-                    <div id="formularz" className="mt-24 pt-16 border-t border-gray-border dark:border-white/10 opacity-0 animate-[fadeInUp_0.6s_ease-out_0.6s_forwards]">
+                    <div id="formularz" className="mt-24 pt-16 border-t border-gray-border dark:border-white/10 opacity-0 animate-[fadeInUp_0.6s_ease-out_0.6s_forwards] scroll-mt-24">
                         <div className="max-w-3xl mx-auto bg-white dark:bg-dark-bg rounded-2xl p-8 md:p-12 shadow-xl relative border border-gray-border dark:border-white/10">
                             {/* Glow accent */}
                             <div className="absolute -inset-0.5 bg-gradient-to-br from-accent-500/20 to-transparent blur-xl -z-10 rounded-2xl"></div>
 
                             <div className="text-center mb-10">
                                 <h3 className="heading-serif text-3xl font-bold mb-4">Opisz swój projekt</h3>
-                                <p className="font-body text-gray-text text-lg">Wypełnij poniższy formularz, a my wrócimy do Ciebie z konkretnymi rozwiązaniami.</p>
+                                <p className="font-body text-gray-text text-lg">Wypełnij poniższy formularz, a we wrócimy do Ciebie z konkretnymi rozwiązaniami.</p>
                             </div>
 
                             <ContactForm />
@@ -121,7 +133,7 @@ export default function KontaktPage() {
                 </div>
             </section>
 
-            <Footer />
+            <FinalCTA />
         </main>
     );
 }
