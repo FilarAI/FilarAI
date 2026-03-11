@@ -9,7 +9,6 @@ import { Testimonials } from '@/components/sections/Testimonials';
 import { Process } from '@/components/sections/Process';
 import { About } from '@/components/sections/About';
 import { FinalCTA } from '@/components/sections/FinalCTA';
-import { Footer } from '@/components/sections/Footer';
 
 export default function Home() {
   return (
@@ -25,7 +24,6 @@ export default function Home() {
       <Process />
       <About />
       <FinalCTA />
-      <Footer />
     </main>
   );
 }
