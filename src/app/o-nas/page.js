@@ -23,7 +23,7 @@ export default function AboutPage() {
 
             <WorkingPrinciples />
 
-            <Footer />
+            <Footer hideCTA={true} />
         </main>
     );
 }
