@@ -114,6 +114,43 @@ export const ProjectsGrid = () => {
       className="w-full bg-[#0F0F0F] py-24 px-6 md:px-12"
     >
       <style>{`
+        .grid-header {
+          text-align: center;
+          margin-bottom: 48px;
+          opacity: 0;
+          transform: translateY(12px);
+          transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+        .grid-header.visible {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        .grid-label {
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 11px;
+          text-transform: uppercase;
+          letter-spacing: 0.12em;
+          color: #5A5550;
+          display: block;
+          margin-bottom: 12px;
+        }
+        .grid-title {
+          font-family: 'Syne', sans-serif;
+          font-size: clamp(32px, 5vw, 42px);
+          font-weight: 700;
+          color: #F0EFEE;
+          line-height: 1.1;
+          margin-bottom: 16px;
+        }
+        .grid-subtitle {
+          font-family: 'Outfit', sans-serif;
+          font-size: 18px;
+          color: #9A9590;
+          max-width: 600px;
+          margin: 0 auto;
+          line-height: 1.6;
+        }
+
         .filter-container {
           display: flex;
           justify-content: center;
@@ -301,6 +338,15 @@ export const ProjectsGrid = () => {
           display: none;
         }
       `}</style>
+
+      {/* Section Header */}
+      <div className={`grid-header ${isVisible ? 'visible' : ''}`}>
+        <span className="grid-label">NASZE REALIZACJE</span>
+        <h2 className="grid-title">Zobacz systemy, które już działają.</h2>
+        <p className="grid-subtitle">
+          Przekształcamy wąskie gardła biznesowe w płynne i niezawodne procesy. Poznaj rozwiązania, dzięki którym nasi klienci oszczędzają czas i skalują swoje firmy.
+        </p>
+      </div>
 
       {/* Filter Bar */}
       <div className={`filter-container ${isVisible ? 'visible' : ''}`}>

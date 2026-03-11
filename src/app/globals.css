@@ -4,42 +4,43 @@
 @theme inline {
   --color-white: #FFFFFF;
   --color-black: #000000;
-  --color-dark-bg: #0A0A0A;
+  --color-dark-bg: #080808;
 
-  --color-text-primary: #1A1A1A;
-  --color-text-secondary: #64748B;
+  --color-text-primary: #F0EFEE;
+  --color-text-secondary: #9A9590;
 
-  /* Primary Accent: Superplan Pink */
-  --color-accent-50: #FFE5F0;
-  --color-accent-100: #FFCCE0;
-  --color-accent-200: #FF99C1;
-  --color-accent-300: #FF66A2;
-  --color-accent-400: #FF3383;
-  --color-accent-500: #FF1B6D;
-  --color-accent-600: #E6006F;
-  --color-accent-700: #CC0066;
-  --color-accent-800: #B3005C;
-  --color-accent-900: #990052;
+  /* Primary Accent: FilarAI Red */
+  --color-accent-50: rgba(217, 48, 37, 0.08); /* --red-subtle */
+  --color-accent-100: rgba(217, 48, 37, 0.15); /* --red-glow */
+  --color-accent-200: rgba(217, 48, 37, 0.25); /* --red-border */
+  --color-accent-300: #D93025;
+  --color-accent-400: #D93025;
+  --color-accent-500: #D93025; /* --red */
+  --color-accent-600: #A8201A; /* --red-dim */
+  --color-accent-700: #7A1510; /* --red-deep */
+  --color-accent-800: #7A1510;
+  --color-accent-900: #7A1510;
 
-  /* Grays */
-  --color-gray-light: #F9F9F9;
-  --color-gray-border: #E2E8F0;
-  --color-gray-secondary: #CBD5E1;
-  --color-gray-text: #64748B;
-  --color-gray-dark: #334155;
+  /* Grays applied to Surfaces (Dark Mode Default) */
+  --color-gray-light: #0F0F0F; /* --bg-1 */
+  --color-gray-border: #222222; /* --bg-4 */
+  --color-gray-secondary: #9A9590; /* --text-2 */
+  --color-gray-text: #5A5550; /* --text-3 */
+  --color-gray-dark: #141414; /* --bg-2 */
 
   /* Fonts mapped to CSS variables (from layout.js next/font) */
-  --font-display: var(--font-heading), "Playfair Display", Georgia, serif;
-  --font-body: var(--font-body), "Inter", system-ui, sans-serif;
+  --font-display: var(--font-display), "Syne", sans-serif;
+  --font-body: var(--font-body), "Outfit", sans-serif;
+  --font-mono: var(--font-mono), "JetBrains Mono", monospace;
 
   /* Shadows */
-  --shadow-subtle: 0 2px 8px rgba(26, 26, 26, 0.08);
-  --shadow-medium: 0 4px 16px rgba(26, 26, 26, 0.12);
-  --shadow-strong: 0 8px 24px rgba(26, 26, 26, 0.16);
-  --shadow-hover: 0 12px 32px rgba(26, 26, 26, 0.2);
+  --shadow-subtle: 0 1px 3px rgba(0,0,0,0.4);
+  --shadow-medium: 0 4px 16px rgba(0,0,0,0.5);
+  --shadow-strong: 0 8px 32px rgba(0,0,0,0.6);
+  --shadow-hover: 0 0 24px rgba(217,48,37,0.3);
 
   /* Animacje */
-  --animate-fade-in-up: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  --animate-fade-in-up: fadeInUp 0.4s ease forwards;
   --animate-fade-in: fadeIn 0.4s ease-out forwards;
 }
 
