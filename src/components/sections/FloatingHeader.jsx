@@ -1,5 +1,7 @@
 "use client";
 import { useState, useEffect, createContext, useContext } from 'react';
+import { usePathname } from 'next/navigation';
+import Link from 'next/link';
 import { Grid2x2Plus, Menu, X } from 'lucide-react';
 
 const cn = (...classes) => classes.filter(Boolean).join(' ');
@@ -37,6 +39,7 @@ const navStyles = `
     transition: all 0.2s ease;
     text-decoration: none;
     cursor: pointer;
+    display: inline-block;
   }
   .filar-nav-link:hover {
     color: var(--text-1);
@@ -110,19 +113,16 @@ const SheetContent = ({ children }) => {
 };
 
 export function FloatingHeader() {
-    const [activePath, setActivePath] = useState('/');
+    const pathname = usePathname();
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     useEffect(() => {
-        setActivePath(window.location.pathname);
         const handleScroll = () => setIsScrolled(window.scrollY > 40);
         window.addEventListener('scroll', handleScroll);
         handleScroll();
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
-
-    const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
     const links = [
         { label: 'Rozwiązania', href: '/oferta' },
@@ -131,7 +131,7 @@ export function FloatingHeader() {
     ];
 
     const headerStyle = {
-        position: 'sticky', top: '24px', zIndex: 50,
+        position: 'sticky', top: '24px', zIndex: 100,
         transition: 'all 0.3s ease',
         margin: '0 auto', width: '100%',
         borderRadius: 'var(--r-lg)',
@@ -152,38 +152,38 @@ export function FloatingHeader() {
                 <nav style={{ display: 'flex', alignItems: 'center', padding: '0 16px', height: '56px', justifyContent: 'space-between', position: 'relative' }}>
 
                     {/* LOGO */}
-                    <div
-                        onClick={scrollToTop}
-                        style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer', zIndex: 20, userSelect: 'none' }}
+                    <Link
+                        href="/"
+                        style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer', zIndex: 110, userSelect: 'none', textDecoration: 'none' }}
                     >
                         <Grid2x2Plus size={20} color="var(--red)" />
                         <span style={{ fontFamily: 'var(--font-display)', fontSize: '20px', fontWeight: 800, letterSpacing: '-0.02em', color: 'var(--text-1)' }}>
                             Filar<span style={{ color: 'var(--text-3)' }}>AI</span>
                         </span>
-                    </div>
+                    </Link>
 
                     {/* DESKTOP NAV LINKS — centered */}
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '4px', position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%, -50%)' }}
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '4px', position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%, -50%)', zIndex: 105 }}
                         className="desktop-nav">
                         {links.map(link => (
-                            <a
+                            <Link
                                 key={link.label}
                                 href={link.href}
                                 className="filar-nav-link"
-                                data-active={activePath === link.href}
+                                data-active={pathname === link.href}
                             >
                                 {link.label}
-                            </a>
+                            </Link>
                         ))}
                     </div>
 
                     {/* DESKTOP CTA */}
-                    <div className="desktop-cta" style={{ zIndex: 20 }}>
-                        <a href="/kontakt" className="filar-btn-primary">Kontakt</a>
+                    <div className="desktop-cta" style={{ zIndex: 110 }}>
+                        <Link href="/kontakt" className="filar-btn-primary">Kontakt</Link>
                     </div>
 
                     {/* MOBILE BURGER */}
-                    <div className="mobile-menu" style={{ zIndex: 20 }}>
+                    <div className="mobile-menu" style={{ zIndex: 110 }}>
                         <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
                             <button
                                 onClick={() => setIsMenuOpen(true)}
@@ -193,18 +193,19 @@ export function FloatingHeader() {
                                 <Menu size={24} />
                             </button>
                             <SheetContent>
-                                <div
-                                    onClick={() => { scrollToTop(); setIsMenuOpen(false); }}
-                                    style={{ display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer', marginBottom: '40px', marginTop: '8px' }}
+                                <Link
+                                    href="/"
+                                    onClick={() => setIsMenuOpen(false)}
+                                    style={{ display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer', marginBottom: '40px', marginTop: '8px', textDecoration: 'none' }}
                                 >
                                     <Grid2x2Plus size={24} color="var(--red)" />
                                     <span style={{ fontFamily: 'var(--font-display)', fontSize: '22px', fontWeight: 800, color: 'var(--text-1)' }}>FilarAI</span>
-                                </div>
+                                </Link>
 
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', flex: 1 }}>
                                     <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--text-3)', marginBottom: '8px' }}>Nawigacja</span>
                                     {links.map(link => (
-                                        <a
+                                        <Link
                                             key={link.label}
                                             href={link.href}
                                             className="filar-nav-link"
@@ -212,15 +213,15 @@ export function FloatingHeader() {
                                             onClick={() => setIsMenuOpen(false)}
                                         >
                                             {link.label}
-                                        </a>
+                                        </Link>
                                     ))}
                                 </div>
 
                                 <div style={{ marginTop: 'auto', paddingTop: '32px', borderTop: '1px solid var(--bg-3)', display: 'flex', flexDirection: 'column', gap: '12px' }}>
                                     <span style={{ fontFamily: 'var(--font-body)', fontSize: '14px', color: 'var(--text-3)' }}>Gotowy na automatyzację?</span>
-                                    <a href="/kontakt" className="filar-btn-primary" style={{ width: '100%', padding: '14px 20px', fontSize: '15px' }} onClick={() => setIsMenuOpen(false)}>
+                                    <Link href="/kontakt" className="filar-btn-primary" style={{ width: '100%', padding: '14px 20px', fontSize: '15px' }} onClick={() => setIsMenuOpen(false)}>
                                         Kontakt
-                                    </a>
+                                    </Link>
                                 </div>
                             </SheetContent>
                         </Sheet>
