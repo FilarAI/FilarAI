@@ -1,110 +1,18 @@
 import { FloatingHeader } from '@/components/FloatingHeader';
 import { Footer } from '@/components/sections/Footer';
-import { Card } from '@/components/ui/Card';
+import { AboutHero } from '@/components/sections/AboutHero';
 
 export const metadata = {
     title: "O Nas - Filar AI",
-    description: "Kim jesteśmy, w co wierzymy i jakie kompetencje stawiamy do dyspozycji Twojej agencji.",
+    description: "Kim jesteśmy, w co wierzymy i jakie kompetencje stawiamy do dyspozycji Twojej agencji. Dowiedz się więcej o Kacperze Filar i naszym podejściu do automatyzacji.",
 };
 
 export default function AboutPage() {
-    const values = [
-        { title: "Szybkość", desc: "Czas to jedyny nieodnawialny zasób. Skracamy projektowanie złożonych systemów z kwartałów do zaledwie kilku tygodni.", icon: "⚡" },
-        { title: "Zaangażowanie", desc: "Zależy nam na rezultatach. Bez wahania powiemy 'nie', jeśli rozwiązanie będzie w naszej ocenie nierentowne dla Twojej agencji.", icon: "🤝" },
-        { title: "Pasja", desc: "Technologia to nasz żywioł. Stale badamy najnowsze modele byś Ty zawsze otrzymywał rozwiązania, które dają przewagę nad konkurencją.", icon: "🔥" },
-        { title: "Doświadczenie", desc: "Uczyliśmy się na realnych wdrożeniach, a nie w teorii. Lata praktyki pomagają nam unikać bolesnych błędów organizacyjnych.", icon: "🎓" },
-    ];
-
-    const skills = ["Automatyzacja", "AI / LLM", "Next.js & React", "Python", "NoCode / LowCode", "Systemy CRM"];
-
     return (
-        <main className="min-h-screen bg-white dark:bg-dark-bg text-text-primary dark:text-white">
+        <main className="min-h-screen bg-[#080808] text-[#F0EFEE]">
             <FloatingHeader />
 
-            {/* Hero Section About */}
-            <section className="pt-24 pb-16 md:pt-32 md:pb-24 bg-white dark:bg-dark-bg border-b border-gray-border dark:border-white/10 text-center relative">
-                <div className="absolute inset-0 z-0 bg-gradient-to-b from-gray-light to-white pointer-events-none"></div>
-                <div className="container-padding max-w-4xl relative z-10 opacity-0 animate-[fadeInUp_0.6s_ease-out_forwards]">
-                    <h1 className="heading-serif text-h1 md:text-[56px] leading-tight mb-6">Poznaj Filar AI</h1>
-                    <p className="font-body text-text-secondary text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
-                        Pasja, technologia i transparentność u progu nowej, zautomatyzowanej rzeczywistości w biznesie B2B.
-                    </p>
-                </div>
-            </section>
-
-            {/* Story Section */}
-            <section className="py-24 bg-white dark:bg-dark-bg border-b border-gray-border dark:border-white/10">
-                <div className="container-padding flex flex-col md:flex-row items-center gap-16 lg:gap-24">
-                    <div className="md:w-1/2 opacity-0 animate-[fadeInUp_0.6s_ease-out_forwards]">
-                        <h2 className="heading-serif text-3xl md:text-4xl mb-6">Historia twórcy</h2>
-                        <div className="space-y-6 font-body text-lg text-text-secondary leading-relaxed">
-                            <p>Zawsze uważałem, że rutynowe ręczne przeklikiwanie informacji, tworzenie tych samych e-maili i ręczne zarządzanie grafikiem jest stratą ogromnego ludzkiego potencjału twórczego.</p>
-                            <p>Rozpoczynałem swoją przygodę ucząc się przez wielokrotne błędy i wdrażając dziesiątki prototypów, testów na małą i dużą skalę. Odkryłem w automatyzacji fascynujący nowy obszar techniczny, ale przede wszystkim – ogromną ulgę, jaką daje ona przeciążonym pracownikom i managerom.</p>
-                            <p>Dziś Filar AI to obietnica partnerstwa, która w samym sercu utrzymuje niezawodność najnowszych rozwiązań Agentic Workflow.</p>
-                        </div>
-                    </div>
-                    <div className="md:w-1/2 w-full opacity-0 animate-[fadeInUp_0.6s_ease-out_0.2s_forwards]">
-                        <div className="aspect-[3/4] max-h-[600px] w-full bg-gray-border dark:bg-white/10 rounded-xl shadow-strong flex items-center justify-center text-text-secondary dark:text-gray-secondary font-display font-bold text-2xl relative overflow-hidden group">
-                            <div className="absolute inset-0 bg-dark-bg/5 dark:bg-white/5 group-hover:bg-transparent transition-colors duration-500"></div>
-                            PHOTO: Kacper Filar
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* Values */}
-            <section className="py-24 bg-gray-light dark:bg-[#1A1A1A]">
-                <div className="container-padding">
-                    <div className="text-center mb-16 opacity-0 animate-[fadeInUp_0.6s_ease-out_forwards]">
-                        <h2 className="heading-serif text-3xl md:text-4xl mb-4">W co wierzymy i jak działamy</h2>
-                        <p className="font-body text-text-secondary text-lg max-w-2xl mx-auto leading-relaxed">
-                            Fundamenty Filar AI to obietnica partnerstwa, która w samym sercu utrzymuje niezawodność, pasję do technologii i pełną transparentność w każdym wdrożeniu.
-                        </p>
-                    </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                        {values.map((val, idx) => (
-                            <div key={idx} className="opacity-0 animate-[fadeInUp_0.6s_ease-out_forwards]" style={{ animationDelay: `${(idx + 1) * 0.15}s` }}>
-                                <Card variant="standard" className="h-full group hover:border-accent-500 border-gray-border dark:border-white/10">
-                                    <div className="w-12 h-12 bg-white dark:bg-dark-bg border border-gray-border dark:border-white/10 text-text-primary dark:text-white rounded-xl flex items-center justify-center text-2xl mb-6 shadow-sm group-hover:scale-110 group-hover:border-accent-500 group-hover:text-accent-500 transition-all duration-300">
-                                        {val.icon}
-                                    </div>
-                                    <h3 className="heading-serif text-xl font-bold mb-3">{val.title}</h3>
-                                    <p className="font-body text-gray-text text-[15px] leading-relaxed">{val.desc}</p>
-                                </Card>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
-            {/* Expertise & Skills */}
-            <section className="py-24 bg-white dark:bg-dark-bg border-b border-gray-border dark:border-white/10 text-center">
-                <div className="container-padding opacity-0 animate-[fadeInUp_0.6s_ease-out_forwards]">
-                    <h2 className="heading-serif text-3xl mb-12">Kompetencje techniczne</h2>
-                    <div className="flex flex-wrap justify-center gap-4 max-w-3xl mx-auto mb-20">
-                        {skills.map((skill, idx) => (
-                            <span key={idx} className="px-6 py-3 bg-gray-light dark:bg-[#1A1A1A] text-text-primary dark:text-white font-bold font-body rounded-full border border-gray-border dark:border-white/10 hover:border-accent-500 hover:text-accent-500 transition-colors shadow-sm cursor-default">
-                                {skill}
-                            </span>
-                        ))}
-                    </div>
-
-                    <div className="pt-20 border-t border-gray-border dark:border-white/10">
-                        <h3 className="heading-serif text-2xl mb-12">Ukończone kursy i certyfikacje</h3>
-                        <div className="flex flex-col md:flex-row items-center justify-center gap-12 md:gap-24 mb-10">
-                            <div className="h-12 md:h-16 flex items-center grayscale hover:grayscale-0 transition-all duration-300 opacity-70 hover:opacity-100">
-                                <img src="/images/logos/google-ai.png" alt="Google AI" className="h-full object-contain" />
-                            </div>
-                            <div className="h-10 md:h-14 flex items-center grayscale hover:grayscale-0 transition-all duration-300 opacity-70 hover:opacity-100">
-                                <img src="/images/logos/anthropic.png" alt="Anthropic" className="h-full object-contain" />
-                            </div>
-                        </div>
-                        <p className="font-body text-gray-text text-lg max-w-2xl mx-auto leading-relaxed italic">
-                            Systematycznie podnosimy nasze kompetencje, kończąc specjalistyczne certyfikacje liderów rynku AI. Skupiamy się na najnowszych modelach LLM, bezpieczeństwie danych oraz architekturze nowoczesnych agentów workflow, by dostarczać rozwiązania oparte o najświeższe standardy technologiczne.
-                        </p>
-                    </div>
-                </div>
-            </section>
+            <AboutHero />
 
             <Footer />
         </main>
