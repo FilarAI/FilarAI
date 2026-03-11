@@ -4,6 +4,7 @@ import React from 'react';
 import { FloatingHeader } from '@/components/FloatingHeader';
 import { PortfolioHero } from '@/components/sections/PortfolioHero';
 import { ProjectsGrid } from '@/components/sections/ProjectsGrid';
+import { ResultsNumbers } from '@/components/sections/ResultsNumbers';
 import { Testimonials } from '@/components/sections/Testimonials';
 import { FinalCTA } from '@/components/sections/FinalCTA';
 
@@ -15,6 +16,8 @@ export default function PortfolioPage() {
             <PortfolioHero />
             
             <ProjectsGrid />
+
+            <ResultsNumbers />
 
             <Testimonials />
 
