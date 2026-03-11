@@ -4,6 +4,9 @@ import { AboutHero } from '@/components/sections/AboutHero';
 import { HistoryMission } from '@/components/sections/HistoryMission';
 import { TechStack } from '@/components/sections/TechStack';
 import { WorkingPrinciples } from '@/components/sections/WorkingPrinciples';
+import { Certifications } from '@/components/sections/Certifications';
+import { ResultsNumbers } from '@/components/sections/ResultsNumbers';
+import { FinalCTA } from '@/components/sections/FinalCTA';
 
 export const metadata = {
     title: "O Nas - Filar AI",
@@ -22,6 +25,12 @@ export default function AboutPage() {
             <TechStack />
 
             <WorkingPrinciples />
+
+            <Certifications />
+
+            <ResultsNumbers />
+
+            <FinalCTA />
 
             <Footer hideCTA={true} />
         </main>
