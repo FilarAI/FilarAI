@@ -13,7 +13,7 @@ export const HistoryMission = () => {
           observer.unobserve(entry.target);
         }
       },
-      { threshold: 0.2 }
+      { threshold: 0.15 }
     );
 
     if (sectionRef.current) {
@@ -43,6 +43,25 @@ export const HistoryMission = () => {
           padding: 0 40px;
         }
 
+        /* --- Animations --- */
+        .fade-up {
+          opacity: 0;
+          transform: translateY(12px);
+          transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+
+        .history-section.visible .fade-up {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        .anim-group-1 { transition-delay: 0s; }
+        .anim-group-2 { transition-delay: 0.1s; }
+        .anim-group-3 { transition-delay: 0.2s; }
+        .anim-group-4 { transition-delay: 0.3s; }
+        .anim-group-5 { transition-delay: 0.4s; }
+
+        /* --- Top Section --- */
         .hm-label {
           font-family: 'JetBrains Mono', monospace;
           font-size: 11px;
@@ -51,27 +70,11 @@ export const HistoryMission = () => {
           color: #5A5550; /* --text-3 */
           text-align: center;
           display: block;
-          opacity: 0;
-          transform: translateY(12px);
-          transition: opacity 0.4s ease 0s, transform 0.4s ease 0s;
-        }
-
-        .history-section.visible .hm-label {
-          opacity: 1;
-          transform: translateY(0);
         }
 
         .opening-quote-container {
           margin: 24px 0 48px;
           text-align: center;
-          opacity: 0;
-          transform: translateY(12px);
-          transition: opacity 0.4s ease 0.1s, transform 0.4s ease 0.1s;
-        }
-
-        .history-section.visible .opening-quote-container {
-          opacity: 1;
-          transform: translateY(0);
         }
 
         .quote-mark {
@@ -91,6 +94,7 @@ export const HistoryMission = () => {
           font-size: 28px;
           line-height: 1.4;
           color: #F0EFEE; /* --text-1 */
+          text-align: center;
           letter-spacing: -0.01em;
         }
 
@@ -104,7 +108,7 @@ export const HistoryMission = () => {
           height: 1px;
           width: 0;
           background-color: #D93025; /* --red */
-          transition: width 0.4s ease 0.2s, opacity 0.4s ease 0.2s;
+          transition: width 0.4s ease 0.15s, opacity 0.4s ease 0.15s;
           opacity: 0;
         }
 
@@ -113,8 +117,19 @@ export const HistoryMission = () => {
           opacity: 1;
         }
 
-        .body-paragraphs {
-          text-align: left;
+        /* --- Body Paragraphs --- */
+        .hm-block {
+          margin-bottom: 40px;
+        }
+
+        .hm-prefix {
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 11px;
+          text-transform: uppercase;
+          letter-spacing: 0.12em;
+          color: #D93025; /* --red */
+          margin-bottom: 10px;
+          display: block;
         }
 
         .hm-p {
@@ -123,20 +138,53 @@ export const HistoryMission = () => {
           font-size: 17px;
           color: #9A9590; /* --text-2 */
           line-height: 1.85;
-          margin-bottom: 20px;
-          opacity: 0;
-          transform: translateY(12px);
+          text-align: left;
         }
 
-        .hm-p-1 { transition: opacity 0.4s ease 0.15s, transform 0.4s ease 0.15s; }
-        .hm-p-2 { transition: opacity 0.4s ease 0.22s, transform 0.4s ease 0.22s; }
-        .hm-p-3 { transition: opacity 0.4s ease 0.29s, transform 0.4s ease 0.29s; }
-
-        .history-section.visible .hm-p {
-          opacity: 1;
-          transform: translateY(0);
+        .hm-p .highlight {
+          color: #F0EFEE; /* --text-1 */
+          font-weight: 500;
         }
 
+        /* --- Inline Stats --- */
+        .inline-stats {
+          margin: 8px 0 40px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 0;
+        }
+
+        .stat-item {
+          padding: 0 28px;
+          text-align: center;
+        }
+
+        .stat-divider {
+          width: 1px;
+          height: 32px;
+          background-color: #222222; /* --bg-4 */
+        }
+
+        .stat-num {
+          font-family: 'Syne', sans-serif;
+          font-weight: 700;
+          font-size: 22px;
+          color: #F0EFEE; /* --text-1 */
+          display: block;
+        }
+
+        .stat-label {
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 9px;
+          text-transform: uppercase;
+          letter-spacing: 0.08em;
+          color: #5A5550; /* --text-3 */
+          margin-top: 2px;
+          display: block;
+        }
+
+        /* --- Pull Quote --- */
         .pull-quote {
           margin-top: 48px;
           padding: 24px 32px;
@@ -144,14 +192,6 @@ export const HistoryMission = () => {
           background-color: rgba(217, 48, 37, 0.08); /* --red-subtle */
           border-radius: 0 8px 8px 0; /* --r-md */
           text-align: left;
-          opacity: 0;
-          transform: translateY(12px);
-          transition: opacity 0.4s ease 0.35s, transform 0.4s ease 0.35s;
-        }
-
-        .history-section.visible .pull-quote {
-          opacity: 1;
-          transform: translateY(0);
         }
 
         .pull-quote-text {
@@ -172,37 +212,87 @@ export const HistoryMission = () => {
           display: block;
           margin-top: 10px;
         }
+
+        @media (max-width: 767px) {
+          .inline-stats {
+            flex-direction: column;
+            gap: 24px;
+          }
+          .stat-divider {
+            display: none;
+          }
+          .stat-item {
+            padding: 0;
+          }
+          .opening-quote-text {
+            font-size: 24px;
+          }
+        }
       `}</style>
 
       <div className="history-container">
-        <span className="hm-label">HISTORIA I MISJA</span>
-        
-        <div className="opening-quote-container">
-          <span className="quote-mark">„</span>
-          <p className="opening-quote-text">
-            Nie interesuję się technologią dla samej technologii — interesują mnie problemy, które kosztują Cię czas i pieniądze.
-          </p>
+        {/* Label & Quote animate together */}
+        <div className="fade-up anim-group-1">
+          <span className="hm-label">HISTORIA I MISJA</span>
+          
+          <div className="opening-quote-container">
+            <span className="quote-mark">„</span>
+            <p className="opening-quote-text">
+              Nie interesuję się technologią dla samej technologii — interesują mnie problemy, które kosztują Cię czas i pieniądze.
+            </p>
+          </div>
         </div>
 
         <div className="separator-container">
           <div className="separator-line" />
         </div>
 
-        <div className="body-paragraphs">
-          <p className="hm-p hm-p-1">
-            Zawsze uważałem, że rutynowe ręczne przeklikiwanie informacji, tworzenie tych samych e-maili i ręczne zarządzanie grafikiem jest stratą ogromnego ludzkiego potencjału twórczego. Patrzyłem jak firmy próbują rosnąć pracując ciężej, a nie mądrzej.
-          </p>
-          <p className="hm-p hm-p-2">
-            Rozpoczynałem swoją przygodę ucząc się przez wielokrotne błędy i wdrażając dziesiątki prototypów. Odkryłem w automatyzacji fascynujący nowy obszar techniczny, ale przede wszystkim – ogromną ulgę, jaką daje ona przeciążonym pracownikom i managerom na pierwszej linii. Mój cel to budować inteligentne mosty między maszynami a ludźmi.
-          </p>
-          <p className="hm-p hm-p-3">
-            Dziś FilarAI to obietnica partnerstwa, która w samym sercu utrzymuje niezawodność najnowszych rozwiązań Agentic Workflow. Chcę sprawić, by zaawansowana technologia stała się niewidzialnym wsparciem, napędzającym zysk i obniżającym koszty każdej agencji z którą współpracuję.
+        {/* P1 */}
+        <div className="hm-block fade-up anim-group-2">
+          <span className="hm-prefix">01 ·</span>
+          <p className="hm-p">
+            Zawsze uważałem, że rutynowe ręczne przeklikiwanie informacji, tworzenie tych samych e-maili i ręczne zarządzanie grafikiem jest stratą <span className="highlight">ogromnego ludzkiego potencjału twórczego</span>. Patrzyłem jak firmy próbują rosnąć pracując ciężej, a nie <span className="highlight">mądrzej</span>.
           </p>
         </div>
 
-        <div className="pull-quote">
+        {/* P2 */}
+        <div className="hm-block fade-up anim-group-3">
+          <span className="hm-prefix">02 ·</span>
+          <p className="hm-p">
+            Rozpoczynałem swoją przygodę ucząc się przez wielokrotne błędy i wdrażając dziesiątki prototypów. Odkryłem w automatyzacji fascynujący nowy obszar techniczny, ale przede wszystkim — <span className="highlight">ogromną ulgę, jaką daje ona przeciążonym pracownikom</span> i managerom na pierwszej linii.
+          </p>
+        </div>
+
+        {/* Inline Stats */}
+        <div className="inline-stats fade-up anim-group-4">
+          <div className="stat-item">
+            <span className="stat-num">6+</span>
+            <span className="stat-label">WDROŻEŃ</span>
+          </div>
+          <div className="stat-divider" />
+          <div className="stat-item">
+            <span className="stat-num">48h</span>
+            <span className="stat-label">DO DEMO</span>
+          </div>
+          <div className="stat-divider" />
+          <div className="stat-item">
+            <span className="stat-num">100%</span>
+            <span className="stat-label">Z DOKUMENTACJĄ</span>
+          </div>
+        </div>
+
+        {/* P3 */}
+        <div className="hm-block fade-up anim-group-5">
+          <span className="hm-prefix">03 ·</span>
+          <p className="hm-p">
+            Dziś FilarAI to obietnica partnerstwa, która w samym sercu utrzymuje niezawodność najnowszych rozwiązań <span className="highlight">Agentic Workflow</span>. Chcę sprawić, by zaawansowana technologia stała się niewidzialnym wsparciem, <span className="highlight">napędzającym zysk i obniżającym koszty</span> każdej firmy z którą współpracuję.
+          </p>
+        </div>
+
+        {/* Pull quote */}
+        <div className="pull-quote fade-up anim-group-5" style={{ transitionDelay: '0.4s' }}>
           <p className="pull-quote-text">
-            Wdrażam systemy, o których przestajesz myśleć, zaraz gdy zaczną działać bez problemu.
+            „Wdrażam systemy, o których przestajesz myśleć, zaraz gdy zaczną działać bez problemu."
           </p>
           <span className="pull-quote-author">— KACPER FILAR · FOUNDER</span>
         </div>
@@ -210,3 +300,4 @@ export const HistoryMission = () => {
     </section>
   );
 };
+
