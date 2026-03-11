@@ -1,5 +1,6 @@
 import { FloatingHeader } from '@/components/FloatingHeader';
 import { OfertaHero } from '@/components/sections/OfertaHero';
+import { OfertaProblem } from '@/components/sections/OfertaProblem';
 
 export const metadata = {
     title: "Oferta - Filar AI",
@@ -12,6 +13,8 @@ export default function OfertaPage() {
             <FloatingHeader />
 
             <OfertaHero />
+
+            <OfertaProblem />
             
             {/* Future sections will be added here */}
         </main>
