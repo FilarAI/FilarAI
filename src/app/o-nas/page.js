@@ -1,5 +1,4 @@
 import { FloatingHeader } from '@/components/FloatingHeader';
-import { Footer } from '@/components/sections/Footer';
 import { AboutHero } from '@/components/sections/AboutHero';
 import { HistoryMission } from '@/components/sections/HistoryMission';
 import { TechStack } from '@/components/sections/TechStack';
@@ -31,8 +30,6 @@ export default function AboutPage() {
             <ResultsNumbers />
 
             <FinalCTA />
-
-            <Footer hideCTA={true} />
         </main>
     );
 }
