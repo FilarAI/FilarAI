@@ -84,12 +84,6 @@ export const ResultsNumbers = () => {
       suffix: "%",
       label: "Projektów z dokumentacją",
       sublabel: "klient zawsze wie jak obsługiwać system"
-    },
-    {
-      endValue: 0,
-      suffix: "",
-      label: "Projektów do szuflady",
-      sublabel: "każde wdrożenie jest aktywnie używane"
     }
   ];
 
@@ -153,7 +147,7 @@ export const ResultsNumbers = () => {
 
         .counters-grid {
           display: grid;
-          grid-template-columns: repeat(4, 1fr);
+          grid-template-columns: repeat(3, 1fr);
           gap: 0; border: 1px solid #222222; border-radius: 12px; overflow: hidden;
         }
 
@@ -217,19 +211,18 @@ export const ResultsNumbers = () => {
 
         @media (max-width: 1023px) {
           .counters-grid {
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: 1fr;
           }
-          .counters-grid .counter-item:nth-child(2) {
+          .counter-item {
             border-right: none;
-          }
-           .counters-grid .counter-item:nth-child(1), .counters-grid .counter-item:nth-child(2) {
             border-bottom: 1px solid #222222;
+            padding: 32px 24px;
+          }
+          .counters-grid .counter-item:last-child {
+            border-bottom: none;
           }
           .counter-number, .counter-suffix {
              font-size: 56px;
-          }
-           .counter-item {
-            padding: 32px 24px;
           }
         }
         @media (max-width: 639px) {
