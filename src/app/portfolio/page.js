@@ -6,6 +6,7 @@ import { PortfolioHero } from '@/components/sections/PortfolioHero';
 import { ProjectsGrid } from '@/components/sections/ProjectsGrid';
 import { ResultsNumbers } from '@/components/sections/ResultsNumbers';
 import { Testimonials } from '@/components/sections/Testimonials';
+import { Certifications } from '@/components/sections/Certifications';
 import { FinalCTA } from '@/components/sections/FinalCTA';
 
 export default function PortfolioPage() {
@@ -20,6 +21,8 @@ export default function PortfolioPage() {
             <ResultsNumbers />
 
             <Testimonials />
+
+            <Certifications />
 
             <FinalCTA />
         </main>

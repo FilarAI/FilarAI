@@ -1,0 +1,301 @@
+"use client";
+import React, { useState, useEffect, useRef } from 'react';
+
+const certs = [
+  {
+    issuer: "ANTHROPIC",
+    title: "Claude AI Developer Certification",
+    year: "2024",
+    description: "Projektowanie i wdrażanie systemów opartych o modele Claude. Prompt engineering, API, agenci AI.",
+  },
+  {
+    issuer: "GOOGLE",
+    title: "Google AI Essentials",
+    year: "2024",
+    description: "Praktyczne zastosowanie narzędzi AI Google w procesach biznesowych i automatyzacji pracy.",
+  },
+  {
+    issuer: "N8N",
+    title: "N8N Automation Certification",
+    year: "2024",
+    description: "Budowanie zaawansowanych przepływów automatyzacji, integracje API, obsługa błędów i logika warunkowa.",
+  },
+  {
+    issuer: "DEEPLEARNING.AI",
+    title: "AI Agents & Agentic Workflows",
+    year: "2024",
+    description: "Projektowanie agentów AI, multi-agent systems, RAG pipeline, narzędzia LangChain.",
+  },
+  {
+    issuer: "GOOGLE",
+    title: "Google Project Management Certificate",
+    year: "2023",
+    description: "Zarządzanie projektami technologicznymi, praca z klientem, dokumentacja i wdrożenia.",
+  },
+  {
+    issuer: "META",
+    title: "Meta AI Fundamentals",
+    year: "2024",
+    description: "Zastosowanie modeli open-source Meta w rozwiązaniach biznesowych i lokalnych wdrożeniach AI.",
+  }
+];
+
+export const Certifications = () => {
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.unobserve(entry.target);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      if (sectionRef.current) observer.unobserve(sectionRef.current);
+    };
+  }, []);
+
+  return (
+    <section 
+      ref={sectionRef}
+      className={`cert-section ${isVisible ? 'visible' : ''}`}
+    >
+      <style>{`
+        .cert-section {
+          width: 100%;
+          background-color: #0F0F0F; /* --bg-1 */
+          padding: 96px 0;
+        }
+
+        .cert-container {
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 0 40px;
+        }
+
+        .cert-header {
+          text-align: center;
+          margin-bottom: 56px;
+          opacity: 0;
+          transform: translateY(12px);
+          transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+
+        .cert-section.visible .cert-header {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        .cert-label {
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 11px;
+          text-transform: uppercase;
+          letter-spacing: 0.12em;
+          color: #5A5550; /* --text-3 */
+          display: block;
+        }
+
+        .cert-title {
+          font-family: 'Syne', sans-serif;
+          font-weight: 700;
+          font-size: 42px;
+          letter-spacing: -0.02em;
+          color: #F0EFEE; /* --text-1 */
+          margin-top: 12px;
+          line-height: 1.1;
+        }
+
+        .cert-subtitle {
+          font-family: 'Outfit', sans-serif;
+          font-size: 17px;
+          color: #9A9590; /* --text-2 */
+          max-width: 540px;
+          margin: 16px auto 0;
+          line-height: 1.75;
+        }
+
+        .cert-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 20px;
+        }
+
+        @media (max-width: 1023px) {
+          .cert-grid {
+            grid-template-columns: repeat(2, 1fr);
+          }
+        }
+
+        @media (max-width: 639px) {
+          .cert-grid {
+            grid-template-columns: 1fr;
+          }
+        }
+
+        .cert-card {
+          background-color: #141414; /* --bg-2 */
+          border: 1px solid #222222; /* --bg-4 */
+          border-radius: 12px; /* --r-lg */
+          padding: 28px 24px;
+          transition: all 0.2s ease;
+          opacity: 0;
+          transform: translateY(16px);
+        }
+
+        .cert-section.visible .cert-card {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        .cert-card:hover {
+          border-color: #D93025; /* --red */
+          box-shadow: 0 0 12px rgba(217, 48, 37, 0.2); /* --shadow-red-sm */
+          transform: translateY(-2px) !important;
+        }
+
+        .card-top {
+          display: flex;
+          align-items: center;
+          gap: 16px;
+          margin-bottom: 20px;
+        }
+
+        .logo-placeholder {
+          width: 48px;
+          height: 48px;
+          background-color: #1A1A1A; /* --bg-3 */
+          border: 1px solid #222222; /* --bg-4 */
+          border-radius: 8px; /* --r-md */
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+        }
+
+        .issuer-initials {
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 13px;
+          color: #5A5550; /* --text-3 */
+        }
+
+        .card-top-content {
+          display: flex;
+          flex-direction: column;
+        }
+
+        .issuer-name {
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 11px;
+          text-transform: uppercase;
+          letter-spacing: 0.08em;
+          color: #D93025; /* --red */
+          margin-bottom: 4px;
+        }
+
+        .card-title {
+          font-family: 'Outfit', sans-serif;
+          font-weight: 600;
+          font-size: 15px;
+          color: #F0EFEE; /* --text-1 */
+          line-height: 1.3;
+        }
+
+        .card-divider {
+          height: 1px;
+          background-color: #222222; /* --bg-4 */
+          margin-bottom: 16px;
+        }
+
+        .card-desc {
+          font-family: 'Outfit', sans-serif;
+          font-size: 13px;
+          color: #9A9590; /* --text-2 */
+          line-height: 1.7;
+        }
+
+        .card-bottom {
+          margin-top: 20px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+
+        .year-tag {
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 10px;
+          text-transform: uppercase;
+          color: #5A5550; /* --text-3 */
+          background-color: #1A1A1A; /* --bg-3 */
+          padding: 3px 10px;
+          border-radius: 9999px; /* --r-full */
+        }
+
+        .status-badge {
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 10px;
+          text-transform: uppercase;
+          background-color: rgba(217, 48, 37, 0.08); /* --red-subtle */
+          border: 1px solid rgba(217, 48, 37, 0.25); /* --red-border */
+          color: #D93025; /* --red */
+          padding: 3px 10px;
+          border-radius: 9999px; /* --r-full */
+        }
+      `}</style>
+
+      <div className="cert-container">
+        <div className="cert-header">
+          <span className="cert-label">KOMPETENCJE</span>
+          <h2 className="cert-title">Certyfikowane umiejętności</h2>
+          <p className="cert-subtitle">
+            Każde narzędzie którego używam — znam od środka. Poniżej certyfikaty potwierdzające kompetencje w obszarach AI, automatyzacji i budowania systemów.
+          </p>
+        </div>
+
+        <div className="cert-grid">
+          {certs.map((cert, index) => {
+            // Animacja stagger (opóźnienie)
+            const staggerDelay = `${index * 0.08}s`;
+
+            return (
+              <div 
+                key={index} 
+                className="cert-card"
+                style={{ transitionDelay: isVisible ? staggerDelay : '0s' }}
+              >
+                <div className="card-top">
+                  <div className="logo-placeholder">
+                    <span className="issuer-initials">{cert.issuer.charAt(0)}</span>
+                  </div>
+                  <div className="card-top-content">
+                    <span className="issuer-name">{cert.issuer}</span>
+                    <span className="card-title">{cert.title}</span>
+                  </div>
+                </div>
+                
+                <div className="card-divider" />
+                
+                <p className="card-desc">
+                  {cert.description}
+                </p>
+                
+                <div className="card-bottom">
+                  <span className="year-tag">{cert.year}</span>
+                  <span className="status-badge">AKTYWNY</span>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+};
