@@ -1,4 +1,4 @@
-import { Header } from '@/components/sections/Header';
+import { FloatingHeader } from '@/components/sections/FloatingHeader';
 import { Hero } from '@/components/sections/Hero';
 import { Challenge } from '@/components/sections/Challenge';
 import { Fomo } from '@/components/sections/Fomo';
@@ -21,7 +21,7 @@ import { Footer } from '@/components/sections/Footer';
 export default function Home() {
   return (
     <main className="min-h-screen bg-white dark:bg-dark-bg text-text-primary dark:text-white">
-      <Header />
+      <FloatingHeader />
       <Hero />
       <Challenge />
       <Fomo />
