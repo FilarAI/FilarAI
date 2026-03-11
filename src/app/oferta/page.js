@@ -1,7 +1,5 @@
 import { FloatingHeader } from '@/components/FloatingHeader';
 import { OfertaHero } from '@/components/sections/OfertaHero';
-import { ServicesOverview } from '@/components/sections/ServicesOverview';
-import { Automatyzacje } from '@/components/sections/Automatyzacje';
 
 export const metadata = {
     title: "Oferta - Filar AI",
@@ -14,10 +12,6 @@ export default function OfertaPage() {
             <FloatingHeader />
 
             <OfertaHero />
-
-            <ServicesOverview />
-
-            <Automatyzacje />
             
             {/* Future sections will be added here */}
         </main>
