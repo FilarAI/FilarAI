@@ -47,7 +47,7 @@ export function FloatingHeader() {
   }, []);
 
   const links = [
-    { label: 'Rozwiązania', href: '/oferta' },
+    { label: 'Oferta', href: '/oferta' },
     { label: 'Portfolio', href: '/portfolio' },
     { label: 'O nas', href: '/o-nas' },
   ];
