@@ -143,21 +143,29 @@ export function FloatingHeader() {
           z-index: 10;
         }
 
-        .ghost-btn {
+        .cta-btn {
           font-family: 'Outfit', sans-serif;
-          font-size: 15px;
+          font-size: 14px;
           font-weight: 600;
-          color: #F0EFEE;
+          color: #ffffff;
           text-decoration: none;
-          padding: 8px 16px;
+          padding: 10px 20px;
+          background: #D93025;
           border-radius: 8px;
-          transition: all 0.3s ease;
-          opacity: 0.8;
+          transition: all 0.2s ease;
+          box-shadow: 0 0 12px rgba(217, 48, 37, 0.2);
+          letter-spacing: -0.01em;
         }
 
-        .ghost-btn:hover {
-          opacity: 1;
-          color: #D93025;
+        .cta-btn:hover {
+          background: #A8201A;
+          box-shadow: 0 0 24px rgba(217, 48, 37, 0.3);
+          transform: translateY(-1px);
+        }
+
+        .cta-btn:active {
+          background: #7A1510;
+          transform: translateY(0);
         }
 
         /* Red gradient line */
@@ -210,8 +218,8 @@ export function FloatingHeader() {
 
           {/* Contact Button */}
           <div className="navbar-cta">
-            <Link href="/kontakt" className="ghost-btn">
-              Kontakt
+            <Link href="/kontakt" className="cta-btn">
+              Umów konsultację
             </Link>
           </div>
 
@@ -268,7 +276,7 @@ export function FloatingHeader() {
                 className="w-full bg-[#D93025] text-white font-bold py-4 rounded-xl flex items-center justify-center text-lg hover:bg-[#A8201A] transition-colors shadow-lg shadow-[#D93025]/20"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Kontakt
+                Umów konsultację
               </Link>
             </div>
           </div>
