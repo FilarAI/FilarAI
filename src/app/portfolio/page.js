@@ -3,7 +3,7 @@
 import React from 'react';
 import { FloatingHeader } from '@/components/FloatingHeader';
 import { PortfolioHero } from '@/components/sections/PortfolioHero';
-import { Portfolio } from '@/components/sections/Portfolio';
+import { ProjectsGrid } from '@/components/sections/ProjectsGrid';
 import { Testimonials } from '@/components/sections/Testimonials';
 import { FinalCTA } from '@/components/sections/FinalCTA';
 
@@ -14,8 +14,7 @@ export default function PortfolioPage() {
             
             <PortfolioHero />
             
-            {/* Main Portfolio Grid - Reusing the section component for consistency */}
-            <Portfolio />
+            <ProjectsGrid />
 
             <Testimonials />
 
