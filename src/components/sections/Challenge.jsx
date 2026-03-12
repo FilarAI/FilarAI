@@ -96,6 +96,7 @@ export const Challenge = () => {
 
     return (
         <section
+            id="challenge"
             ref={sectionRef}
             className={`challenge-section ${hasEntered ? 'is-visible' : ''}`}
         >

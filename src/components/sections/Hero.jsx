@@ -277,7 +277,7 @@ export const Hero = () => {
               Bezpłatna konsultacja
               <ArrowRight size={18} />
             </Link>
-            <a href="#oferta" className="btn btn-secondary">
+            <a href="#challenge" className="btn btn-secondary">
               Nasze rozwiązania
             </a>
           </div>
