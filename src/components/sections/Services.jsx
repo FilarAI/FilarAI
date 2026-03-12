@@ -379,7 +379,7 @@ export const Services = () => {
                 </div>
 
                 <div className="services-cta">
-                    <a href="#oferta" className="btn-primary">Poznaj ofertę dokładniej →</a>
+                    <Link href="/oferta" className="btn-primary">Poznaj ofertę dokładniej →</Link>
                     <Link href="/kontakt" className="btn-secondary">Umów się na konsultację</Link>
                 </div>
             </div>
