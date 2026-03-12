@@ -8,9 +8,33 @@ import React, { useEffect, useRef, useState } from 'react';
  */
 export const Portfolio = () => {
     const sectionRef = useRef(null);
+    const cardRefs = useRef([]);
     const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
+        const handleMove = (e) => {
+            cardRefs.current.forEach((element) => {
+                if (!element) return;
+                const { left, top, width, height } = element.getBoundingClientRect();
+                const mouseX = e.clientX;
+                const mouseY = e.clientY;
+                const center = [left + width * 0.5, top + height * 0.5];
+                const isActive =
+                    mouseX > left - 80 && mouseX < left + width + 80 &&
+                    mouseY > top - 80 && mouseY < top + height + 80;
+                element.style.setProperty("--active", isActive ? "1" : "0");
+                if (!isActive) return;
+                const currentAngle = parseFloat(element.style.getPropertyValue("--start")) || 0;
+                let targetAngle =
+                    (180 * Math.atan2(mouseY - center[1], mouseX - center[0])) / Math.PI + 90;
+                const angleDiff = ((targetAngle - currentAngle + 180) % 360) - 180;
+                const newAngle = currentAngle + angleDiff * 0.15;
+                element.style.setProperty("--start", String(newAngle));
+            });
+        };
+
+        document.body.addEventListener("pointermove", handleMove);
+
         const observer = new IntersectionObserver(
             ([entry]) => {
                 if (entry.isIntersecting) {
@@ -25,7 +49,10 @@ export const Portfolio = () => {
             observer.observe(sectionRef.current);
         }
 
-        return () => observer.disconnect();
+        return () => {
+            observer.disconnect();
+            document.body.removeEventListener("pointermove", handleMove);
+        };
     }, []);
 
     const projects = [
@@ -124,21 +151,77 @@ export const Portfolio = () => {
           gap: 24px;
         }
 
-        .portfolio-card {
-          background-color: var(--bg-2, #141414);
-          border: 1px solid var(--bg-4, #222222);
+        .portfolio-card-wrapper {
+          position: relative;
           border-radius: 12px;
+          overflow: visible;
+          --active: 0;
+          --start: 0;
+          width: 100%;
+          height: 100%;
+          min-height: 0;
+          opacity: 0;
+          transform: translateY(16px);
+          transition: transform 0.2s ease, opacity 0.4s ease;
+        }
+
+        .is-active .portfolio-card-wrapper {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        .portfolio-card-wrapper:hover {
+          transform: translateY(-2px);
+          transition: transform 0.2s ease !important;
+        }
+
+        .portfolio-card-wrapper:hover::before,
+        .portfolio-card-wrapper:hover .portfolio-card-glow {
+          transition-delay: 0s !important;
+        }
+
+        .portfolio-card-wrapper::before {
+          content: '';
+          position: absolute;
+          inset: 0;
+          border-radius: inherit;
+          border: 1px solid var(--bg-4, #222222);
+          pointer-events: none;
+          z-index: 2;
+          opacity: calc(1 - var(--active));
+          transition: opacity 0.4s ease;
+        }
+
+        .portfolio-card-glow {
+          position: absolute;
+          inset: -1px;
+          border-radius: inherit;
+          background: conic-gradient(
+            from calc((var(--start) - 45) * 1deg),
+            transparent 0deg,
+            var(--red, #D93025) 60deg,
+            var(--red-dim, #A8201A) 120deg,
+            transparent 180deg
+          );
+          opacity: var(--active);
+          transition: opacity 0.4s ease;
+          pointer-events: none;
+          z-index: 0;
+        }
+
+        .portfolio-card-inner {
+          position: relative;
+          z-index: 1;
+          background-color: var(--bg-2, #141414);
+          border-radius: 11px;
+          margin: 1px;
+          height: calc(100% - 2px);
+          border: none;
           overflow: hidden;
           display: flex;
           flex-direction: column;
           justify-content: space-between;
-          transition: all 0.2s ease;
-        }
-
-        .portfolio-card:hover {
-          border-color: var(--red, #D93025);
-          box-shadow: 0 0 12px rgba(217, 48, 37, 0.2);
-          transform: translateY(-1px);
+          box-sizing: border-box;
         }
 
         .image-area {
@@ -163,7 +246,7 @@ export const Portfolio = () => {
           transition: transform 0.4s ease;
         }
 
-        .portfolio-card:hover .project-image {
+        .portfolio-card-wrapper:hover .project-image {
           transform: scale(1.03);
         }
 
@@ -175,7 +258,7 @@ export const Portfolio = () => {
           transition: opacity 0.3s ease;
         }
 
-        .portfolio-card:hover .image-overlay {
+        .portfolio-card-wrapper:hover .image-overlay {
           opacity: 1;
         }
 
@@ -329,12 +412,6 @@ export const Portfolio = () => {
           transform: translateY(0);
         }
 
-        .is-active .portfolio-card {
-          opacity: 1;
-          transform: translateY(0);
-          transition: opacity 0.4s ease, transform 0.4s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
-        }
-
         .is-active .card-1 { transition-delay: 0s; }
         .is-active .card-2 { transition-delay: 0.1s; }
         .is-active .card-3 { transition-delay: 0.2s; }
@@ -359,42 +436,49 @@ export const Portfolio = () => {
 
                 <div className="portfolio-grid">
                     {projects.map((project, index) => (
-                        <div key={index} className={`portfolio-card card-${index + 1}`}>
-                            <div className="image-area">
-                                <span className="industry-tag">{project.tag}</span>
-                                {/* Placeholder for real images */}
-                                <div className="image-overlay"></div>
-                                <svg className="placeholder-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
-                                    <rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
-                                    <circle cx="9" cy="9" r="2" />
-                                    <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" />
-                                </svg>
-                            </div>
-
-                            <div className="card-content">
-                                <h3 className="project-card-title">{project.title}</h3>
-
-                                <div className="detail-line">
-                                    <span className="detail-label">PROBLEM</span>
-                                    <span className="detail-text">{project.problem}</span>
-                                </div>
-                                <div className="detail-line">
-                                    <span className="detail-label">ROZWIĄZANIE</span>
-                                    <span className="detail-text">{project.solution}</span>
-                                </div>
-                                <div className="detail-line">
-                                    <span className="detail-label">EFEKT</span>
-                                    <span className="detail-text">{project.effect}</span>
+                        <div 
+                            key={index} 
+                            ref={(el) => (cardRefs.current[index] = el)}
+                            className={`portfolio-card-wrapper card-${index + 1}`}
+                        >
+                            <div className="portfolio-card-glow" />
+                            <div className="portfolio-card-inner">
+                                <div className="image-area">
+                                    <span className="industry-tag">{project.tag}</span>
+                                    {/* Placeholder for real images */}
+                                    <div className="image-overlay"></div>
+                                    <svg className="placeholder-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
+                                        <rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
+                                        <circle cx="9" cy="9" r="2" />
+                                        <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" />
+                                    </svg>
                                 </div>
 
-                                <div className="card-divider" />
+                                <div className="card-content">
+                                    <h3 className="project-card-title">{project.title}</h3>
 
-                                <div className="result-block">
-                                    <span className="result-number">{project.number}</span>
-                                    <span className="result-label">{project.label}</span>
+                                    <div className="detail-line">
+                                        <span className="detail-label">PROBLEM</span>
+                                        <span className="detail-text">{project.problem}</span>
+                                    </div>
+                                    <div className="detail-line">
+                                        <span className="detail-label">ROZWIĄZANIE</span>
+                                        <span className="detail-text">{project.solution}</span>
+                                    </div>
+                                    <div className="detail-line">
+                                        <span className="detail-label">EFEKT</span>
+                                        <span className="detail-text">{project.effect}</span>
+                                    </div>
+
+                                    <div className="card-divider" />
+
+                                    <div className="result-block">
+                                        <span className="result-number">{project.number}</span>
+                                        <span className="result-label">{project.label}</span>
+                                    </div>
+
+                                    <a href={`/portfolio/${project.slug}`} className="card-footer-btn">Dowiedz się więcej →</a>
                                 </div>
-
-                                <a href={`/portfolio/${project.slug}`} className="card-footer-btn">Dowiedz się więcej →</a>
                             </div>
                         </div>
                     ))}
