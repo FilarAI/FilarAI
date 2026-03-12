@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useState } from 'react';
+import Link from 'next/link';
 import { Mail, MessageSquare, Calendar, Database, ArrowRight } from 'lucide-react';
 
 /**
@@ -261,10 +262,10 @@ export const Hero = () => {
             Projektujemy i wdrażamy zaawansowane systemy automatyzacji, które uwalniają Twój zespół od powtarzalnych zadań i skalują zyski.
           </p>
           <div className="hero-actions fade-up stagger-4">
-            <a href="#kontakt" className="btn btn-primary">
+            <Link href="/kontakt" className="btn btn-primary">
               Bezpłatna konsultacja
               <ArrowRight size={18} />
-            </a>
+            </Link>
             <a href="#oferta" className="btn btn-secondary">
               Nasze rozwiązania
             </a>

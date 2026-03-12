@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useRef, useState } from 'react';
+import Link from 'next/link';
 
 /**
  * FilarAI Final CTA Section
@@ -271,9 +272,9 @@ export const FinalCTA = () => {
                 </p>
 
                 <div className="stagger-item delay-3">
-                    <a href="#" className="cta-button">
+                    <Link href="/kontakt" className="cta-button">
                         Umów bezpłatną konsultację →
-                    </a>
+                    </Link>
                     <span className="cta-microcopy">
                         Odpiszę w ciągu 24h · Bez umów · Bez ukrytych kosztów
                     </span>

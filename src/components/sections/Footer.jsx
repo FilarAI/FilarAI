@@ -25,7 +25,7 @@ export const Footer = ({ hideCTA = false }) => {
                                 </p>
 
                                 <Button variant="primary" href="/kontakt" className="mb-12 py-4 px-8 text-lg">
-                                    Zaplanuj bezpłatną konsultację
+                                    Umów bezpłatną konsultację
                                 </Button>
 
                                 <div className="w-full max-w-2xl h-px bg-white dark:bg-dark-bg/10 mb-8" />

@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useRef, useState } from 'react';
+import Link from 'next/link';
 
 /**
  * FilarAI Services Section
@@ -379,7 +380,7 @@ export const Services = () => {
 
                 <div className="services-cta">
                     <a href="#oferta" className="btn-primary">Poznaj ofertę dokładniej →</a>
-                    <a href="#kontakt" className="btn-secondary">Umów się na konsultację</a>
+                    <Link href="/kontakt" className="btn-secondary">Umów się na konsultację</Link>
                 </div>
             </div>
         </section>

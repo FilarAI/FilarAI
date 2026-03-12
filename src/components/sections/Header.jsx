@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { Button } from '../ui/Button';
 import { ThemeToggle } from '../ui/ThemeToggle';
 
@@ -18,17 +19,17 @@ export const Header = () => {
         <header className="sticky top-0 z-50 bg-white dark:bg-dark-bg border-b border-gray-border dark:border-white/10 w-full transition-all duration-300">
             <div className="container-padding h-20 flex items-center justify-between">
                 {/* Logo */}
-                <a href="/" className="flex items-center gap-3">
+                <Link href="/" className="flex items-center gap-3">
                     <Image src="/logo.png" alt="Filar AI Logo" width={40} height={40} className="w-10 h-10 object-contain dark:invert transition-all duration-300" priority />
                     <span className="font-body font-bold text-text-primary dark:text-white text-xl">Filar AI</span>
-                </a>
+                </Link>
 
                 {/* Desktop Nav */}
                 <nav className="hidden md:flex items-center gap-8">
                     {links.map((link, idx) => (
-                        <a key={idx} href={link.href} className="font-body text-base font-medium text-text-primary dark:text-white hover:text-accent-500 transition-colors duration-300">
+                        <Link key={idx} href={link.href} className="font-body text-base font-medium text-text-primary dark:text-white hover:text-accent-500 transition-colors duration-300">
                             {link.label}
-                        </a>
+                        </Link>
                     ))}
                 </nav>
 
@@ -60,9 +61,9 @@ export const Header = () => {
                         <span className="font-body text-sm font-bold uppercase tracking-widest text-gray-text">Menu</span>
                     </div>
                     {links.map((link, idx) => (
-                        <a key={idx} href={link.href} className="font-body text-lg font-medium text-text-primary dark:text-white hover:text-accent-500">
+                        <Link key={idx} href={link.href} className="font-body text-lg font-medium text-text-primary dark:text-white hover:text-accent-500">
                             {link.label}
-                        </a>
+                        </Link>
                     ))}
                     <Button variant="primary" href="/kontakt" className="w-full">
                         Zaplanuj konsultację

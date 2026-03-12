@@ -1,7 +1,7 @@
 import { FloatingHeader } from '@/components/FloatingHeader';
 import { FinalCTA } from '@/components/sections/FinalCTA';
 import { ContactForm } from '@/components/sections/ContactForm';
-import { Mail, Phone, Instagram, Calendar, FileText, MessageCircle } from 'lucide-react';
+import { Mail, Phone, MessageCircle, Instagram } from 'lucide-react';
 
 export const metadata = {
     title: 'Kontakt | Filar AI',
@@ -9,129 +9,191 @@ export const metadata = {
 };
 
 export default function KontaktPage() {
+    const contactData = [
+        {
+            icon: <Mail size={24} />,
+            label: 'E-mail',
+            value: 'kacperfilarkontakt@gmail.com',
+            href: 'mailto:kacperfilarkontakt@gmail.com'
+        },
+        {
+            icon: <Phone size={24} />,
+            label: 'Telefon',
+            value: '+48 534 458 418',
+            href: 'tel:+48534458418'
+        },
+        {
+            icon: <MessageCircle size={24} />,
+            label: 'WhatsApp',
+            value: 'Szybka wiadomość',
+            href: 'https://wa.me/48534458418'
+        },
+        {
+            icon: <Instagram size={24} />,
+            label: 'Instagram',
+            value: '@kacperfilar_',
+            href: 'https://www.instagram.com/kacperfilar_/'
+        }
+    ];
+
     return (
-        <main className="min-h-screen bg-white dark:bg-dark-bg text-text-primary dark:text-white flex flex-col">
+        <main className="min-h-screen bg-[#080808] text-white flex flex-col font-body">
+            <style>{`
+                @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Outfit:wght@400;600&family=JetBrains+Mono:wght@500&display=swap');
+                
+                :root {
+                    --red: #D93025;
+                    --bg-dark: #080808;
+                    --bg-card: #121212;
+                    --text-gray: #9A9590;
+                }
+
+                .contact-hero {
+                    padding: 160px 24px 80px;
+                    text-align: center;
+                }
+
+                .label-mono {
+                    font-family: 'JetBrains Mono', monospace;
+                    font-size: 12px;
+                    font-weight: 500;
+                    text-transform: uppercase;
+                    letter-spacing: 0.2em;
+                    color: var(--red);
+                    display: block;
+                    margin-bottom: 24px;
+                }
+
+                .heading-syne {
+                    font-family: 'Syne', sans-serif;
+                    font-size: 48px;
+                    font-weight: 800;
+                    letter-spacing: -0.02em;
+                    line-height: 1.1;
+                    margin-bottom: 32px;
+                }
+
+                .description-outfit {
+                    font-family: 'Outfit', sans-serif;
+                    font-size: 18px;
+                    color: var(--text-gray);
+                    max-width: 640px;
+                    margin: 0 auto;
+                    line-height: 1.6;
+                }
+
+                .contact-grid {
+                    display: grid;
+                    grid-template-columns: repeat(4, 1fr);
+                    gap: 20px;
+                    max-width: 1200px;
+                    margin: 0 auto 120px;
+                    padding: 0 40px;
+                }
+
+                .contact-card {
+                    background: var(--bg-card);
+                    border: 1px solid #1A1A1A;
+                    border-radius: 16px;
+                    padding: 40px 24px;
+                    text-align: center;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    transition: all 0.3s ease;
+                    text-decoration: none;
+                }
+
+                .contact-card:hover {
+                    border-color: var(--red);
+                    transform: translateY(-4px);
+                    background: #181818;
+                }
+
+                .icon-circle {
+                    width: 56px;
+                    height: 56px;
+                    background: #000;
+                    border: 1px solid #222;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: var(--red);
+                    margin-bottom: 24px;
+                    transition: transform 0.3s ease;
+                }
+
+                .contact-card:hover .icon-circle {
+                    transform: scale(1.1);
+                    border-color: var(--red);
+                }
+
+                .card-label {
+                    font-family: 'Syne', sans-serif;
+                    font-size: 20px;
+                    font-weight: 700;
+                    color: #F0EFEE;
+                    margin-bottom: 8px;
+                }
+
+                .card-value {
+                    font-family: 'Outfit', sans-serif;
+                    font-size: 13px;
+                    color: #5A5550;
+                }
+
+                @media (max-width: 1024px) {
+                    .contact-grid {
+                        grid-template-columns: repeat(2, 1fr);
+                    }
+                    .heading-syne {
+                        font-size: 36px;
+                    }
+                }
+
+                @media (max-width: 640px) {
+                    .contact-grid {
+                        grid-template-columns: 1fr;
+                        padding: 0 24px;
+                    }
+                    .contact-hero {
+                        padding-top: 120px;
+                    }
+                }
+            `}</style>
+
             <FloatingHeader />
 
-            <section className="pt-20 md:pt-32 pb-16 md:pb-24 flex-grow">
-                <div className="container-padding max-w-5xl">
-                    {/* Header */}
-                    <div className="text-center mb-16 md:mb-24 opacity-0 animate-[fadeInUp_0.6s_ease-out_forwards]">
-                        <span className="text-accent-500 font-bold uppercase tracking-widest text-sm mb-4 block [letter-spacing:0.15em]">
-                            Porozmawiajmy
-                        </span>
-                        <h1 className="heading-serif text-h1 mb-6">Skontaktuj się z nami</h1>
-                        <p className="font-body text-text-secondary dark:text-gray-secondary text-xl max-w-2xl mx-auto leading-relaxed">
-                            Wybierz najwygodniejszą dla siebie formę kontaktu. Jesteśmy tu, aby odpowiedzieć na Twoje pytania i pomóc w optymalizacji Twojego biznesu.
-                        </p>
-                    </div>
-
-                    {/* Direct Contact Info */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-24 opacity-0 animate-[fadeInUp_0.6s_ease-out_0.2s_forwards]">
-                        {/* Email */}
-                        <a href="mailto:kacperfilarkontakt@gmail.com" className="flex flex-col items-center text-center p-6 bg-gray-light dark:bg-[#1A1A1A] rounded-xl border border-gray-border dark:border-white/10 hover:border-accent-500 dark:hover:border-accent-500 transition-colors group">
-                            <div className="w-14 h-14 bg-white dark:bg-dark-bg rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-subtle text-accent-500 border border-gray-border dark:border-white/10">
-                                <Mail size={24} />
-                            </div>
-                            <h3 className="font-bold text-lg mb-1">E-mail</h3>
-                            <p className="text-gray-text text-sm">kacperfilarkontakt@gmail.com</p>
-                        </a>
-
-                        {/* Phone */}
-                        <a href="tel:+48534458418" className="flex flex-col items-center text-center p-6 bg-gray-light dark:bg-[#1A1A1A] rounded-xl border border-gray-border dark:border-white/10 hover:border-accent-500 dark:hover:border-accent-500 transition-colors group">
-                            <div className="w-14 h-14 bg-white dark:bg-dark-bg rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-subtle text-accent-500 border border-gray-border dark:border-white/10">
-                                <Phone size={24} />
-                            </div>
-                            <h3 className="font-bold text-lg mb-1">Telefon</h3>
-                            <p className="text-gray-text text-sm">+48 534 458 418</p>
-                        </a>
-
-                        {/* WhatsApp */}
-                        <a href="https://wa.me/48534458418" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center text-center p-6 bg-gray-light dark:bg-[#1A1A1A] rounded-xl border border-gray-border dark:border-white/10 hover:border-accent-500 dark:hover:border-accent-500 transition-colors group">
-                            <div className="w-14 h-14 bg-white dark:bg-dark-bg rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-subtle text-accent-500 border border-gray-border dark:border-white/10">
-                                <MessageCircle size={24} />
-                            </div>
-                            <h3 className="font-bold text-lg mb-1">WhatsApp</h3>
-                            <p className="text-gray-text text-sm">Szybka wiadomość</p>
-                        </a>
-
-                        {/* Instagram */}
-                        <a href="https://www.instagram.com/kacperfilar_/" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center text-center p-6 bg-gray-light dark:bg-[#1A1A1A] rounded-xl border border-gray-border dark:border-white/10 hover:border-accent-500 dark:hover:border-accent-500 transition-colors group">
-                            <div className="w-14 h-14 bg-white dark:bg-dark-bg rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-subtle text-accent-500 border border-gray-border dark:border-white/10">
-                                <Instagram size={24} />
-                            </div>
-                            <h3 className="font-bold text-lg mb-1">Instagram</h3>
-                            <p className="text-gray-text text-sm">@kacperfilar_</p>
-                        </a>
-                    </div>
-
-                    {/* Action Cards */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 opacity-0 animate-[fadeInUp_0.6s_ease-out_0.4s_forwards]">
-                        {/* Form Card */}
-                        <div className="card-default group hover:border-accent-500 dark:hover:border-accent-500 flex flex-col h-full bg-white dark:bg-[#1A1A1A]">
-                            <div className="p-8 md:p-10 flex flex-col flex-grow items-start">
-                                <div className="w-16 h-16 bg-accent-50 dark:bg-accent-500/10 rounded-2xl flex items-center justify-center text-accent-500 mb-8 group-hover:scale-105 transition-transform">
-                                    <FileText size={32} />
-                                </div>
-                                <h3 className="heading-serif text-3xl font-bold mb-4">Wyślij zapytanie</h3>
-                                <p className="font-body text-text-secondary dark:text-gray-secondary text-lg leading-relaxed mb-6">
-                                    Opisz krótko swój projekt, wyzwanie lub problem za pomocą naszego formularza kontaktowego. Skontaktujemy się z Tobą najszybciej jak to możliwe z dopasowaną ofertą.
-                                </p>
-                                
-                                {/* pulsing status */}
-                                <div className="flex items-center gap-3 mb-8 px-4 py-2 bg-green-500/5 border border-green-500/10 rounded-lg">
-                                    <span className="relative flex h-2.5 w-2.5">
-                                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                                        <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500"></span>
-                                    </span>
-                                    <span className="font-mono text-[11px] uppercase tracking-wider text-green-600 dark:text-green-400 font-semibold">
-                                        Odpowiadam z ofertą do 24h
-                                    </span>
-                                </div>
-
-                                <a href="#formularz" className="btn-secondary w-full md:w-auto text-center mt-auto scroll-smooth">
-                                    Przejdź do formularza
-                                </a>
-                            </div>
-                        </div>
-
-                        {/* Calendar Card */}
-                        <div className="card-accent group flex flex-col h-full bg-gray-light dark:bg-[#1A1A1A] relative overflow-hidden">
-                            {/* Decorative element */}
-                            <div className="absolute right-0 top-0 w-64 h-64 bg-accent-500/10 rounded-full blur-3xl group-hover:bg-accent-500/20 transition-colors duration-700 pointer-events-none -translate-y-1/2 translate-x-1/3"></div>
-
-                            <div className="p-8 md:p-10 flex flex-col flex-grow items-start relative z-10">
-                                <div className="w-16 h-16 bg-accent-500 text-white rounded-2xl flex items-center justify-center mb-8 group-hover:scale-105 transition-transform shadow-medium">
-                                    <Calendar size={32} />
-                                </div>
-                                <h3 className="heading-serif text-3xl font-bold mb-4">Zarezerwuj spotkanie</h3>
-                                <p className="font-body text-text-secondary dark:text-gray-secondary text-lg leading-relaxed mb-8 flex-grow">
-                                    Wybierz dogodny dla siebie termin w naszym kalendarzu na szybką, 30-minutową i bezpłatną konsultację strategiczną online.
-                                </p>
-                                <a href="https://calendar.app.google/Pptg4M1BXR1kt58E8" target="_blank" rel="noopener noreferrer" className="btn-primary w-full md:w-auto text-center shadow-[0_0_20px_rgba(255,27,109,0.2)] group-hover:shadow-[0_0_30px_rgba(255,27,109,0.4)] mt-auto">
-                                    Wybierz termin
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Detailed Contact Form */}
-                    <div id="formularz" className="mt-24 pt-16 border-t border-gray-border dark:border-white/10 opacity-0 animate-[fadeInUp_0.6s_ease-out_0.6s_forwards] scroll-mt-24">
-                        <div className="max-w-3xl mx-auto bg-white dark:bg-dark-bg rounded-2xl p-8 md:p-12 shadow-xl relative border border-gray-border dark:border-white/10">
-                            {/* Glow accent */}
-                            <div className="absolute -inset-0.5 bg-gradient-to-br from-accent-500/20 to-transparent blur-xl -z-10 rounded-2xl"></div>
-
-                            <div className="text-center mb-10">
-                                <h3 className="heading-serif text-3xl font-bold mb-4">Opisz swój projekt</h3>
-                                <p className="font-body text-gray-text text-lg">Wypełnij poniższy formularz, a we wrócimy do Ciebie z konkretnymi rozwiązaniami.</p>
-                            </div>
-
-                            <ContactForm />
-                        </div>
-                    </div>
-
-                </div>
+            <section className="contact-hero animate-in fade-in slide-in-from-bottom-4 duration-1000">
+                <span className="label-mono">POROZMAWIAJMY</span>
+                <h1 className="heading-syne">Skontaktuj się z nami</h1>
+                <p className="description-outfit">
+                    Wybierz najwygodniejszą dla siebie formę kontaktu. Jesteśmy tu, aby odpowiedzieć na Twoje pytania i pomóc w optymalizacji Twojego biznesu.
+                </p>
             </section>
+
+            <section className="contact-grid">
+                {contactData.map((item, idx) => (
+                    <a key={idx} href={item.href} className="contact-card group animate-in fade-in slide-in-from-bottom-8 duration-700" style={{ animationDelay: `${idx * 150}ms` }}>
+                        <div className="icon-circle">
+                            {item.icon}
+                        </div>
+                        <h3 className="card-label">{item.label}</h3>
+                        <p className="card-value">{item.value}</p>
+                    </a>
+                ))}
+            </section>
+
+            <div className="max-w-4xl mx-auto w-full px-10 mb-24 animate-in fade-in slide-in-from-bottom-10 duration-1000">
+                <div className="bg-[#0A0A0A] p-10 md:p-16 rounded-[32px] border border-[#1A1A1A]">
+                    <div className="text-center mb-12">
+                        <h2 className="heading-syne text-3xl mb-4">Opisz swój projekt</h2>
+                        <p className="description-outfit text-base">Wypełnij formularz — wrócimy do Ciebie w ciągu 24h.</p>
+                    </div>
+                    <ContactForm />
+                </div>
+            </div>
 
             <FinalCTA />
         </main>

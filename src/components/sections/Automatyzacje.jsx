@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useRef, useState } from 'react';
+import Link from 'next/link';
 
 /**
  * Automatyzacje Section - FilarAI
@@ -404,14 +405,12 @@ export const Automatyzacje = () => {
                         </div>
 
                         <div className="cta-row stagger-item delay-cta">
-                            <a 
-                                href="https://calendar.app.google/BtxhP1NN7bvTtwX57" 
-                                target="_blank" 
-                                rel="noopener noreferrer" 
+                            <Link 
+                                href="/kontakt" 
                                 className="cta-btn-primary"
                             >
                                 Porozmawiaj o automatyzacji →
-                            </a>
+                            </Link>
                             <span className="cta-hint">Bezpłatna konsultacja 30 min</span>
                         </div>
                     </div>

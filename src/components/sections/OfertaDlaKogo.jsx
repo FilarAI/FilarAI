@@ -315,7 +315,7 @@ export const OfertaDlaKogo = () => {
                         <h3 className="dk-bottom-h3">Nie jesteś pewny czy to dla Ciebie?</h3>
                         <p className="dk-bottom-p">Umów bezpłatną konsultację — po 30 minutach oboje będziemy wiedzieć czy warto iść dalej.</p>
                     </div>
-                    <a href="https://calendar.app.google/BtxhP1NN7bvTtwX57" target="_blank" rel="noopener noreferrer" className="dk-btn-primary">
+                    <a href="/kontakt" className="dk-btn-primary">
                         Sprawdź czy pasujemy →
                     </a>
                 </div>

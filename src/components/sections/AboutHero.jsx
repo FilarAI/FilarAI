@@ -322,7 +322,7 @@ export const AboutHero = () => {
             <Link href="/kontakt" className="btn-primary">
               Porozmawiajmy →
             </Link>
-            <Link href="/portfolio" className="btn-secondary">
+            <Link href="/kontakt" className="btn-secondary">
               Zobacz realizacje
             </Link>
           </div>

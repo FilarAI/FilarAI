@@ -52,7 +52,7 @@ export const ServicesTabs = () => {
             cta: {
                 text: "Chcesz wiedzieć które procesy w Twojej firmie można zautomatyzować?",
                 button: "Porozmawiaj o automatyzacji →",
-                href: "https://calendar.app.google/BtxhP1NN7bvTtwX57"
+                href: "/kontakt"
             }
         },
         {
@@ -75,7 +75,7 @@ export const ServicesTabs = () => {
             cta: {
                 text: "Masz pomysł na narzędzie które rozwiązałoby problem w Twojej firmie?",
                 button: "Omów swój pomysł →",
-                href: "https://calendar.app.google/BtxhP1NN7bvTtwX57"
+                href: "/kontakt"
             }
         },
         {
@@ -97,7 +97,7 @@ export const ServicesTabs = () => {
             cta: {
                 text: "Chcesz stronę która pracuje na Twój biznes przez całą dobę?",
                 button: "Porozmawiaj o stronie →",
-                href: "https://calendar.app.google/BtxhP1NN7bvTtwX57"
+                href: "/kontakt"
             }
         },
         {
@@ -119,7 +119,7 @@ export const ServicesTabs = () => {
             cta: {
                 text: "Nie wiesz od czego zacząć z AI w swojej firmie?",
                 button: "Zamów audyt AI →",
-                href: "https://calendar.app.google/BtxhP1NN7bvTtwX57"
+                href: "/kontakt"
             }
         }
     ];
