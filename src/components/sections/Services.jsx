@@ -9,9 +9,33 @@ import Link from 'next/link';
  */
 export const Services = () => {
     const sectionRef = useRef(null);
+    const cardRefs = useRef([]);
     const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
+        const handleMove = (e) => {
+            cardRefs.current.forEach((element) => {
+                if (!element) return;
+                const { left, top, width, height } = element.getBoundingClientRect();
+                const mouseX = e.clientX;
+                const mouseY = e.clientY;
+                const center = [left + width * 0.5, top + height * 0.5];
+                const isActive =
+                    mouseX > left - 80 && mouseX < left + width + 80 &&
+                    mouseY > top - 80 && mouseY < top + height + 80;
+                element.style.setProperty("--active", isActive ? "1" : "0");
+                if (!isActive) return;
+                const currentAngle = parseFloat(element.style.getPropertyValue("--start")) || 0;
+                let targetAngle =
+                    (180 * Math.atan2(mouseY - center[1], mouseX - center[0])) / Math.PI + 90;
+                const angleDiff = ((targetAngle - currentAngle + 180) % 360) - 180;
+                const newAngle = currentAngle + angleDiff * 0.15;
+                element.style.setProperty("--start", String(newAngle));
+            });
+        };
+
+        document.body.addEventListener("pointermove", handleMove);
+
         const observer = new IntersectionObserver(
             ([entry]) => {
                 if (entry.isIntersecting) {
@@ -26,7 +50,10 @@ export const Services = () => {
             observer.observe(sectionRef.current);
         }
 
-        return () => observer.disconnect();
+        return () => {
+            observer.disconnect();
+            document.body.removeEventListener("pointermove", handleMove);
+        };
     }, []);
 
     const serviceCards = [
@@ -102,8 +129,7 @@ export const Services = () => {
     return (
         <section
             ref={sectionRef}
-            className="relative w-full bg-[var(--bg-1)] py-[96px] overflow-hidden"
-            style={{ '--bg-1': '#0F0F0F' }}
+            className="relative w-full bg-[#0F0F0F] py-[96px] overflow-hidden"
         >
             <style>{`
         .services-container {
@@ -117,40 +143,46 @@ export const Services = () => {
         }
 
         .section-label {
-          font-family: var(--font-mono, 'JetBrains Mono', monospace);
+          font-family: 'JetBrains Mono', monospace;
           font-size: 11px;
           text-transform: uppercase;
           letter-spacing: 0.12em;
-          color: var(--text-3, #5A5550);
+          color: #5A5550;
           display: block;
           margin-bottom: 12px;
           transition: opacity 0.4s ease, transform 0.4s ease;
+          opacity: 0;
+          transform: translateY(12px);
         }
 
         .services-title {
-          font-family: var(--font-display, 'Syne', sans-serif);
+          font-family: 'Syne', sans-serif;
           font-size: clamp(32px, 5vw, 42px);
           font-weight: 700;
           letter-spacing: -0.02em;
-          color: var(--text-1, #F0EFEE);
+          color: #F0EFEE;
           line-height: 1.1;
           transition: opacity 0.4s ease, transform 0.4s ease;
           transition-delay: 0.1s;
+          opacity: 0;
+          transform: translateY(12px);
         }
 
         .services-title span.accent {
-          color: var(--red, #D93025);
+          color: #D93025;
         }
 
         .services-subtitle {
-          font-family: var(--font-body, 'Outfit', sans-serif);
+          font-family: 'Outfit', sans-serif;
           font-size: 17px;
-          color: var(--text-2, #9A9590);
+          color: #9A9590;
           max-width: 520px;
           margin-top: 16px;
           line-height: 1.75;
           transition: opacity 0.4s ease, transform 0.4s ease;
           transition-delay: 0.2s;
+          opacity: 0;
+          transform: translateY(12px);
         }
 
         .services-grid {
@@ -159,55 +191,108 @@ export const Services = () => {
           gap: 24px;
         }
 
-        .service-card {
-          background-color: var(--bg-2, #141414);
-          border: 1px solid var(--bg-4, #222222);
+        .service-card-wrapper {
+          position: relative;
           border-radius: 12px;
-          padding: 32px;
-          display: flex;
-          flex-direction: column;
-          transition: all 0.2s ease;
+          --active: 0;
+          --start: 0;
+          width: 100%;
+          opacity: 0;
+          transform: translateY(12px);
+          transition: transform 0.3s ease, opacity 0.4s ease;
         }
 
-        .service-card:hover {
-          border-color: var(--red, #D93025);
-          box-shadow: 0 0 12px rgba(217, 48, 37, 0.2);
-          transform: translateY(-1px);
+        .is-active .service-card-wrapper {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        .service-card-wrapper:hover {
+          transform: translateY(-2px);
+          transition: transform 0.2s ease !important;
+        }
+
+        .service-card-wrapper:hover::before,
+        .service-card-wrapper:hover .service-card-glow {
+          transition-delay: 0s !important;
+        }
+
+        .service-card-glow {
+          position: absolute;
+          inset: -1px;
+          border-radius: inherit;
+          background: conic-gradient(
+            from calc((var(--start) - 45) * 1deg),
+            transparent 0deg,
+            #D93025 60deg,
+            #A8201A 120deg,
+            transparent 180deg
+          );
+          opacity: var(--active);
+          transition: opacity 0.4s ease;
+          pointer-events: none;
+          z-index: 0;
+        }
+
+        .service-card-inner {
+          position: relative;
+          z-index: 1;
+          background: #141414;
+          border-radius: 11px;
+          margin: 1px;
+          height: calc(100% - 2px);
+          box-sizing: border-box;
+          padding: 32px;
+          overflow: hidden;
+          display: flex;
+          flex-direction: column;
+        }
+
+        .service-card-wrapper::before {
+          content: '';
+          position: absolute;
+          inset: 0;
+          border-radius: inherit;
+          border: 1px solid #222222;
+          pointer-events: none;
+          z-index: 2;
+          opacity: calc(1 - var(--active));
+          transition: opacity 0.4s ease;
         }
 
         .icon-box {
           width: 48px;
           height: 48px;
-          background-color: var(--red-subtle, rgba(217, 48, 37, 0.08));
-          border: 1px solid var(--red-border, rgba(217, 48, 37, 0.25));
+          background-color: rgba(217, 48, 37, 0.08);
+          border: 1px solid rgba(217, 48, 37, 0.25);
           border-radius: 8px;
           display: flex;
           align-items: center;
           justify-content: center;
-          color: var(--red, #D93025);
+          color: #D93025;
         }
 
         .card-title {
-          font-family: var(--font-display, 'Syne', sans-serif);
+          font-family: 'Syne', sans-serif;
           font-size: 22px;
           font-weight: 600;
           letter-spacing: -0.01em;
-          color: var(--text-1, #F0EFEE);
+          color: #F0EFEE;
           margin-top: 20px;
         }
 
         .card-description {
-          font-family: var(--font-body, 'Outfit', sans-serif);
+          font-family: 'Outfit', sans-serif;
           font-size: 15px;
           line-height: 1.75;
-          color: var(--text-2, #9A9590);
+          color: #9A9590;
           margin-top: 10px;
           flex-grow: 1;
         }
 
         .card-divider {
           height: 1px;
-          background-color: var(--bg-4, #222222);
+          background-color: #222222;
           margin: 20px 0;
         }
 
@@ -224,38 +309,38 @@ export const Services = () => {
         }
 
         .example-prefix {
-          font-family: var(--font-mono, 'JetBrains Mono', monospace);
+          font-family: 'JetBrains Mono', monospace;
           font-size: 12px;
-          color: var(--red, #D93025);
+          color: #D93025;
           flex-shrink: 0;
         }
 
         .example-text {
-          font-family: var(--font-body, 'Outfit', sans-serif);
+          font-family: 'Outfit', sans-serif;
           font-size: 14px;
           font-weight: 500;
-          color: var(--text-1, #F0EFEE);
+          color: #F0EFEE;
         }
 
         .card-btn {
           margin-top: 24px;
           align-self: flex-start;
           background: transparent;
-          border: 1px solid var(--bg-4, #222222);
+          border: 1px solid #222222;
           border-radius: 8px;
           padding: 10px 20px;
-          font-family: var(--font-body, 'Outfit', sans-serif);
+          font-family: 'Outfit', sans-serif;
           font-size: 14px;
           font-weight: 600;
-          color: var(--text-2, #9A9590);
+          color: #9A9590;
           cursor: pointer;
           transition: all 0.15s ease;
           text-decoration: none;
         }
 
         .card-btn:hover {
-          border-color: var(--red, #D93025);
-          color: var(--red, #D93025);
+          border-color: #D93025;
+          color: #D93025;
         }
 
         .services-cta {
@@ -270,9 +355,9 @@ export const Services = () => {
         }
 
         .btn-primary {
-          background-color: var(--red, #D93025);
+          background-color: #D93025;
           color: #FFFFFF;
-          font-family: var(--font-body, 'Outfit', sans-serif);
+          font-family: 'Outfit', sans-serif;
           font-size: 14px;
           font-weight: 600;
           padding: 11px 22px;
@@ -284,15 +369,15 @@ export const Services = () => {
         }
 
         .btn-primary:hover {
-          background-color: var(--red-dim, #A8201A);
+          background-color: #A8201A;
           box-shadow: 0 0 24px rgba(217, 48, 37, 0.3);
         }
 
         .btn-secondary {
           background-color: transparent;
-          border: 1px solid var(--bg-4, #222222);
-          color: var(--text-1, #F0EFEE);
-          font-family: var(--font-body, 'Outfit', sans-serif);
+          border: 1px solid #222222;
+          color: #F0EFEE;
+          font-family: 'Outfit', sans-serif;
           font-size: 14px;
           font-weight: 600;
           padding: 11px 22px;
@@ -303,8 +388,8 @@ export const Services = () => {
         }
 
         .btn-secondary:hover {
-          border-color: var(--red, #D93025);
-          color: var(--red, #D93025);
+          border-color: #D93025;
+          color: #D93025;
         }
 
         /* Animation Triggered States */
@@ -314,12 +399,6 @@ export const Services = () => {
         .is-active .services-cta {
           opacity: 1;
           transform: translateY(0);
-        }
-
-        .is-active .service-card {
-          opacity: 1;
-          transform: translateY(0);
-          transition: opacity 0.4s ease, transform 0.4s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
         }
 
         .is-active .card-1 { transition-delay: 0.1s; }
@@ -355,25 +434,32 @@ export const Services = () => {
 
                 <div className="services-grid">
                     {serviceCards.map((card, index) => (
-                        <div key={index} className={`service-card card-${index + 1}`}>
-                            <div className="icon-box">
-                                {card.icon}
+                        <div 
+                            key={index} 
+                            ref={(el) => (cardRefs.current[index] = el)}
+                            className={`service-card-wrapper card-${index + 1}`}
+                        >
+                            <div className="service-card-glow" />
+                            <div className="service-card-inner">
+                                <div className="icon-box">
+                                    {card.icon}
+                                </div>
+                                <h3 className="card-title">{card.title}</h3>
+                                <p className="card-description">{card.description}</p>
+
+                                <div className="card-divider" />
+
+                                <div className="examples-list">
+                                    {card.examples.map((example, i) => (
+                                        <div key={i} className="example-item">
+                                            <span className="example-prefix">—</span>
+                                            <span className="example-text">{example}</span>
+                                        </div>
+                                    ))}
+                                </div>
+
+                                <a href="#oferta" className="card-btn">Poznaj lepiej ofertę →</a>
                             </div>
-                            <h3 className="card-title">{card.title}</h3>
-                            <p className="card-description">{card.description}</p>
-
-                            <div className="card-divider" />
-
-                            <div className="examples-list">
-                                {card.examples.map((example, i) => (
-                                    <div key={i} className="example-item">
-                                        <span className="example-prefix">—</span>
-                                        <span className="example-text">{example}</span>
-                                    </div>
-                                ))}
-                            </div>
-
-                            <a href="#oferta" className="card-btn">Poznaj lepiej ofertę →</a>
                         </div>
                     ))}
                 </div>
