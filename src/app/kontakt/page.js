@@ -282,40 +282,46 @@ export default function KontaktPage() {
                 ))}
             </section>
 
-            <section className="max-w-[1200px] mx-auto px-10 mb-20 grid grid-cols-1 md:grid-cols-2 gap-8 animate-in fade-in slide-in-from-bottom-10 duration-1000">
+            <div className="container-padding mb-24 grid grid-cols-1 md:grid-cols-2 gap-8 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
                 {/* Form Card */}
-                <div className="action-card group">
-                    <div className="icon-box">
+                <div className="bg-[#121212] border border-[#1A1A1A] rounded-[24px] p-8 md:p-12 flex flex-col items-start hover:border-[#222] transition-all group shadow-subtle">
+                    <div className="w-16 h-16 bg-[#000] border border-[#222] rounded-2xl flex items-center justify-center text-[#D93025] mb-8 group-hover:scale-105 transition-transform">
                         <FileText size={32} />
                     </div>
-                    <h3 className="card-label">Wyślij zapytanie</h3>
-                    <p className="card-description">
-                        Opisz swój projekt w formularzu. Wrócimy do Ciebie w ciągu 24h z konkretnym rozwiązaniem i wyceną.
+                    <h3 className="heading-syne text-2xl mb-4 text-white">Wyślij zapytanie</h3>
+                    <p className="description-outfit text-base mb-10 text-left">
+                        Opisz swój projekt w formularzu — wrócimy do Ciebie w ciągu 24h z konkretnym rozwiązaniem i wyceną.
                     </p>
                     <button 
                         onClick={() => document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth' })}
-                        className="action-btn-secondary"
+                        className="btn-secondary w-full sm:w-auto"
                     >
                         Przejdź do formularza
                     </button>
                 </div>
 
                 {/* Calendar Card */}
-                <div className="action-card group accent">
-                    <div className="icon-box">
+                <div className="bg-[#121212] border-2 border-[#D93025] rounded-[24px] p-8 md:p-12 flex flex-col items-start transition-all group relative overflow-hidden shadow-hover">
+                    <div className="absolute right-0 top-0 w-48 h-48 bg-[#D93025]/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+                    <div className="w-16 h-16 bg-[#000] border border-[#D93025]/50 rounded-2xl flex items-center justify-center text-[#D93025] mb-8 group-hover:scale-105 transition-transform relative z-10">
                         <Calendar size={32} />
                     </div>
-                    <h3 className="card-label">Zarezerwuj spotkanie</h3>
-                    <p className="card-description">
-                        Wybierz dogodny termin na 30-minutową, bezpłatną konsultację strategiczną online.
+                    <h3 className="heading-syne text-2xl mb-4 text-white relative z-10">Zarezerwuj spotkanie</h3>
+                    <p className="description-outfit text-base mb-10 text-left relative z-10">
+                        Wybierz dogodny termin na 30-minutową, bezpłatną konsultację strategiczną online w naszym kalendarzu.
                     </p>
-                    <a href="https://calendar.app.google/oxdocXuk5a2ohKZf9" target="_blank" rel="noopener noreferrer" className="action-btn-primary">
+                    <a 
+                        href="https://calendar.app.google/oxdocXuk5a2ohKZf9" 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="btn-primary w-full sm:w-auto relative z-10"
+                    >
                         Wybierz termin
                     </a>
                 </div>
-            </section>
+            </div>
 
-            <div id="contact-form" className="max-w-4xl mx-auto w-full px-10 mb-24 animate-in fade-in slide-in-from-bottom-12 duration-1000">
+            <div id="contact-form" className="max-w-4xl mx-auto w-full px-10 mb-24 animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
                 <div className="bg-[#0A0A0A] p-10 md:p-16 rounded-[32px] border border-[#1A1A1A]">
                     <div className="text-center mb-12">
                         <h2 className="heading-syne text-3xl mb-4">Opisz swój projekt</h2>
