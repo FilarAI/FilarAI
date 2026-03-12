@@ -8,8 +8,9 @@ export async function generateStaticParams() {
     }));
 }
 
-export function generateMetadata({ params }) {
-    const project = projects.find((p) => p.slug === params.slug);
+export async function generateMetadata({ params }) {
+    const { slug } = await params;
+    const project = projects.find((p) => p.slug === slug);
 
     if (!project) return { title: 'Projekt nie znaleziony - Filar AI' };
 
@@ -19,8 +20,9 @@ export function generateMetadata({ params }) {
     };
 }
 
-export default function Page({ params }) {
-    const project = projects.find((p) => p.slug === params.slug);
+export default async function Page({ params }) {
+    const { slug } = await params;
+    const project = projects.find((p) => p.slug === slug);
 
     if (!project) {
         notFound();
