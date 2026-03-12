@@ -69,9 +69,10 @@ export function FloatingHeader() {
         }
 
         .navbar-container.scrolled {
-          background: rgba(8, 8, 8, 0.95);
+          background: rgba(20, 20, 20, 0.97);
           backdrop-filter: blur(16px);
-          border-bottom: 1px solid #222222;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04), 0 1px 24px rgba(0, 0, 0, 0.6);
         }
 
         .navbar-inner {
@@ -99,6 +100,13 @@ export function FloatingHeader() {
           font-weight: 800;
           color: #F0EFEE;
           letter-spacing: -0.02em;
+          transition: font-size 0.3s ease;
+        }
+
+        @media (min-width: 769px) {
+          .logo-text {
+            font-size: 22px;
+          }
         }
 
         .navbar-links {
@@ -112,30 +120,34 @@ export function FloatingHeader() {
 
         .nav-link {
           font-family: 'Outfit', sans-serif;
-          font-size: 15px;
-          font-weight: 400;
-          color: #9A9590;
+          font-size: 16px;
+          font-weight: 500;
+          color: var(--text-1);
           text-decoration: none;
-          transition: color 0.3s ease;
+          transition: all 0.3s ease;
           position: relative;
           padding: 4px 0;
         }
 
         .nav-link:hover {
           color: #F0EFEE;
+          opacity: 0.8;
         }
 
         .nav-link.active {
           color: #F0EFEE;
+          font-weight: 600;
         }
 
         .nav-link.active::after {
           content: '';
           position: absolute;
-          bottom: -2px;
-          left: 0;
-          width: 100%;
-          height: 1px;
+          bottom: -8px;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 4px;
+          height: 4px;
+          border-radius: 50%;
           background-color: #D93025;
         }
 
@@ -147,24 +159,23 @@ export function FloatingHeader() {
           font-family: 'Outfit', sans-serif;
           font-size: 14px;
           font-weight: 600;
-          color: #ffffff;
+          color: var(--text-1);
           text-decoration: none;
-          padding: 10px 20px;
-          background: #D93025;
+          padding: 10px 22px;
+          background: transparent;
+          border: 1px solid rgba(255, 255, 255, 0.15);
           border-radius: 8px;
           transition: all 0.2s ease;
-          box-shadow: 0 0 12px rgba(217, 48, 37, 0.2);
-          letter-spacing: -0.01em;
         }
 
         .cta-btn:hover {
-          background: #A8201A;
-          box-shadow: 0 0 24px rgba(217, 48, 37, 0.3);
+          border-color: #D93025;
+          color: #D93025;
+          background: rgba(217, 48, 37, 0.05);
           transform: translateY(-1px);
         }
 
         .cta-btn:active {
-          background: #7A1510;
           transform: translateY(0);
         }
 
