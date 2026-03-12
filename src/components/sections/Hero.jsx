@@ -16,7 +16,7 @@ export const Hero = () => {
   }, []);
 
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden bg-[#080808]" style={{ '--bg-0': '#080808' }}>
+    <section id="hero" className="relative min-h-screen flex items-center overflow-hidden bg-[#080808]" style={{ '--bg-0': '#080808' }}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Syne:wght@800&family=Outfit:wght@400;600&family=JetBrains+Mono:wght@500&display=swap');
 

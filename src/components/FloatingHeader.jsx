@@ -198,7 +198,7 @@ export function FloatingHeader() {
       <header className={`navbar-container ${isScrolled ? 'scrolled' : ''}`}>
         <div className="navbar-inner">
           {/* Logo */}
-          <Link href="/" className="navbar-logo">
+          <Link href="/#hero" className="navbar-logo">
             <Grid2x2Plus size={22} color="#D93025" strokeWidth={2.5} />
             <span className="logo-text">FilarAI</span>
           </Link>
@@ -248,7 +248,7 @@ export function FloatingHeader() {
         <SheetContent>
           <div className="flex flex-col h-full pt-12">
             <Link 
-              href="/" 
+              href="/#hero" 
               className="flex items-center gap-3 mb-12"
               onClick={() => setIsMenuOpen(false)}
             >
