@@ -30,6 +30,7 @@ export const Portfolio = () => {
 
     const projects = [
         {
+            slug: "faktury-ai",
             tag: "Biuro rachunkowe",
             title: "System faktur AI",
             problem: "Faktury zapisywane ręcznie ze skanów — chaos i ryzyko zgubienia",
@@ -40,6 +41,7 @@ export const Portfolio = () => {
             dataSrc: "portfolio/faktury.jpg"
         },
         {
+            slug: "dashboard-zapasow",
             tag: "Zarządzanie",
             title: "Dashboard zapasów",
             problem: "Zarządzanie zapasami w Excelu — błędy i brak dostępu mobilnego",
@@ -50,6 +52,7 @@ export const Portfolio = () => {
             dataSrc: "portfolio/dashboard.jpg"
         },
         {
+            slug: "rag-agent",
             tag: "HR / Onboarding",
             title: "RAG Agent firmowy",
             problem: "Pytania do managera kilkanaście razy dziennie zaburzały jego pracę",
@@ -391,7 +394,7 @@ export const Portfolio = () => {
                                     <span className="result-label">{project.label}</span>
                                 </div>
 
-                                <a href={`/portfolio/${index + 1}`} className="card-footer-btn">Dowiedz się więcej →</a>
+                                <a href={`/portfolio/${project.slug}`} className="card-footer-btn">Dowiedz się więcej →</a>
                             </div>
                         </div>
                     ))}

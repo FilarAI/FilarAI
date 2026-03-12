@@ -1,104 +1,203 @@
-export const projectsData = [
-    {
-        id: "crm-ai",
-        title: "System CRM z AI",
-        category: "Agentic Workflow",
-        imgPlaceholder: "CRM",
-        shortDesc: "Inteligentny system zarządzania relacjami z klientami wspierany przez agentów AI, eliminujący rutynę u handlowców.",
-        details: {
-            problem: "Zespół handlowy spędzał 15 godzin tygodniowo na przepisywaniu notatek ze spotkań do systemu CRM i ręcznym śledzeniu follow-upów. Dane były często niekompletne, co utrudniało precyzyjne prognozowanie sprzedaży.",
-            solution: "Wdrożyliśmy asystenta opartego na Agentic Workflow (Make.com + OpenAI), który automatycznie transkrybuje spotkania przesyłane na zintegrowany serwer, ekstrahuje kluczowe dane (budżet, decydenci) i sam uzupełnia rekordy w CRM. Dodatkowo system proponuje treść maili po spotkaniu.",
-            effects: "Zaoszczędzono 12 godzin pracy każdego handlowca w miesiącu. Kompletność danych w CRM wzrosła o 80%, a czas reakcji na zapytania ofertowe spadł z 2 dni do 4 godzin."
-        },
-        metrics: [
-            { label: "Oszczędność czasu", value: "12h/mc" },
-            { label: "Wzrost kompletności", value: "80%" },
-            { label: "Szybsze reakcje", value: "90%" }
-        ]
+export const projects = [
+  {
+    slug: 'faktury-ai',
+    title: 'System faktur AI',
+    highlightWord: 'faktur',
+    industry: 'Biuro rachunkowe',
+    category: 'Automatyzacje',
+    image: 'portfolio/faktury.jpg',
+    intro: 'Klient zapisywał faktury ręcznie wysyłając skany e-mailem. Brak porządku, brak szybkiego dostępu, ryzyko zgubienia dokumentów.',
+    result: { number: '−3h', label: 'DZIENNIE', descriptor: 'zaoszczędzonego czasu' },
+    problem: {
+      lead: 'Ręczne zarządzanie fakturami pochłaniało kilka godzin dziennie i generowało ryzyko błędów.',
+      bullets: [
+        'Faktury przychodziły jako skany e-mailem i były przepisywane ręcznie do systemu',
+        'Brak centralnej bazy dokumentów — faktury gubione lub trudne do odnalezienia',
+        'Zero automatycznych potwierdzeń — klient nie wiedział czy faktura dotarła'
+      ]
     },
-    {
-        id: "auto-cal",
-        title: "Automatyczny Kalendarz",
-        category: "Automatyzacja",
-        imgPlaceholder: "KAL",
-        shortDesc: "Zrobotyzowany asystent planowania zmniejszający odsetek zapomnianych spotkań o 40%.",
-        details: {
-            problem: "Aż 30% umówionych spotkań B2B kończyło się 'no-show', co generowało ogromne straty czasu dla zespołu sprzedaży i konsultantów.",
-            solution: "Zintegrowaliśmy Calendly, system e-mail i bramkę SMS. Wykorzystując automatyzację, stworzyliśmy system, który wysyła spersonalizowane przypomnienia z 24-godzinnym wyprzedzeniem (mailem i SMS-em) oraz automatycznie zarządza ewentualnym przełożeniem terminu na żądanie strony klienta bez ingerencji handlowca.",
-            effects: "Wskaźnik no-show spadł z 30% do zaledwie 5%. Efektywność kalendarza spotkań osiągnęła historyczne maksimum, przekładając się na 15% wzrost domykalności leadów."
-        },
-        metrics: [
-            { label: "Redukcja No-Show", value: "83%" },
-            { label: "Wzrost sprzedaży", value: "15%" },
-            { label: "Zaangażowanie", value: "100%" }
-        ]
+    solution: {
+      description: 'System OCR + AI który wyciąga dane z faktury po zrobieniu zdjęcia, zapisuje je do bazy danych, wysyła potwierdzenia i umożliwia szybkie tworzenie nowych faktur.',
+      hasFlowDiagram: true,
+      flowSteps: ['Zdjęcie faktury', 'OCR — wyciąganie danych', 'AI — weryfikacja i kategoryzacja', 'Zapis do bazy danych', 'Potwierdzenie e-mail']
     },
-    {
-        id: "med-app",
-        title: "Aplikacja dla Gabinetu",
-        category: "Web Apps",
-        imgPlaceholder: "APP",
-        shortDesc: "Dedykowana platforma do rejestracji pacjentów online 24/7 połączona z obiegiem dokumentacji elektronicznej.",
-        details: {
-            problem: "Placówka medyczna tonęła w papierowej dokumentacji, a po godzinach pracy gabinetu pacjenci nie mieli możliwości rezerwacji wizyt, co skutkowało odejściem potencjalnych klientów do konkurencji.",
-            solution: "Zbudowaliśmy customową aplikację (React + Next.js), która pełni rolę portalu pacjenta. Oferuje wirtualny kalendarz integracyjny z systemem HIS gabinetu, zdalne wypełnianie ankiet medycznych oraz zintegrowane płatności online przed samą wizytą.",
-            effects: "Gabinet zyskał pełną rezerwację online 24/7. Obciążenie recepcji rozmowami telefonicznymi spadło o 45%, a przychody w ciągu 3 miesięcy wzrosły dzięki lepszemu wykorzystaniu luk czasowych doradców."
-        },
-        metrics: [
-            { label: "Telefony na recepcji", value: "-45%" },
-            { label: "Dostępność rezerwacji", value: "24/7" },
-            { label: "Wzrost przychodów", value: "18%" }
-        ]
+    results: [
+      { number: '−3h', label: 'DZIENNIE', description: 'czasu odzyskanego przez zespół' },
+      { number: '0', label: 'BŁĘDÓW', description: 'przy przepisywaniu danych' },
+      { number: '<5s', label: 'CZAS ZAPISU', description: 'od zdjęcia do bazy danych' },
+      { number: '100%', label: 'DOKUMENTÓW', description: 'dostępnych w bazie natychmiast' }
+    ],
+    testimonial: { quote: '[Placeholder — opinia klienta]', author: 'Klient · Biuro rachunkowe' },
+    techStack: ['n8n', 'Claude (Anthropic)', 'OCR API', 'Google Sheets', 'Gmail API']
+  },
+  {
+    slug: 'dashboard-zapasow',
+    title: 'Dashboard zapasów',
+    highlightWord: 'zapasów',
+    industry: 'Zarządzanie',
+    category: 'Aplikacje AI',
+    image: 'portfolio/dashboard.jpg',
+    intro: 'Biuro zarządzało zapasami w arkuszu Excel — nieefektywne, podatne na błędy, brak dostępu mobilnego.',
+    result: { number: '−50%', label: 'CZAS OBSŁUGI', descriptor: 'zamówień biurowych' },
+    problem: {
+      lead: 'Excel jako system zarządzania zapasami generował błędy i uniemożliwiał pracę zdalną.',
+      bullets: [
+        'Arkusz Excel edytowany przez wiele osób jednocześnie — konflikty i błędy danych',
+        'Brak dostępu mobilnego — zamówienia możliwe tylko przy komputerze',
+        'Ręczne tworzenie zamówień i faktur zajmowało nieproporcjonalnie dużo czasu'
+      ]
     },
-    {
-        id: "premium-site",
-        title: "Wizytówka Premium",
-        category: "Strony",
-        imgPlaceholder: "WWW",
-        shortDesc: "Wysokiej klasy strona wizerunkowa dla marki B2B stworzona pod kątem maksymalnej konwersji i zaufania.",
-        details: {
-            problem: "Istniejąca strona internetowa klienta nie budziła zaufania – była przestarzała technologicznie, wolno się ładowała i nie przekształcała ruchu w zapytania biznesowe (współczynnik odrzuceń na poziomie 78%).",
-            solution: "Zaprojektowaliśmy zupełnie nowy system wizualny oparty o architekturę zorientowaną na lejek (Sales Funnel). Wykorzystaliśmy bezgłowy CMS i Next.js do wykreowania strony, która ładuje się błyskawicznie i na każdym kroku zachęca użytkownika przemyślanym Copywritingiem i dedykowaną podążającą nawigacją CTA.",
-            effects: "Współczynnik odrzuceń (Bounce Rate) spadł z 78% do 31%. Konwersja na formularzu zapytań o ofertę B2B wzrosła trzykrotnie, dostarczając klientowi stabilne źródło leadów."
-        },
-        metrics: [
-            { label: "Bounce Rate", value: "-60%" },
-            { label: "Wzrost zapytań", value: "300%" },
-            { label: "Prędkość strony", value: "0.8s" }
-        ]
+    solution: {
+      description: 'Dedykowana aplikacja webowa z logowaniem i autoryzacją. Umożliwia przeglądanie zapasów, szybkie tworzenie koszyków i zamówień oraz bezpośredni dostęp do fakturomatu.',
+      hasFlowDiagram: false,
+      features: [
+        'Panel zarządzania z logowaniem i rolami użytkowników',
+        'Podgląd zapasów w czasie rzeczywistym z dowolnego urządzenia',
+        'Koszyk zamówień i automatyczne generowanie faktur',
+        'Historia zamówień i eksport danych'
+      ]
     },
-    {
-        id: "b2b-panel",
-        title: "Panel Klienta",
-        category: "Web Apps",
-        imgPlaceholder: "B2B",
-        shortDesc: "Portal dla stałych partnerów agencji, agregujący faktury, pule godzin i raporty wyników w jednym pulpicie.",
-        details: {
-            problem: "Agencja spędzała miesięcznie kilkadziesiąt godzin na ręcznym wysyłaniu raportów wyników oraz aktualizowaniu swoich klientów w obszarze wypracowanych zysków i spędzonych godzin.",
-            solution: "Zbudowaliśmy centralny Panel B2B (WebApp), do którego każdy stały klient agencji ma bezpieczny dostęp za pomocą swojego konta. System automatycznie zaciąga dane o czasie (Toggl), wynikach (Google Analytics/Meta) i fakturach, serwując te informacje na eleganckich, odświeżanych w czasie rzeczywistym dashboardach.",
-            effects: "Klient poczuł transparentność i wgląd, którego zawsze brakowało (wzrost zaufania LTV o 25%). Praca wewnętrznych Account Managerów skupiła się na strategii, zamiast na formatowaniu tabel i wykresów w PDFach."
-        },
-        metrics: [
-            { label: "Automatyzacja", value: "100%" },
-            { label: "Wzrost LTV", value: "25%" },
-            { label: "Czas odzyskany", value: "20h/mc" }
-        ]
+    results: [
+      { number: '−50%', label: 'CZAS OBSŁUGI', description: 'zamówień biurowych' },
+      { number: '100%', label: 'DOSTĘPNOŚĆ', description: 'z dowolnego urządzenia' },
+      { number: '0', label: 'KONFLIKTÓW', description: 'w danych między użytkownikami' },
+      { number: '<1min', label: 'ZAMÓWIENIE', description: 'od wyboru do faktury' }
+    ],
+    testimonial: { quote: '[Placeholder — opinia klienta]', author: 'Klient · Zarządzanie' },
+    techStack: ['React', 'Next.js', 'Supabase', 'Tailwind CSS', 'Vercel']
+  },
+  {
+    slug: 'rag-agent',
+    title: 'RAG Agent firmowy',
+    highlightWord: 'Agent',
+    industry: 'HR / Onboarding',
+    category: 'Aplikacje AI',
+    image: 'portfolio/rag-agent.jpg',
+    intro: 'Nowi pracownicy gubili się w dokumentach i procedurach. Pytania do managera zaburzały jego pracę kilkanaście razy dziennie.',
+    result: { number: '+4h', label: 'TYGODNIOWO', descriptor: 'odzyskane przez managera' },
+    problem: {
+      lead: 'Wiedza firmy była rozproszona — nowi pracownicy nie wiedzieli gdzie szukać odpowiedzi.',
+      bullets: [
+        'Manager przerywany kilkanaście razy dziennie przez pytania o procedury i dane',
+        'Dokumenty rozproszone po folderach, mailach i głowach pracowników',
+        'Onboarding nowych osób trwał tygodniami bo nikt nie wiedział co przekazać i kiedy'
+      ]
     },
-    {
-        id: "voice-bot",
-        title: "Bot Odpowiadający",
-        category: "Agentic Workflow",
-        imgPlaceholder: "BOT",
-        shortDesc: "Inteligentny chatbot LLM, który przejmuje 80% pytań supportowych na chatach i zapytaniach mailowych.",
-        details: {
-            problem: "Dział wsparcia nie nadążał z powtarzającymi się pytaniami od użytkowników. Średni czas odpowiedzi na prostego maila wynosił 16 godzin, obniżając Net Promoter Score (NPS) usługodawcy.",
-            solution: "Wytrenowaliśmy agenta AI (LLM) z wykorzystaniem bazy wiedzy firmy klienta (technologia RAG). Został osadzony na stronie oraz połączony poprzez API jako filtr pierwszego rzędu dla zapytań e-mail i komunikatów tekstowych.",
-            effects: "Bot przejął poprawne obsłużenie 82% zapytań z dokładnością na poziomie najlepszego operatora, obcinając średni czas odpowiedzi do 4 sekund. Satysfakcja obsługi klienta natychmiastowo poszybowała do wskaźnika 95+ (zadowolenie)."
-        },
-        metrics: [
-            { label: "Czas odpowiedzi", value: "4s" },
-            { label: "Automatyzacja", value: "82%" },
-            { label: "Skok NPS", value: "+40pkt" }
-        ]
-    }
+    solution: {
+      description: 'Agent AI z dostępem do bazy wiedzy firmy — procedury, FAQ, cenniki, dane klientów. Pracownicy pytają agenta zamiast managera.',
+      hasFlowDiagram: true,
+      flowSteps: ['Pytanie pracownika', 'Agent przeszukuje bazę wiedzy', 'RAG — dopasowanie kontekstu', 'Generowanie odpowiedzi', 'Odpowiedź + źródło dokumentu']
+    },
+    results: [
+      { number: '+4h', label: 'TYGODNIOWO', description: 'odzyskane przez managera' },
+      { number: '−80%', label: 'PYTAŃ', description: 'kierowanych bezpośrednio do managera' },
+      { number: '<10s', label: 'ODPOWIEDŹ', description: 'na każde pytanie pracownika' },
+      { number: '1 baza', label: 'WIEDZY', description: 'zamiast dziesiątek rozproszonych plików' }
+    ],
+    testimonial: { quote: '[Placeholder — opinia klienta]', author: 'Klient · HR / Onboarding' },
+    techStack: ['Claude (Anthropic)', 'n8n', 'Supabase', 'RAG Pipeline', 'Google Drive API']
+  },
+  {
+    slug: 'fast-lead',
+    title: 'System Fast Lead',
+    highlightWord: 'Fast',
+    industry: 'Sprzedaż B2B',
+    category: 'Automatyzacje',
+    image: 'portfolio/fast-lead.jpg',
+    intro: 'Firma traciła czas na rozmowy z klientami którzy nie pasowali do oferty — zły budżet, nieodpowiednia branża.',
+    result: { number: '−100%', label: 'ZŁYCH LEADÓW', descriptor: 'wyeliminowanych automatycznie' },
+    problem: {
+      lead: 'Zespół sprzedaży spędzał godziny na rozmowach z klientami którzy nigdy nie mieli kupić.',
+      bullets: [
+        'Brak kwalifikacji leadów — każde zapytanie trafiało od razu do sprzedawcy',
+        'Rozmowy z klientami bez budżetu lub spoza grupy docelowej zajmowały większość dnia',
+        'Oferty tworzone ręcznie dla każdego klienta — nawet tych którzy nie pasowali'
+      ]
+    },
+    solution: {
+      description: 'Formularz kwalifikacyjny połączony z AI: klient uzupełnia dane → system ocenia dopasowanie → jeśli pasuje generuje spersonalizowaną ofertę i umawia rozmowę.',
+      hasFlowDiagram: true,
+      flowSteps: ['Formularz klienta', 'AI — ocena dopasowania', 'Decyzja: pasuje / nie pasuje', 'Generowanie spersonalizowanej oferty', 'Automatyczne umówienie spotkania']
+    },
+    results: [
+      { number: '−100%', label: 'ZŁYCH LEADÓW', description: 'wyeliminowanych przed rozmową' },
+      { number: '<5min', label: 'OFERTA', description: 'generowana automatycznie' },
+      { number: '+60%', label: 'KONWERSJA', description: 'rozmów w zamknięte projekty' },
+      { number: '24/7', label: 'KWALIFIKACJA', description: 'działa bez udziału człowieka' }
+    ],
+    testimonial: { quote: '[Placeholder — opinia klienta]', author: 'Klient · Sprzedaż B2B' },
+    techStack: ['n8n', 'Claude (Anthropic)', 'GPT-4', 'Gmail API', 'Google Calendar API']
+  },
+  {
+    slug: 'intencje-online',
+    title: 'System intencji online',
+    highlightWord: 'intencji',
+    industry: 'Sektor publiczny',
+    category: 'Aplikacje AI',
+    image: 'portfolio/intencje.jpg',
+    intro: 'Parafia przyjmowała intencje mszalne wyłącznie stacjonarnie — długie kolejki, brak dostępności, trudności dla osób starszych.',
+    result: { number: '24/7', label: 'DOSTĘPNOŚĆ', descriptor: 'bez potrzeby obecności' },
+    problem: {
+      lead: 'Obsługa intencji wymagała fizycznej obecności w kancelarii w określonych godzinach.',
+      bullets: [
+        'Kolejki w kancelarii szczególnie przed świętami — frustracja wiernych',
+        'Osoby starsze i niepełnosprawne miały trudności z dotarciem w godzinach otwarcia',
+        'Ręczne zapisywanie intencji w zeszytach — ryzyko błędów i brak szybkiego dostępu'
+      ]
+    },
+    solution: {
+      description: 'Platforma online do składania intencji z dedykowanym panelem administracyjnym dla kancelarii — zaprojektowanym tak by mogły z niego korzystać osoby bez doświadczenia technicznego.',
+      hasFlowDiagram: false,
+      features: [
+        'Formularz online dostępny 24/7 z dowolnego urządzenia',
+        'Panel kancelarii z przejrzystym kalendarzem intencji',
+        'Automatyczne potwierdzenia e-mail dla składających intencje',
+        'Prosty interfejs zaprojektowany dla osób bez doświadczenia technicznego'
+      ]
+    },
+    results: [
+      { number: '24/7', label: 'DOSTĘPNOŚĆ', description: 'bez potrzeby obecności w biurze' },
+      { number: '−90%', label: 'KOLEJKI', description: 'w kancelarii przy składaniu intencji' },
+      { number: '0', label: 'BŁĘDÓW', description: 'w zapisach dzięki walidacji formularza' },
+      { number: '100%', label: 'POTWIERDZEŃ', description: 'automatycznych dla każdej intencji' }
+    ],
+    testimonial: { quote: '[Placeholder — opinia klienta]', author: 'Klient · Sektor publiczny' },
+    techStack: ['React', 'Next.js', 'Supabase', 'Gmail API', 'Vercel']
+  },
+  {
+    slug: 'chatbot-strona',
+    title: 'Chatbot i strona firmowa',
+    highlightWord: 'strona',
+    industry: 'Usługi lokalne',
+    category: 'Strony internetowe',
+    image: 'portfolio/chatbot.jpg',
+    intro: 'Firma nie miała strony internetowej — brak widoczności, brak możliwości kontaktu i zapoznania się z ofertą poza godzinami pracy.',
+    result: { number: '7dni', label: 'DO ZAPYTAŃ', descriptor: 'od uruchomienia strony' },
+    problem: {
+      lead: 'Brak obecności online oznaczał brak klientów poza bezpośrednim poleceniem.',
+      bullets: [
+        'Zero widoczności w Google — klienci nie mogli znaleźć firmy online',
+        'Brak możliwości kontaktu poza godzinami pracy — zapytania traciły się w czasie',
+        'Konkurencja z obecnością online wyglądała bardziej profesjonalnie i pozyskiwała więcej klientów'
+      ]
+    },
+    solution: {
+      description: 'Nowoczesna strona z animacjami + chatbot AI z bazą wiedzy o firmie, obsługą FAQ i możliwością umówienia spotkania przez klienta.',
+      hasFlowDiagram: false,
+      features: [
+        'Strona firmowa z sekcjami oferty, portfolio i kontaktu',
+        'Chatbot AI z bazą wiedzy odpowiadający na pytania 24/7',
+        'Formularz zapisu na konsultację zintegrowany z kalendarzem',
+        'Optymalizacja SEO i szybkość ładowania pod Google'
+      ]
+    },
+    results: [
+      { number: '7dni', label: 'DO ZAPYTAŃ', description: 'pierwsze kontakty od klientów' },
+      { number: '24/7', label: 'CHATBOT', description: 'obsługuje klientów bez przerwy' },
+      { number: '+100%', label: 'WIDOCZNOŚĆ', description: 'w Google w ciągu miesiąca' },
+      { number: '0zł', label: 'REKLAMY', description: 'pierwsze zapytania organicznie' }
+    ],
+    testimonial: { quote: '[Placeholder — opinia klienta]', author: 'Klient · Usługi lokalne' },
+    techStack: ['React', 'Next.js', 'Claude (Anthropic)', 'Tailwind CSS', 'Vercel', 'Google Search Console']
+  }
 ];
