@@ -9,9 +9,33 @@ import React, { useEffect, useRef, useState } from 'react';
  */
 export const OfertaProblem = () => {
     const sectionRef = useRef(null);
+    const cardRefs = useRef([]);
     const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
+        const handleMove = (e) => {
+            cardRefs.current.forEach((element) => {
+                if (!element) return;
+                const { left, top, width, height } = element.getBoundingClientRect();
+                const mouseX = e.clientX;
+                const mouseY = e.clientY;
+                const center = [left + width * 0.5, top + height * 0.5];
+                const isActive =
+                    mouseX > left - 80 && mouseX < left + width + 80 &&
+                    mouseY > top - 80 && mouseY < top + height + 80;
+                element.style.setProperty("--active", isActive ? "1" : "0");
+                if (!isActive) return;
+                const currentAngle = parseFloat(element.style.getPropertyValue("--start")) || 0;
+                let targetAngle =
+                    (180 * Math.atan2(mouseY - center[1], mouseX - center[0])) / Math.PI + 90;
+                const angleDiff = ((targetAngle - currentAngle + 180) % 360) - 180;
+                const newAngle = currentAngle + angleDiff * 0.15;
+                element.style.setProperty("--start", String(newAngle));
+            });
+        };
+
+        document.body.addEventListener("pointermove", handleMove);
+
         const observer = new IntersectionObserver(
             ([entry]) => {
                 if (entry.isIntersecting) {
@@ -26,7 +50,10 @@ export const OfertaProblem = () => {
             observer.observe(sectionRef.current);
         }
 
-        return () => observer.disconnect();
+        return () => {
+            observer.disconnect();
+            document.body.removeEventListener("pointermove", handleMove);
+        };
     }, []);
 
     const problems = [
@@ -166,15 +193,74 @@ export const OfertaProblem = () => {
                     margin-top: 56px;
                 }
 
-                .problem-card {
-                    background: #141414; /* --bg-2 */
-                    border: 1px solid #222222; /* --bg-4 */
-                    border-radius: 12px; /* --r-lg */
-                    padding: 28px;
-                    position: relative;
-                    overflow: hidden;
-                    display: flex;
-                    flex-direction: column;
+                .problem-card-wrapper {
+                  position: relative;
+                  border-radius: 12px; /* var(--r-lg) */
+                  --active: 0;
+                  --start: 0;
+                  width: 100%;
+                  opacity: 0;
+                  transform: translateY(16px);
+                  transition: transform 0.2s ease, opacity 0.4s ease;
+                }
+
+                .is-visible .problem-card-wrapper {
+                  opacity: 1;
+                  transform: translateY(0);
+                }
+
+                .problem-card-wrapper:hover {
+                  transform: translateY(-2px);
+                  transition: transform 0.2s ease !important;
+                }
+
+                /* Prevent transition-delay from stagger animation affecting interactive properties */
+                .problem-card-wrapper:hover::before,
+                .problem-card-wrapper:hover .problem-card-glow {
+                  transition-delay: 0s !important;
+                }
+
+                .problem-card-glow {
+                  position: absolute;
+                  inset: -1px;
+                  border-radius: inherit;
+                  background: conic-gradient(
+                    from calc((var(--start) - 45) * 1deg),
+                    transparent 0deg,
+                    #D93025 60deg,
+                    #A8201A 120deg,
+                    transparent 180deg
+                  );
+                  opacity: var(--active);
+                  transition: opacity 0.4s ease;
+                  pointer-events: none;
+                  z-index: 0;
+                }
+
+                .problem-card-inner {
+                  position: relative;
+                  z-index: 1;
+                  background: #141414; /* var(--bg-2) */
+                  border-radius: 11px; /* calc(var(--r-lg) - 1px) */
+                  margin: 1px;
+                  height: calc(100% - 2px);
+                  box-sizing: border-box;
+                  padding: 28px;
+                  overflow: hidden;
+                  display: flex;
+                  flex-direction: column;
+                }
+
+                .problem-card-wrapper::before {
+                  content: '';
+                  position: absolute;
+                  inset: 0;
+                  border-radius: inherit;
+                  border: 1px solid #222222; /* var(--bg-4) */
+                  pointer-events: none;
+                  z-index: 2;
+                  opacity: calc(1 - var(--active));
+                  transition: opacity 0.4s ease;
                 }
 
                 .bg-icon {
@@ -218,8 +304,6 @@ export const OfertaProblem = () => {
 
                 .card-tag {
                     margin-top: auto;
-                    padding-top: 20px;
-                    margin-top: 20px;
                     padding-top: 16px;
                     border-top: 1px solid #222222;
                     font-family: 'JetBrains Mono', monospace;
@@ -295,14 +379,21 @@ export const OfertaProblem = () => {
 
                 <div className="problems-grid">
                     {problems.map((prob, i) => (
-                        <div key={i} className={`problem-card stagger-item card-delay-${i}`}>
-                            <div className="bg-icon">
-                                {prob.icon}
+                        <div 
+                            key={i} 
+                            ref={(el) => (cardRefs.current[i] = el)}
+                            className={`problem-card-wrapper stagger-item card-delay-${i}`}
+                        >
+                            <div className="problem-card-glow" />
+                            <div className="problem-card-inner">
+                                <div className="bg-icon">
+                                    {prob.icon}
+                                </div>
+                                <span className="quote-mark">„</span>
+                                <p className="statement">{prob.statement}</p>
+                                <p className="context">{prob.context}</p>
+                                <div className="card-tag">{prob.tag}</div>
                             </div>
-                            <span className="quote-mark">„</span>
-                            <p className="statement">{prob.statement}</p>
-                            <p className="context">{prob.context}</p>
-                            <div className="card-tag">{prob.tag}</div>
                         </div>
                     ))}
                 </div>
