@@ -72,7 +72,7 @@ export const Certifications = () => {
       <style>{`
         .cert-section {
           width: 100%;
-          background-color: #0F0F0F; /* --bg-1 */
+          background-color: transparent; /* --bg-1 */
           padding: 96px 0;
         }
 
