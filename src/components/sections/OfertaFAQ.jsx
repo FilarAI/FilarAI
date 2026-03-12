@@ -66,7 +66,7 @@ export const OfertaFAQ = () => {
             <style>{`
                 .faq-section {
                     width: 100%;
-                    background: #0F0F0F; /* --bg-1 */
+                    background: transparent; /* --bg-1 */
                     padding: 96px 0;
                     display: flex;
                     justify-content: center;
