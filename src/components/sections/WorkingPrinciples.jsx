@@ -143,59 +143,61 @@ export const WorkingPrinciples = () => {
           line-height: 1.75;
         }
 
-        /* --- Grid & Cards --- */
-        .principles-grid {
-          display: grid;
-          grid-template-columns: repeat(2, 1fr);
-          gap: 24px;
-        }
-
-        .principle-card {
-          background-color: #141414; /* --bg-2 */
-          border: 1px solid #222222; /* --bg-4 */
-          border-radius: 12px; /* --r-lg */
-          padding: 32px;
+        .principle-card-wrapper {
           position: relative;
+          border-radius: 12px; /* --r-lg */
           overflow: visible;
-          transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
           --active: 0;
           --start: 0;
+          height: 100%;
+          transition: transform 0.2s ease;
         }
 
-        .principle-card:hover {
-          border-color: #D93025; /* --red */
-          box-shadow: 0 0 12px rgba(217, 48, 37, 0.2);
+        .principle-card-wrapper:hover {
           transform: translateY(-2px);
         }
 
-        .filar-glow-element {
+        .principle-card-wrapper::before {
+          content: '';
           position: absolute;
-          inset: -2px;
-          border: 2px solid transparent;
+          inset: 0;
           border-radius: inherit;
-          background: repeating-conic-gradient(
-            from 236.84deg at 50% 50%,
-            var(--red, #D93025) 0%,
-            var(--red-dim, #A8201A) 5%,
-            var(--red-deep, #7A1510) 10%,
-            var(--red-dim, #A8201A) 15%,
-            var(--red, #D93025) 20%
+          border: 1px solid #222222; /* --bg-4 */
+          pointer-events: none;
+          z-index: 2;
+          opacity: calc(1 - var(--active));
+          transition: opacity 0.4s ease;
+        }
+
+        /* The rotating gradient — sits BEHIND the card */
+        .principle-card-glow {
+          position: absolute;
+          inset: -1px;
+          border-radius: inherit;
+          background: conic-gradient(
+            from calc((var(--start) - 45) * 1deg),
+            transparent 0deg,
+            var(--red, #D93025) 60deg,
+            var(--red-dim, #A8201A) 120deg,
+            transparent 180deg
           );
           opacity: var(--active);
-          transition: opacity 0.3s ease;
+          transition: opacity 0.4s ease;
           pointer-events: none;
           z-index: 0;
-          mask-clip: padding-box, border-box;
-          mask-composite: intersect;
-          mask-image:
-            linear-gradient(#0000, #0000),
-            conic-gradient(
-              from calc((var(--start) - 45) * 1deg),
-              #00000000 0deg,
-              #fff,
-              #00000000 calc(45 * 2deg)
-            );
-          -webkit-mask-composite: xor;
+        }
+
+        /* The card itself — sits ON TOP, slightly inset to reveal glow border */
+        .principle-card-inner {
+          position: relative;
+          z-index: 1;
+          background-color: #141414; /* --bg-2 */
+          border-radius: 11px; /* calc(var(--r-lg) - 1px) */
+          margin: 1px;
+          padding: 32px;
+          height: calc(100% - 2px);
+          border: none;
+          overflow: hidden;
         }
 
         .card-bg-number {
@@ -318,25 +320,27 @@ export const WorkingPrinciples = () => {
             return (
               <div 
                 key={principle.num} 
-                className="principle-card fade-up"
                 ref={(el) => (cardRefs.current[index] = el)}
+                className="principle-card-wrapper fade-up"
                 style={{ transitionDelay: `${cardDelay}s` }}
               >
-                <div className="filar-glow-element" />
-                <span className="card-bg-number">{principle.num}</span>
-                
-                <div className="card-content">
-                  <div className="card-top-row">
-                    <span className="card-number-badge">{principle.num}</span>
-                    <div className="card-divider" />
-                  </div>
+                <div className="principle-card-glow" />
+                <div className="principle-card-inner">
+                  <span className="card-bg-number">{principle.num}</span>
                   
-                  <h3 className="card-title">{principle.title}</h3>
-                  <p className="card-desc">{principle.description}</p>
-                  
-                  <div className="card-bottom">
-                    <span className="card-implication-label">CO TO OZNACZA DLA CIEBIE &rarr;</span>
-                    <span className="card-implication-text">{principle.implication}</span>
+                  <div className="card-content">
+                    <div className="card-top-row">
+                      <span className="card-number-badge">{principle.num}</span>
+                      <div className="card-divider" />
+                    </div>
+                    
+                    <h3 className="card-title">{principle.title}</h3>
+                    <p className="card-desc">{principle.description}</p>
+                    
+                    <div className="card-bottom">
+                      <span className="card-implication-label">CO TO OZNACZA DLA CIEBIE &rarr;</span>
+                      <span className="card-implication-text">{principle.implication}</span>
+                    </div>
                   </div>
                 </div>
               </div>
