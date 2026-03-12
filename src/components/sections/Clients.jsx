@@ -37,7 +37,7 @@ export const Clients = () => {
     ];
 
     return (
-        <section className="relative w-full bg-[#0F0F0F] py-[64px] overflow-hidden">
+        <section className="relative w-full bg-[var(--bg-1)] py-[64px] overflow-hidden">
             <style>{`
         .clients-container {
           max-width: 1200px;

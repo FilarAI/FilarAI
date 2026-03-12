@@ -17,7 +17,7 @@ export const AboutHero = () => {
       <style>{`
         .about-hero-section {
           width: 100%;
-          background-color: #080808; /* --bg-0 */
+          background-color: transparent; /* --bg-0 */
           padding-top: 140px; /* navbar offset */
           padding-bottom: 96px;
         }

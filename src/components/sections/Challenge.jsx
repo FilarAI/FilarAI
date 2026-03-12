@@ -102,7 +102,7 @@ export const Challenge = () => {
         >
             <style>{`
         .challenge-section {
-          background-color: var(--bg-1, #0F0F0F);
+          background-color: var(--bg-1);
           padding: 96px 20px;
           overflow: hidden;
           transition: opacity 0.4s ease, transform 0.4s ease;

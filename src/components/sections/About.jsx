@@ -50,7 +50,7 @@ export const About = () => {
     return (
         <section
             ref={sectionRef}
-            className="relative w-full bg-[#0F0F0F] py-[96px] overflow-hidden"
+            className="relative w-full bg-[var(--bg-1)] py-[96px] overflow-hidden"
         >
             <style>{`
         .about-container {

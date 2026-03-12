@@ -67,7 +67,7 @@ export const Portfolio = () => {
     return (
         <section
             ref={sectionRef}
-            className="relative w-full bg-transparent py-[96px] overflow-hidden"
+            className="relative w-full bg-[var(--bg-0)] py-[96px] overflow-hidden"
             style={{ '--bg-0': '#080808' }}
         >
             <style>{`
