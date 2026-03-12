@@ -156,10 +156,10 @@ export const ProjectPageTemplate = ({ project }) => {
       `}</style>
 
       {/* Back Button */}
-      <div className="hidden md:flex fixed top-[88px] left-[40px] z-50">
-        <Link href="/portfolio" className="group flex items-center gap-2 text-[#5A5550] hover:text-[#F0EFEE] transition-colors duration-150">
+      <div className="flex fixed top-[80px] md:top-[88px] left-6 md:left-[40px] z-50">
+        <Link href="/portfolio" className="group flex items-center gap-2 text-[#5A5550]/80 md:text-[#5A5550] bg-black/20 md:bg-transparent backdrop-blur-sm md:backdrop-blur-0 px-3 py-1.5 md:p-0 rounded-full md:rounded-none border border-white/5 md:border-none hover:text-[#F0EFEE] transition-all duration-150">
           <ArrowLeft size={16} />
-          <span className="font-mono text-[11px] uppercase tracking-[0.08em]">Portfolio</span>
+          <span className="font-mono text-[10px] md:text-[11px] uppercase tracking-[0.08em]">Portfolio</span>
         </Link>
       </div>
 
@@ -327,7 +327,6 @@ export const ProjectPageTemplate = ({ project }) => {
 
       {/* SECTION 06: CTA */}
       <FinalCTA />
-      <Footer hideCTA={true} />
     </main>
   );
 };
