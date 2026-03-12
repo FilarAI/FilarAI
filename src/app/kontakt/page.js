@@ -1,7 +1,7 @@
 import { FloatingHeader } from '@/components/FloatingHeader';
 import { FinalCTA } from '@/components/sections/FinalCTA';
 import { ContactForm } from '@/components/sections/ContactForm';
-import { Mail, Phone, MessageCircle, Instagram } from 'lucide-react';
+import { Mail, Phone, MessageCircle, Instagram, FileText, Calendar } from 'lucide-react';
 
 export const metadata = {
     title: 'Kontakt | Filar AI',
@@ -161,6 +161,103 @@ export default function KontaktPage() {
                         padding-top: 120px;
                     }
                 }
+
+                .action-card {
+                    background: var(--bg-card);
+                    border: 1px solid #1A1A1A;
+                    border-radius: 24px;
+                    padding: 40px;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    transition: all 0.3s ease;
+                }
+
+                .action-card:hover {
+                    border-color: #222;
+                    transform: translateY(-2px);
+                }
+
+                .action-card.accent {
+                    border-color: var(--red);
+                    position: relative;
+                    overflow: hidden;
+                }
+
+                .action-card.accent::after {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    width: 150px;
+                    height: 150px;
+                    background: radial-gradient(circle at 100% 0%, rgba(217, 48, 37, 0.1), transparent 70%);
+                    pointer-events: none;
+                }
+
+                .action-card .icon-box {
+                    width: 64px;
+                    height: 64px;
+                    background: #000;
+                    border: 1px solid #222;
+                    border-radius: 16px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: var(--red);
+                    margin-bottom: 32px;
+                    transition: transform 0.3s ease;
+                }
+
+                .action-card:hover .icon-box {
+                    transform: scale(1.05);
+                }
+
+                .action-card .card-description {
+                    font-family: 'Outfit', sans-serif;
+                    font-size: 16px;
+                    color: var(--text-gray);
+                    line-height: 1.6;
+                    margin-bottom: 32px;
+                    text-align: left;
+                }
+
+                .action-btn-primary {
+                    background: var(--red);
+                    color: white;
+                    padding: 12px 24px;
+                    border-radius: 12px;
+                    font-weight: 600;
+                    font-size: 15px;
+                    transition: all 0.3s ease;
+                    width: auto;
+                    text-decoration: none;
+                    text-align: center;
+                }
+
+                .action-btn-primary:hover {
+                    background: #b3241b;
+                    box-shadow: 0 0 20px rgba(217, 48, 37, 0.3);
+                }
+
+                .action-btn-secondary {
+                    background: transparent;
+                    border: 1px solid #222;
+                    color: white;
+                    padding: 12px 24px;
+                    border-radius: 12px;
+                    font-weight: 600;
+                    font-size: 15px;
+                    transition: all 0.3s ease;
+                    cursor: pointer;
+                    width: auto;
+                    text-align: center;
+                }
+
+                .action-btn-secondary:hover {
+                    border-color: var(--red);
+                    color: var(--red);
+                }
             `}</style>
 
             <FloatingHeader />
@@ -185,7 +282,40 @@ export default function KontaktPage() {
                 ))}
             </section>
 
-            <div className="max-w-4xl mx-auto w-full px-10 mb-24 animate-in fade-in slide-in-from-bottom-10 duration-1000">
+            <section className="max-w-[1200px] mx-auto px-10 mb-20 grid grid-cols-1 md:grid-cols-2 gap-8 animate-in fade-in slide-in-from-bottom-10 duration-1000">
+                {/* Form Card */}
+                <div className="action-card group">
+                    <div className="icon-box">
+                        <FileText size={32} />
+                    </div>
+                    <h3 className="card-label">Wyślij zapytanie</h3>
+                    <p className="card-description">
+                        Opisz swój projekt w formularzu. Wrócimy do Ciebie w ciągu 24h z konkretnym rozwiązaniem i wyceną.
+                    </p>
+                    <button 
+                        onClick={() => document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth' })}
+                        className="action-btn-secondary"
+                    >
+                        Przejdź do formularza
+                    </button>
+                </div>
+
+                {/* Calendar Card */}
+                <div className="action-card group accent">
+                    <div className="icon-box">
+                        <Calendar size={32} />
+                    </div>
+                    <h3 className="card-label">Zarezerwuj spotkanie</h3>
+                    <p className="card-description">
+                        Wybierz dogodny termin na 30-minutową, bezpłatną konsultację strategiczną online.
+                    </p>
+                    <a href="https://calendar.app.google/oxdocXuk5a2ohKZf9" target="_blank" rel="noopener noreferrer" className="action-btn-primary">
+                        Wybierz termin
+                    </a>
+                </div>
+            </section>
+
+            <div id="contact-form" className="max-w-4xl mx-auto w-full px-10 mb-24 animate-in fade-in slide-in-from-bottom-12 duration-1000">
                 <div className="bg-[#0A0A0A] p-10 md:p-16 rounded-[32px] border border-[#1A1A1A]">
                     <div className="text-center mb-12">
                         <h2 className="heading-syne text-3xl mb-4">Opisz swój projekt</h2>
