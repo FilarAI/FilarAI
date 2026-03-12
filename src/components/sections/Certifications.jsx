@@ -43,8 +43,32 @@ const certs = [
 export const Certifications = () => {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef(null);
+  const cardRefs = useRef([]);
 
   useEffect(() => {
+    const handleMove = (e) => {
+      cardRefs.current.forEach((element) => {
+        if (!element) return;
+        const { left, top, width, height } = element.getBoundingClientRect();
+        const mouseX = e.clientX;
+        const mouseY = e.clientY;
+        const center = [left + width * 0.5, top + height * 0.5];
+        const isActive =
+          mouseX > left - 80 && mouseX < left + width + 80 &&
+          mouseY > top - 80 && mouseY < top + height + 80;
+        element.style.setProperty("--active", isActive ? "1" : "0");
+        if (!isActive) return;
+        const currentAngle = parseFloat(element.style.getPropertyValue("--start")) || 0;
+        let targetAngle =
+          (180 * Math.atan2(mouseY - center[1], mouseX - center[0])) / Math.PI + 90;
+        const angleDiff = ((targetAngle - currentAngle + 180) % 360) - 180;
+        const newAngle = currentAngle + angleDiff * 0.15;
+        element.style.setProperty("--start", String(newAngle));
+      });
+    };
+
+    document.body.addEventListener("pointermove", handleMove);
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -61,6 +85,7 @@ export const Certifications = () => {
 
     return () => {
       if (sectionRef.current) observer.unobserve(sectionRef.current);
+      document.body.removeEventListener("pointermove", handleMove);
     };
   }, []);
 
@@ -141,25 +166,68 @@ export const Certifications = () => {
           }
         }
 
-        .cert-card {
-          background-color: #141414; /* --bg-2 */
-          border: 1px solid #222222; /* --bg-4 */
+        .cert-card-wrapper {
+          position: relative;
           border-radius: 12px; /* --r-lg */
-          padding: 28px 24px;
-          transition: all 0.2s ease;
+          overflow: visible;
+          --active: 0;
+          --start: 0;
+          width: 100%;
           opacity: 0;
           transform: translateY(16px);
+          transition: transform 0.2s ease, opacity 0.4s ease;
         }
 
-        .cert-section.visible .cert-card {
+        .cert-section.visible .cert-card-wrapper {
           opacity: 1;
           transform: translateY(0);
         }
 
-        .cert-card:hover {
-          border-color: #D93025; /* --red */
-          box-shadow: 0 0 12px rgba(217, 48, 37, 0.2); /* --shadow-red-sm */
-          transform: translateY(-2px) !important;
+        .cert-card-wrapper:hover {
+          transform: translateY(-2px);
+          transition: transform 0.2s ease; /* Ensure no delay on hover */
+        }
+
+        .cert-card-wrapper::before {
+          content: '';
+          position: absolute;
+          inset: 0;
+          border-radius: inherit;
+          border: 1px solid #222222; /* --bg-4 */
+          pointer-events: none;
+          z-index: 2;
+          opacity: calc(1 - var(--active));
+          transition: opacity 0.4s ease;
+        }
+
+        .cert-card-glow {
+          position: absolute;
+          inset: -1px;
+          border-radius: inherit;
+          background: conic-gradient(
+            from calc((var(--start) - 45) * 1deg),
+            transparent 0deg,
+            var(--red, #D93025) 60deg,
+            var(--red-dim, #A8201A) 120deg,
+            transparent 180deg
+          );
+          opacity: var(--active);
+          transition: opacity 0.4s ease;
+          pointer-events: none;
+          z-index: 0;
+        }
+
+        .cert-card-inner {
+          position: relative;
+          z-index: 1;
+          background-color: #141414; /* --bg-2 */
+          border-radius: 11px; /* calc(var(--r-lg) - 1px) */
+          margin: 1px;
+          padding: 28px 24px;
+          height: calc(100% - 2px);
+          border: none;
+          box-sizing: border-box;
+          overflow: hidden;
         }
 
         .card-top {
@@ -268,28 +336,32 @@ export const Certifications = () => {
             return (
               <div 
                 key={index} 
-                className="cert-card"
+                ref={(el) => (cardRefs.current[index] = el)}
+                className="cert-card-wrapper"
                 style={{ transitionDelay: isVisible ? staggerDelay : '0s' }}
               >
-                <div className="card-top">
-                  <div className="logo-placeholder">
-                    <span className="issuer-initials">{cert.issuer.charAt(0)}</span>
+                <div className="cert-card-glow" />
+                <div className="cert-card-inner">
+                  <div className="card-top">
+                    <div className="logo-placeholder">
+                      <span className="issuer-initials">{cert.issuer.charAt(0)}</span>
+                    </div>
+                    <div className="card-top-content">
+                      <span className="issuer-name">{cert.issuer}</span>
+                      <span className="card-title">{cert.title}</span>
+                    </div>
                   </div>
-                  <div className="card-top-content">
-                    <span className="issuer-name">{cert.issuer}</span>
-                    <span className="card-title">{cert.title}</span>
+                  
+                  <div className="card-divider" />
+                  
+                  <p className="card-desc">
+                    {cert.description}
+                  </p>
+                  
+                  <div className="card-bottom">
+                    <span className="year-tag">{cert.year}</span>
+                    <span className="status-badge">AKTYWNY</span>
                   </div>
-                </div>
-                
-                <div className="card-divider" />
-                
-                <p className="card-desc">
-                  {cert.description}
-                </p>
-                
-                <div className="card-bottom">
-                  <span className="year-tag">{cert.year}</span>
-                  <span className="status-badge">AKTYWNY</span>
                 </div>
               </div>
             );
