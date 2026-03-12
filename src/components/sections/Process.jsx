@@ -80,7 +80,7 @@ export const Process = () => {
   }, [steps.length]);
 
   return (
-    <section className="relative w-full bg-[#080808] py-[96px] overflow-hidden">
+    <section className="relative w-full bg-transparent py-[96px] overflow-hidden">
       <style>{`
         .process-container {
           max-width: 1200px;

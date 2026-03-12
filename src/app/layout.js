@@ -1,5 +1,6 @@
 import { Syne, Outfit, JetBrains_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { BackgroundCanvas } from "@/components/BackgroundCanvas";
 import "./globals.css";
 
 const syne = Syne({
@@ -32,6 +33,7 @@ export default function RootLayout({ children }) {
         className={`${syne.variable} ${outfit.variable} ${jetbrainsMono.variable} antialiased selection:bg-[#D93025] selection:text-white dark:bg-[#080808] dark:text-[#F0EFEE] transition-colors duration-300`}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange={false}>
+          <BackgroundCanvas />
           {children}
         </ThemeProvider>
       </body>

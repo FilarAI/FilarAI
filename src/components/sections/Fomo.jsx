@@ -31,7 +31,7 @@ export const Fomo = () => {
     return (
         <section
             ref={sectionRef}
-            className="relative w-full bg-[#080808] py-[120px] overflow-hidden"
+            className="relative w-full bg-transparent py-[120px] overflow-hidden"
             style={{ '--bg-0': '#080808' }}
         >
             <style>{`
