@@ -143,13 +143,22 @@ export const WorkingPrinciples = () => {
           line-height: 1.75;
         }
 
+        /* --- Grid & Cards --- */
+        .principles-grid {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 24px;
+        }
+
         .principle-card-wrapper {
           position: relative;
           border-radius: 12px; /* --r-lg */
           overflow: visible;
           --active: 0;
           --start: 0;
+          width: 100%;
           height: 100%;
+          min-height: 0;
           transition: transform 0.2s ease;
         }
 
@@ -198,6 +207,9 @@ export const WorkingPrinciples = () => {
           height: calc(100% - 2px);
           border: none;
           overflow: hidden;
+          box-sizing: border-box;
+          display: flex;
+          flex-direction: column;
         }
 
         .card-bg-number {
