@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { ArrowLeft, Check } from 'lucide-react';
 import { FloatingHeader } from '@/components/FloatingHeader';
 import { Footer } from '@/components/sections/Footer';
+import { FinalCTA } from '@/components/sections/FinalCTA';
 
 export const ProjectPageTemplate = ({ project }) => {
   const [scrollY, setScrollY] = useState(0);
@@ -325,33 +326,8 @@ export const ProjectPageTemplate = ({ project }) => {
       </section>
 
       {/* SECTION 06: CTA */}
-      <section 
-        className="w-full py-[80px]"
-        style={{ background: 'linear-gradient(135deg, #7A1510 0%, #1a0a08 100%)' }}
-      >
-        <div className="max-w-[800px] mx-auto px-10 text-center fade-up-section">
-          <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-[rgba(240,239,238,0.5)]">MASZ PODOBNY PROBLEM?</span>
-          <h2 className="font-display font-[700] text-[36px] text-[#F0EFEE] mt-3">Porozmawiajmy o Twoim projekcie</h2>
-          <p className="font-body font-[400] text-[16px] text-[rgba(240,239,238,0.7)] mt-4 leading-[1.75]">
-            30 minut rozmowy. Konkretne wnioski. Zero zobowiązań.
-          </p>
-          <a filter="auto"
-             href="https://calendar.app.google/BtxhP1NN7bvTtwX57" 
-             target="_blank" 
-             rel="noreferrer"
-             className="inline-block mt-8 bg-white text-[#D93025] font-body font-[700] text-[14px] px-7 py-[13px] rounded-md transition-all duration-200 hover:bg-[rgba(217,48,37,0.1)] hover:text-white hover:shadow-[0_0_24px_rgba(217,48,37,0.4)]"
-          >
-            Umów bezpłatną konsultację →
-          </a>
-          <div className="mt-4">
-            <Link href="/portfolio" className="inline-block font-body font-[400] text-[13px] text-[rgba(240,239,238,0.5)] hover:text-white transition-colors">
-              Lub wróć do portfolio i zobacz inne realizacje →
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      <Footer />
+      <FinalCTA />
+      <Footer hideCTA={true} />
     </main>
   );
 };
