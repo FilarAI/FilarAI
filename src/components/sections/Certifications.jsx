@@ -173,6 +173,8 @@ export const Certifications = () => {
           --active: 0;
           --start: 0;
           width: 100%;
+          height: 100%;
+          min-height: 0;
           opacity: 0;
           transform: translateY(16px);
           transition: transform 0.2s ease, opacity 0.4s ease;
@@ -185,7 +187,13 @@ export const Certifications = () => {
 
         .cert-card-wrapper:hover {
           transform: translateY(-2px);
-          transition: transform 0.2s ease; /* Ensure no delay on hover */
+          transition: transform 0.2s ease !important; /* Force immediate hover transition */
+        }
+
+        /* Prevent transition-delay from sticky parent affecting interactive properties */
+        .cert-card-wrapper:hover::before,
+        .cert-card-wrapper:hover .cert-card-glow {
+          transition-delay: 0s !important;
         }
 
         .cert-card-wrapper::before {
@@ -228,6 +236,8 @@ export const Certifications = () => {
           border: none;
           box-sizing: border-box;
           overflow: hidden;
+          display: flex;
+          flex-direction: column;
         }
 
         .card-top {
