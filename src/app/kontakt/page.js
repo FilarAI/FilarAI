@@ -292,12 +292,12 @@ export default function KontaktPage() {
                     <p className="description-outfit text-base mb-10 text-left">
                         Opisz swój projekt w formularzu — wrócimy do Ciebie w ciągu 24h z konkretnym rozwiązaniem i wyceną.
                     </p>
-                    <button 
-                        onClick={() => document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth' })}
-                        className="btn-secondary w-full sm:w-auto"
+                    <a 
+                        href="#contact-form"
+                        className="btn-secondary w-full sm:w-auto text-center"
                     >
                         Przejdź do formularza
-                    </button>
+                    </a>
                 </div>
 
                 {/* Calendar Card */}
