@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useRef, useState } from 'react';
+import Link from 'next/link';
 
 /**
  * FilarAI About Section
@@ -370,8 +371,8 @@ export const About = () => {
                     </div>
 
                     <div className="cta-row stagger-item stagger-8">
-                        <button className="btn-primary">Umów bezpłatną rozmowę</button>
-                        <button className="btn-secondary">Zobacz realizacje →</button>
+                        <Link href="/kontakt" className="btn-primary">Umów bezpłatną rozmowę</Link>
+                        <Link href="/portfolio" className="btn-secondary">Zobacz realizacje →</Link>
                     </div>
                 </div>
             </div>

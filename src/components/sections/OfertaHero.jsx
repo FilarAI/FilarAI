@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useState } from 'react';
+import Link from 'next/link';
 
 /**
  * OfertaHero Section
@@ -164,14 +165,12 @@ export const OfertaHero = () => {
                 </p>
 
                 <div className="cta-wrapper stagger-item delay-cta">
-                    <a 
-                        href="https://calendar.app.google/BtxhP1NN7bvTtwX57" 
-                        target="_blank" 
-                        rel="noopener noreferrer"
+                    <Link 
+                        href="/kontakt" 
                         className="primary-cta-btn"
                     >
                         Umów bezpłatną konsultację →
-                    </a>
+                    </Link>
                     <span className="microcopy">
                         30 minut · Bez zobowiązań · Konkretne wnioski
                     </span>

@@ -8,6 +8,7 @@ import { ResultsNumbers } from '@/components/sections/ResultsNumbers';
 import { Testimonials } from '@/components/sections/Testimonials';
 import { Certifications } from '@/components/sections/Certifications';
 import { FinalCTA } from '@/components/sections/FinalCTA';
+import { Button } from '@/components/ui/Button';
 
 export default function PortfolioPage() {
     return (
@@ -17,10 +18,22 @@ export default function PortfolioPage() {
             <PortfolioHero />
             
             <ProjectsGrid />
+            
+            <div className="flex justify-center py-12">
+                <Button href="/kontakt" variant="primary" className="px-8 py-4 text-lg">
+                    Umów konsultację
+                </Button>
+            </div>
 
             <ResultsNumbers />
 
             <Testimonials />
+
+            <div className="flex justify-center py-12">
+                <Button href="/kontakt" variant="primary" className="px-8 py-4 text-lg">
+                    Umów konsultację
+                </Button>
+            </div>
 
             <Certifications />
 

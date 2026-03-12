@@ -6,6 +6,7 @@ import { WorkingPrinciples } from '@/components/sections/WorkingPrinciples';
 import { Certifications } from '@/components/sections/Certifications';
 import { ResultsNumbers } from '@/components/sections/ResultsNumbers';
 import { FinalCTA } from '@/components/sections/FinalCTA';
+import { Button } from '@/components/ui/Button';
 
 export const metadata = {
     title: "O Nas - Filar AI",
@@ -21,9 +22,21 @@ export default function AboutPage() {
 
             <HistoryMission />
 
+            <div className="flex justify-center py-12">
+                <Button href="/kontakt" variant="primary" className="px-8 py-4 text-lg">
+                    Umów konsultację
+                </Button>
+            </div>
+
             <TechStack />
 
             <WorkingPrinciples />
+
+            <div className="flex justify-center py-12">
+                <Button href="/kontakt" variant="primary" className="px-8 py-4 text-lg">
+                    Umów konsultację
+                </Button>
+            </div>
 
             <Certifications />
 
