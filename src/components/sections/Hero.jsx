@@ -235,6 +235,7 @@ export const Hero = () => {
           .hero-left {
             flex: 1;
             align-items: center;
+            width: 100%;
           }
           .hero-subtitle {
             margin-right: auto;
@@ -245,6 +246,16 @@ export const Hero = () => {
           }
           .hero-right {
             display: none;
+          }
+          .hero-actions {
+            flex-direction: column;
+            width: 100%;
+            gap: 12px;
+          }
+          .hero-actions .btn {
+            justify-content: center;
+            width: 100%;
+            padding: 16px 20px;
           }
         }
       `}</style>

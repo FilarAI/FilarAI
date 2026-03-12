@@ -261,6 +261,7 @@ export const AboutHero = () => {
             flex: 1 1 auto;
             max-width: 100%;
             order: 2; /* Content below */
+            text-align: center;
           }
 
           .about-h1 {
@@ -270,10 +271,13 @@ export const AboutHero = () => {
           .about-buttons {
             flex-direction: column;
             width: 100%;
+            gap: 12px;
           }
           
           .btn-primary, .btn-secondary {
              width: 100%;
+             justify-content: center;
+             padding: 14px 20px;
           }
         }
       `}</style>
