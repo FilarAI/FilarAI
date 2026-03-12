@@ -22,7 +22,7 @@ export default function AboutPage() {
 
             <HistoryMission />
 
-            <div className="flex justify-center py-12">
+            <div className="flex justify-center py-12 relative z-10">
                 <Button href="/kontakt" variant="primary" className="px-8 py-4 text-lg">
                     Umów konsultację
                 </Button>
@@ -32,7 +32,7 @@ export default function AboutPage() {
 
             <WorkingPrinciples />
 
-            <div className="flex justify-center py-12">
+            <div className="flex justify-center py-12 relative z-10">
                 <Button href="/kontakt" variant="primary" className="px-8 py-4 text-lg">
                     Umów konsultację
                 </Button>
