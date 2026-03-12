@@ -83,8 +83,32 @@ export const ProjectsGrid = () => {
   const [activeFilter, setActiveFilter] = useState("Wszystkie");
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef(null);
+  const cardRefs = useRef([]);
 
   useEffect(() => {
+    const handleMove = (e) => {
+      cardRefs.current.forEach((element) => {
+        if (!element) return;
+        const { left, top, width, height } = element.getBoundingClientRect();
+        const mouseX = e.clientX;
+        const mouseY = e.clientY;
+        const center = [left + width * 0.5, top + height * 0.5];
+        const isActive =
+          mouseX > left - 80 && mouseX < left + width + 80 &&
+          mouseY > top - 80 && mouseY < top + height + 80;
+        element.style.setProperty("--active", isActive ? "1" : "0");
+        if (!isActive) return;
+        const currentAngle = parseFloat(element.style.getPropertyValue("--start")) || 0;
+        let targetAngle =
+          (180 * Math.atan2(mouseY - center[1], mouseX - center[0])) / Math.PI + 90;
+        const angleDiff = ((targetAngle - currentAngle + 180) % 360) - 180;
+        const newAngle = currentAngle + angleDiff * 0.15;
+        element.style.setProperty("--start", String(newAngle));
+      });
+    };
+
+    document.body.addEventListener("pointermove", handleMove);
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -101,6 +125,7 @@ export const ProjectsGrid = () => {
 
     return () => {
       if (sectionRef.current) observer.unobserve(sectionRef.current);
+      document.body.removeEventListener("pointermove", handleMove);
     };
   }, []);
 
@@ -201,26 +226,75 @@ export const ProjectsGrid = () => {
           .grid-container { grid-template-columns: repeat(3, 1fr); }
         }
 
-        .project-card {
-          background: #141414;
-          border: 1px solid #222222;
-          border-radius: 12px;
-          overflow: hidden;
+        .portfolio-card-wrapper {
+          position: relative;
+          border-radius: 12px; /* var(--r-lg) */
+          overflow: visible;
+          --active: 0;
+          --start: 0;
+          width: 100%;
           cursor: pointer;
-          transition: all 0.3s ease;
           opacity: 0;
           transform: translateY(12px) scale(0.95);
-          display: flex;
-          flex-direction: column;
+          transition: transform 0.3s ease, opacity 0.3s ease;
+          text-decoration: none;
         }
-        .project-card.visible {
+
+        .portfolio-card-wrapper.visible {
           opacity: 1;
           transform: translateY(0) scale(1);
         }
-        .project-card:hover {
-          border-color: #D93025;
-          box-shadow: 0 0 12px rgba(217, 48, 37, 0.2);
+
+        .portfolio-card-wrapper:hover {
           transform: translateY(-2px);
+          transition: transform 0.2s ease !important;
+        }
+
+        .portfolio-card-wrapper:hover::before,
+        .portfolio-card-wrapper:hover .portfolio-card-glow {
+          transition-delay: 0s !important;
+        }
+
+        .portfolio-card-glow {
+          position: absolute;
+          inset: -1px;
+          border-radius: inherit;
+          background: conic-gradient(
+            from calc((var(--start) - 45) * 1deg),
+            transparent 0deg,
+            var(--red, #D93025) 60deg,
+            var(--red-dim, #A8201A) 120deg,
+            transparent 180deg
+          );
+          opacity: var(--active);
+          transition: opacity 0.4s ease;
+          pointer-events: none;
+          z-index: 0;
+        }
+
+        .portfolio-card-inner {
+          position: relative;
+          z-index: 1;
+          background: #141414; /* var(--bg-2) */
+          border-radius: 11px; /* calc(var(--r-lg) - 1px) */
+          margin: 1px;
+          height: calc(100% - 2px);
+          box-sizing: border-box;
+          overflow: hidden;
+          display: flex;
+          flex-direction: column;
+        }
+
+        .portfolio-card-wrapper::before {
+          content: '';
+          position: absolute;
+          inset: 0;
+          border-radius: inherit;
+          border: 1px solid #222222; /* var(--bg-4) */
+          pointer-events: none;
+          z-index: 2;
+          opacity: calc(1 - var(--active));
+          transition: opacity 0.4s ease;
         }
 
         .card-image-area {
@@ -236,7 +310,7 @@ export const ProjectsGrid = () => {
           object-fit: cover;
           transition: transform 0.4s ease;
         }
-        .project-card:hover .card-image {
+        .portfolio-card-wrapper:hover .card-image {
           transform: scale(1.04);
         }
 
@@ -259,6 +333,7 @@ export const ProjectsGrid = () => {
           border-radius: 9999px;
           padding: 4px 12px;
           backdrop-filter: blur(4px);
+          z-index: 2;
         }
 
         .result-group {
@@ -266,6 +341,7 @@ export const ProjectsGrid = () => {
           bottom: 12px;
           right: 12px;
           text-align: right;
+          z-index: 2;
         }
         .result-number {
           font-family: 'Syne', sans-serif;
@@ -371,44 +447,48 @@ export const ProjectsGrid = () => {
             <Link 
               key={project.slug} 
               href={`/portfolio/${project.slug}`}
-              className={`project-card ${isVisible && isMatched ? 'visible' : ''} ${!isMatched ? 'card-hidden' : ''}`}
+              ref={(el) => (cardRefs.current[index] = el)}
+              className={`portfolio-card-wrapper ${isVisible && isMatched ? 'visible' : ''} ${!isMatched ? 'card-hidden' : ''}`}
               style={{ transitionDelay: isVisible ? staggerDelay : '0s' }}
             >
-              <div className="card-image-area">
-                <img 
-                  src={project.image} 
-                  alt={project.title} 
-                  className="card-image"
-                  onError={(e) => {
-                    e.target.style.display = 'none';
-                  }}
-                />
-                <div className="image-overlay" />
-                <span className="industry-tag">{project.tag}</span>
-                <div className="result-group">
-                  <div className="result-number">{project.number}</div>
-                  <div className="result-label">{project.numberLabel}</div>
-                </div>
-              </div>
-
-              <div className="card-content">
-                <h3 className="card-title">{project.title}</h3>
-                <div className="detail-row">
-                  <span className="detail-label">PROBLEM</span>
-                  <span className="detail-text">{project.problem}</span>
-                </div>
-                <div className="detail-row">
-                  <span className="detail-label">ROZWIĄZANIE</span>
-                  <span className="detail-text">{project.rozwiazanie}</span>
-                </div>
-                <div className="detail-row">
-                  <span className="detail-label">EFEKT</span>
-                  <span className="detail-text">{project.efekt}</span>
+              <div className="portfolio-card-glow" />
+              <div className="portfolio-card-inner">
+                <div className="card-image-area">
+                  <img 
+                    src={project.image} 
+                    alt={project.title} 
+                    className="card-image"
+                    onError={(e) => {
+                      e.target.style.display = 'none';
+                    }}
+                  />
+                  <div className="image-overlay" />
+                  <span className="industry-tag">{project.tag}</span>
+                  <div className="result-group">
+                    <div className="result-number">{project.number}</div>
+                    <div className="result-label">{project.numberLabel}</div>
+                  </div>
                 </div>
 
-                <div className="card-footer">
-                  <span className="category-tag">{project.category}</span>
-                  <span className="see-more">Zobacz projekt →</span>
+                <div className="card-content">
+                  <h3 className="card-title">{project.title}</h3>
+                  <div className="detail-row">
+                    <span className="detail-label">PROBLEM</span>
+                    <span className="detail-text">{project.problem}</span>
+                  </div>
+                  <div className="detail-row">
+                    <span className="detail-label">ROZWIĄZANIE</span>
+                    <span className="detail-text">{project.rozwiazanie}</span>
+                  </div>
+                  <div className="detail-row">
+                    <span className="detail-label">EFEKT</span>
+                    <span className="detail-text">{project.efekt}</span>
+                  </div>
+
+                  <div className="card-footer">
+                    <span className="category-tag">{project.category}</span>
+                    <span className="see-more">Zobacz projekt →</span>
+                  </div>
                 </div>
               </div>
             </Link>
