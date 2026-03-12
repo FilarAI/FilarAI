@@ -31,8 +31,32 @@ const PRINCIPLES = [
 export const WorkingPrinciples = () => {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef(null);
+  const cardRefs = useRef([]);
 
   useEffect(() => {
+    const handleMove = (e) => {
+      cardRefs.current.forEach((element) => {
+        if (!element) return;
+        const { left, top, width, height } = element.getBoundingClientRect();
+        const mouseX = e.clientX;
+        const mouseY = e.clientY;
+        const center = [left + width * 0.5, top + height * 0.5];
+        const isActive =
+          mouseX > left - 80 && mouseX < left + width + 80 &&
+          mouseY > top - 80 && mouseY < top + height + 80;
+        element.style.setProperty("--active", isActive ? "1" : "0");
+        if (!isActive) return;
+        const currentAngle = parseFloat(element.style.getPropertyValue("--start")) || 0;
+        let targetAngle =
+          (180 * Math.atan2(mouseY - center[1], mouseX - center[0])) / Math.PI + 90;
+        const angleDiff = ((targetAngle - currentAngle + 180) % 360) - 180;
+        const newAngle = currentAngle + angleDiff * 0.15;
+        element.style.setProperty("--start", String(newAngle));
+      });
+    };
+
+    document.body.addEventListener("pointermove", handleMove);
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -46,6 +70,7 @@ export const WorkingPrinciples = () => {
     if (sectionRef.current) observer.observe(sectionRef.current);
     return () => {
       if (sectionRef.current) observer.unobserve(sectionRef.current);
+      document.body.removeEventListener("pointermove", handleMove);
     };
   }, []);
 
@@ -131,14 +156,46 @@ export const WorkingPrinciples = () => {
           border-radius: 12px; /* --r-lg */
           padding: 32px;
           position: relative;
-          overflow: hidden;
+          overflow: visible;
           transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+          --active: 0;
+          --start: 0;
         }
 
         .principle-card:hover {
           border-color: #D93025; /* --red */
           box-shadow: 0 0 12px rgba(217, 48, 37, 0.2);
           transform: translateY(-2px);
+        }
+
+        .filar-glow-element {
+          position: absolute;
+          inset: -2px;
+          border: 2px solid transparent;
+          border-radius: inherit;
+          background: repeating-conic-gradient(
+            from 236.84deg at 50% 50%,
+            var(--red, #D93025) 0%,
+            var(--red-dim, #A8201A) 5%,
+            var(--red-deep, #7A1510) 10%,
+            var(--red-dim, #A8201A) 15%,
+            var(--red, #D93025) 20%
+          );
+          opacity: var(--active);
+          transition: opacity 0.3s ease;
+          pointer-events: none;
+          z-index: 0;
+          mask-clip: padding-box, border-box;
+          mask-composite: intersect;
+          mask-image:
+            linear-gradient(#0000, #0000),
+            conic-gradient(
+              from calc((var(--start) - 45) * 1deg),
+              #00000000 0deg,
+              #fff,
+              #00000000 calc(45 * 2deg)
+            );
+          -webkit-mask-composite: xor;
         }
 
         .card-bg-number {
@@ -262,8 +319,10 @@ export const WorkingPrinciples = () => {
               <div 
                 key={principle.num} 
                 className="principle-card fade-up"
+                ref={(el) => (cardRefs.current[index] = el)}
                 style={{ transitionDelay: `${cardDelay}s` }}
               >
+                <div className="filar-glow-element" />
                 <span className="card-bg-number">{principle.num}</span>
                 
                 <div className="card-content">
