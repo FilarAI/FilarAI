@@ -57,9 +57,12 @@ export const Clients = () => {
 
         .section-subtitle {
           font-family: var(--font-body, 'Outfit', sans-serif);
-          font-size: 15px;
-          color: var(--text-3, #5A5550);
+          font-size: 17px;
+          color: var(--text-2, #9A9590);
           margin-top: 8px;
+          max-width: 600px;
+          margin-left: auto;
+          margin-right: auto;
         }
 
         /* Infinite Scrolling Strip */
@@ -98,17 +101,18 @@ export const Clients = () => {
 
         .logo-placeholder {
           background-color: var(--bg-3, #1A1A1A);
-          height: 32px;
-          width: 120px;
-          border-radius: 4px;
+          height: 48px;
+          width: 160px;
+          border-radius: 6px;
           filter: grayscale(100%) opacity(40%);
           transition: filter 0.2s ease, opacity 0.2s ease;
           display: flex;
           align-items: center;
           justify-content: center;
           font-family: var(--font-mono, 'JetBrains Mono', monospace);
-          font-size: 10px;
+          font-size: 12px;
           color: var(--text-3, #5A5550);
+          border: 1px solid var(--bg-4, #222222);
         }
 
         .logo-item:hover .logo-placeholder {
