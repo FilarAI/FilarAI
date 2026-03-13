@@ -135,9 +135,22 @@ export const Hero = () => {
           bottom: 32px;
           left: 50%;
           transform: translateX(-50%);
-          z-index: 2;
-          color: rgba(255,255,255,0.3);
+          z-index: 10;
+          color: var(--red);
           animation: bounceScroll 2s ease-in-out infinite;
+          cursor: pointer;
+          background: none;
+          border: none;
+          padding: 8px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+
+        .scroll-hint:hover {
+          transform: translateX(-50%) scale(1.2);
+          opacity: 0.8;
         }
 
         @keyframes bounceScroll {
@@ -249,9 +262,18 @@ export const Hero = () => {
       </div>
 
       {/* Scroll Hint */}
-      <div className="scroll-hint">
-        <ChevronDown size={24} />
-      </div>
+      <button 
+        onClick={() => {
+          const nextSection = document.getElementById('challenge');
+          if (nextSection) {
+            nextSection.scrollIntoView({ behavior: 'smooth' });
+          }
+        }}
+        className="scroll-hint"
+        aria-label="Przewiń do następnej sekcji"
+      >
+        <ChevronDown size={32} strokeWidth={3} />
+      </button>
     </section>
   );
 };
