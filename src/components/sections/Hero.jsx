@@ -206,21 +206,31 @@ export const Hero = () => {
           }
           
           section#hero {
-            background: transparent !important;
+            background: linear-gradient(-45deg, #080808, #1a0a09, #080808, #120807) !important;
+            background-size: 400% 400% !important;
+            animation: mobileGradient 15s ease infinite !important;
           }
 
           .hero-video {
-            display: none;
+            display: none !important;
+            visibility: hidden !important;
+            opacity: 0 !important;
           }
 
           .hero-overlay {
             background: linear-gradient(
               180deg,
-              rgba(8,8,8,0.3) 0%,
-              rgba(8,8,8,0.5) 50%,
-              rgba(8,8,8,0.85) 100%
-            );
+              rgba(8,8,8,0.2) 0%,
+              rgba(8,8,8,0.4) 50%,
+              rgba(8,8,8,0.75) 100%
+            ) !important;
           }
+        }
+
+        @keyframes mobileGradient {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
         }
 
         /* Hide browser-specific media overlays and controls */
