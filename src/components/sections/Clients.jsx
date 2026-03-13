@@ -29,11 +29,9 @@ export const Clients = () => {
     }, []);
 
     const logos = [
-        "klient-1",
-        "klient-2",
-        "klient-3",
-        "klient-4",
-        "klient-5"
+        { id: "design_beauty", src: "/images/logos/design_beauty.svg", alt: "Design & Beauty Logo" },
+        { id: "hc_lasota", src: "/images/logos/hc_lasota.svg", alt: "HC & Lasota Logo" },
+        { id: "filar_logo", src: "/images/logos/filar_logo.svg", alt: "Filar Logo" }
     ];
 
     return (
@@ -100,23 +98,27 @@ export const Clients = () => {
         }
 
         .logo-placeholder {
-          background-color: var(--bg-3, #1A1A1A);
-          height: 48px;
-          width: 160px;
-          border-radius: 6px;
-          filter: grayscale(100%) opacity(40%);
-          transition: filter 0.2s ease, opacity 0.2s ease;
+          background-color: transparent;
+          height: 60px;
+          width: 200px;
           display: flex;
           align-items: center;
           justify-content: center;
-          font-family: var(--font-mono, 'JetBrains Mono', monospace);
-          font-size: 12px;
-          color: var(--text-3, #5A5550);
-          border: 1px solid var(--bg-4, #222222);
+          transition: filter 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
+          overflow: hidden;
         }
 
-        .logo-item:hover .logo-placeholder {
-          filter: grayscale(0%) opacity(100%);
+        .client-logo-img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+          filter: grayscale(100%) brightness(1.5) opacity(0.5);
+          transition: all 0.3s ease;
+        }
+
+        .logo-item:hover .client-logo-img {
+          filter: grayscale(0%) brightness(1) opacity(1);
+          transform: scale(1.05);
         }
 
         /* Metrics Block */
@@ -177,21 +179,21 @@ export const Clients = () => {
 
                 <div className="logo-strip-outer">
                     <div className="logo-track">
-                        {/* First Set of Logos */}
-                        {logos.map((logo, i) => (
-                            <div key={`logo-1-${i}`} className="logo-item">
-                                <div className="logo-placeholder" data-logo={logo}>
-                                    {logo.toUpperCase()}
-                                </div>
-                            </div>
-                        ))}
-                        {/* Second Set of Logos (Duplicate for loop) */}
-                        {logos.map((logo, i) => (
-                            <div key={`logo-2-${i}`} className="logo-item">
-                                <div className="logo-placeholder" data-logo={logo}>
-                                    {logo.toUpperCase()}
-                                </div>
-                            </div>
+                        {/* Multiple sets for seamless loop transition */}
+                        {[...Array(6)].map((_, setIdx) => (
+                            <React.Fragment key={`set-${setIdx}`}>
+                                {logos.map((logo) => (
+                                    <div key={`logo-${setIdx}-${logo.id}`} className="logo-item">
+                                        <div className="logo-placeholder">
+                                            <img 
+                                                src={logo.src} 
+                                                alt={logo.alt} 
+                                                className="client-logo-img"
+                                            />
+                                        </div>
+                                    </div>
+                                ))}
+                            </React.Fragment>
                         ))}
                     </div>
                 </div>
