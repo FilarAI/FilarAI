@@ -4,39 +4,45 @@ import React, { useState, useEffect, useRef } from 'react';
 const certs = [
   {
     issuer: "ANTHROPIC",
-    title: "Claude AI Developer Certification",
+    title: "Kurs Anthropic",
     year: "2024",
+    logo: "/images/logos/anthropic.svg",
     description: "Projektowanie i wdrażanie systemów opartych o modele Claude. Prompt engineering, API, agenci AI.",
   },
   {
     issuer: "GOOGLE",
-    title: "Google AI Essentials",
+    title: "Kurs Google",
     year: "2024",
+    logo: "/images/logos/google.svg",
     description: "Praktyczne zastosowanie narzędzi AI Google w procesach biznesowych i automatyzacji pracy.",
   },
   {
-    issuer: "N8N",
-    title: "N8N Automation Certification",
+    issuer: "OPENAI",
+    title: "Kurs OpenAI",
     year: "2024",
-    description: "Budowanie zaawansowanych przepływów automatyzacji, integracje API, obsługa błędów i logika warunkowa.",
+    logo: "/images/logos/openai.svg",
+    description: "Wykorzystanie modeli GPT w zaawansowanych rozwiązaniach biznesowych i asystentach AI.",
   },
   {
-    issuer: "DEEPLEARNING.AI",
-    title: "AI Agents & Agentic Workflows",
+    issuer: "GEMINI",
+    title: "Kurs Gemini",
     year: "2024",
-    description: "Projektowanie agentów AI, multi-agent systems, RAG pipeline, narzędzia LangChain.",
+    logo: "/images/logos/gemini.svg",
+    description: "Integracja multimodalnych modeli Google Gemini w systemach automatyzacji i analizy danych.",
   },
   {
-    issuer: "GOOGLE",
-    title: "Google Project Management Certificate",
+    issuer: "UDEMY",
+    title: "Kurs Udemy",
     year: "2023",
-    description: "Zarządzanie projektami technologicznymi, praca z klientem, dokumentacja i wdrożenia.",
+    logo: "/images/logos/udemy.svg",
+    description: "Zaawansowane techniki programowania i integracji systemów w ekosystemach cyfrowych.",
   },
   {
-    issuer: "META",
-    title: "Meta AI Fundamentals",
+    issuer: "YOUTUBE",
+    title: "Kurs YouTube",
     year: "2024",
-    description: "Zastosowanie modeli open-source Meta w rozwiązaniach biznesowych i lokalnych wdrożeniach AI.",
+    logo: "/images/logos/yt.svg",
+    description: "Specjalistyczna wiedza z zakresu technologii AI i automatyzacji przekazywana przez ekspertów.",
   }
 ];
 
@@ -257,12 +263,21 @@ export const Certifications = () => {
           align-items: center;
           justify-content: center;
           flex-shrink: 0;
+          overflow: hidden;
+          padding: 8px;
         }
 
-        .issuer-initials {
-          font-family: 'JetBrains Mono', monospace;
-          font-size: 13px;
-          color: #5A5550; /* --text-3 */
+        .logo-img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+          filter: grayscale(100%) opacity(0.7);
+          transition: all 0.3s ease;
+        }
+
+        .cert-card-wrapper:hover .logo-img {
+          filter: grayscale(0%) opacity(1);
+          transform: scale(1.1);
         }
 
         .card-top-content {
@@ -354,7 +369,15 @@ export const Certifications = () => {
                 <div className="cert-card-inner">
                   <div className="card-top">
                     <div className="logo-placeholder">
-                      <span className="issuer-initials">{cert.issuer.charAt(0)}</span>
+                      {cert.logo ? (
+                        <img 
+                          src={cert.logo} 
+                          alt={`${cert.issuer} logo`} 
+                          className="logo-img"
+                        />
+                      ) : (
+                        <span className="issuer-initials">{cert.issuer.charAt(0)}</span>
+                      )}
                     </div>
                     <div className="card-top-content">
                       <span className="issuer-name">{cert.issuer}</span>
