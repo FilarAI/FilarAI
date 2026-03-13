@@ -39,7 +39,7 @@ export const Hero = () => {
           --r-md: 8px;
         }
 
-        .dark-overlay {
+        .hero-overlay {
           position: absolute;
           inset: 0;
           z-index: 1;
@@ -183,7 +183,7 @@ export const Hero = () => {
           transform: translateY(0);
         }
 
-        @media (max-width: 767px) {
+        @media (max-width: 768px) {
           .heading-syne {
             font-size: 42px;
           }
@@ -203,6 +203,23 @@ export const Hero = () => {
           }
           .scroll-hint {
             bottom: 24px;
+          }
+          
+          section#hero {
+            background: transparent !important;
+          }
+
+          .hero-video {
+            display: none;
+          }
+
+          .hero-overlay {
+            background: linear-gradient(
+              180deg,
+              rgba(8,8,8,0.3) 0%,
+              rgba(8,8,8,0.5) 50%,
+              rgba(8,8,8,0.85) 100%
+            );
           }
         }
 
@@ -237,6 +254,7 @@ export const Hero = () => {
       {!videoError ? (
         <video
           ref={videoRef}
+          className="hero-video"
           autoPlay
           muted
           loop
@@ -268,7 +286,7 @@ export const Hero = () => {
       <div className="interaction-blocker" />
 
       {/* Dark Overlay */}
-      <div className="dark-overlay" />
+      <div className="hero-overlay" />
 
       {/* Centered Content */}
       <div className="hero-content">
