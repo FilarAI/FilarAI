@@ -27,8 +27,9 @@ export const AboutHero = () => {
           margin: 0 auto;
           padding: 0 40px;
           display: flex;
+          flex-direction: row; /* Force side-by-side on desktop */
           align-items: center;
-          gap: 80px;
+          gap: 60px; /* Reduced gap slightly for better fit */
           overflow: hidden;
           width: 100%;
           max-width: 100vw;
@@ -37,10 +38,10 @@ export const AboutHero = () => {
 
         /* --- STYLES FOR LEFT COLUMN (PHOTO) --- */
         .about-photo-col {
-          flex: 0 0 45%;
-          max-width: 45%;
+          flex: 0 0 40%;
+          max-width: 40%;
           display: flex;
-          justify-content: flex-end;
+          justify-content: center;
           opacity: 0;
           transform: translateY(16px);
           transition: opacity 0.5s ease 0s, transform 0.5s ease 0s;
@@ -110,8 +111,8 @@ export const AboutHero = () => {
 
         /* --- STYLES FOR RIGHT COLUMN (CONTENT) --- */
         .about-content-col {
-          flex: 0 0 55%;
-          max-width: 55%;
+          flex: 0 0 60%;
+          max-width: 60%;
           display: flex;
           flex-direction: column;
           justify-content: center;
@@ -249,25 +250,25 @@ export const AboutHero = () => {
           }
 
           .about-hero-container {
-            flex-direction: column;
-            gap: 48px;
+            flex-direction: column !important; /* Force column on mobile */
+            gap: 40px;
             padding: 0 24px;
             align-items: center;
           }
 
           .about-photo-col {
-            flex: 1 1 auto;
-            max-width: 100%;
-            width: 100%;
-            order: 2; /* Photo below title */
+            flex: 0 0 auto !important;
+            max-width: 100% !important;
+            width: 100% !important;
+            order: 2 !important; /* Photo below title */
             display: flex;
             justify-content: center;
           }
 
           .about-content-col {
-            flex: 1 1 auto;
-            max-width: 100%;
-            display: contents; /* Allows reordering children (title/text groups) via flex-direction: column on container */
+            flex: 0 0 auto !important;
+            max-width: 100% !important;
+            display: contents !important;
           }
 
           .about-header-group {
