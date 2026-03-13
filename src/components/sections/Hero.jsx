@@ -53,7 +53,7 @@ export const Hero = () => {
 
         .hero-content {
           position: relative;
-          z-index: 2;
+          z-index: 10;
           text-align: center;
           max-width: 800px;
           padding: 0 40px;
@@ -221,7 +221,7 @@ export const Hero = () => {
         .interaction-blocker {
             position: absolute;
             inset: 0;
-            z-index: 5;
+            z-index: 1;
             background: transparent;
             pointer-events: auto;
         }
@@ -241,6 +241,7 @@ export const Hero = () => {
           disableRemotePlayback
           data-visual-search="disable"
           controlsList="nodownload nofullscreen noremoteplayback"
+          onContextMenu={(e) => e.preventDefault()}
           onError={() => setVideoError(true)}
           style={{
             position: 'absolute',
