@@ -457,7 +457,7 @@ export const Services = () => {
                                     ))}
                                 </div>
 
-                                <a href="#oferta" className="card-btn">Poznaj lepiej ofertę →</a>
+                                <a href="/oferta" className="card-btn">Poznaj lepiej ofertę →</a>
                             </div>
                         </div>
                     ))}
