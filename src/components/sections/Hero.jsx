@@ -1,134 +1,128 @@
 "use client";
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { Mail, MessageSquare, Calendar, Database, ArrowRight } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
+import AnimatedGradient from '@/components/AnimatedGradient';
 
 /**
- * FilarAI Hero Section
- * Layout: Full viewport height, 60/40 split.
- * Features: Animated flow diagram, staggered on-load animations, branded styling.
+ * FilarAI Hero Section Rebuilt
+ * Layout: Full viewport, centered, video background.
  */
 export const Hero = () => {
   const [isLoaded, setIsLoaded] = useState(false);
+  const [videoError, setVideoError] = useState(false);
 
   useEffect(() => {
     setIsLoaded(true);
   }, []);
 
   return (
-    <section id="hero" className="relative min-h-screen flex items-center overflow-hidden bg-transparent" style={{ '--bg-0': '#080808' }}>
+    <section id="hero" className="relative h-screen min-h-[600px] w-full overflow-hidden flex items-center justify-center bg-[#080808]">
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Syne:wght@800&family=Outfit:wght@400;600&family=JetBrains+Mono:wght@500&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Syne:wght@800&family=Outfit:wght@400;700&family=JetBrains+Mono:wght@500&display=swap');
 
         :root {
           --red: #D93025;
           --red-dim: #A8201A;
-          --red-glow: rgba(217, 48, 37, 0.3);
           --text-1: #F0EFEE;
           --text-2: #9A9590;
           --text-3: #5A5550;
-          --bg-2: #141414;
-          --bg-4: #222222;
-          --font-display: 'Syne', sans-serif;
-          --font-body: 'Outfit', sans-serif;
-          --font-mono: 'JetBrains Mono', monospace;
+          --bg-0: #080808;
+          --r-md: 8px;
         }
 
-        .hero-container {
-          display: flex;
-          width: 100%;
-          max-width: 1440px;
-          margin: 0 auto;
-          padding: 0 80px;
-          gap: 40px;
-          z-index: 10;
+        .dark-overlay {
+          position: absolute;
+          inset: 0;
+          z-index: 1;
+          background: linear-gradient(
+            180deg,
+            rgba(8,8,8,0.55) 0%,
+            rgba(8,8,8,0.70) 50%,
+            rgba(8,8,8,0.90) 100%
+          );
         }
 
-        .hero-left {
-          flex: 0 0 60%;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-        }
-
-        .hero-right {
-          flex: 0 0 40%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
+        .hero-content {
           position: relative;
+          z-index: 2;
+          text-align: center;
+          max-width: 800px;
+          padding: 0 40px;
+          margin: 0 auto;
         }
 
-        /* Typography */
-        .section-label {
-          font-family: var(--font-mono);
+        .label-mono {
+          font-family: 'JetBrains Mono', monospace;
           font-size: 11px;
           font-weight: 500;
           text-transform: uppercase;
           letter-spacing: 0.12em;
           color: var(--text-3);
+          margin-bottom: 20px;
+          display: block;
+        }
+
+        .heading-syne {
+          font-family: 'Syne', sans-serif;
+          font-size: 72px;
+          font-weight: 800;
+          letter-spacing: -0.03em;
+          color: var(--text-1);
+          line-height: 1.0;
           margin-bottom: 24px;
         }
 
-        .hero-title {
-          font-family: var(--font-display);
-          font-size: 64px;
-          font-weight: 800;
-          line-height: 1.05;
-          letter-spacing: -0.03em;
-          color: var(--text-1);
-          margin-bottom: 28px;
-        }
-
-        .hero-title span.accent {
+        .heading-syne .accent {
           color: var(--red);
         }
 
-        .hero-subtitle {
-          font-family: var(--font-body);
-          font-size: 17px;
+        .subtitle-outfit {
+          font-family: 'Outfit', sans-serif;
+          font-size: 18px;
           font-weight: 400;
-          line-height: 1.75;
           color: var(--text-2);
-          max-width: 480px;
-          margin-bottom: 40px;
+          line-height: 1.75;
+          max-width: 560px;
+          margin: 0 auto 40px;
         }
 
-        /* Buttons */
-        .hero-actions {
+        .hero-btns {
           display: flex;
-          gap: 16px;
+          justify-content: center;
+          gap: 12px;
+          flex-wrap: wrap;
         }
 
         .btn {
-          font-family: var(--font-body);
+          font-family: 'Outfit', sans-serif;
           font-size: 15px;
-          font-weight: 600;
-          padding: 14px 28px;
-          border-radius: 8px;
-          cursor: pointer;
-          transition: all 0.2s ease;
-          display: flex;
-          align-items: center;
-          gap: 8px;
+          font-weight: 700;
+          padding: 13px 28px;
+          border-radius: var(--r-md);
+          transition: all 0.15s ease;
           text-decoration: none;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          white-space: nowrap;
         }
 
         .btn-primary {
           background: var(--red);
           color: white;
-          border: none;
+          box-shadow: 0 0 16px rgba(217,48,37,0.3);
         }
 
         .btn-primary:hover {
           background: var(--red-dim);
-          box-shadow: 0 0 24px var(--red-glow);
+          box-shadow: 0 0 28px rgba(217,48,37,0.4);
         }
 
         .btn-secondary {
           background: transparent;
+          border: 1px solid rgba(255,255,255,0.2);
           color: var(--text-1);
-          border: 1px solid var(--bg-4);
         }
 
         .btn-secondary:hover {
@@ -136,226 +130,128 @@ export const Hero = () => {
           color: var(--red);
         }
 
-        /* Diagram */
-        .diagram-wrapper {
-          position: relative;
-          width: 100%;
-          aspect-ratio: 1/1;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-
-        .node {
+        .scroll-hint {
           position: absolute;
-          background: var(--bg-2);
-          border: 1px solid var(--bg-4);
-          border-radius: 8px;
-          padding: 12px 16px;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          gap: 8px;
-          width: 100px;
-          animation: float 6s ease-in-out infinite;
+          bottom: 32px;
+          left: 50%;
+          transform: translateX(-50%);
+          z-index: 2;
+          color: rgba(255,255,255,0.3);
+          animation: bounceScroll 2s ease-in-out infinite;
         }
 
-        .node-icon {
-          color: var(--red);
-          opacity: 0.8;
+        @keyframes bounceScroll {
+          0%, 100% { transform: translate(-50%, 0); }
+          50% { transform: translate(-50%, 8px); }
         }
 
-        .node-label {
-          font-family: var(--font-mono);
-          font-size: 10px;
-          text-transform: uppercase;
-          color: var(--text-2);
-          letter-spacing: 0.05em;
-        }
-
-        @keyframes float {
-          0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-10px); }
-        }
-
-        /* Connections */
-        .connections-svg {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          z-index: -1;
-        }
-
-        .connection-line {
-          stroke: var(--red);
-          stroke-width: 1;
-          stroke-opacity: 0.3;
-        }
-
-        .flow-dot {
-          fill: var(--red);
-          filter: drop-shadow(0 0 4px var(--red));
-        }
-
-        /* Load Animations */
-        .fade-up {
+        .fade-up-init {
           opacity: 0;
-          transform: translateY(12px);
-          transition: opacity 0.4s ease, transform 0.4s ease;
+          transform: translateY(16px);
+          transition: opacity 0.6s ease, transform 0.6s ease;
         }
 
-        .is-loaded .fade-up {
+        .fade-up-init.visible {
           opacity: 1;
           transform: translateY(0);
         }
 
-        .stagger-1 { transition-delay: 0.1s; }
-        .stagger-2 { transition-delay: 0.25s; }
-        .stagger-3 { transition-delay: 0.4s; }
-        .stagger-4 { transition-delay: 0.55s; }
-
-        .diagram-fade {
-          opacity: 0;
-          transition: opacity 0.6s ease;
-          transition-delay: 0.8s;
-        }
-
-        .is-loaded .diagram-fade {
-          opacity: 1;
-        }
-
-        @media (max-width: 1024px) {
-          .hero-container {
-            flex-direction: column;
-            padding: 80px 24px;
-            text-align: center;
+        @media (max-width: 767px) {
+          .heading-syne {
+            font-size: 42px;
           }
-          .hero-left {
-            flex: 1;
+          .subtitle-outfit {
+            font-size: 16px;
+            padding: 0 24px;
+          }
+          .hero-btns {
+            flex-direction: column;
             align-items: center;
             width: 100%;
+            max-width: 320px;
+            margin: 0 auto;
           }
-          .hero-subtitle {
-            margin-right: auto;
-            margin-left: auto;
-          }
-          .hero-title {
-            font-size: 48px;
-          }
-          .hero-right {
-            display: none;
-          }
-          .hero-actions {
-            flex-direction: column;
+          .hero-btns .btn {
             width: 100%;
-            gap: 12px;
           }
-          .hero-actions .btn {
-            justify-content: center;
-            width: 100%;
-            padding: 16px 20px;
+          .scroll-hint {
+            bottom: 24px;
           }
         }
       `}</style>
 
-      <div className={`hero-container ${isLoaded ? 'is-loaded' : ''}`}>
-        <div className="hero-left">
-          <div className="section-label fade-up stagger-1">
-            AUTOMATYZACJA · AI · SYSTEMY CYFROWE
-          </div>
-          <h1 className="hero-title fade-up stagger-2">
-            Przyszłość biznesu<br />
-            oparta na <span className="accent">inteligencji</span>.
-          </h1>
-          <p className="hero-subtitle fade-up stagger-3">
-            Projektujemy i wdrażamy zaawansowane systemy automatyzacji, które uwalniają Twój zespół od powtarzalnych zadań i skalują zyski.
-          </p>
-          <div className="hero-actions fade-up stagger-4">
-            <Link href="/kontakt" className="btn btn-primary">
-              Bezpłatna konsultacja
-              <ArrowRight size={18} />
-            </Link>
-            <a href="#challenge" className="btn btn-secondary">
-              Nasze rozwiązania
-            </a>
-          </div>
-        </div>
+      {/* Video Background or Fallback */}
+      {!videoError ? (
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          onError={() => setVideoError(true)}
+          style={{
+            position: 'absolute',
+            inset: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            zIndex: 0,
+          }}
+        >
+          <source src="/videos/hero-bg.mp4" type="video/mp4" />
+        </video>
+      ) : (
+        <AnimatedGradient />
+      )}
 
-        <div className="hero-right diagram-fade">
-          <div className="diagram-wrapper">
-            <svg className="connections-svg" viewBox="0 0 400 400">
-              {/* Lines linking nodes */}
-              <path className="connection-line" d="M200 80 L100 200" />
-              <path className="connection-line" d="M200 80 L300 200" />
-              <path className="connection-line" d="M100 200 L200 320" />
-              <path className="connection-line" d="M300 200 L200 320" />
+      {/* Dark Overlay */}
+      <div className="dark-overlay" />
 
-              {/* Animated Dots */}
-              <circle r="2.5" className="flow-dot">
-                <animateMotion
-                  dur="4s"
-                  repeatCount="indefinite"
-                  path="M200 80 L100 200"
-                />
-              </circle>
-              <circle r="2.5" className="flow-dot">
-                <animateMotion
-                  dur="3s"
-                  begin="1s"
-                  repeatCount="indefinite"
-                  path="M100 200 L200 320"
-                />
-              </circle>
-              <circle r="2.5" className="flow-dot">
-                <animateMotion
-                  dur="5s"
-                  begin="0.5s"
-                  repeatCount="indefinite"
-                  path="M200 80 L300 200"
-                />
-              </circle>
-              <circle r="2.5" className="flow-dot">
-                <animateMotion
-                  dur="3.5s"
-                  repeatCount="indefinite"
-                  path="M300 200 L200 320"
-                />
-              </circle>
-            </svg>
-
-            {/* Nodes */}
-            <div className="node" style={{ top: '30px', left: '150px', animationDelay: '0s' }}>
-              <Mail className="node-icon" size={24} />
-              <span className="node-label">Email</span>
-            </div>
-
-            <div className="node" style={{ top: '160px', left: '40px', animationDelay: '-1.5s' }}>
-              <MessageSquare className="node-icon" size={24} />
-              <span className="node-label">ChatGPT</span>
-            </div>
-
-            <div className="node" style={{ top: '160px', right: '40px', animationDelay: '-3s' }}>
-              <Calendar className="node-icon" size={24} />
-              <span className="node-label">Kalendarz</span>
-            </div>
-
-            <div className="node" style={{ bottom: '30px', left: '150px', animationDelay: '-4.5s' }}>
-              <Database className="node-icon" size={24} />
-              <span className="node-label">CRM</span>
-            </div>
-          </div>
+      {/* Centered Content */}
+      <div className="hero-content">
+        <span 
+          className={`label-mono fade-up-init ${isLoaded ? 'visible' : ''}`}
+          style={{ transitionDelay: '0.1s' }}
+        >
+          AUTOMATYZACJA · AI · SYSTEMY CYFROWE
+        </span>
+        
+        <h1 
+          className={`heading-syne fade-up-init ${isLoaded ? 'visible' : ''}`}
+          style={{ transitionDelay: '0.2s' }}
+        >
+          Przyszłość biznesu<br />
+          oparta na <span className="accent">inteligencji</span>.
+        </h1>
+        
+        <p 
+          className={`subtitle-outfit fade-up-init ${isLoaded ? 'visible' : ''}`}
+          style={{ transitionDelay: '0.3s' }}
+        >
+          Projektujemy i wdrażamy zaawansowane systemy automatyzacji, które uwalniają Twój zespół od powtarzalnych zadań i skalują zyski.
+        </p>
+        
+        <div 
+          className={`hero-btns fade-up-init ${isLoaded ? 'visible' : ''}`}
+          style={{ transitionDelay: '0.4s' }}
+        >
+          <a 
+            href="https://calendar.app.google/BtxhP1NN7bvTtwX57" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="btn btn-primary"
+          >
+            Bezpłatna konsultacja →
+          </a>
+          <Link href="/oferta" className="btn btn-secondary">
+            Nasze rozwiązania
+          </Link>
         </div>
       </div>
 
-      {/* Background glow per BRAND.md */}
-      <div
-        className="absolute inset-0 z-0 pointer-events-none"
-        style={{
-          background: 'radial-gradient(ellipse 60% 40% at 70% 20%, rgba(217,48,37,0.12) 0%, transparent 70%)'
-        }}
-      />
+      {/* Scroll Hint */}
+      <div className="scroll-hint">
+        <ChevronDown size={24} />
+      </div>
     </section>
   );
 };
