@@ -464,8 +464,8 @@ export default function KontaktPage() {
             {/* Main Content (60/40 Grid on Desktop) */}
             <div className="main-layout-container">
                 {/* Left Column - Contact Form */}
-                <div id="contact-form" className="animate-in fade-in slide-in-from-bottom-8 duration-700" style={{ animationDelay: '0.2s' }}>
-                    <div className="bg-[#0A0A0A] p-10 md:p-16 rounded-[32px] border border-[#1A1A1A]">
+                <div id="contact-form" className="animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+                    <div className="bg-[#121212] p-10 md:p-16 rounded-[32px] border border-[#1A1A1A]">
                         <div className="text-center mb-12">
                             <h2 className="heading-syne text-3xl mb-4">Opisz swój projekt</h2>
                             <p className="description-outfit text-base">Wypełnij formularz — wrócimy do Ciebie w ciągu 24h.</p>
