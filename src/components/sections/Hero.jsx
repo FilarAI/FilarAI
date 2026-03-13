@@ -66,9 +66,15 @@ export const Hero = () => {
           font-weight: 500;
           text-transform: uppercase;
           letter-spacing: 0.12em;
-          color: var(--text-3);
+          color: var(--text-1);
+          background: rgba(18, 18, 18, 0.75);
+          border: 1px solid rgba(217, 48, 37, 0.4);
+          padding: 6px 16px;
+          border-radius: 999px;
+          display: inline-block;
           margin-bottom: 20px;
-          display: block;
+          backdrop-filter: blur(8px);
+          width: fit-content;
         }
 
         .heading-syne {
