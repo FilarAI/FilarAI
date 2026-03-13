@@ -27,6 +27,8 @@ export const OfertaHero = () => {
                     overflow: hidden;
                     display: flex;
                     justify-content: center;
+                    max-width: 100vw;
+                    box-sizing: border-box;
                 }
 
                 .oferta-hero-container {
@@ -143,10 +145,17 @@ export const OfertaHero = () => {
                         padding-top: 120px;
                     }
                     .oferta-hero-h1 {
-                        font-size: 40px;
+                        font-size: clamp(2rem, 8vw, 3.5rem);
+                        word-break: break-word;
+                        overflow-wrap: break-word;
+                        hyphens: auto;
+                        padding-left: 16px;
+                        padding-right: 16px;
                     }
                     .oferta-hero-container {
                         padding: 0 24px;
+                        width: 100%;
+                        max-width: 100%;
                     }
                 }
             `}</style>
