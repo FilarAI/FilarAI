@@ -24,6 +24,9 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata = {
   title: "Filar AI - Automatyzacja dla Biznesu",
   description: "Zaoszczędź czas i zwiększ zyski dzięki inteligentnym systemom automatyzacji.",
+  other: {
+    'visual-search-policy': 'disable',
+  },
 };
 
 export default function RootLayout({ children }) {

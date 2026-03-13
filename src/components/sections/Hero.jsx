@@ -199,6 +199,32 @@ export const Hero = () => {
             bottom: 24px;
           }
         }
+
+        /* Hide browser-specific media overlays and controls */
+        video::-webkit-media-controls {
+            display: none !important;
+        }
+        video::-webkit-media-controls-enclosure {
+            display: none !important;
+        }
+        video::-webkit-media-controls-panel {
+            display: none !important;
+        }
+        /* Suppression for modern browsers media-overlay extensions */
+        #hero video {
+            pointer-events: none;
+            user-select: none;
+            visual-search: hidden;
+            -webkit-user-drag: none;
+        }
+
+        .interaction-blocker {
+            position: absolute;
+            inset: 0;
+            z-index: 5;
+            background: transparent;
+            pointer-events: auto;
+        }
       `}</style>
 
       {/* Video Background or Fallback */}
@@ -212,6 +238,8 @@ export const Hero = () => {
           webkit-playsinline="true"
           preload="auto"
           disablePictureInPicture
+          disableRemotePlayback
+          data-visual-search="disable"
           controlsList="nodownload nofullscreen noremoteplayback"
           onError={() => setVideoError(true)}
           style={{
@@ -228,6 +256,9 @@ export const Hero = () => {
       ) : (
         <AnimatedGradient />
       )}
+
+      {/* Invisible Interatcion Blocker to prevent browser overlays */}
+      <div className="interaction-blocker" />
 
       {/* Dark Overlay */}
       <div className="dark-overlay" />
