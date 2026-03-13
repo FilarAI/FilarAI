@@ -29,6 +29,10 @@ export const AboutHero = () => {
           display: flex;
           align-items: center;
           gap: 80px;
+          overflow: hidden;
+          width: 100%;
+          max-width: 100vw;
+          box-sizing: border-box;
         }
 
         /* --- STYLES FOR LEFT COLUMN (PHOTO) --- */
@@ -289,7 +293,14 @@ export const AboutHero = () => {
           }
 
           .about-h1 {
-            font-size: 36px;
+            font-size: clamp(2rem, 8vw, 3.5rem);
+            word-break: break-word;
+            overflow-wrap: break-word;
+            hyphens: auto;
+            padding-left: 16px;
+            padding-right: 16px;
+            width: 100%;
+            max-width: 100%;
           }
           
           .about-buttons {

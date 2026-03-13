@@ -16,6 +16,10 @@ export const PortfolioHero = () => {
                     text-align: center;
                     position: relative;
                     z-index: 1;
+                    overflow: hidden;
+                    width: 100%;
+                    max-width: 100vw;
+                    box-sizing: border-box;
                 }
 
                 .hero-label {
@@ -165,7 +169,14 @@ export const PortfolioHero = () => {
                         display: none;
                     }
                     .hero-title {
-                        font-size: 36px;
+                        font-size: clamp(2rem, 8vw, 3.5rem);
+                        word-break: break-word;
+                        overflow-wrap: break-word;
+                        hyphens: auto;
+                        padding-left: 16px;
+                        padding-right: 16px;
+                        width: 100%;
+                        max-width: 100%;
                     }
                 }
             `}</style>
