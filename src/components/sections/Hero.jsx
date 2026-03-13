@@ -267,7 +267,6 @@ export const Hero = () => {
           className="hero-video"
           autoPlay
           muted
-          loop
           playsInline
           webkit-playsinline="true"
           preload="auto"
