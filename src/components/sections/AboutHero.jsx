@@ -39,6 +39,8 @@ export const AboutHero = () => {
         .about-photo-col {
           flex: 0 0 45%;
           max-width: 45%;
+          display: flex;
+          justify-content: flex-end;
           opacity: 0;
           transform: translateY(16px);
           transition: opacity 0.5s ease 0s, transform 0.5s ease 0s;
@@ -110,6 +112,9 @@ export const AboutHero = () => {
         .about-content-col {
           flex: 0 0 55%;
           max-width: 55%;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
         }
 
         .about-label {
@@ -247,30 +252,7 @@ export const AboutHero = () => {
             flex-direction: column;
             gap: 48px;
             padding: 0 24px;
-          }
-
-          .about-photo-col {
-            flex: 1 1 auto;
-            max-width: 100%;
-            width: 100%;
-            order: 1; /* Photo on top */
-          }
-
-          .photo-container {
-            aspect-ratio: 3/2;
-            max-width: 100%;
-          }
-
-          .about-content-col {
-            flex: 1 1 auto;
-            max-width: 100%;
-            display: contents; /* Allows reordering children via flex container */
-          }
-
-          .about-header-group {
-            order: 1;
-            width: 100%;
-            text-align: center;
+            align-items: center;
           }
 
           .about-photo-col {
@@ -278,6 +260,20 @@ export const AboutHero = () => {
             max-width: 100%;
             width: 100%;
             order: 2; /* Photo below title */
+            display: flex;
+            justify-content: center;
+          }
+
+          .about-content-col {
+            flex: 1 1 auto;
+            max-width: 100%;
+            display: contents; /* Allows reordering children (title/text groups) via flex-direction: column on container */
+          }
+
+          .about-header-group {
+            order: 1;
+            width: 100%;
+            text-align: center;
           }
 
           .about-text-group {
@@ -287,8 +283,8 @@ export const AboutHero = () => {
           }
 
           .photo-container {
-            aspect-ratio: 3/2;
-            max-width: 100%;
+            aspect-ratio: 1/1; /* Square or tailored for mobile */
+            max-width: 320px;
             margin: 0 auto;
           }
 
@@ -301,12 +297,14 @@ export const AboutHero = () => {
             padding-right: 16px;
             width: 100%;
             max-width: 100%;
+            margin-bottom: 0px; /* Spacing handled by gap */
           }
           
           .about-buttons {
             flex-direction: column;
             width: 100%;
             gap: 12px;
+            margin-top: 32px;
           }
           
           .btn-primary, .btn-secondary {
