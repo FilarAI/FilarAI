@@ -260,8 +260,32 @@ export const AboutHero = () => {
           .about-content-col {
             flex: 1 1 auto;
             max-width: 100%;
-            order: 2; /* Content below */
+            display: contents; /* Allows reordering children via flex container */
+          }
+
+          .about-header-group {
+            order: 1;
+            width: 100%;
             text-align: center;
+          }
+
+          .about-photo-col {
+            flex: 1 1 auto;
+            max-width: 100%;
+            width: 100%;
+            order: 2; /* Photo below title */
+          }
+
+          .about-text-group {
+            order: 3; /* Description below photo */
+            width: 100%;
+            text-align: center;
+          }
+
+          .photo-container {
+            aspect-ratio: 3/2;
+            max-width: 100%;
+            margin: 0 auto;
           }
 
           .about-h1 {
@@ -309,26 +333,30 @@ export const AboutHero = () => {
 
         {/* RIGHT COLUMN: CONTENT */}
         <div className="about-content-col">
-          <span className="about-label">O MNIE</span>
-          <h1 className="about-h1">
-            Buduję <span className="accent-red">systemy</span> które odzyskują Ci czas
-          </h1>
+          <div className="about-header-group">
+            <span className="about-label">O MNIE</span>
+            <h1 className="about-h1">
+              Buduję <span className="accent-red">systemy</span> które odzyskują Ci czas
+            </h1>
+          </div>
           
-          <p className="about-p1">
-            Jestem Kacper — założyciel FilarAI. Specjalizuję się we wdrażaniu AI i automatyzacji dla małych i średnich firm. Nie interesuję się technologią dla samej technologii — interesują mnie problemy, które kosztują Cię czas i pieniądze.
-          </p>
-          
-          <p className="about-p2">
-            FilarAI powstała bo widziałem jak wiele firm traci dziesiątki godzin miesięcznie na rzeczy które maszyna może zrobić lepiej, szybciej i bez błędów. Moją rolą jest to zmienić.
-          </p>
+          <div className="about-text-group">
+            <p className="about-p1">
+              Jestem Kacper — założyciel FilarAI. Specjalizuję się we wdrażaniu AI i automatyzacji dla małych i średnich firm. Nie interesuję się technologią dla samej technologii — interesują mnie problemy, które kosztują Cię czas i pieniądze.
+            </p>
+            
+            <p className="about-p2">
+              FilarAI powstała bo widziałem jak wiele firm traci dziesiątki godzin miesięcznie na rzeczy które maszyna może zrobić lepiej, szybciej i bez błędów. Moją rolą jest to zmienić.
+            </p>
 
-          <div className="about-buttons">
-            <Link href="/kontakt" className="btn-primary">
-              Porozmawiajmy →
-            </Link>
-            <Link href="/portfolio" className="btn-secondary">
-              Zobacz realizacje
-            </Link>
+            <div className="about-buttons">
+              <Link href="/kontakt" className="btn-primary">
+                Porozmawiajmy →
+              </Link>
+              <Link href="/portfolio" className="btn-secondary">
+                Zobacz realizacje
+              </Link>
+            </div>
           </div>
         </div>
 
