@@ -65,6 +65,10 @@ export default function KontaktPage() {
                 .contact-hero {
                     padding: 160px 24px 80px;
                     text-align: center;
+                    overflow: hidden;
+                    width: 100%;
+                    max-width: 100vw;
+                    box-sizing: border-box;
                 }
 
                 .label-mono {
@@ -85,6 +89,17 @@ export default function KontaktPage() {
                     letter-spacing: -0.02em;
                     line-height: 1.1;
                     margin-bottom: 32px;
+                }
+
+                @media (max-width: 768px) {
+                    .heading-syne {
+                        font-size: clamp(2rem, 8vw, 3.5rem);
+                        word-break: break-word;
+                        overflow-wrap: break-word;
+                        hyphens: auto;
+                        padding-left: 16px;
+                        padding-right: 16px;
+                    }
                 }
 
                 .description-outfit {
