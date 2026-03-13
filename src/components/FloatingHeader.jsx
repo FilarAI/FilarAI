@@ -159,20 +159,21 @@ export function FloatingHeader() {
           font-family: 'Outfit', sans-serif;
           font-size: 14px;
           font-weight: 600;
-          color: var(--text-1);
+          color: #ffffff;
           text-decoration: none;
           padding: 10px 22px;
-          background: transparent;
-          border: 1px solid rgba(255, 255, 255, 0.15);
+          background: #D93025;
+          border: none;
           border-radius: 8px;
           transition: all 0.2s ease;
+          box-shadow: 0 0 12px rgba(217, 48, 37, 0.2);
         }
 
         .cta-btn:hover {
-          border-color: #D93025;
-          color: #D93025;
-          background: rgba(217, 48, 37, 0.05);
-          transform: translateY(-1px);
+          background: #A8201A;
+          color: #ffffff;
+          transform: translateY(-2px);
+          box-shadow: 0 0 24px rgba(217, 48, 37, 0.3);
         }
 
         .cta-btn:active {
