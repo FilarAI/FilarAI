@@ -18,18 +18,18 @@ export const AboutHero = () => {
         .about-hero-section {
           width: 100%;
           background-color: transparent; /* --bg-0 */
-          padding-top: 140px; /* navbar offset */
+          padding-top: 160px; /* matched to OfertaHero */
           padding-bottom: 96px;
         }
 
         .about-hero-container {
-          max-width: 1200px;
+          max-width: 900px; /* matched to OfertaHero */
           margin: 0 auto;
           padding: 0 40px;
           display: flex;
-          flex-direction: row; /* Force side-by-side on desktop */
+          flex-direction: column;
           align-items: center;
-          gap: 60px; /* Reduced gap slightly for better fit */
+          text-align: center;
           overflow: hidden;
           width: 100%;
           max-width: 100vw;
@@ -38,13 +38,15 @@ export const AboutHero = () => {
 
         /* --- STYLES FOR LEFT COLUMN (PHOTO) --- */
         .about-photo-col {
-          flex: 0 0 40%;
-          max-width: 40%;
+          flex: 0 0 auto;
+          width: 100%;
+          max-width: 420px;
+          margin: 48px 0;
           display: flex;
           justify-content: center;
           opacity: 0;
           transform: translateY(16px);
-          transition: opacity 0.5s ease 0s, transform 0.5s ease 0s;
+          transition: opacity 0.5s ease 0.1s, transform 0.5s ease 0.1s;
         }
 
         .about-hero-section.loaded .about-photo-col {
@@ -111,11 +113,10 @@ export const AboutHero = () => {
 
         /* --- STYLES FOR RIGHT COLUMN (CONTENT) --- */
         .about-content-col {
-          flex: 0 0 60%;
-          max-width: 60%;
+          width: 100%;
           display: flex;
           flex-direction: column;
-          justify-content: center;
+          align-items: center;
         }
 
         .about-label {
@@ -164,6 +165,9 @@ export const AboutHero = () => {
           color: #9A9590; /* --text-2 */
           line-height: 1.75;
           margin-bottom: 16px;
+          max-width: 600px;
+          margin-left: auto;
+          margin-right: auto;
           opacity: 0;
           transform: translateY(16px);
           transition: opacity 0.5s ease 0.3s, transform 0.5s ease 0.3s;
@@ -180,6 +184,9 @@ export const AboutHero = () => {
           color: #9A9590; /* --text-2 */
           line-height: 1.75;
           margin-bottom: 32px;
+          max-width: 600px;
+          margin-left: auto;
+          margin-right: auto;
           opacity: 0;
           transform: translateY(16px);
           transition: opacity 0.5s ease 0.35s, transform 0.5s ease 0.35s;
@@ -192,6 +199,7 @@ export const AboutHero = () => {
 
         .about-buttons {
           display: flex;
+          justify-content: center;
           gap: 12px;
           opacity: 0;
           transform: translateY(16px);
@@ -244,49 +252,24 @@ export const AboutHero = () => {
         }
 
         /* --- RESPONSIVE DESIGN --- */
+        /* --- RESPONSIVE DESIGN --- */
         @media (max-width: 767px) {
           .about-hero-section {
-            padding-top: 100px;
+            padding-top: 120px;
           }
 
           .about-hero-container {
-            flex-direction: column !important; /* Force column on mobile */
-            gap: 40px;
             padding: 0 24px;
-            align-items: center;
+            gap: 24px;
           }
 
           .about-photo-col {
-            flex: 0 0 auto !important;
-            max-width: 100% !important;
-            width: 100% !important;
-            order: 2 !important; /* Photo below title */
-            display: flex;
-            justify-content: center;
-          }
-
-          .about-content-col {
-            flex: 0 0 auto !important;
-            max-width: 100% !important;
-            display: contents !important;
-          }
-
-          .about-header-group {
-            order: 1;
-            width: 100%;
-            text-align: center;
-          }
-
-          .about-text-group {
-            order: 3; /* Description below photo */
-            width: 100%;
-            text-align: center;
+            margin: 32px 0;
+            max-width: 300px;
           }
 
           .photo-container {
-            aspect-ratio: 1/1; /* Square or tailored for mobile */
-            max-width: 320px;
-            margin: 0 auto;
+            aspect-ratio: 1/1;
           }
 
           .about-h1 {
@@ -294,41 +277,38 @@ export const AboutHero = () => {
             word-break: break-word;
             overflow-wrap: break-word;
             hyphens: auto;
-            padding-left: 16px;
-            padding-right: 16px;
-            width: 100%;
-            max-width: 100%;
-            margin-bottom: 0px; /* Spacing handled by gap */
+            padding: 0 16px;
           }
           
           .about-buttons {
             flex-direction: column;
             width: 100%;
-            gap: 12px;
-            margin-top: 32px;
           }
           
           .btn-primary, .btn-secondary {
              width: 100%;
-             justify-content: center;
-             padding: 14px 20px;
           }
         }
       `}</style>
 
       <div className="about-hero-container">
         
-        {/* LEFT COLUMN: PHOTO */}
+        {/* HEADER GROUP: LABEL & TITLE */}
+        <div className="about-header-group">
+          <span className="about-label">O MNIE</span>
+          <h1 className="about-h1">
+            Buduję <span className="accent-red">systemy</span> które odzyskują Ci czas
+          </h1>
+        </div>
+
+        {/* PHOTO SECTION */}
         <div className="about-photo-col">
           <div className="photo-container">
-            {/* img zamiast unoptimized Image, zgodnie z instrukcją "data-src on img tag" lub po prostu "<img>" jeśli nie ma next/image w poleceniu,
-                Jednak użyję elementu <img> bo w specyfikacji było literalnie "img tag" */}
             <img 
               src="/images/about/kacper.jpg" 
               alt="Kacper Filar - FilarAI Founder" 
               className="photo-img" 
               onError={(e) => {
-                // fall-back dla placeholdera, gdyby zdjęcie nie istniało jeszcze w odpowiednim folderze
                 e.target.style.display = 'none';
               }}
             />
@@ -341,15 +321,8 @@ export const AboutHero = () => {
           </div>
         </div>
 
-        {/* RIGHT COLUMN: CONTENT */}
+        {/* CONTENT SECTION: P1, P2, BUTTONS */}
         <div className="about-content-col">
-          <div className="about-header-group">
-            <span className="about-label">O MNIE</span>
-            <h1 className="about-h1">
-              Buduję <span className="accent-red">systemy</span> które odzyskują Ci czas
-            </h1>
-          </div>
-          
           <div className="about-text-group">
             <p className="about-p1">
               Jestem Kacper — założyciel FilarAI. Specjalizuję się we wdrażaniu AI i automatyzacji dla małych i średnich firm. Nie interesuję się technologią dla samej technologii — interesują mnie problemy, które kosztują Cię czas i pieniądze.
