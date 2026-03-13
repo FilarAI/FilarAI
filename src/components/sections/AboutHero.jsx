@@ -17,36 +17,31 @@ export const AboutHero = () => {
       <style>{`
         .about-hero-section {
           width: 100%;
-          background-color: transparent; /* --bg-0 */
-          padding-top: 160px; /* matched to OfertaHero */
-          padding-bottom: 96px;
+          min-height: 100vh;
+          background-color: #080808; /* --bg-0 */
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding-top: 64px; /* navbar height */
         }
 
         .about-hero-container {
-          max-width: 900px; /* matched to OfertaHero */
+          max-width: 1200px;
           margin: 0 auto;
           padding: 0 40px;
           display: flex;
           flex-direction: column;
           align-items: center;
           text-align: center;
-          overflow: hidden;
           width: 100%;
-          max-width: 100vw;
           box-sizing: border-box;
         }
 
         /* --- STYLES FOR LEFT COLUMN (PHOTO) --- */
-        .about-photo-col {
-          flex: 0 0 auto;
-          width: 100%;
-          max-width: 420px;
-          margin: 48px 0;
-          display: flex;
-          justify-content: center;
-          opacity: 0;
-          transform: translateY(16px);
-          transition: opacity 0.5s ease 0.1s, transform 0.5s ease 0.1s;
+        @media (min-width: 768px) {
+          .about-photo-col {
+            display: none;
+          }
         }
 
         .about-hero-section.loaded .about-photo-col {
@@ -138,16 +133,16 @@ export const AboutHero = () => {
 
         .about-h1 {
           font-family: 'Syne', sans-serif;
-          font-weight: 800;
-          font-size: 52px;
+          font-weight: 700;
+          font-size: 56px;
           letter-spacing: -0.03em;
           color: #F0EFEE; /* --text-1 */
           line-height: 1.05;
-          margin-top: 12px;
-          margin-bottom: 24px;
+          margin: 16px 0 32px;
           opacity: 0;
           transform: translateY(16px);
           transition: opacity 0.5s ease 0.2s, transform 0.5s ease 0.2s;
+          max-width: 900px;
         }
 
         .about-hero-section.loaded .about-h1 {
@@ -164,10 +159,8 @@ export const AboutHero = () => {
           font-size: 17px;
           color: #9A9590; /* --text-2 */
           line-height: 1.75;
-          margin-bottom: 16px;
-          max-width: 600px;
-          margin-left: auto;
-          margin-right: auto;
+          margin-bottom: 20px;
+          max-width: 640px;
           opacity: 0;
           transform: translateY(16px);
           transition: opacity 0.5s ease 0.3s, transform 0.5s ease 0.3s;
@@ -183,10 +176,8 @@ export const AboutHero = () => {
           font-size: 17px;
           color: #9A9590; /* --text-2 */
           line-height: 1.75;
-          margin-bottom: 32px;
-          max-width: 600px;
-          margin-left: auto;
-          margin-right: auto;
+          margin-bottom: 40px;
+          max-width: 640px;
           opacity: 0;
           transform: translateY(16px);
           transition: opacity 0.5s ease 0.35s, transform 0.5s ease 0.35s;
@@ -255,7 +246,9 @@ export const AboutHero = () => {
         /* --- RESPONSIVE DESIGN --- */
         @media (max-width: 767px) {
           .about-hero-section {
+            min-height: auto;
             padding-top: 120px;
+            padding-bottom: 80px;
           }
 
           .about-hero-container {
@@ -264,12 +257,17 @@ export const AboutHero = () => {
           }
 
           .about-photo-col {
+            display: flex !important;
             margin: 32px 0;
             max-width: 300px;
+            order: 2;
+            opacity: 1;
+            transform: none;
           }
 
           .photo-container {
             aspect-ratio: 1/1;
+            max-width: 100%;
           }
 
           .about-h1 {
@@ -277,7 +275,21 @@ export const AboutHero = () => {
             word-break: break-word;
             overflow-wrap: break-word;
             hyphens: auto;
-            padding: 0 16px;
+            padding: 0 8px;
+            margin-bottom: 0;
+            order: 1;
+          }
+
+          .about-content-col {
+             display: contents;
+          }
+
+          .about-header-group { order: 1; }
+          .about-text-group { 
+            order: 3;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
           }
           
           .about-buttons {

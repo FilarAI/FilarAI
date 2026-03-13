@@ -72,6 +72,17 @@ export const HistoryMission = () => {
           display: block;
         }
 
+        .founder-round-photo {
+          display: block;
+          margin: 0 auto 48px;
+          width: 280px;
+          height: 280px;
+          object-fit: cover;
+          border-radius: 50%;
+          border: 2px solid rgba(217, 48, 37, 0.25); /* --red-border */
+          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        }
+
         .opening-quote-container {
           margin: 24px 0 48px;
           text-align: center;
@@ -231,8 +242,17 @@ export const HistoryMission = () => {
       `}</style>
 
       <div className="history-container">
-        {/* Label & Quote animate together */}
+        {/* Founder Photo at the very top */}
         <div className="fade-up anim-group-1">
+          <img 
+            src="/images/about/kacper.jpg" 
+            alt="Kacper Filar — założyciel FilarAI" 
+            className="founder-round-photo"
+          />
+        </div>
+
+        {/* Label & Quote animate together */}
+        <div className="fade-up anim-group-1" style={{ transitionDelay: '0.1s' }}>
           <span className="hm-label">HISTORIA I MISJA</span>
           
           <div className="opening-quote-container">
