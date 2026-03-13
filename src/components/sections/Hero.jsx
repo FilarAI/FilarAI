@@ -12,8 +12,16 @@ export const Hero = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [videoError, setVideoError] = useState(false);
 
+  const videoRef = React.useRef(null);
+
   useEffect(() => {
     setIsLoaded(true);
+    // Explicit play trigger for mobile/Safari reliability
+    if (videoRef.current) {
+        videoRef.current.play().catch(error => {
+            console.log("Autoplay blocked or failed:", error);
+        });
+    }
   }, []);
 
   return (
@@ -196,10 +204,15 @@ export const Hero = () => {
       {/* Video Background or Fallback */}
       {!videoError ? (
         <video
+          ref={videoRef}
           autoPlay
           muted
           loop
           playsInline
+          webkit-playsinline="true"
+          preload="auto"
+          disablePictureInPicture
+          controlsList="nodownload nofullscreen noremoteplayback"
           onError={() => setVideoError(true)}
           style={{
             position: 'absolute',
