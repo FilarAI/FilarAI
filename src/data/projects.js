@@ -191,6 +191,12 @@ export const projects = [
         'Optymalizacja SEO i szybkość ładowania pod Google'
       ]
     },
+    results: [
+      { number: '7dni', label: 'DO ZAPYTAŃ', description: 'od uruchomienia strony' },
+      { number: '24/7', label: 'DOSTĘPNOŚĆ', description: 'chatbot obsługuje klientów non-stop' },
+      { number: '100%', label: 'PYTAŃ', description: 'obsłużonych bez angażowania właściciela' },
+      { number: '0', label: 'STRACONYCH', description: 'zapytań poza godzinami pracy' }
+    ],
     testimonial: { quote: '[Placeholder — opinia klienta]', author: 'Klient · Usługi lokalne' },
     techStack: ['React', 'Next.js', 'Claude (Anthropic)', 'Tailwind CSS', 'Vercel', 'Google Search Console']
   },
