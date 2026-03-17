@@ -313,21 +313,16 @@ export const About = () => {
                 {/* Left Side */}
                 <div className={`about-left ${isVisible ? 'visible' : ''}`}>
                     <div className="image-container">
-                        <svg className="image-placeholder-icon" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
-                        </svg>
-                        <div
+                        <img 
+                            src="/logotype/moje_photo.jpg" 
+                            alt="Kacper Filar — Founder FilarAI" 
                             style={{
-                                position: 'absolute',
-                                bottom: '12px',
-                                right: '12px',
-                                fontSize: '10px',
-                                color: 'var(--text-3)',
-                                fontFamily: 'var(--font-mono)'
+                                width: '100%',
+                                height: '100%',
+                                objectFit: 'cover',
+                                display: 'block'
                             }}
-                        >
-                            about/kacper.jpg
-                        </div>
+                        />
                     </div>
 
                     <div className="facts-row">

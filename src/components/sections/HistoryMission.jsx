@@ -245,7 +245,7 @@ export const HistoryMission = () => {
         {/* Founder Photo at the very top */}
         <div className="fade-up anim-group-1">
           <img 
-            src="/images/about/kacper.jpg" 
+            src="/logotype/moje_photo.jpg" 
             alt="Kacper Filar — założyciel FilarAI" 
             className="founder-round-photo"
           />
