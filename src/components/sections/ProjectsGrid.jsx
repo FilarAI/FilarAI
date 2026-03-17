@@ -499,7 +499,7 @@ export const ProjectsGrid = () => {
 
       {/* Section Header */}
       <div className={`grid-header ${isVisible ? 'visible' : ''}`}>
-        <span className="grid-label">NASZE REALIZACJE</span>
+        <span className="grid-label">NASZE REALIZACJE [AKTUALNE]</span>
         <h2 className="grid-title">Zobacz systemy, które już działają.</h2>
         <p className="grid-subtitle">
           Przekształcamy wąskie gardła biznesowe w płynne i niezawodne procesy. Poznaj rozwiązania, dzięki którym nasi klienci oszczędzają czas i skalują swoje firmy.
