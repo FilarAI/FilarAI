@@ -32,42 +32,43 @@ export const projects = [
   },
   {
     slug: 'dashboard-zapasow',
-    title: 'Dashboard zapasów',
-    highlightWord: 'zapasów',
-    industry: 'Zarządzanie',
+    title: 'Dashboard zarządzania zapasami',
+    highlightWord: 'zapasami',
+    industry: 'Biuro / Handel',
     category: 'Narzędzia dla zespołu',
     image: 'portfolio/dashboard.jpg',
-    intro: 'Biuro zarządzało zapasami w arkuszu Excel — nieefektywne, podatne na błędy, brak dostępu mobilnego.',
+    intro: 'Biuro zarządzało zapasami w arkuszach Excel — nieefektywne, podatne na błędy, bez dostępu mobilnego dla zespołu.',
     result: { number: '−50%', label: 'CZAS OBSŁUGI', descriptor: 'zamówień biurowych' },
     problem: {
-      lead: 'Excel jako system zarządzania zapasami generował błędy i uniemożliwiał pracę zdalną.',
+      lead: 'Excel jako system zarządzania zapasami generował błędy i blokował mobilność zespołu.',
       bullets: [
-        'Arkusz Excel edytowany przez wiele osób jednocześnie — konflikty i błędy danych',
-        'Brak dostępu mobilnego — zamówienia możliwe tylko przy komputerze',
-        'Ręczne tworzenie zamówień i faktur zajmowało nieproporcjonalnie dużo czasu'
+        'Arkusze Excel podatne na błędy przy każdej aktualizacji stanów',
+        'Brak dostępu z telefonu — pracownicy przykuci do biurka',
+        'Zero integracji z fakturomatem — każde zamówienie wymagało ręcznej obsługi'
       ]
     },
     solution: {
-      description: 'Dedykowana aplikacja webowa z logowaniem i autoryzacją. Umożliwia przeglądanie zapasów, szybkie tworzenie koszyków i zamówień oraz bezpośredni dostęp do fakturomatu.',
-      hasFlowDiagram: false,
-      features: [
-        'Panel zarządzania z logowaniem i rolami użytkowników',
-        'Podgląd zapasów w czasie rzeczywistym z dowolnego urządzenia',
-        'Koszyk zamówień i automatyczne generowanie faktur',
-        'Historia zamówień i eksport danych'
+      description: 'Dedykowana aplikacja webowa dostępna z każdego urządzenia z logowaniem, zarządzaniem koszykiem i bezpośrednim dostępem do fakturomatu.',
+      hasFlowDiagram: true,
+      flowSteps: [
+        'Logowanie do aplikacji',
+        'Przegląd aktualnych zapasów',
+        'Tworzenie koszyka zamówienia',
+        'Zatwierdzenie zamówienia',
+        'Automatyczne fakturowanie'
       ]
     },
     results: [
       { number: '−50%', label: 'CZAS OBSŁUGI', description: 'zamówień biurowych' },
-      { number: '100%', label: 'DOSTĘPNOŚĆ', description: 'z dowolnego urządzenia' },
-      { number: '0', label: 'KONFLIKTÓW', description: 'w danych między użytkownikami' },
-      { number: '<1min', label: 'ZAMÓWIENIE', description: 'od wyboru do faktury' }
+      { number: '100%', label: 'MOBILNOŚĆ', description: 'dostęp z każdego urządzenia' },
+      { number: '0', label: 'BŁĘDÓW', description: 'przy aktualizacji stanów magazynowych' },
+      { number: '1 system', label: 'ZAMIAST', description: 'dziesiątek arkuszy Excel' }
     ],
-    testimonial: { quote: '[Placeholder — opinia klienta]', author: 'Klient · Zarządzanie' },
-    techStack: ['React', 'Next.js', 'Supabase', 'Tailwind CSS', 'Vercel']
+    testimonial: { quote: '[Placeholder — opinia klienta]', author: 'Klient · Biuro / Handel' },
+    techStack: ['React', 'Supabase', 'Next.js', 'Vercel']
   },
   {
-    slug: 'rag-agent',
+    slug: 'rag-agent-firmowy',
     title: 'RAG Agent firmowy',
     highlightWord: 'Agent',
     industry: 'HR / Onboarding',
@@ -84,9 +85,15 @@ export const projects = [
       ]
     },
     solution: {
-      description: 'Agent AI z dostępem do bazy wiedzy firmy — procedury, FAQ, cenniki, dane klientów. Pracownicy pytają agenta zamiast managera.',
+      description: 'Agent AI z dostępem do bazy wiedzy firmy — pracownicy pytają agenta zamiast managera.',
       hasFlowDiagram: true,
-      flowSteps: ['Pytanie pracownika', 'Agent przeszukuje bazę wiedzy', 'RAG — dopasowanie kontekstu', 'Generowanie odpowiedzi', 'Odpowiedź + źródło dokumentu']
+      flowSteps: [
+        'Pytanie pracownika',
+        'Agent przeszukuje bazę wiedzy',
+        'RAG — dopasowanie kontekstu',
+        'Generowanie odpowiedzi',
+        'Odpowiedź + źródło dokumentu'
+      ]
     },
     results: [
       { number: '+4h', label: 'TYGODNIOWO', description: 'odzyskane przez managera' },
@@ -129,40 +136,42 @@ export const projects = [
     techStack: ['n8n', 'Claude (Anthropic)', 'GPT-4', 'Gmail API', 'Google Calendar API']
   },
   {
-    slug: 'intencje-online',
+    slug: 'system-intencji-online',
     title: 'System intencji online',
     highlightWord: 'intencji',
-    industry: 'Sektor publiczny',
+    industry: 'Organizacje / Instytucje',
     category: 'Narzędzia dla zespołu',
     image: 'portfolio/intencje.jpg',
-    intro: 'Parafia przyjmowała intencje mszalne wyłącznie stacjonarnie — długie kolejki, brak dostępności, trudności dla osób starszych.',
-    result: { number: '24/7', label: 'DOSTĘPNOŚĆ', descriptor: 'bez potrzeby obecności' },
+    intro: 'Parafia przyjmowała intencje mszalne wyłącznie stacjonarnie — długie kolejki, brak dostępności i trudności dla osób starszych lub mieszkających daleko.',
+    result: { number: '24/7', label: 'OBSŁUGA', descriptor: 'przyjmowania intencji' },
     problem: {
-      lead: 'Obsługa intencji wymagała fizycznej obecności w kancelarii w określonych godzinach.',
+      lead: 'Obsługa wyłącznie stacjonarna generowała kolejki i wykluczała osoby które nie mogły osobiście przyjść.',
       bullets: [
-        'Kolejki w kancelarii szczególnie przed świętami — frustracja wiernych',
-        'Osoby starsze i niepełnosprawne miały trudności z dotarciem w godzinach otwarcia',
-        'Ręczne zapisywanie intencji w zeszytach — ryzyko błędów i brak szybkiego dostępu'
+        'Długie kolejki w godzinach przyjęć — frustracja wiernych i pracowników kancelarii',
+        'Brak dostępności dla osób starszych i mieszkających daleko',
+        'Ręczne zapisywanie intencji — ryzyko błędów i zgubionych zgłoszeń'
       ]
     },
     solution: {
-      description: 'Platforma online do składania intencji z dedykowanym panelem administracyjnym dla kancelarii — zaprojektowanym tak by mogły z niego korzystać osoby bez doświadczenia technicznego.',
-      hasFlowDiagram: false,
-      features: [
-        'Formularz online dostępny 24/7 z dowolnego urządzenia',
-        'Panel kancelarii z przejrzystym kalendarzem intencji',
-        'Automatyczne potwierdzenia e-mail dla składających intencje',
-        'Prosty interfejs zaprojektowany dla osób bez doświadczenia technicznego'
+      description: 'Platforma online do składania intencji z dedykowanym panelem administracyjnym zaprojektowanym tak by mogły z niego korzystać osoby bez doświadczenia technicznego.',
+      hasFlowDiagram: true,
+      flowSteps: [
+        'Zgłoszenie online',
+        'Weryfikacja danych',
+        'Zapis do systemu',
+        'Powiadomienie kancelarii',
+        'Potwierdzenie dla składającego',
+        'Panel administracyjny'
       ]
     },
     results: [
-      { number: '24/7', label: 'DOSTĘPNOŚĆ', description: 'bez potrzeby obecności w biurze' },
-      { number: '−90%', label: 'KOLEJKI', description: 'w kancelarii przy składaniu intencji' },
-      { number: '0', label: 'BŁĘDÓW', description: 'w zapisach dzięki walidacji formularza' },
-      { number: '100%', label: 'POTWIERDZEŃ', description: 'automatycznych dla każdej intencji' }
+      { number: '24/7', label: 'DOSTĘPNOŚĆ', description: 'przyjmowania intencji' },
+      { number: '0', label: 'KOLEJEK', description: 'w godzinach przyjęć' },
+      { number: '100%', label: 'ZGŁOSZEŃ', description: 'zapisanych bez błędów' },
+      { number: '<2 min', label: 'CZAS', description: 'złożenia intencji online' }
     ],
-    testimonial: { quote: '[Placeholder — opinia klienta]', author: 'Klient · Sektor publiczny' },
-    techStack: ['React', 'Next.js', 'Supabase', 'Gmail API', 'Vercel']
+    testimonial: { quote: '[Placeholder — opinia klienta]', author: 'Klient · Organizacje / Instytucje' },
+    techStack: ['Next.js', 'React', 'Supabase', 'Vercel', 'Google Sheets']
   },
   {
     slug: 'chatbot-strona',

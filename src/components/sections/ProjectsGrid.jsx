@@ -18,24 +18,24 @@ const projects = [
   {
     slug: "dashboard-zapasow",
     image: "portfolio/dashboard.jpg",
-    tag: "Zarządzanie",
+    tag: "Biuro / Handel",
     category: "Narzędzia dla zespołu",
-    title: "Dashboard zapasów",
-    problem: "Zarządzanie zapasami w Excelu — błędy i brak dostępu mobilnego",
-    rozwiazanie: "Dedykowana aplikacja z logowaniem, koszykami i fakturomatem",
+    title: "Dashboard zarządzania zapasami",
+    problem: "Zarządzanie zapasami w Excelu — błędy, brak dostępu mobilnego",
+    rozwiazanie: "Dedykowana aplikacja webowa z logowaniem, koszykami i fakturomatem",
     efekt: "Czas obsługi zamówień skrócony o ponad połowę",
     number: "−50%",
     numberLabel: "CZAS OBSŁUGI"
   },
   {
-    slug: "rag-agent",
+    slug: "rag-agent-firmowy",
     image: "portfolio/rag-agent.jpg",
     tag: "HR / Onboarding",
     category: "Narzędzia dla zespołu",
     title: "RAG Agent firmowy",
-    problem: "Pytania do managera kilkanaście razy dziennie zaburzały jego pracę",
-    rozwiazanie: "Agent AI z bazą wiedzy firmy odpowiada zamiast managera",
-    efekt: "Manager odzyskuje kilka godzin tygodniowo",
+    problem: "Nowi pracownicy gubili się w dokumentach, manager przerywany kilkanaście razy dziennie",
+    rozwiazanie: "Agent AI z dostępem do bazy wiedzy firmy — procedury, FAQ, cenniki, dane klientów",
+    efekt: "Manager odzyskuje kilka godzin tygodniowo, onboarding skrócony o połowę",
     number: "+4h",
     numberLabel: "TYGODNIOWO"
   },
@@ -52,16 +52,16 @@ const projects = [
     numberLabel: "ZŁYCH LEADÓW"
   },
   {
-    slug: "intencje-online",
+    slug: "system-intencji-online",
     image: "portfolio/intencje.jpg",
-    tag: "Sektor publiczny",
+    tag: "Organizacje / Instytucje",
     category: "Narzędzia dla zespołu",
     title: "System intencji online",
-    problem: "Intencje przyjmowane wyłącznie stacjonarnie — kolejki i błędy",
-    rozwiazanie: "Platforma online z panelem dla kancelarii bez doświadczenia technicznego",
-    efekt: "Obsługa 24/7 bez potrzeby obecności w biurze",
+    problem: "Intencje mszalne przyjmowane tylko stacjonarnie — kolejki, błędy, brak dostępności",
+    rozwiazanie: "Platforma online z panelem administracyjnym zaprojektowanym dla osób bez doświadczenia technicznego",
+    efekt: "Obsługa intencji 24/7 bez potrzeby obecności w biurze",
     number: "24/7",
-    numberLabel: "DOSTĘPNOŚĆ"
+    numberLabel: "OBSŁUGA"
   },
   {
     slug: "chatbot-strona",
