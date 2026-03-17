@@ -78,13 +78,15 @@ export const Hero = () => {
         }
 
         .heading-syne {
-          font-family: 'Syne', sans-serif;
-          font-size: 72px;
-          font-weight: 800;
-          letter-spacing: -0.03em;
+          font-family: var(--font-display); /* Syne */
+          font-size: clamp(2.5rem, 5vw, 4rem);
+          font-weight: 700;
+          line-height: 1.1;
+          letter-spacing: -0.02em;
+          text-align: center;
+          max-width: 800px;
+          margin: 0 auto 24px;
           color: var(--text-1);
-          line-height: 1.0;
-          margin-bottom: 24px;
         }
 
         .heading-syne .accent {
@@ -185,7 +187,10 @@ export const Hero = () => {
 
         @media (max-width: 768px) {
           .heading-syne {
-            font-size: 42px;
+            font-size: clamp(2rem, 8vw, 2.8rem);
+            max-width: 100%;
+            padding: 0 16px;
+            word-break: break-word;
           }
           .subtitle-outfit {
             font-size: 16px;

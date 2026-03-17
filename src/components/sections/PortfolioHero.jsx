@@ -36,17 +36,15 @@ export const PortfolioHero = () => {
                 }
 
                 .hero-title {
-                    font-family: var(--font-display, 'Syne', sans-serif);
-                    font-size: clamp(36px, 6vw, 56px);
-                    font-weight: 800;
-                    letter-spacing: -0.03em;
-                    line-height: 1.0;
-                    color: var(--text-1, #F0EFEE);
-                    margin-top: 16px;
-                    opacity: 0;
-                    transform: translateY(12px);
-                    animation: fadeUp 0.4s ease forwards;
-                    animation-delay: 0.1s;
+                    font-family: var(--font-display); /* Syne */
+                    font-size: clamp(2.5rem, 5vw, 4rem);
+                    font-weight: 700;
+                    line-height: 1.1;
+                    letter-spacing: -0.02em;
+                    text-align: center;
+                    max-width: 800px;
+                    margin: 16px auto 0;
+                    color: var(--text-1);
                 }
 
                 .hero-title span.accent {
@@ -169,14 +167,10 @@ export const PortfolioHero = () => {
                         display: none;
                     }
                     .hero-title {
-                        font-size: clamp(2rem, 8vw, 3.5rem);
-                        word-break: break-word;
-                        overflow-wrap: break-word;
-                        hyphens: auto;
-                        padding-left: 16px;
-                        padding-right: 16px;
-                        width: 100%;
+                        font-size: clamp(2rem, 8vw, 2.8rem);
                         max-width: 100%;
+                        padding: 0 16px;
+                        word-break: break-word;
                     }
                 }
             `}</style>

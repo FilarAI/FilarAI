@@ -132,17 +132,18 @@ export const AboutHero = () => {
         }
 
         .about-h1 {
-          font-family: 'Syne', sans-serif;
+          font-family: var(--font-display); /* Syne */
+          font-size: clamp(2.5rem, 5vw, 4rem);
           font-weight: 700;
-          font-size: 56px;
-          letter-spacing: -0.03em;
-          color: #F0EFEE; /* --text-1 */
-          line-height: 1.05;
-          margin: 16px 0 32px;
+          line-height: 1.1;
+          letter-spacing: -0.02em;
+          text-align: center;
+          max-width: 800px;
+          margin: 16px auto 32px;
+          color: var(--text-1);
           opacity: 0;
           transform: translateY(16px);
           transition: opacity 0.5s ease 0.2s, transform 0.5s ease 0.2s;
-          max-width: 900px;
         }
 
         .about-hero-section.loaded .about-h1 {
@@ -271,11 +272,10 @@ export const AboutHero = () => {
           }
 
           .about-h1 {
-            font-size: clamp(2rem, 8vw, 3.5rem);
+            font-size: clamp(2rem, 8vw, 2.8rem);
+            max-width: 100%;
+            padding: 0 16px;
             word-break: break-word;
-            overflow-wrap: break-word;
-            hyphens: auto;
-            padding: 0 8px;
             margin-bottom: 0;
             order: 1;
           }
