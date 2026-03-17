@@ -264,7 +264,7 @@ export const Services = () => {
           height: 48px;
           background-color: rgba(217, 48, 37, 0.08);
           border: 1px solid rgba(217, 48, 37, 0.25);
-          border-radius: 8px;
+          border-radius: 4px;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -326,7 +326,7 @@ export const Services = () => {
           align-self: flex-start;
           background: transparent;
           border: 1px solid #222222;
-          border-radius: 8px;
+          border-radius: 4px;
           padding: 10px 20px;
           font-family: 'Outfit', sans-serif;
           font-size: 14px;
@@ -360,7 +360,7 @@ export const Services = () => {
           font-size: 14px;
           font-weight: 600;
           padding: 11px 22px;
-          border-radius: 8px;
+          border-radius: 4px;
           border: none;
           cursor: pointer;
           transition: all 0.2s ease;
@@ -380,7 +380,7 @@ export const Services = () => {
           font-size: 14px;
           font-weight: 600;
           padding: 11px 22px;
-          border-radius: 8px;
+          border-radius: 4px;
           cursor: pointer;
           transition: all 0.2s ease;
           text-decoration: none;

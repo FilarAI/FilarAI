@@ -267,7 +267,7 @@ export const About = () => {
           font-weight: 600;
           font-size: 14px;
           padding: 11px 22px;
-          border-radius: 8px;
+          border-radius: 4px;
           transition: all 0.2s ease;
           border: none;
           cursor: pointer;
@@ -286,7 +286,7 @@ export const About = () => {
           font-weight: 600;
           font-size: 14px;
           padding: 11px 22px;
-          border-radius: 8px;
+          border-radius: 4px;
           transition: all 0.2s ease;
           cursor: pointer;
         }
