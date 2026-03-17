@@ -473,6 +473,18 @@ export const ServicesTabs = () => {
                     <h2 className="st-h2">Wybierz obszar który Cię <span className="accent-red">interesuje</span></h2>
                 </div>
 
+                <p style={{
+                  fontFamily: 'var(--font-body)',
+                  fontSize: '14px',
+                  color: 'var(--text-3)',
+                  textAlign: 'center',
+                  marginTop: '12px',
+                  marginBottom: '32px',
+                  letterSpacing: '0.01em'
+                }}>
+                  Kliknij każdą zakładkę — każda kryje inne rozwiązania dla Twojego biznesu.
+                </p>
+
                 {/* Tab Navigation */}
                 <nav className="st-nav stagger-item">
                     {tabs.map((tab, idx) => (
@@ -485,18 +497,6 @@ export const ServicesTabs = () => {
                         </button>
                     ))}
                 </nav>
-
-                <p style={{
-                  fontFamily: 'var(--font-body)',
-                  fontSize: '14px',
-                  color: 'var(--text-3)',
-                  textAlign: 'center',
-                  marginTop: '12px',
-                  marginBottom: '32px',
-                  letterSpacing: '0.01em'
-                }}>
-                  Kliknij każdą zakładkę — każda kryje inne rozwiązania dla Twojego biznesu.
-                </p>
 
                 {/* Content Panel */}
                 <div key={activeTab} className="st-panel">
