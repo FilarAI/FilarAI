@@ -64,6 +64,14 @@ const projects = [
     numberLabel: "DOSTĘPNOŚĆ"
   },
   {
+    slug: "chatbot-strona",
+    image: "portfolio/chatbot.jpg",
+    tag: "Usługi lokalne",
+    category: "Strony WWW",
+    title: "Chatbot i strona firmowa",
+    problem: "Brak strony — zero widoczności poza godzinami pracy",
+    rozwiazanie: "Strona z animacjami i chatbot AI z bazą wiedzy i zapisem na spotkania",
+    efekt: "Pierwsze zapytania w ciągu tygodnia od uruchomienia",
     number: "7dni",
     numberLabel: "DO ZAPYTAŃ"
   },
