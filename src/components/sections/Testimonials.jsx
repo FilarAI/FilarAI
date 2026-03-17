@@ -324,7 +324,67 @@ export const Testimonials = () => {
           background: var(--red, #D93025);
         }
 
+        .cta-row {
+          display: flex;
+          gap: 12px;
+          justify-content: center;
+          margin-top: 48px;
+          opacity: 0;
+          transform: translateY(12px);
+          transition: opacity 0.4s ease, transform 0.4s ease;
+          transition-delay: 0.2s;
+        }
+        .cta-row.visible {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        .btn-primary {
+          background: var(--red, #D93025);
+          color: #ffffff;
+          border-radius: 4px;
+          padding: 11px 22px;
+          font-family: var(--font-body, 'Outfit', sans-serif);
+          font-size: 14px;
+          font-weight: 600;
+          text-decoration: none;
+          transition: all 0.2s ease;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .btn-primary:hover {
+          background: var(--red-dim, #A8201A);
+          box-shadow: var(--shadow-red, 0 0 24px rgba(217, 48, 37, 0.3));
+        }
+
+        .btn-secondary {
+          background: transparent;
+          color: var(--text-1, #F0EFEE);
+          border: 1px solid var(--bg-4, #222222);
+          border-radius: 4px;
+          padding: 11px 22px;
+          font-family: var(--font-body, 'Outfit', sans-serif);
+          font-size: 14px;
+          font-weight: 600;
+          text-decoration: none;
+          transition: all 0.2s ease;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .btn-secondary:hover {
+          border-color: var(--red, #D93025);
+          color: var(--red, #D93025);
+        }
+
         @media (max-width: 768px) {
+          .cta-row {
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            padding: 0 16px;
+          }
           .testimonial-card.active {
             width: calc(100% - 80px);
             padding: 32px;
@@ -341,6 +401,10 @@ export const Testimonials = () => {
           }
           .quote-text {
             font-size: 16px;
+          }
+          .btn-primary, .btn-secondary {
+            width: 100%;
+            max-width: 320px;
           }
         }
       `}</style>
@@ -399,6 +463,16 @@ export const Testimonials = () => {
                             />
                         ))}
                     </div>
+                </div>
+
+                {/* CTA Section */}
+                <div className={`cta-row ${isVisible ? 'visible' : ''}`}>
+                    <a href="https://calendar.app.google/BtxhP1NN7bvTtwX57" target="_blank" rel="noopener noreferrer" className="btn-primary">
+                        Umów konsultację →
+                    </a>
+                    <a href="/portfolio" className="btn-secondary">
+                        Zobacz portfolio
+                    </a>
                 </div>
             </div>
         </section>

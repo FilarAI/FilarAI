@@ -19,21 +19,9 @@ export default function PortfolioPage() {
             
             <ProjectsGrid />
             
-            <div className="flex justify-center py-12">
-                <Button href="/kontakt" variant="primary" className="px-8 py-4 text-lg">
-                    Umów konsultację
-                </Button>
-            </div>
-
             <ResultsNumbers />
 
             <Testimonials />
-
-            <div className="flex justify-center py-12">
-                <Button href="/kontakt" variant="primary" className="px-8 py-4 text-lg">
-                    Umów konsultację
-                </Button>
-            </div>
 
             <Certifications />
 
