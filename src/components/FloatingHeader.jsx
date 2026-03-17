@@ -210,10 +210,17 @@ export function FloatingHeader() {
       <header className={`navbar-container ${isScrolled ? 'scrolled' : ''}`}>
         <div className="navbar-inner">
           {/* Logo */}
-          <Link href="/#hero" className="navbar-logo">
-            <Grid2x2Plus size={22} color="#D93025" strokeWidth={2.5} />
-            <span className="logo-text">FilarAI</span>
-          </Link>
+          <a href="/" style={{ display: 'flex', alignItems: 'center' }}>
+            <img
+              src="/logotype/logo bez tla.png"
+              alt="FilarAI"
+              style={{
+                height: '36px',
+                width: 'auto',
+                objectFit: 'contain',
+              }}
+            />
+          </a>
 
           {/* Desktop Links */}
           <nav className="navbar-links">
