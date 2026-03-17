@@ -496,8 +496,8 @@ export const ProjectsGrid = () => {
         <a href="https://calendar.app.google/BtxhP1NN7bvTtwX57" target="_blank" rel="noopener noreferrer" className="btn-primary">
           Umów konsultację →
         </a>
-        <a href="/portfolio" className="btn-secondary">
-          Zobacz portfolio
+        <a href="/oferta" className="btn-secondary">
+          Zobacz ofertę
         </a>
       </div>
 
