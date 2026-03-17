@@ -33,7 +33,7 @@ export const ServicesTabs = () => {
 
     const tabs = [
         {
-            label: "Automatyzacje",
+            label: "Oszczędność czasu",
             h3: "Twój biznes pracuje — nawet gdy Ty nie pracujesz",
             description: "Analizujemy procesy w Twojej firmie i automatyzujemy te, które pochłaniają czas bez tworzenia wartości. Używamy n8n, Make i integracji z AI do budowania przepływów działających 24/7.",
             accordion: [
@@ -56,7 +56,7 @@ export const ServicesTabs = () => {
             }
         },
         {
-            label: "Agenci AI i Aplikacje",
+            label: "Narzędzia dla zespołu",
             h3: "Narzędzie szyte na miarę Twojego biznesu",
             description: "Budujemy agentów AI i dedykowane aplikacje webowe integrujące się z Twoimi procesami. Nie gotowe szablony — każde rozwiązanie projektujemy od podstaw pod konkretny problem.",
             accordion: [
@@ -79,7 +79,7 @@ export const ServicesTabs = () => {
             }
         },
         {
-            label: "Strony internetowe",
+            label: "Strony WWW",
             h3: "Strona która aktywnie pozyskuje klientów",
             description: "Tworzymy szybkie, animowane strony zaprojektowane tak by od razu współpracować z systemami automatyzacji, formularzami leadowymi i kampaniami reklamowymi.",
             accordion: [
@@ -101,7 +101,7 @@ export const ServicesTabs = () => {
             }
         },
         {
-            label: "Audyt AI",
+            label: "Audyty",
             h3: "Zanim zainwestujesz — wiedz co kupujesz",
             description: "Przeprowadzamy szczegółowy audyt procesów i identyfikujemy miejsca gdzie AI przyniesie największy zwrot z inwestycji. Dostarczamy konkretny plan działania z priorytetami i kosztami.",
             accordion: [

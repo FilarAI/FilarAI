@@ -49,8 +49,8 @@ export const Clients = () => {
           font-size: 11px;
           text-transform: uppercase;
           letter-spacing: 0.12em;
-          color: var(--text-3, #5A5550);
-          display: block;
+          color: var(--red);
+          text-align: center;
         }
 
         .section-subtitle {

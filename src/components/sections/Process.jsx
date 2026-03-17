@@ -199,8 +199,8 @@ export const Process = () => {
           font-family: var(--font-mono, 'JetBrains Mono', monospace);
           font-size: 11px;
           text-transform: uppercase;
-          letter-spacing: 0.2em;
-          color: var(--text-4, #322F2C);
+          letter-spacing: 0.12em;
+          color: var(--red);
           transition: color 0.4s ease, transform 0.4s ease;
           display: block;
         }

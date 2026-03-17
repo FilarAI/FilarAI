@@ -7,7 +7,7 @@ const projects = [
     slug: "faktury-ai",
     image: "portfolio/faktury.jpg",
     tag: "Biuro rachunkowe",
-    category: "Automatyzacje",
+    category: "Oszczędność czasu",
     title: "System faktur AI",
     problem: "Faktury zapisywane ręcznie ze skanów — chaos i ryzyko zgubienia",
     rozwiazanie: "OCR + AI wyciąga dane ze zdjęcia i zapisuje do bazy automatycznie",
@@ -19,7 +19,7 @@ const projects = [
     slug: "dashboard-zapasow",
     image: "portfolio/dashboard.jpg",
     tag: "Zarządzanie",
-    category: "Aplikacje AI",
+    category: "Narzędzia dla zespołu",
     title: "Dashboard zapasów",
     problem: "Zarządzanie zapasami w Excelu — błędy i brak dostępu mobilnego",
     rozwiazanie: "Dedykowana aplikacja z logowaniem, koszykami i fakturomatem",
@@ -31,7 +31,7 @@ const projects = [
     slug: "rag-agent",
     image: "portfolio/rag-agent.jpg",
     tag: "HR / Onboarding",
-    category: "Aplikacje AI",
+    category: "Narzędzia dla zespołu",
     title: "RAG Agent firmowy",
     problem: "Pytania do managera kilkanaście razy dziennie zaburzały jego pracę",
     rozwiazanie: "Agent AI z bazą wiedzy firmy odpowiada zamiast managera",
@@ -43,7 +43,7 @@ const projects = [
     slug: "fast-lead",
     image: "portfolio/fast-lead.jpg",
     tag: "Sprzedaż B2B",
-    category: "Automatyzacje",
+    category: "Oszczędność czasu",
     title: "System Fast Lead",
     problem: "Czas tracony na rozmowy z klientami którzy nie pasują do oferty",
     rozwiazanie: "AI kwalifikuje leada, generuje ofertę i umawia spotkanie automatycznie",
@@ -55,7 +55,7 @@ const projects = [
     slug: "intencje-online",
     image: "portfolio/intencje.jpg",
     tag: "Sektor publiczny",
-    category: "Aplikacje AI",
+    category: "Narzędzia dla zespołu",
     title: "System intencji online",
     problem: "Intencje przyjmowane wyłącznie stacjonarnie — kolejki i błędy",
     rozwiazanie: "Platforma online z panelem dla kancelarii bez doświadczenia technicznego",
@@ -67,7 +67,7 @@ const projects = [
     slug: "chatbot-strona",
     image: "portfolio/chatbot.jpg",
     tag: "Usługi lokalne",
-    category: "Strony internetowe",
+    category: "Strony WWW",
     title: "Chatbot i strona firmowa",
     problem: "Brak strony — zero widoczności poza godzinami pracy",
     rozwiazanie: "Strona z animacjami i chatbot AI z bazą wiedzy i zapisem na spotkania",
@@ -77,7 +77,7 @@ const projects = [
   }
 ];
 
-const categories = ["Wszystkie", "Automatyzacje", "Aplikacje AI", "Strony internetowe", "Audyt"];
+const categories = ["Wszystkie", "Oszczędność czasu", "Narzędzia dla zespołu", "Strony WWW", "Audyty"];
 
 export const ProjectsGrid = () => {
   const [activeFilter, setActiveFilter] = useState("Wszystkie");
@@ -155,7 +155,7 @@ export const ProjectsGrid = () => {
           font-size: 11px;
           text-transform: uppercase;
           letter-spacing: 0.12em;
-          color: #5A5550;
+          color: var(--red, #D93025);
           display: block;
           margin-bottom: 12px;
         }
@@ -448,7 +448,7 @@ export const ProjectsGrid = () => {
           font-family: 'JetBrains Mono', monospace;
           font-size: 10px;
           text-transform: uppercase;
-          color: #5A5550;
+          color: var(--red);
           min-width: 88px;
         }
         .detail-text {

@@ -67,7 +67,7 @@ export const HistoryMission = () => {
           font-size: 11px;
           text-transform: uppercase;
           letter-spacing: 0.12em;
-          color: #5A5550; /* --text-3 */
+          color: var(--red);
           text-align: center;
           display: block;
         }

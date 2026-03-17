@@ -72,7 +72,7 @@ export const OfertaDlaKogo = () => {
                     font-weight: 500;
                     text-transform: uppercase;
                     letter-spacing: 0.12em;
-                    color: #5A5550; /* --text-3 */
+                    color: var(--red);
                     display: block;
                 }
 

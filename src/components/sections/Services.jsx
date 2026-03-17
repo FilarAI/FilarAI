@@ -146,7 +146,7 @@ export const Services = () => {
           font-size: 11px;
           text-transform: uppercase;
           letter-spacing: 0.12em;
-          color: #5A5550;
+          color: var(--red);
           display: block;
           margin-bottom: 12px;
           transition: opacity 0.4s ease, transform 0.4s ease;

@@ -128,7 +128,7 @@ export const Challenge = () => {
           font-size: 11px;
           text-transform: uppercase;
           letter-spacing: 0.12em;
-          color: var(--text-3, #5A5550);
+          color: var(--red);
           display: block;
           margin-bottom: 16px;
         }

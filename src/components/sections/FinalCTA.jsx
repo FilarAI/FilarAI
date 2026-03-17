@@ -112,7 +112,7 @@ export const FinalCTA = () => {
           font-size: 11px;
           text-transform: uppercase;
           letter-spacing: 0.12em;
-          color: rgba(240, 239, 238, 0.5);
+          color: var(--red);
           display: block;
         }
 

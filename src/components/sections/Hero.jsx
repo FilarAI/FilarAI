@@ -66,7 +66,7 @@ export const Hero = () => {
           font-weight: 500;
           text-transform: uppercase;
           letter-spacing: 0.12em;
-          color: var(--text-1);
+          color: var(--red);
           background: rgba(18, 18, 18, 0.75);
           border: 1px solid rgba(217, 48, 37, 0.4);
           padding: 6px 16px;

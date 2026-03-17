@@ -91,7 +91,7 @@ export const Automatyzacje = () => {
                     font-weight: 500;
                     text-transform: uppercase;
                     letter-spacing: 0.12em;
-                    color: #5A5550; /* --text-3 */
+                    color: var(--red);
                     display: block;
                 }
 
@@ -134,7 +134,7 @@ export const Automatyzacje = () => {
                     font-weight: 500;
                     text-transform: uppercase;
                     letter-spacing: 0.12em;
-                    color: #5A5550;
+                    color: var(--red);
                     margin-bottom: 24px;
                     display: block;
                 }

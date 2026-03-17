@@ -201,7 +201,7 @@ export default function KontaktPage() {
                     font-weight: 500;
                     text-transform: uppercase;
                     letter-spacing: 0.12em;
-                    color: var(--text-3);
+                    color: var(--red);
                     margin-bottom: 16px;
                     display: block;
                 }

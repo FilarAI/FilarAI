@@ -119,7 +119,7 @@ export const AboutHero = () => {
           font-size: 11px;
           text-transform: uppercase;
           letter-spacing: 0.12em;
-          color: #5A5550; /* --text-3 */
+          color: var(--red);
           display: block;
           opacity: 0;
           transform: translateY(16px);
