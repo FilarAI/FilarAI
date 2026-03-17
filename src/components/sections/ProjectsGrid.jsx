@@ -4,14 +4,14 @@ import Link from 'next/link';
 
 const projects = [
   {
-    slug: "faktury-ai",
+    slug: "system-faktur-ai",
     image: "portfolio/faktury.jpg",
     tag: "Biuro rachunkowe",
     category: "Oszczędność czasu",
     title: "System faktur AI",
-    problem: "Faktury zapisywane ręcznie ze skanów — chaos i ryzyko zgubienia",
-    rozwiazanie: "OCR + AI wyciąga dane ze zdjęcia i zapisuje do bazy automatycznie",
-    efekt: "Zero ręcznego przepisywania danych",
+    problem: "Faktury zapisywane ręcznie ze skanów e-mail — brak porządku, ryzyko zgubienia",
+    rozwiazanie: "OCR + AI wyciąga dane ze zdjęcia, zapisuje do bazy, wysyła potwierdzenia",
+    efekt: "Zero ręcznego przepisywania, faktura w bazie w kilka sekund od zdjęcia",
     number: "−3h",
     numberLabel: "DZIENNIE"
   },
@@ -40,16 +40,28 @@ const projects = [
     numberLabel: "TYGODNIOWO"
   },
   {
-    slug: "fast-lead",
+    slug: "system-fast-lead",
     image: "portfolio/fast-lead.jpg",
-    tag: "Sprzedaż B2B",
+    tag: "Sprzedaż / Agencje",
     category: "Oszczędność czasu",
     title: "System Fast Lead",
-    problem: "Czas tracony na rozmowy z klientami którzy nie pasują do oferty",
-    rozwiazanie: "AI kwalifikuje leada, generuje ofertę i umawia spotkanie automatycznie",
-    efekt: "Koniec rozmów z niekwalifikowanymi leadami",
+    problem: "Firma traciła czas na rozmowy z klientami którzy nie pasowali do oferty",
+    rozwiazanie: "Formularz kwalifikacyjny + AI ocenia leada + automatyczna oferta + zapis na spotkanie",
+    efekt: "Zero rozmów z niekwalifikowanymi leadami, oferty generowane w minuty",
     number: "−100%",
     numberLabel: "ZŁYCH LEADÓW"
+  },
+  {
+    slug: "system-wyszukiwania-leadow",
+    image: "portfolio/lead-search.jpg",
+    tag: "Agencje / Sprzedaż B2B",
+    category: "Oszczędność czasu",
+    title: "System wyszukiwania leadów AI",
+    problem: "Godziny spędzone na ręcznym szukaniu i analizowaniu potencjalnych klientów",
+    rozwiazanie: "Apka która bierze wytyczne, wyszukuje firmy, analizuje ich obecność i generuje gotową ofertę",
+    efekt: "10 kwalifikowanych leadów z gotową ofertą w mniej niż 60 sekund",
+    number: "10 leadów",
+    numberLabel: "W 60 SEKUND"
   },
   {
     slug: "system-intencji-online",

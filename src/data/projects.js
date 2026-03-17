@@ -1,12 +1,12 @@
 export const projects = [
   {
-    slug: 'faktury-ai',
+    slug: 'system-faktur-ai',
     title: 'System faktur AI',
     highlightWord: 'faktur',
     industry: 'Biuro rachunkowe',
     category: 'Oszczędność czasu',
     image: 'portfolio/faktury.jpg',
-    intro: 'Klient zapisywał faktury ręcznie wysyłając skany e-mailem. Brak porządku, brak szybkiego dostępu, ryzyko zgubienia dokumentów.',
+    intro: 'Biuro rachunkowe przepisywało faktury ręcznie ze skanów e-mail. Brak porządku, brak szybkiego dostępu i ryzyko zgubienia dokumentów.',
     result: { number: '−3h', label: 'DZIENNIE', descriptor: 'zaoszczędzonego czasu' },
     problem: {
       lead: 'Ręczne zarządzanie fakturami pochłaniało kilka godzin dziennie i generowało ryzyko błędów.',
@@ -17,9 +17,15 @@ export const projects = [
       ]
     },
     solution: {
-      description: 'System OCR + AI który wyciąga dane z faktury po zrobieniu zdjęcia, zapisuje je do bazy danych, wysyła potwierdzenia i umożliwia szybkie tworzenie nowych faktur.',
+      description: 'System OCR + AI który wyciąga dane z faktury po zrobieniu zdjęcia, zapisuje do bazy i wysyła potwierdzenia automatycznie.',
       hasFlowDiagram: true,
-      flowSteps: ['Zdjęcie faktury', 'OCR — wyciąganie danych', 'AI — weryfikacja i kategoryzacja', 'Zapis do bazy danych', 'Potwierdzenie e-mail']
+      flowSteps: [
+        'Zdjęcie faktury',
+        'OCR — wyciąganie danych',
+        'AI — weryfikacja i kategoryzacja',
+        'Zapis do bazy danych',
+        'Potwierdzenie e-mail'
+      ]
     },
     results: [
       { number: '−3h', label: 'DZIENNIE', description: 'czasu odzyskanego przez zespół' },
@@ -105,35 +111,79 @@ export const projects = [
     techStack: ['Claude (Anthropic)', 'n8n', 'Supabase', 'RAG Pipeline', 'Google Drive API']
   },
   {
-    slug: 'fast-lead',
+    slug: 'system-fast-lead',
     title: 'System Fast Lead',
     highlightWord: 'Fast',
-    industry: 'Sprzedaż B2B',
+    industry: 'Sprzedaż / Agencje',
     category: 'Oszczędność czasu',
     image: 'portfolio/fast-lead.jpg',
-    intro: 'Firma traciła czas na rozmowy z klientami którzy nie pasowali do oferty — zły budżet, nieodpowiednia branża.',
+    intro: 'Firma traciła czas na rozmowy z klientami którzy nie pasowali do oferty — zły budżet, nieodpowiednia branża, brak gotowości do zakupu.',
     result: { number: '−100%', label: 'ZŁYCH LEADÓW', descriptor: 'wyeliminowanych automatycznie' },
     problem: {
-      lead: 'Zespół sprzedaży spędzał godziny na rozmowach z klientami którzy nigdy nie mieli kupić.',
+      lead: 'Każda rozmowa sprzedażowa zaczynała się od zera — bez wiedzy czy klient w ogóle pasuje do oferty.',
       bullets: [
-        'Brak kwalifikacji leadów — każde zapytanie trafiało od razu do sprzedawcy',
-        'Rozmowy z klientami bez budżetu lub spoza grupy docelowej zajmowały większość dnia',
-        'Oferty tworzone ręcznie dla każdego klienta — nawet tych którzy nie pasowali'
+        'Czas tracony na rozmowy z klientami o złym budżecie lub nieodpowiedniej branży',
+        'Brak wstępnej kwalifikacji — każdy lead traktowany tak samo',
+        'Oferty przygotowywane ręcznie dla każdego zainteresowanego — nawet niedopasowanego'
       ]
     },
     solution: {
-      description: 'Formularz kwalifikacyjny połączony z AI: klient uzupełnia dane → system ocenia dopasowanie → jeśli pasuje generuje spersonalizowaną ofertę i umawia rozmowę.',
+      description: 'Formularz kwalifikacyjny połączony z AI — klient uzupełnia dane, system ocenia dopasowanie i generuje spersonalizowaną ofertę oraz umawia rozmowę.',
       hasFlowDiagram: true,
-      flowSteps: ['Formularz klienta', 'AI — ocena dopasowania', 'Decyzja: pasuje / nie pasuje', 'Generowanie spersonalizowanej oferty', 'Automatyczne umówienie spotkania']
+      flowSteps: [
+        'Formularz kwalifikacyjny',
+        'AI ocenia dopasowanie',
+        'Spersonalizowana oferta',
+        'Zapis na spotkanie',
+        'Brief dla właściciela przed rozmową'
+      ]
     },
     results: [
-      { number: '−100%', label: 'ZŁYCH LEADÓW', description: 'wyeliminowanych przed rozmową' },
-      { number: '<5min', label: 'OFERTA', description: 'generowana automatycznie' },
-      { number: '+60%', label: 'KONWERSJA', description: 'rozmów w zamknięte projekty' },
-      { number: '24/7', label: 'KWALIFIKACJA', description: 'działa bez udziału człowieka' }
+      { number: '−100%', label: 'ZŁYCH LEADÓW', description: 'zero rozmów z niedopasowanymi klientami' },
+      { number: '<5 min', label: 'OFERTA', description: 'generowana automatycznie' },
+      { number: '100%', label: 'ROZMÓW', description: 'zaczyna się od gotowego briefu' },
+      { number: '0', label: 'CZASU', description: 'straconego na wstępną kwalifikację' }
     ],
-    testimonial: { quote: '[Placeholder — opinia klienta]', author: 'Klient · Sprzedaż B2B' },
-    techStack: ['n8n', 'Claude (Anthropic)', 'GPT-4', 'Gmail API', 'Google Calendar API']
+    testimonial: { quote: '[Placeholder — opinia klienta]', author: 'Klient · Sprzedaż / Agencje' },
+    techStack: ['n8n', 'Claude (Anthropic)', 'Next.js', 'Google Sheets', 'Gmail API']
+  },
+  {
+    slug: 'system-wyszukiwania-leadow',
+    title: 'System wyszukiwania leadów AI',
+    highlightWord: 'wyszukiwania',
+    industry: 'Agencje / Sprzedaż B2B',
+    category: 'Oszczędność czasu',
+    image: 'portfolio/lead-search.jpg',
+    intro: 'Szukanie odpowiednich klientów ręcznie to jedna z najbardziej czasochłonnych czynności w sprzedaży B2B — godziny analizy, zero gwarancji dopasowania.',
+    result: { number: '10 leadów', label: 'W 60 SEKUND', descriptor: 'z pełną analizą i ofertą' },
+    problem: {
+      lead: 'Ręczne wyszukiwanie i analiza leadów pochłaniały godziny pracy bez gwarancji że lead jest w ogóle dopasowany.',
+      bullets: [
+        'Godziny spędzone na przeglądaniu Google Maps, LinkedIn czy Facebooka',
+        'Ręczna analiza każdej firmy — strona, social media, oceny, branża',
+        'Brak czasu na personalizację oferty bo samo znalezienie leada zajmuje za długo'
+      ]
+    },
+    solution: {
+      description: 'Aplikacja zbudowana w Claude Code która przyjmuje wytyczne i automatycznie wyszukuje, kwalifikuje i analizuje firmy — generując gotową spersonalizowaną ofertę dla każdego leada.',
+      hasFlowDiagram: true,
+      flowSteps: [
+        'Wytyczne (branża, ocena, ilość)',
+        'Wyszukiwanie firm',
+        'Analiza strony i social mediów',
+        'Kwalifikacja leada',
+        'Generowanie spersonalizowanej oferty',
+        'Gotowa lista z rekomendacjami'
+      ]
+    },
+    results: [
+      { number: '10 leadów', label: 'W 60 SEKUND', description: 'z pełną analizą i ofertą' },
+      { number: '−95%', label: 'CZASU', description: 'potrzebnego na ręczne wyszukiwanie' },
+      { number: '100%', label: 'LEADÓW', description: 'z gotową spersonalizowaną ofertą' },
+      { number: '0', label: 'GODZIN', description: 'spędzonych na ręcznej analizie' }
+    ],
+    testimonial: { quote: '[Placeholder — opinia klienta]', author: 'Klient · Agencje / Sprzedaż B2B' },
+    techStack: ['Claude Code', 'Claude API', 'Google Maps API', 'n8n', 'Firecrawl']
   },
   {
     slug: 'system-intencji-online',
