@@ -210,17 +210,18 @@ export function FloatingHeader() {
       <header className={`navbar-container ${isScrolled ? 'scrolled' : ''}`}>
         <div className="navbar-inner">
           {/* Logo */}
-          <a href="/" style={{ display: 'flex', alignItems: 'center' }}>
+          <Link href="/" className="navbar-logo">
             <img
               src="/logotype/logo bez tla.png"
               alt="FilarAI"
               style={{
-                height: '36px',
+                height: '32px',
                 width: 'auto',
                 objectFit: 'contain',
               }}
             />
-          </a>
+            <span className="logo-text uppercase font-extrabold tracking-tighter">FILAR AI</span>
+          </Link>
 
           {/* Desktop Links */}
           <nav className="navbar-links">
@@ -267,12 +268,20 @@ export function FloatingHeader() {
         <SheetContent>
           <div className="flex flex-col h-full pt-12">
             <Link 
-              href="/#hero" 
+              href="/" 
               className="flex items-center gap-3 mb-12"
               onClick={() => setIsMenuOpen(false)}
             >
-              <Grid2x2Plus size={28} color="#D93025" />
-              <span className="logo-text text-2xl">FilarAI</span>
+              <img
+                src="/logotype/logo bez tla.png"
+                alt="FilarAI"
+                style={{
+                  height: '32px',
+                  width: 'auto',
+                  objectFit: 'contain',
+                }}
+              />
+              <span className="logo-text text-2xl uppercase font-extrabold tracking-tighter">FILAR AI</span>
             </Link>
 
             <nav className="flex flex-col gap-6">
