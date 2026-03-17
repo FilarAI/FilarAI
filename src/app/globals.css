@@ -89,15 +89,15 @@ h6 {
 /* Custom Utilities based on SPECIFICATION */
 @layer components {
   .btn-primary {
-    @apply inline-flex justify-center items-center bg-accent-500 text-white px-6 py-3 rounded-sm font-body font-semibold text-[16px] transition-all duration-300 ease-out hover:scale-[1.02] shadow-medium hover:shadow-hover active:scale-[0.98];
+    @apply inline-flex justify-center items-center bg-accent-500 text-white px-6 py-3 rounded-sm font-body font-semibold text-[16px] transition-all duration-300 ease-out hover:scale-[1.02] shadow-medium hover:shadow-hover active:scale-[0.98] uppercase;
   }
 
   .btn-secondary {
-    @apply inline-flex justify-center items-center bg-gray-light dark:bg-[#1A1A1A] text-text-primary dark:text-white border-2 border-text-primary dark:border-white px-6 py-3 rounded-sm font-body font-semibold text-[16px] hover:bg-gray-border dark:hover:bg-white/10 hover:scale-[1.02] transition-all duration-300 ease-out active:scale-[0.98];
+    @apply inline-flex justify-center items-center bg-gray-light dark:bg-[#1A1A1A] text-text-primary dark:text-white border-2 border-text-primary dark:border-white px-6 py-3 rounded-sm font-body font-semibold text-[16px] hover:bg-gray-border dark:hover:bg-white/10 hover:scale-[1.02] transition-all duration-300 ease-out active:scale-[0.98] uppercase;
   }
 
   .btn-ghost {
-    @apply inline-flex justify-center items-center bg-transparent text-accent-500 border-2 border-accent-500 px-6 py-3 rounded-sm font-body font-semibold text-[16px] hover:bg-gray-light dark:hover:bg-[#1A1A1A] hover:scale-[1.02] transition-all duration-300 ease-out active:scale-[0.98];
+    @apply inline-flex justify-center items-center bg-transparent text-accent-500 border-2 border-accent-500 px-6 py-3 rounded-sm font-body font-semibold text-[16px] hover:bg-gray-light dark:hover:bg-[#1A1A1A] hover:scale-[1.02] transition-all duration-300 ease-out active:scale-[0.98] uppercase;
   }
 
   .card-default {

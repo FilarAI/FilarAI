@@ -47,9 +47,9 @@ export function FloatingHeader() {
   }, []);
 
   const links = [
-    { label: 'Oferta', href: '/oferta' },
-    { label: 'Portfolio', href: '/portfolio' },
-    { label: 'O nas', href: '/o-nas' },
+    { label: 'OFERTA', href: '/oferta' },
+    { label: 'PORTFOLIO', href: '/portfolio' },
+    { label: 'O NAS', href: '/o-nas' },
   ];
 
   return (
@@ -127,6 +127,7 @@ export function FloatingHeader() {
           transition: all 0.3s ease;
           position: relative;
           padding: 4px 0;
+          text-transform: uppercase;
         }
 
         .nav-link:hover {
@@ -167,6 +168,7 @@ export function FloatingHeader() {
           border-radius: 4px;
           transition: all 0.2s ease;
           box-shadow: 0 0 12px rgba(217, 48, 37, 0.2);
+          text-transform: uppercase;
         }
 
         .cta-btn:hover {
@@ -315,7 +317,7 @@ export function FloatingHeader() {
                 className="w-full bg-[#D93025] text-white font-bold py-4 rounded-sm flex items-center justify-center text-lg hover:bg-[#A8201A] transition-colors shadow-lg shadow-[#D93025]/20"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Umów konsultację
+                UMÓW KONSULTACJĘ
               </Link>
             </div>
           </div>

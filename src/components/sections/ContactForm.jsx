@@ -59,7 +59,7 @@ export const ContactForm = () => {
                 <p className="font-body text-gray-text text-lg max-w-lg mx-auto mb-10">
                     Dziękujemy za kontakt. Twoje zapytanie zostało przesłane. Wrócimy do Ciebie najszybciej jak to możliwe!
                 </p>
-                <button onClick={() => setStatus('idle')} className="btn-secondary">
+                <button onClick={() => setStatus('idle')} className="btn-secondary uppercase">
                     Wyślij kolejną wiadomość
                 </button>
             </div>
@@ -129,7 +129,7 @@ export const ContactForm = () => {
                 </div>
             )}
 
-            <button type="submit" disabled={status === 'loading'} className="btn-primary w-full mt-6 justify-center py-4 bg-accent-500 hover:bg-accent-600 shadow-medium disabled:opacity-70 disabled:cursor-not-allowed">
+            <button type="submit" disabled={status === 'loading'} className="btn-primary w-full mt-6 justify-center py-4 bg-accent-500 hover:bg-accent-600 shadow-medium disabled:opacity-70 disabled:cursor-not-allowed uppercase">
                 {status === 'loading' ? 'Wysyłanie...' : 'Wyślij zapytanie'}
             </button>
         </form>

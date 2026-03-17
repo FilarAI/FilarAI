@@ -238,6 +238,7 @@ export default function KontaktPage() {
                     text-decoration: none;
                     box-shadow: 0 0 12px rgba(217, 48, 37, 0.2);
                     transition: all 0.15s ease;
+                    text-transform: uppercase;
                 }
 
                 .btn-primary-full:hover {

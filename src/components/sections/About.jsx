@@ -271,6 +271,7 @@ export const About = () => {
           transition: all 0.2s ease;
           border: none;
           cursor: pointer;
+          text-transform: uppercase;
         }
 
         .btn-primary:hover {
@@ -289,6 +290,7 @@ export const About = () => {
           border-radius: 4px;
           transition: all 0.2s ease;
           cursor: pointer;
+          text-transform: uppercase;
         }
 
         .btn-secondary:hover {

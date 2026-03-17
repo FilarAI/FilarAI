@@ -150,6 +150,7 @@ export const FinalCTA = () => {
           cursor: pointer;
           text-decoration: none;
           transition: all 0.2s ease;
+          text-transform: uppercase;
         }
 
         .cta-button:hover {

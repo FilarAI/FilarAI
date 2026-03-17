@@ -208,6 +208,7 @@ export const ProjectsGrid = () => {
         .btn-primary:hover {
           background: var(--red-dim, #A8201A);
           box-shadow: var(--shadow-red, 0 0 24px rgba(217, 48, 37, 0.3));
+          text-transform: uppercase;
         }
 
         .btn-secondary {
@@ -228,6 +229,7 @@ export const ProjectsGrid = () => {
         .btn-secondary:hover {
           border-color: var(--red, #D93025);
           color: var(--red, #D93025);
+          text-transform: uppercase;
         }
 
         @media (max-width: 768px) {
@@ -475,6 +477,7 @@ export const ProjectsGrid = () => {
           font-size: 13px;
           font-weight: 500;
           color: #D93025;
+          text-transform: uppercase;
         }
 
         .card-hidden {

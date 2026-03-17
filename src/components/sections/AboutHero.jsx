@@ -221,6 +221,7 @@ export const AboutHero = () => {
         .btn-primary:hover {
           background-color: #B3251D; /* --red-dim */
           box-shadow: 0 0 24px rgba(217, 48, 37, 0.3);
+          text-transform: uppercase;
         }
 
         .btn-secondary {
@@ -241,6 +242,7 @@ export const AboutHero = () => {
         .btn-secondary:hover {
           border-color: #D93025; /* --red */
           color: #D93025; /* --red */
+          text-transform: uppercase;
         }
 
         /* --- RESPONSIVE DESIGN --- */

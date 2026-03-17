@@ -335,6 +335,7 @@ export const Services = () => {
           cursor: pointer;
           transition: all 0.15s ease;
           text-decoration: none;
+          text-transform: uppercase;
         }
 
         .card-btn:hover {
@@ -365,6 +366,7 @@ export const Services = () => {
           cursor: pointer;
           transition: all 0.2s ease;
           text-decoration: none;
+          text-transform: uppercase;
         }
 
         .btn-primary:hover {
@@ -384,6 +386,7 @@ export const Services = () => {
           cursor: pointer;
           transition: all 0.2s ease;
           text-decoration: none;
+          text-transform: uppercase;
         }
 
         .btn-secondary:hover {

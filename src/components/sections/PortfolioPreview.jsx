@@ -17,7 +17,7 @@ export const PortfolioPreview = () => {
                             Sprawdź co robimy
                         </h2>
                     </div>
-                    <a href="/portfolio" className="hidden md:inline-flex items-center text-text-primary dark:text-white border-b-2 border-transparent hover:border-accent-500 hover:text-accent-500 transition-all duration-300 font-bold pb-1">
+                    <a href="/portfolio" className="hidden md:inline-flex items-center text-text-primary dark:text-white border-b-2 border-transparent hover:border-accent-500 hover:text-accent-500 transition-all duration-300 font-bold pb-1 uppercase">
                         Więcej prac <span className="ml-2">→</span>
                     </a>
                 </div>
@@ -51,7 +51,7 @@ export const PortfolioPreview = () => {
                 </div>
 
                 <div className="md:hidden text-center opacity-0 animate-[fadeInUp_0.6s_ease-out_0.6s_forwards]">
-                    <a href="/portfolio" className="btn-secondary w-full">Więcej prac</a>
+                    <a href="/portfolio" className="btn-secondary w-full uppercase">Więcej prac</a>
                 </div>
 
             </div>

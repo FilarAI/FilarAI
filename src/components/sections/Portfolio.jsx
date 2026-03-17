@@ -358,6 +358,7 @@ export const Portfolio = () => {
           cursor: pointer;
           transition: all 0.15s ease;
           text-decoration: none;
+          text-transform: uppercase;
         }
 
         .card-footer-btn:hover {
@@ -396,6 +397,7 @@ export const Portfolio = () => {
           cursor: pointer;
           transition: all 0.2s ease;
           text-decoration: none;
+          text-transform: uppercase;
         }
 
         .btn-view-all:hover {
