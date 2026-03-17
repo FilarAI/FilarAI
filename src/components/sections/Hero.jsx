@@ -315,16 +315,14 @@ export const Hero = () => {
           className={`heading-syne fade-up-init ${isLoaded ? 'visible' : ''}`}
           style={{ transitionDelay: '0.2s' }}
         >
-          Automatyzuj biznes.<br />
-          <span className="accent">Skaluj</span> bez<br />
-          zatrudniania.
+          Twój zespół traci czas. <span style={{ color: 'var(--red)' }}>AI to zmieni.</span>
         </h1>
         
         <p 
           className={`subtitle-outfit fade-up-init ${isLoaded ? 'visible' : ''}`}
           style={{ transitionDelay: '0.3s' }}
         >
-          Projektujemy i wdrażamy zaawansowane systemy automatyzacji, które uwalniają Twój zespół od powtarzalnych zadań i skalują zyski.
+          Projektujemy systemy które eliminują powtarzalną pracę, przyspieszają sprzedaż i działają bez przerwy — bez rozbudowywania zespołu.
         </p>
         
         <div 
