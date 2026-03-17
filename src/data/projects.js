@@ -231,5 +231,81 @@ export const projects = [
     ],
     testimonial: { quote: '[Placeholder — opinia klienta]', author: 'Klient · Usługi B2B' },
     techStack: ['NotebookLM', 'Claude (Anthropic)', 'Google Workspace', 'n8n']
+  },
+  {
+    slug: 'filarai-strona-fast-lead',
+    title: 'Strona FilarAI + System Fast Lead',
+    highlightWord: 'Strona',
+    industry: 'Agencja AI / Usługi B2B',
+    category: 'Strony WWW',
+    image: 'portfolio/filarai-web.jpg',
+    intro: 'Firma potrzebowała strony która nie tylko wygląda profesjonalnie — ale aktywnie przedstawia ofertę, buduje zaufanie i filtruje klientów zanim właściciel podniesie słuchawkę.',
+    result: { number: '24/7', label: 'DLA KLIENTÓW', descriptor: 'dostępność kwalifikacji' },
+    problem: {
+      lead: 'Bez strony firma była niewidoczna. Każde zapytanie wymagało pełnej rozmowy od zera — bez wiedzy czy klient pasuje do oferty.',
+      bullets: [
+        'Brak obecności online — potencjalni klienci nie mogli zweryfikować firmy przed kontaktem',
+        'Każda rozmowa zaczynała się od podstaw — branża, budżet, problem',
+        'Zero kwalifikacji przed spotkaniem — czas tracony na niedopasowanych klientów'
+      ]
+    },
+    solution: {
+      description: 'Nowoczesna strona w Next.js z wbudowanym formularzem Fast Lead — strona jest częścią funnela sprzedażowego, nie tylko wizytówką.',
+      hasFlowDiagram: true,
+      flowSteps: [
+        'Klient trafia na stronę',
+        'Przegląda ofertę i portfolio firmy',
+        'Wypełnia formularz kwalifikacyjny',
+        'AI ocenia dopasowanie klienta',
+        'Właściciel dostaje gotowy brief przed rozmową',
+        'Spotkanie zaczyna się od konkretu'
+      ]
+    },
+    results: [
+      { number: '24/7', label: 'DOSTĘPNOŚĆ', description: 'strona pracuje bez przerwy' },
+      { number: '<2 min', label: 'KWALIFIKACJA', description: 'klienta przed rozmową' },
+      { number: '100%', label: 'ROZMÓW', description: 'zaczyna się od gotowego briefu' },
+      { number: '0', label: 'CZASU', description: 'straconego na niedopasowanych klientów' }
+    ],
+    testimonial: { quote: '[Placeholder — opinia klienta]', author: 'Klient · Agencja AI / Usługi B2B' },
+    techStack: ['Next.js', 'React', 'Tailwind CSS', 'n8n', 'Claude (Anthropic)', 'Vercel']
+  },
+  {
+    slug: 'strona-firmowa-chatbot',
+    title: 'Strona firmowa + Chatbot AI',
+    highlightWord: 'Chatbot',
+    industry: 'Usługi / Handel',
+    category: 'Strony WWW',
+    image: 'portfolio/handel-web.jpg',
+    intro: 'Firma działała wyłącznie przez polecenia i telefon. Nikt nie mógł sprawdzić oferty online, zapytać o cenę ani umówić się poza godzinami pracy.',
+    result: { number: '7 dni', label: 'URUCHOMIENIE', descriptor: 'do pierwszych zapytań' },
+    problem: {
+      lead: 'Brak strony oznaczał brak wiarygodności i brak dostępności — klienci odchodzili do konkurencji którą mogli sprawdzić online.',
+      bullets: [
+        'Firma niewidoczna w sieci — zero możliwości weryfikacji przed kontaktem',
+        'Obsługa klienta tylko w godzinach pracy — zapytania poza nimi przepadały',
+        'Brak miejsca gdzie klient może samodzielnie poznać ofertę i umówić spotkanie'
+      ]
+    },
+    solution: {
+      description: 'Nowoczesna strona firmowa z wbudowanym chatbotem AI który zna ofertę firmy i obsługuje klientów o każdej porze.',
+      hasFlowDiagram: true,
+      flowSteps: [
+        'Klient trafia na stronę',
+        'Przegląda ofertę i realizacje',
+        'Zadaje pytanie chatbotowi',
+        'Chatbot odpowiada z bazy wiedzy firmy',
+        'Klient umawia spotkanie przez chat',
+        'Właściciel dostaje powiadomienie z podsumowaniem'
+      ]
+    },
+    results: [
+      { number: '7 dni', label: 'DO ZAPYTAŃ', description: 'od uruchomienia strony' },
+      { number: '24/7', label: 'DOSTĘPNOŚĆ', description: 'chatbot obsługuje klientów non-stop' },
+      { number: '100%', label: 'PYTAŃ', description: 'obsłużonych bez angażowania właściciela' },
+      { number: '0', label: 'PRZEPADŁYCH', description: 'zapytań poza godzinami pracy' }
+    ],
+    testimonial: { quote: '[Placeholder — opinia klienta]', author: 'Klient · Usługi / Handel' },
+    techStack: ['Next.js', 'React', 'Tailwind CSS', 'Claude (Anthropic)', 'n8n', 'Vercel']
   }
 ];

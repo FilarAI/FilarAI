@@ -88,6 +88,17 @@ export const Portfolio = () => {
             number: "+4h",
             label: "tygodniowo dla managera",
             dataSrc: "portfolio/rag-agent.jpg"
+        },
+        {
+            slug: "audyt-ai-roadmapa",
+            tag: "Usługi B2B",
+            title: "Audyt AI + Roadmapa",
+            problem: "Firma nie wiedziała od czego zacząć z AI — czas i budżet przepalany na złe rzeczy",
+            solution: "Analiza procesów, quick wins, roadmapa 6 miesięcy + pierwsze narzędzia od razu",
+            effect: "Jasny plan działania i pierwsze oszczędności w ciągu tygodnia",
+            number: "1 tydzień",
+            label: "do pierwszych wyników",
+            dataSrc: "portfolio/audyt.jpg"
         }
     ];
 

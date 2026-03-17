@@ -188,7 +188,7 @@ export const PortfolioHero = () => {
 
                 <div className="stats-row">
                     <div className="stat-item">
-                        <span className="stat-number">7</span>
+                        <span className="stat-number">9</span>
                         <span className="stat-label">PROJEKTÓW</span>
                     </div>
                     <div className="stat-divider" />

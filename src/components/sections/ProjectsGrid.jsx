@@ -86,6 +86,30 @@ const projects = [
     efekt: "Jasny plan działania i pierwsze oszczędności w ciągu tygodnia",
     number: "1 tydzień",
     numberLabel: "DO PIERWSZYCH WYNIKÓW"
+  },
+  {
+    slug: "filarai-strona-fast-lead",
+    image: "portfolio/filarai-web.jpg",
+    tag: "Agencja AI / Usługi B2B",
+    category: "Strony WWW",
+    title: "Strona FilarAI + System Fast Lead",
+    problem: "Brak strony i systemu który kwalifikuje klientów — firma niewidoczna, każda rozmowa od zera",
+    rozwiazanie: "Next.js landing page przedstawiający firmę + formularz Fast Lead jako część funnela sprzedażowego",
+    efekt: "Strona pozyskuje, przedstawia firmę i kwalifikuje klientów 24/7 bez angażowania właściciela",
+    number: "24/7",
+    numberLabel: "KWALIFIKACJA LEADÓW"
+  },
+  {
+    slug: "strona-firmowa-chatbot",
+    image: "portfolio/handel-web.jpg",
+    tag: "Usługi / Handel",
+    category: "Strony WWW",
+    title: "Strona firmowa + Chatbot AI",
+    problem: "Firma bez strony — niewidoczna i niedostępna poza godzinami pracy",
+    rozwiazanie: "Strona z animacjami + chatbot AI z bazą wiedzy firmy i zapisem na spotkanie",
+    efekt: "Pierwsze zapytania od klientów w ciągu tygodnia od uruchomienia",
+    number: "7 dni",
+    numberLabel: "DO PIERWSZYCH ZAPYTAŃ"
   }
 ];
 
@@ -499,7 +523,7 @@ export const ProjectsGrid = () => {
 
       {/* Section Header */}
       <div className={`grid-header ${isVisible ? 'visible' : ''}`}>
-        <span className="grid-label">NASZE REALIZACJE [AKTUALNE]</span>
+        <span className="grid-label">NASZE REALIZACJE</span>
         <h2 className="grid-title">Zobacz systemy, które już działają.</h2>
         <p className="grid-subtitle">
           Przekształcamy wąskie gardła biznesowe w płynne i niezawodne procesy. Poznaj rozwiązania, dzięki którym nasi klienci oszczędzają czas i skalują swoje firmy.
