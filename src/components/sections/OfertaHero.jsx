@@ -107,7 +107,7 @@ export const OfertaHero = () => {
                     font-weight: 600;
                     font-size: 14px;
                     padding: 13px 28px;
-                    border-radius: 8px; /* --r-md */
+                    border-radius: 4px; /* --r-sm */
                     text-decoration: none;
                     box-shadow: 0 0 12px rgba(217, 48, 37, 0.2);
                     transition: all 0.15s ease;

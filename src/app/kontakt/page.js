@@ -233,7 +233,7 @@ export default function KontaktPage() {
                     font-weight: 700;
                     font-size: 15px;
                     padding: 14px 24px;
-                    border-radius: var(--r-md);
+                    border-radius: var(--r-sm);
                     text-align: center;
                     text-decoration: none;
                     box-shadow: 0 0 12px rgba(217, 48, 37, 0.2);

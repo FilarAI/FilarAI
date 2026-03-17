@@ -132,7 +132,7 @@ export const OfertaDlaKogo = () => {
                     background: #141414; /* --bg-2 */
                     margin: 0 -16px;
                     padding: 16px;
-                    border-radius: 8px; /* --r-md */
+                    border-radius: 4px; /* --r-sm */
                 }
 
                 .dk-icon-s {
@@ -195,7 +195,7 @@ export const OfertaDlaKogo = () => {
                     font-weight: 600;
                     font-size: 14px;
                     padding: 12px 24px;
-                    border-radius: 8px;
+                    border-radius: 4px;
                     text-decoration: none;
                     transition: all 0.15s ease;
                 }

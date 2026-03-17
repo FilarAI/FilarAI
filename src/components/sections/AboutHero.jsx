@@ -210,7 +210,7 @@ export const AboutHero = () => {
           font-weight: 600;
           font-size: 14px;
           padding: 11px 22px;
-          border-radius: 8px; /* --r-md */
+          border-radius: 4px; /* --r-sm */
           box-shadow: 0 0 12px rgba(217, 48, 37, 0.2);
           transition: all 0.15s ease;
           display: inline-flex;
@@ -231,7 +231,7 @@ export const AboutHero = () => {
           font-weight: 600;
           font-size: 14px;
           padding: 11px 22px;
-          border-radius: 8px; /* --r-md */
+          border-radius: 4px; /* --r-sm */
           transition: all 0.15s ease;
           display: inline-flex;
           align-items: center;

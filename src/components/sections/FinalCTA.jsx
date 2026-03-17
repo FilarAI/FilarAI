@@ -145,7 +145,7 @@ export const FinalCTA = () => {
           font-size: 15px;
           letter-spacing: -0.01em;
           padding: 14px 32px;
-          border-radius: 8px;
+          border-radius: 4px;
           border: none;
           cursor: pointer;
           text-decoration: none;

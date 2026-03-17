@@ -11,7 +11,7 @@ const navStyles = `
     background: var(--red);
     color: #ffffff;
     border: none;
-    border-radius: var(--r-md);
+    border-radius: var(--r-sm);
     padding: 10px 20px;
     font-family: var(--font-body);
     font-size: 14px;
@@ -35,7 +35,7 @@ const navStyles = `
     font-size: 15px;
     font-weight: 400;
     padding: 8px 16px;
-    border-radius: var(--r-md);
+    border-radius: var(--r-sm);
     transition: all 0.2s ease;
     text-decoration: none;
     cursor: pointer;
@@ -57,7 +57,7 @@ const navStyles = `
     background: transparent;
     color: var(--text-2);
     border: 1px solid var(--bg-4);
-    border-radius: var(--r-md);
+    border-radius: var(--r-sm);
     width: 40px;
     height: 40px;
     display: flex;

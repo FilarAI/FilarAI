@@ -164,7 +164,7 @@ export function FloatingHeader() {
           padding: 10px 22px;
           background: #D93025;
           border: none;
-          border-radius: 8px;
+          border-radius: 4px;
           transition: all 0.2s ease;
           box-shadow: 0 0 12px rgba(217, 48, 37, 0.2);
         }
@@ -285,7 +285,7 @@ export function FloatingHeader() {
             <div className="mt-auto">
               <Link
                 href="/kontakt"
-                className="w-full bg-[#D93025] text-white font-bold py-4 rounded-xl flex items-center justify-center text-lg hover:bg-[#A8201A] transition-colors shadow-lg shadow-[#D93025]/20"
+                className="w-full bg-[#D93025] text-white font-bold py-4 rounded-sm flex items-center justify-center text-lg hover:bg-[#A8201A] transition-colors shadow-lg shadow-[#D93025]/20"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Umów konsultację

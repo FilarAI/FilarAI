@@ -158,7 +158,7 @@ export const ServicesOverview = () => {
                     height: 48px;
                     background: rgba(217, 48, 37, 0.08); /* --red-subtle */
                     border: 1px solid rgba(217, 48, 37, 0.25); /* --red-border */
-                    border-radius: 8px; /* --r-md */
+                    border-radius: 4px; /* --r-sm */
                     display: flex;
                     align-items: center;
                     justify-content: center;

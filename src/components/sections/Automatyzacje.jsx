@@ -162,7 +162,7 @@ export const Automatyzacje = () => {
                     background: #0F0F0F; /* --bg-1 */
                     margin: 0 -16px;
                     padding: 16px;
-                    border-radius: 8px; /* --r-md */
+                    border-radius: 4px; /* --r-sm */
                     border-bottom-color: transparent;
                 }
 
@@ -285,7 +285,7 @@ export const Automatyzacje = () => {
                     font-weight: 600;
                     font-size: 14px;
                     padding: 13px 28px;
-                    border-radius: 8px;
+                    border-radius: 4px;
                     text-decoration: none;
                     width: fit-content;
                     box-shadow: 0 0 12px rgba(217, 48, 37, 0.2);

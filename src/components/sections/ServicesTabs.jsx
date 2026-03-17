@@ -208,7 +208,7 @@ export const ServicesTabs = () => {
                     font-family: 'Outfit', sans-serif;
                     font-size: 14px;
                     padding: 10px 24px;
-                    border-radius: 999px; /* --r-full */
+                    border-radius: 4px; /* --r-sm */
                     cursor: pointer;
                     transition: all 0.15s ease;
                     border: 1px solid #222222; /* --bg-4 */
@@ -413,7 +413,7 @@ export const ServicesTabs = () => {
                     font-weight: 600;
                     font-size: 14px;
                     padding: 12px;
-                    border-radius: 8px; /* --r-md */
+                    border-radius: 4px; /* --r-sm */
                     text-decoration: none;
                     text-align: center;
                     transition: all 0.2s ease;

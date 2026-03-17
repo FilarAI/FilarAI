@@ -258,7 +258,7 @@ export const Certifications = () => {
           height: 48px;
           background-color: #1A1A1A; /* --bg-3 */
           border: 1px solid #222222; /* --bg-4 */
-          border-radius: 8px; /* --r-md */
+          border-radius: 4px; /* --r-sm */
           display: flex;
           align-items: center;
           justify-content: center;

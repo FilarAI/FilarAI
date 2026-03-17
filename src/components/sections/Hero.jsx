@@ -115,7 +115,7 @@ export const Hero = () => {
           font-size: 15px;
           font-weight: 700;
           padding: 13px 28px;
-          border-radius: var(--r-md);
+          border-radius: var(--r-sm);
           transition: all 0.15s ease;
           text-decoration: none;
           display: inline-flex;
