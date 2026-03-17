@@ -315,8 +315,9 @@ export const Hero = () => {
           className={`heading-syne fade-up-init ${isLoaded ? 'visible' : ''}`}
           style={{ transitionDelay: '0.2s' }}
         >
-          Przyszłość biznesu<br />
-          oparta na <span className="accent">inteligencji</span>.
+          Automatyzuj biznes.<br />
+          <span className="accent">Skaluj</span> bez<br />
+          zatrudniania.
         </h1>
         
         <p 
