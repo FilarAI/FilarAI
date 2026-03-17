@@ -67,13 +67,15 @@ export const OfertaHero = () => {
                 }
 
                 .oferta-hero-h1 {
-                    font-family: 'Syne', sans-serif;
-                    font-size: 64px;
-                    font-weight: 800;
-                    letter-spacing: -0.03em;
-                    line-height: 1.05;
-                    color: #F0EFEE; /* --text-1 */
-                    margin-top: 12px;
+                    font-family: var(--font-display); /* Syne */
+                    font-size: clamp(2.5rem, 5vw, 4rem);
+                    font-weight: 700;
+                    line-height: 1.1;
+                    letter-spacing: -0.02em;
+                    text-align: center;
+                    max-width: 800px;
+                    margin: 12px auto 0;
+                    color: var(--text-1);
                 }
 
                 .oferta-hero-h1 .accent-red {
@@ -145,12 +147,10 @@ export const OfertaHero = () => {
                         padding-top: 120px;
                     }
                     .oferta-hero-h1 {
-                        font-size: clamp(2rem, 8vw, 3.5rem);
+                        font-size: clamp(2rem, 8vw, 2.8rem);
+                        max-width: 100%;
+                        padding: 0 16px;
                         word-break: break-word;
-                        overflow-wrap: break-word;
-                        hyphens: auto;
-                        padding-left: 16px;
-                        padding-right: 16px;
                     }
                     .oferta-hero-container {
                         padding: 0 24px;
