@@ -13,21 +13,21 @@ export const ContactForm = () => {
         const formData = new FormData(e.target);
 
         const data = {
-            "Imię_i_nazwisko": formData.get('name'),
-            "Nazwa_Firmy": formData.get('company'),
-            "Adres_email": formData.get('email'),
-            "Telefon": formData.get('phone'),
-            "Rola_w_firmie": formData.get('role'),
-            "Temat_zapytania": formData.get('topic'),
-            "Orientacyjny_budżet": formData.get('budget'),
-            "Link_do_strony/mediów": formData.get('websiteUrl'),
-            "Opis_firmy": formData.get('companyDesc'),
-            "Opis_problemu": formData.get('goalsDesc'),
+            "imie": formData.get('name'),
+            "nazwa_firmy": formData.get('company'),
+            "email": formData.get('email'),
+            "phone": formData.get('phone'),
+            "role": formData.get('role'),
+            "topic": formData.get('topic'),
+            "budget": formData.get('budget'),
+            "url": formData.get('websiteUrl'),
+            "company_expertise": formData.get('companyDesc'),
+            "your_goal": formData.get('goalsDesc'),
             "zgoda_dane": formData.get('consent') ? "Wyrażono zgodę" : "Brak zgody"
         };
 
         try {
-            const response = await fetch('https://n8n.srv1108089.hstgr.cloud/webhook/22160687-ea6b-418d-8eb4-92880d2cba13', {
+            const response = await fetch('https://n8n.srv1108089.hstgr.cloud/webhook/dbff17fb-bbd1-429d-b979-8b9b76040587', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
