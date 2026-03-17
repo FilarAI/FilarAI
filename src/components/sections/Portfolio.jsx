@@ -348,7 +348,7 @@ export const Portfolio = () => {
           width: 100%;
           background: transparent;
           border: 1px solid var(--bg-4, #222222);
-          border-radius: 8px;
+          border-radius: 4px;
           padding: 10px 20px;
           font-family: var(--font-body, 'Outfit', sans-serif);
           font-size: 14px;
@@ -391,7 +391,7 @@ export const Portfolio = () => {
           font-size: 15px;
           font-weight: 600;
           padding: 12px 28px;
-          border-radius: 8px;
+          border-radius: 4px;
           border: none;
           cursor: pointer;
           transition: all 0.2s ease;
