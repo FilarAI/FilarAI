@@ -34,19 +34,19 @@ export const ServicesTabs = () => {
     const tabs = [
         {
             label: "Oszczędność czasu",
-            h3: "Twój biznes pracuje — nawet gdy Ty nie pracujesz",
-            description: "Analizujemy procesy w Twojej firmie i automatyzujemy te, które pochłaniają czas bez tworzenia wartości. Używamy n8n, Make i integracji z AI do budowania przepływów działających 24/7.",
+            h3: "Twój zespół nie powinien robić tego ręcznie",
+            description: "Identyfikujemy procesy które pochłaniają czas bez tworzenia wartości i automatyzujemy je — raz, porządnie, na zawsze.",
             accordion: [
-                { title: "Automatyczne faktury", desc: "Zdjęcie → OCR → baza danych → potwierdzenie e-mail. Zero ręcznego przepisywania danych." },
-                { title: "Obsługa skrzynki e-mail", desc: "AI czyta, kategoryzuje i flaguje maile wymagające pilnej odpowiedzi. Priorytetyzacja bez udziału człowieka." },
-                { title: "Kwalifikacja leadów", desc: "Formularz → AI ocenia dopasowanie → automatyczna oferta lub telefon do właściwych klientów." },
-                { title: "Opinie po usłudze", desc: "Automatyczne pytanie o opinię przez e-mail, SMS lub WhatsApp zaraz po zakończeniu zlecenia." },
-                { title: "Synchronizacja systemów", desc: "Dane między CRM, arkuszami i kalendarzem synchronizują się automatycznie bez ręcznego kopiowania." }
+                { title: "Automatyczne faktury", desc: "Zdjęcie → dane → baza → email w 5 sekund." },
+                { title: "Obsługa skrzynki e-mail", desc: "AI czyta, kategoryzuje i flaguje pilne." },
+                { title: "Kwalifikacja leadów", desc: "Formularz → ocena → oferta bez Twojego udziału." },
+                { title: "Opinie po usłudze", desc: "Automatyczne pytanie w odpowiednim momencie." },
+                { title: "Synchronizacja danych", desc: "CRM, arkusze, kalendarz zawsze aktualne." }
             ],
             benefits: [
                 { icon: "clock", title: "System działa 24/7", desc: "Procesy działają bez nadzoru, również w nocy i w weekendy." },
                 { icon: "x-circle", title: "Zero błędów z przepisywania", desc: "Automatyzacja eliminuje błędy ludzkie wynikające z rutyny i zmęczenia." },
-                { icon: "users", title: "Bez nowych pracowników", desc: "Zwiększasz przepustowość firmy bez zwiększania zespołu." },
+                { icon: "users", title: "Bez nowych pracowników", desc: "Większa przepustowość firmy bez zwiększania zespołu." },
                 { icon: "zap", title: "Wdrożenie w 1–2 tygodnie", desc: "Pierwsze działające automatyzacje dostarczamy szybko — bez miesięcy czekania." }
             ],
             cta: {
@@ -57,14 +57,13 @@ export const ServicesTabs = () => {
         },
         {
             label: "Narzędzia dla zespołu",
-            h3: "Narzędzie szyte na miarę Twojego biznesu",
-            description: "Budujemy agentów AI i dedykowane aplikacje webowe integrujące się z Twoimi procesami. Nie gotowe szablony — każde rozwiązanie projektujemy od podstaw pod konkretny problem.",
+            h3: "Aplikacja która rozwiązuje jeden konkretny problem — Twój",
+            description: "Nie sprzedajemy gotowych szablonów. Budujemy narzędzia pod Twój proces — które zespół faktycznie otworzy jutro rano.",
             accordion: [
-                { title: "Chatbot z bazą wiedzy", desc: "AI z wiedzą o Twojej firmie obsługuje FAQ, odpowiada na pytania i umawia spotkania przez całą dobę." },
-                { title: "RAG Agent firmowy", desc: "Agent z dostępem do procedur, cenników i danych firmy. Nowi pracownicy pytają agenta zamiast managera." },
-                { title: "System Fast Lead", desc: "Klient wypełnia formularz → AI kwalifikuje → generuje spersonalizowaną ofertę → umawia rozmowę." },
-                { title: "Dashboard zarządzania", desc: "Aplikacja webowa z logowaniem: zapasy, zamówienia, faktury — wszystko w jednym miejscu z dowolnego urządzenia." },
-                { title: "Agent Gmail", desc: "Czyta, priorytetyzuje i proponuje odpowiedzi na maile. Skrzynka pod kontrolą bez godzin przy komputerze." }
+                { title: "Chatbot z bazą wiedzy", desc: "Obsługuje FAQ i umawia spotkania przez całą dobę." },
+                { title: "RAG Agent firmowy", desc: "Nowi pracownicy pytają agenta zamiast managera." },
+                { title: "System Fast Lead", desc: "Kwalifikacja klienta zanim podniesiesz słuchawkę." },
+                { title: "Dashboard zarządzania", desc: "Zapasy, zamówienia, faktury w jednym miejscu." }
             ],
             benefits: [
                 { icon: "settings", title: "Szyte na miarę", desc: "Płacisz tylko za funkcje które potrzebujesz — bez zbędnych modułów." },
@@ -80,45 +79,45 @@ export const ServicesTabs = () => {
         },
         {
             label: "Strony WWW",
-            h3: "Strona która aktywnie pozyskuje klientów",
-            description: "Tworzymy szybkie, animowane strony zaprojektowane tak by od razu współpracować z systemami automatyzacji, formularzami leadowymi i kampaniami reklamowymi.",
+            h3: "Strona która pracuje na Twój lejek — nie tylko wisi w internecie",
+            description: "Każda strona którą robimy jest zaprojektowana tak żeby od pierwszego dnia pozyskiwać klientów, kwalifikować ich i prowadzić do rozmowy z Tobą.",
             accordion: [
-                { title: "Strona firmowa", desc: "Sekcje oferty, portfolio, kontaktu i zapisu na konsultację. Zaprojektowana pod konwersję od pierwszego dnia." },
-                { title: "Landing page pod reklamy", desc: "Strona pod kampanię Google/Meta Ads z formularzem leadowym połączonym z automatyzacją." },
-                { title: "Strona z chatbotem AI", desc: "Wbudowany chatbot obsługuje klientów, odpowiada na pytania i umawia spotkania zamiast Ciebie." },
-                { title: "Integracja z CRM i kalendarzem", desc: "Formularz kontaktowy trafia prosto do CRM i kalendarza — zero ręcznego przepisywania danych z maili." }
+                { title: "Strona firmowa B2B", desc: "Profesjonalna wizytówka gotowa pod Google Ads i Meta." },
+                { title: "Landing page Fast Lead", desc: "Formularz który filtruje klientów przed rozmową." },
+                { title: "Strona z chatbotem", desc: "AI obsługuje pytania i umawia spotkania 24/7." },
+                { title: "Integracja z CRM", desc: "Leady trafiają prosto do Twojego systemu." }
             ],
             benefits: [
-                { icon: "monitor", title: "Wygląda profesjonalnie", desc: "Design który buduje zaufanie od pierwszych sekund na stronie." },
-                { icon: "zap", title: "Gotowa pod reklamy", desc: "Struktura i szybkość zoptymalizowane pod kampanie płatne od pierwszego dnia." },
-                { icon: "smartphone", title: "Responsywna mobilnie", desc: "Działa perfekcyjnie na każdym urządzeniu — telefon, tablet, desktop." },
-                { icon: "link", title: "Zintegrowana z automatyzacją", desc: "Formularz, chatbot i kalendarz działają razem jako jeden system." }
+                { icon: "monitor", title: "Aktywnie pozyskuje klientów", desc: "Nie tylko ładnie wygląda — każdy element prowadzi do kontaktu." },
+                { icon: "zap", title: "Gotowa pod reklamy od pierwszego dnia", desc: "Zero dodatkowej konfiguracji — uruchamiasz kampanię od razu." },
+                { icon: "smartphone", title: "Szybka i mobilna", desc: "Zoptymalizowana pod telefon i Core Web Vitals." },
+                { icon: "link", title: "Część systemu sprzedaży", desc: "Strona to pierwszy krok funnela — nie koniec procesu." }
             ],
             cta: {
                 text: "Chcesz stronę która pracuje na Twój biznes przez całą dobę?",
-                button: "Porozmawiaj o stronie →",
+                button: "Porozmawiaj o swojej stronie →",
                 href: "/kontakt"
             }
         },
         {
             label: "Audyty",
-            h3: "Zanim zainwestujesz — wiedz co kupujesz",
-            description: "Przeprowadzamy szczegółowy audyt procesów i identyfikujemy miejsca gdzie AI przyniesie największy zwrot z inwestycji. Dostarczamy konkretny plan działania z priorytetami i kosztami.",
+            h3: "Zanim zainwestujesz — dowiedz się co faktycznie zwróci",
+            description: "Analizujemy procesy w Twojej firmie i pokazujemy dokładnie gdzie AI się opłaca, gdzie nie — i od czego zacząć żeby zobaczyć efekt w 2 tygodnie.",
             accordion: [
-                { title: "Analiza procesów operacyjnych", desc: "Przyglądamy się sprzedaży, obsłudze klienta, administracji i finansom — szukamy gdzie ucieka czas i pieniądze." },
-                { title: "Identyfikacja quick wins", desc: "Wskazujemy automatyzacje które można wdrożyć w ciągu 2 tygodni i od razu przyniosą efekt." },
-                { title: "Mapa drogowa 6–12 miesięcy", desc: "Konkretny plan transformacji cyfrowej z priorytetami, kosztami i oczekiwanymi efektami." },
-                { title: "Raport z rekomendacjami", desc: "Dokument który możesz użyć do podjęcia decyzji lub przedstawienia zarządowi czy wspólnikom." }
+                { title: "Analiza procesów operacyjnych", desc: "Sprzedaż, obsługa klienta, administracja." },
+                { title: "Identyfikacja quick wins", desc: "Automatyzacje możliwe do wdrożenia w 2 tygodnie." },
+                { title: "Mapa drogowa na 6–12 miesięcy", desc: "Priorytety, koszty, oczekiwane efekty." },
+                { title: "Raport z rekomendacjami", desc: "Konkretny dokument do decyzji lub zarządu." }
             ],
             benefits: [
-                { icon: "search", title: "Jasność priorytetów", desc: "Wiesz co wdrożyć najpierw — bez przepalania budżetu na złe rzeczy." },
-                { icon: "shield", title: "Bezpieczny start", desc: "Zanim zainwestujesz w wdrożenie wiesz dokładnie co i za ile kupujesz." },
-                { icon: "file-text", title: "Gotowy dokument", desc: "Raport który możesz pokazać zespołowi lub użyć do planowania budżetu." },
-                { icon: "trending-up", title: "Zwrot z inwestycji", desc: "Każda rekomendacja uzasadniona konkretnym efektem biznesowym." }
+                { icon: "search", title: "Jasność priorytetów", desc: "Bez przepalania budżetu na narzędzia które nie pasują do firmy." },
+                { icon: "shield", title: "Wiesz co kupujesz", desc: "Zanim podpiszesz jakąkolwiek umowę — masz pełny obraz." },
+                { icon: "file-text", title: "Dokument do działania", desc: "Nie PDF do szuflady — konkretny plan z krokami i kosztami." },
+                { icon: "trending-up", title: "Bezpieczny start", desc: "Najpierw analiza, potem inwestycja — bez ryzyka." }
             ],
             cta: {
                 text: "Nie wiesz od czego zacząć z AI w swojej firmie?",
-                button: "Zamów audyt AI →",
+                button: "Zamów audyt →",
                 href: "/kontakt"
             }
         }
