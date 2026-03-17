@@ -58,22 +58,22 @@ export const Services = () => {
 
     const serviceCards = [
         {
-            title: "Oszczędność czasu (Koniec ręcznej roboty)",
-            description: "Automatyzujemy powtarzalne procesy które pochłaniają czas bez tworzenia wartości. Twój zespół skupia się na tym co ważne.",
+            title: "Koniec z pracą której nienawidzisz",
+            description: "Faktury, maile, raporty, przepisywanie danych — oddaj to maszynie. Twój zespół skupia się na tym co naprawdę generuje wartość.",
             icon: (
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M13.29 14.71a1 1 0 0 1 0-1.42l1.09-1.09a3 3 0 1 0-4.24-4.24l-1.09 1.09a1 1 0 0 1-1.42-1.42l1.09-1.09a5 5 0 0 1 7.07 7.07l-1.09 1.09a1 1 0 0 1-1.41 0zM14.21 16.54a1 1 0 0 1 1.42 1.42l-1.09 1.09a5 5 0 0 1-7.07-7.07l1.09-1.09a1 1 0 0 1 1.42 1.42l-1.09 1.09a3 3 0 1 0 4.24 4.24l1.09-1.09z" />
                 </svg>
             ),
             examples: [
-                "Automatyczne faktury i dokumenty",
-                "Obsługa skrzynki mailowej przez AI",
-                "Synchronizacja danych między systemami"
+                "Faktury i dokumenty bez dotykania",
+                "Maile czytane i kategoryzowane przez AI",
+                "Dane synchronizowane między systemami automatycznie"
             ]
         },
         {
-            title: "System który pracuje gdy Ty śpisz",
-            description: "Budujemy agentów AI i dedykowane aplikacje webowe zintegrowane z Twoimi procesami. Architektura pod Twój biznes — nie gotowe szablony.",
+            title: "Narzędzia które zespół faktycznie używa",
+            description: "Dedykowane aplikacje i agenci AI zaprojektowani pod Twoje procesy — nie gotowe szablony które trzeba ogarniać.",
             icon: (
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M12 8V4H8" />
@@ -85,14 +85,14 @@ export const Services = () => {
                 </svg>
             ),
             examples: [
-                "Chatbot z bazą wiedzy firmy",
-                "Agent kwalifikujący leady 24/7",
-                "Dashboard zarządzania z autoryzacją"
+                "Chatbot który zna Twoją firmę na pamięć",
+                "Agent kwalifikujący leady zanim zadzwonisz",
+                "Dashboard który zastępuje 10 arkuszy Excel"
             ]
         },
         {
-            title: "Strona która generuje zapytania",
-            description: "Tworzymy szybkie strony internetowe zaprojektowane tak by aktywnie pozyskiwać klientów — nie tylko ładnie wyglądać.",
+            title: "Strona która sprzedaje — nie tylko wygląda",
+            description: "Każda strona którą robimy jest częścią funnela — od pierwszego kliknięcia do umówionej rozmowy.",
             icon: (
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <circle cx="12" cy="12" r="10" />
@@ -101,14 +101,14 @@ export const Services = () => {
                 </svg>
             ),
             examples: [
-                "Wizytówka B2B pod reklamy",
-                "Landing page z automatyzacją leadów",
-                "Strona z wbudowanym chatbotem AI"
+                "Wizytówka B2B gotowa pod reklamy",
+                "Landing page z automatyczną kwalifikacją leadów",
+                "Strona z chatbotem obsługującym klientów 24/7"
             ]
         },
         {
-            title: "Gdzie uciekają Twoje pieniądze?",
-            description: "Audyt procesów firmy i konkretna mapa drogowa — zanim zainwestujesz w wdrożenie wiesz dokładnie co kupujesz i ile to zwróci.",
+            title: "Zanim wydasz złotówkę — wiedz na co",
+            description: "Analizujemy Twoje procesy i pokazujemy dokładnie gdzie AI się opłaca, gdzie nie — i od czego zacząć żeby zobaczyć efekt w 2 tygodnie.",
             icon: (
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <circle cx="11" cy="11" r="8" />
@@ -118,9 +118,9 @@ export const Services = () => {
                 </svg>
             ),
             examples: [
-                "Analiza procesów operacyjnych",
-                "Identyfikacja quick wins w 2 tygodnie",
-                "Raport z priorytetami i kosztami"
+                "Mapa procesów z oceną potencjału",
+                "Lista quick wins do wdrożenia od zaraz",
+                "Raport z kosztami i zwrotem z inwestycji"
             ]
         }
     ];
