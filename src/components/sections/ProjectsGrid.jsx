@@ -64,16 +64,20 @@ const projects = [
     numberLabel: "DOSTĘPNOŚĆ"
   },
   {
-    slug: "chatbot-strona",
-    image: "portfolio/chatbot.jpg",
-    tag: "Usługi lokalne",
-    category: "Strony WWW",
-    title: "Chatbot i strona firmowa",
-    problem: "Brak strony — zero widoczności poza godzinami pracy",
-    rozwiazanie: "Strona z animacjami i chatbot AI z bazą wiedzy i zapisem na spotkania",
-    efekt: "Pierwsze zapytania w ciągu tygodnia od uruchomienia",
     number: "7dni",
     numberLabel: "DO ZAPYTAŃ"
+  },
+  {
+    slug: "audyt-ai-roadmapa",
+    image: "portfolio/audyt.jpg",
+    tag: "Usługi B2B",
+    category: "Audyty",
+    title: "Audyt AI + Roadmapa",
+    problem: "Firma nie wiedziała od czego zacząć z AI — czas i budżet przepalany na złe rzeczy",
+    rozwiazanie: "Analiza procesów, quick wins, roadmapa 6 miesięcy + pierwsze narzędzia od razu",
+    efekt: "Jasny plan działania i pierwsze oszczędności w ciągu tygodnia",
+    number: "1 tydzień",
+    numberLabel: "DO PIERWSZYCH WYNIKÓW"
   }
 ];
 

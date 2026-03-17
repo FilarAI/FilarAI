@@ -191,13 +191,45 @@ export const projects = [
         'Optymalizacja SEO i szybkość ładowania pod Google'
       ]
     },
-    results: [
-      { number: '7dni', label: 'DO ZAPYTAŃ', description: 'pierwsze kontakty od klientów' },
-      { number: '24/7', label: 'CHATBOT', description: 'obsługuje klientów bez przerwy' },
-      { number: '+100%', label: 'WIDOCZNOŚĆ', description: 'w Google w ciągu miesiąca' },
-      { number: '0zł', label: 'REKLAMY', description: 'pierwsze zapytania organicznie' }
-    ],
     testimonial: { quote: '[Placeholder — opinia klienta]', author: 'Klient · Usługi lokalne' },
     techStack: ['React', 'Next.js', 'Claude (Anthropic)', 'Tailwind CSS', 'Vercel', 'Google Search Console']
+  },
+  {
+    slug: 'audyt-ai-roadmapa',
+    title: 'Audyt AI + Roadmapa',
+    highlightWord: 'Audyt',
+    industry: 'Usługi B2B',
+    category: 'Audyty',
+    image: 'portfolio/audyt.jpg',
+    intro: 'Właściciel firmy słyszał o AI ale nie wiedział co wdrożyć, w jakiej kolejności i czy w ogóle się opłaca.',
+    result: { number: '1 tydzień', label: 'DO PIERWSZYCH WYNIKÓW', descriptor: 'od wdrożenia' },
+    problem: {
+      lead: 'Firma nie wiedziała od czego zacząć z AI — czas i budżet przepalany na złe rzeczy',
+      bullets: [
+        'Brak wiedzy które procesy mają sens do automatyzacji a które nie',
+        'Ryzyko przepalenia budżetu na narzędzia które nie pasują do firmy',
+        'Chaos informacyjny — za dużo opcji, za mało konkretnych odpowiedzi'
+      ]
+    },
+    solution: {
+      description: 'Szczegółowy audyt procesów firmy + natychmiastowe wdrożenie pierwszych narzędzi które działają od zaraz.',
+      hasFlowDiagram: true,
+      flowSteps: [
+        'Wywiad z właścicielem i zespołem',
+        'Mapowanie procesów operacyjnych',
+        'Identyfikacja quick wins',
+        'Wdrożenie NotebookLM jako bazy wiedzy firmy',
+        'Przygotowanie dokumentów dla klientów i nowych pracowników',
+        'Roadmapa na 6 miesięcy z priorytetami i kosztami'
+      ]
+    },
+    results: [
+      { number: '1 tydzień', label: 'DO WDROŻENIA', description: 'pierwszych działających narzędzi' },
+      { number: '3–5', label: 'QUICK WINS', description: 'zidentyfikowanych w każdej firmie' },
+      { number: '100%', label: 'JASNOŚĆ', description: 'co wdrożyć, w jakiej kolejności i za ile' },
+      { number: '0 zł', label: 'PRZEPALONYCH', description: 'na narzędzia które nie pasują' }
+    ],
+    testimonial: { quote: '[Placeholder — opinia klienta]', author: 'Klient · Usługi B2B' },
+    techStack: ['NotebookLM', 'Claude (Anthropic)', 'Google Workspace', 'n8n']
   }
 ];
