@@ -210,7 +210,14 @@ export function FloatingHeader() {
       <header className={`navbar-container ${isScrolled ? 'scrolled' : ''}`}>
         <div className="navbar-inner">
           {/* Logo */}
-          <Link href="/" className="navbar-logo">
+          <a 
+            href="/" 
+            className="navbar-logo"
+            onClick={(e) => {
+              e.preventDefault();
+              window.location.href = '/';
+            }}
+          >
             <img
               src="/logotype/logo bez tla.png"
               alt="FilarAI"
@@ -221,7 +228,7 @@ export function FloatingHeader() {
               }}
             />
             <span className="logo-text uppercase font-extrabold tracking-tighter">FILAR AI</span>
-          </Link>
+          </a>
 
           {/* Desktop Links */}
           <nav className="navbar-links">
@@ -267,10 +274,14 @@ export function FloatingHeader() {
       <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
         <SheetContent>
           <div className="flex flex-col h-full pt-12">
-            <Link 
+            <a 
               href="/" 
               className="flex items-center gap-3 mb-12"
-              onClick={() => setIsMenuOpen(false)}
+              onClick={(e) => {
+                e.preventDefault();
+                setIsMenuOpen(false);
+                window.location.href = '/';
+              }}
             >
               <img
                 src="/logotype/logo bez tla.png"
@@ -282,7 +293,7 @@ export function FloatingHeader() {
                 }}
               />
               <span className="logo-text text-2xl uppercase font-extrabold tracking-tighter">FILAR AI</span>
-            </Link>
+            </a>
 
             <nav className="flex flex-col gap-6">
               <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-[#5A5550] mb-2">Nawigacja</span>
