@@ -486,6 +486,18 @@ export const ServicesTabs = () => {
                     ))}
                 </nav>
 
+                <p style={{
+                  fontFamily: 'var(--font-body)',
+                  fontSize: '14px',
+                  color: 'var(--text-3)',
+                  textAlign: 'center',
+                  marginTop: '12px',
+                  marginBottom: '32px',
+                  letterSpacing: '0.01em'
+                }}>
+                  Kliknij każdą zakładkę — każda kryje inne rozwiązania dla Twojego biznesu.
+                </p>
+
                 {/* Content Panel */}
                 <div key={activeTab} className="st-panel">
                     {/* Left Column */}
