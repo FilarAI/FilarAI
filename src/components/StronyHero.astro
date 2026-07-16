@@ -1,0 +1,158 @@
+---
+// StronyHero — hero podstrony Strony WWW. Jasny wariant, eyebrow + H1 + lead + 2 CTA,
+// po prawej mockup przeglądarki (podgląd produktu, wzorzec z briefu).
+---
+
+<section class="shero section--light">
+	<div class="shero__outer">
+		<div class="shero__copy">
+			<p class="shero__eyebrow"><i aria-hidden="true"></i><b>Strony WWW</b><span>/</span> projekt i wdrożenie</p>
+			<h1 class="shero__title">Strony, które sprzedają.<span>Nie tylko ładnie wyglądają.</span></h1>
+			<p class="shero__lead">
+				Projektuję i buduję szybkie, nowoczesne strony nastawione na jedno — więcej
+				zapytań od klientów. Od pierwszej rozmowy do wdrożenia zajmuję się wszystkim.
+			</p>
+			<div class="shero__actions">
+				<a href="/kontakt" class="btn btn--primary">Umów rozmowę <span aria-hidden="true">→</span></a>
+				<a href="/portfolio" class="btn btn--secondary">Zobacz realizacje</a>
+			</div>
+			<ul class="shero__points">
+				<li><span aria-hidden="true">✓</span> Gotowa strona w 7 dni</li>
+				<li><span aria-hidden="true">✓</span> Mobile-first + SEO on-page</li>
+				<li><span aria-hidden="true">✓</span> Formularz prosto na maila</li>
+			</ul>
+		</div>
+
+		<div class="shero__visual" aria-hidden="true">
+			<div class="shero__browser">
+				<div class="shero__browserbar">
+					<span class="shero__dots"><i></i><i></i><i></i></span>
+					<span class="shero__address"></span>
+				</div>
+				<div class="shero__screen">
+					<div class="shero__nav"><b></b><em></em></div>
+					<div class="shero__hero-block">
+						<strong>Twoja firma.<br />Więcej klientów.</strong>
+						<span>Nowoczesna strona, która realnie przynosi zapytania.</span>
+						<u>Umów rozmowę →</u>
+					</div>
+					<div class="shero__cards"><i></i><i></i><i></i></div>
+				</div>
+			</div>
+			<span class="shero__glow"></span>
+		</div>
+	</div>
+</section>
+
+<style>
+	.shero__outer {
+		max-width: var(--size-container);
+		margin-inline: auto;
+		padding-inline: var(--container-padding);
+		padding-block: var(--spacing-section) var(--spacing-5xl);
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+		align-items: center;
+		gap: var(--spacing-5xl);
+	}
+
+	.shero__eyebrow {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.65em;
+		font-size: 0.75em;
+		font-weight: var(--weight-emphasis);
+		letter-spacing: 0.16em;
+		text-transform: uppercase;
+		color: var(--color-text-secondary);
+	}
+	.shero__eyebrow i { width: 0.55em; height: 0.55em; border-radius: 50%; background-color: var(--accent-brand); }
+	.shero__eyebrow b { color: var(--color-contrast); }
+	.shero__eyebrow > span { color: var(--accent-brand); }
+
+	.shero__title {
+		margin-top: var(--spacing-lg);
+		font-family: var(--font-heading);
+		font-size: var(--text-h1);
+		font-weight: var(--weight-heading);
+		line-height: var(--lh-display);
+		letter-spacing: -1.5px;
+		color: var(--color-contrast);
+		text-wrap: balance;
+	}
+	.shero__title span { display: block; color: var(--accent-text); }
+
+	.shero__lead {
+		margin-top: var(--spacing-lg);
+		max-width: 32em;
+		font-size: var(--text-lead);
+		line-height: var(--lh-lead);
+		color: var(--color-text-secondary);
+	}
+
+	.shero__actions { display: flex; flex-wrap: wrap; gap: var(--spacing-md); margin-top: var(--spacing-xl); }
+
+	.shero__points {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--spacing-md) var(--spacing-lg);
+		margin-top: var(--spacing-xl);
+		list-style: none;
+	}
+	.shero__points li { display: inline-flex; align-items: center; gap: 0.5em; font-size: var(--text-sm); color: var(--color-text-secondary); }
+	.shero__points span { color: var(--accent-deep); font-weight: var(--weight-emphasis); }
+
+	/* ===== Mockup przeglądarki ===== */
+	.shero__visual { position: relative; }
+	.shero__glow {
+		position: absolute;
+		inset: 8% 4% 4% 8%;
+		z-index: 0;
+		border-radius: 50%;
+		background: radial-gradient(circle, rgba(168, 196, 71, 0.22) 0%, rgba(168, 196, 71, 0) 70%);
+		pointer-events: none;
+	}
+	.shero__browser {
+		position: relative;
+		z-index: 1;
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-lg);
+		background-color: var(--color-canvas);
+		box-shadow: var(--elevation-3);
+		overflow: hidden;
+	}
+	.shero__browserbar {
+		display: flex;
+		align-items: center;
+		gap: 1em;
+		height: 2.5em;
+		padding-inline: 1em;
+		border-bottom: 1px solid var(--color-border);
+		background-color: var(--color-canvas-alt);
+	}
+	.shero__dots { display: inline-flex; gap: 0.4em; }
+	.shero__dots i { width: 0.6em; height: 0.6em; border-radius: 50%; background-color: var(--color-border); }
+	.shero__dots i:first-child { background-color: var(--accent-brand); }
+	.shero__address { width: min(60%, 16em); height: 0.85em; border-radius: var(--radius-pill); background-color: var(--color-atmosphere); }
+
+	.shero__screen { padding: 1.5em; display: grid; gap: 1.25em; }
+	.shero__nav { display: flex; align-items: center; justify-content: space-between; }
+	.shero__nav b { width: 5em; height: 0.9em; border-radius: var(--radius-sm); background-color: var(--color-contrast); }
+	.shero__nav em { width: 7em; height: 0.7em; border-radius: var(--radius-sm); background-color: var(--color-border); }
+	.shero__hero-block { display: grid; gap: 0.75em; padding: 1.75em 1.5em; border-radius: var(--radius-md); background-color: var(--color-atmosphere); }
+	.shero__hero-block strong { font-family: var(--font-heading); font-size: 1.4em; font-weight: var(--weight-heading); line-height: 1.1; letter-spacing: -0.5px; color: var(--color-contrast); }
+	.shero__hero-block span { font-size: 0.8em; color: var(--color-text-secondary); }
+	.shero__hero-block u { justify-self: start; margin-top: 0.25em; padding: 0.55em 1em; border-radius: var(--radius-pill); background-color: var(--accent-fill); color: var(--color-contrast); font-size: 0.75em; font-weight: var(--weight-emphasis); text-decoration: none; }
+	.shero__cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75em; }
+	.shero__cards i { height: 3.5em; border-radius: var(--radius-md); background-color: var(--color-canvas-alt); border: 1px solid var(--color-border); }
+
+	/* ===== Responsywność ===== */
+	@media screen and (max-width: 991px) {
+		.shero__outer { grid-template-columns: 1fr; gap: var(--spacing-3xl); }
+		.shero__visual { max-width: 34em; }
+	}
+	@media screen and (max-width: 767px) {
+		.shero__outer { padding-block: var(--spacing-4xl); }
+		.shero__title { letter-spacing: -0.5px; }
+	}
+</style>

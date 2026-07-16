@@ -1,0 +1,225 @@
+---
+// Portfolio — trzy realizacje przedstawione jako realne fragmenty produktów.
+
+const icon = {
+	arrow: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>`,
+	check: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m7 12 3 3 7-7"/></svg>`,
+	calendar: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 9h16M8 3v4M16 3v4"/></svg>`,
+	star: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 3 2.5 5.5 6 .7-4.4 4 1.2 5.8-5.3-3-5.3 3 1.2-5.8-4.4-4 6-.7z"/></svg>`,
+};
+
+const projects = {
+	planeta: {
+		number: "01",
+		category: "Strona WWW",
+		title: "Planeta Mebli",
+		desc: "Strona sprzedażowa dla producenta mebli",
+		result: "+ więcej zapytań",
+		href: "/portfolio/planeta-mebli",
+	},
+	elgraf: {
+		number: "02",
+		category: "System AI",
+		title: "System recenzji Elgraf",
+		desc: "Opinie zbierają się same, 24/7.",
+		badge: "Automatyzacja",
+		href: "/portfolio/elgraf",
+	},
+	domki: {
+		number: "03",
+		category: "System rezerwacji",
+		title: "Domki na Luzie",
+		desc: "Rezerwacje online bez telefonów.",
+		badge: "24/7",
+		href: "/portfolio/domki-na-luzie",
+	},
+};
+---
+
+<section class="portfolio section--atmosphere">
+	<div class="portfolio__outer">
+		<header class="portfolio__header">
+			<p class="portfolio__eyebrow"><span aria-hidden="true"></span> Portfolio</p>
+			<h2>Zobacz, co już zbudowałem</h2>
+			<p>Strony i systemy, które rozwiązują konkretne problemy i pracują dla firm każdego dnia.</p>
+		</header>
+
+		<div class="portfolio__grid">
+			<article class="portfolio__project portfolio__project--featured">
+				<a class="portfolio__project-top" href={projects.planeta.href} aria-label={`Zobacz ${projects.planeta.title}`}>
+					<span class="portfolio__category">
+						<span class="portfolio__number">{projects.planeta.number}</span>
+						{projects.planeta.category}
+					</span>
+					<span class="portfolio__top-arrow" set:html={icon.arrow} aria-hidden="true" />
+				</a>
+
+				<div class="portfolio__project-intro">
+					<div>
+						<h3>{projects.planeta.title}</h3>
+						<p>{projects.planeta.desc}</p>
+					</div>
+					<span class="portfolio__result">{projects.planeta.result}</span>
+				</div>
+
+				<a class="portfolio__browser" href={projects.planeta.href} aria-label={`Otwórz case study ${projects.planeta.title}`}>
+					<div class="portfolio__browser-bar" aria-hidden="true">
+						<span></span><span></span><span></span>
+					</div>
+					<div class="portfolio__website-nav">
+						<strong>◒ PLANETA MEBLI</strong>
+						<span>Meble na wymiar</span><span>Kolekcje</span><span>O nas</span><span>Realizacje</span>
+						<b>Wyceń projekt</b>
+					</div>
+					<div class="portfolio__planet-hero">
+						<div class="portfolio__planet-copy">
+							<small>Meble na wymiar</small>
+							<strong>Meble, które<br />pasują do Ciebie</strong>
+							<p>Projektujemy i wykonujemy meble na wymiar.</p>
+							<span>Wyceń projekt</span>
+						</div>
+						<div class="portfolio__kitchen" aria-hidden="true">
+							<i class="portfolio__cabinet portfolio__cabinet--left"></i>
+							<i class="portfolio__cabinet portfolio__cabinet--right"></i>
+							<i class="portfolio__lamp portfolio__lamp--one"></i>
+							<i class="portfolio__lamp portfolio__lamp--two"></i>
+							<i class="portfolio__island"></i>
+							<i class="portfolio__stool portfolio__stool--one"></i>
+							<i class="portfolio__stool portfolio__stool--two"></i>
+						</div>
+					</div>
+				</a>
+
+				<footer class="portfolio__project-footer">
+					<p>WWW <span>•</span> UX/UI <span>•</span> Lead generation</p>
+					<a href={projects.planeta.href}>Zobacz case study <span set:html={icon.arrow} aria-hidden="true" /></a>
+				</footer>
+			</article>
+
+			<div class="portfolio__side">
+				<article class="portfolio__project portfolio__project--compact">
+					<a class="portfolio__project-top" href={projects.elgraf.href} aria-label={`Zobacz ${projects.elgraf.title}`}>
+						<span class="portfolio__category">
+							<span class="portfolio__number">{projects.elgraf.number}</span>
+							{projects.elgraf.category}
+						</span>
+					</a>
+					<div class="portfolio__project-intro">
+						<div><h3>{projects.elgraf.title}</h3><p>{projects.elgraf.desc}</p></div>
+						<span class="portfolio__result">{projects.elgraf.badge}</span>
+					</div>
+
+					<a class="portfolio__reviews" href={projects.elgraf.href} aria-label={`Otwórz projekt ${projects.elgraf.title}`}>
+						<div class="portfolio__google-card">
+							<strong><b>G</b>oogle</strong>
+							<span class="portfolio__stars" set:html={`${icon.star}${icon.star}${icon.star}${icon.star}${icon.star}`} />
+							<small>Na podstawie 47 opinii</small><em>Nowa opinia</em>
+						</div>
+						<div class="portfolio__review-flow">
+							<div><b>★</b><p><strong>Nowa opinia</strong><small>Klient wystawił opinię</small></p></div>
+							<div><b>✉</b><p><strong>Automatyczny follow-up</strong><small>Podziękowanie wysłane ✓</small></p></div>
+						</div>
+						<div class="portfolio__review-stat"><small>Opinie w tym miesiącu</small><strong>47 <em>↑ 32%</em></strong><span></span></div>
+					</a>
+					<footer class="portfolio__compact-footer"><a href={projects.elgraf.href}>Zobacz projekt <span set:html={icon.arrow} aria-hidden="true" /></a></footer>
+				</article>
+
+				<article class="portfolio__project portfolio__project--compact">
+					<a class="portfolio__project-top" href={projects.domki.href} aria-label={`Zobacz ${projects.domki.title}`}>
+						<span class="portfolio__category">
+							<span class="portfolio__number">{projects.domki.number}</span>
+							{projects.domki.category}
+						</span>
+					</a>
+					<div class="portfolio__project-intro">
+						<div><h3>{projects.domki.title}</h3><p>{projects.domki.desc}</p></div>
+						<span class="portfolio__result">{projects.domki.badge}</span>
+					</div>
+
+					<a class="portfolio__booking" href={projects.domki.href} aria-label={`Otwórz projekt ${projects.domki.title}`}>
+						<div class="portfolio__calendar"><p>‹ <b>Czerwiec 2025</b> ›</p><small>Pn Wt Śr Cz Pt So Nd</small><span>28 29 30 31 1 2 3</span><span>4 5 6 7 8 <b>12 13 14</b></span></div>
+						<div class="portfolio__booking-form"><small>Daty pobytu</small><p>12.06.2025 — 14.06.2025</p><small>Liczba osób</small><p>4 osoby⌄</p></div>
+						<div class="portfolio__confirmed"><span set:html={icon.check} aria-hidden="true" /><strong>Rezerwacja<br />potwierdzona</strong><small>Dziękujemy! Do zobaczenia.</small></div>
+					</a>
+					<footer class="portfolio__compact-footer"><a href={projects.domki.href}>Zobacz projekt <span set:html={icon.arrow} aria-hidden="true" /></a></footer>
+				</article>
+			</div>
+		</div>
+	</div>
+</section>
+
+<style>
+	.portfolio__outer { max-width: var(--size-container); margin-inline: auto; padding: var(--spacing-section) var(--container-padding); }
+	.portfolio__header { max-width: 52em; margin: 0 auto var(--spacing-4xl); text-align: center; }
+	.portfolio__eyebrow { display: inline-flex; align-items: center; gap: .6em; font-size: var(--text-sm); font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--accent-deep); }
+	.portfolio__eyebrow span { width: .45em; height: .45em; border-radius: 50%; background: var(--accent-brand); }
+	.portfolio__header h2 { margin-top: var(--spacing-lg); font-family: var(--font-heading); font-size: var(--text-h2); font-weight: 700; letter-spacing: -.055em; line-height: var(--lh-display); color: var(--color-contrast); }
+	.portfolio__header > p:last-child { margin-top: var(--spacing-md); font-size: var(--text-lead); line-height: var(--lh-lead); color: var(--color-text-secondary); }
+
+	.portfolio__grid { display: grid; grid-template-columns: minmax(0, 1.17fr) minmax(0, .93fr); gap: var(--spacing-xl); align-items: stretch; }
+	.portfolio__side { display: grid; grid-template-rows: repeat(2, minmax(0, 1fr)); gap: var(--spacing-lg); }
+	.portfolio__project { display: flex; flex-direction: column; min-width: 0; padding: var(--spacing-xl); background: var(--color-canvas); border: 1px solid var(--color-border); border-radius: var(--radius-lg); box-shadow: var(--elevation-1); transition: transform 300ms cubic-bezier(.22, 1, .36, 1), border-color 220ms ease, box-shadow 300ms cubic-bezier(.22, 1, .36, 1); }
+	.portfolio__project--featured { min-height: 100%; }
+	.portfolio__project-top { display: flex; align-items: center; justify-content: space-between; color: var(--color-contrast); text-decoration: none; }
+	.portfolio__category { display: inline-flex; align-items: center; gap: var(--spacing-sm); font-size: .7em; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; }
+	.portfolio__number { display: inline-grid; place-items: center; width: 2.7em; height: 2.7em; border: 1px solid var(--accent-brand); border-radius: var(--radius-sm); color: var(--accent-deep); font-size: 1em; }
+	.portfolio__top-arrow { width: 1.35em; height: 1.35em; color: var(--accent-deep); }
+	.portfolio__top-arrow :global(svg), .portfolio__project-footer a :global(svg), .portfolio__compact-footer a :global(svg) { width: 1em; height: 1em; }
+	.portfolio__project-intro { display: flex; justify-content: space-between; align-items: flex-start; gap: var(--spacing-md); margin-top: var(--spacing-lg); }
+	.portfolio__project-intro h3 { font-family: var(--font-heading); font-size: 1.55em; font-weight: 700; letter-spacing: -.035em; line-height: var(--lh-heading); color: var(--color-contrast); }
+	.portfolio__project-intro p { margin-top: .25em; font-size: var(--text-sm); color: var(--color-text-muted); }
+	.portfolio__result { flex: 0 0 auto; padding: .6em .9em; border-radius: var(--radius-sm); background: var(--accent-wash); color: var(--accent-deep); font-size: .65em; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+
+	.portfolio__browser { display: block; margin-top: var(--spacing-xl); overflow: hidden; border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-canvas-alt); box-shadow: var(--elevation-1); color: inherit; text-decoration: none; }
+	.portfolio__browser-bar { display: flex; gap: .35em; padding: .65em .8em; border-bottom: 1px solid var(--color-border); background: var(--color-atmosphere); }
+	.portfolio__browser-bar span { width: .5em; height: .5em; border-radius: 50%; background: var(--color-border); }
+	.portfolio__website-nav { display: flex; align-items: center; gap: .8em; padding: .7em 1em; background: var(--color-canvas); font-size: .52em; color: var(--color-text-secondary); }
+	.portfolio__website-nav strong { margin-right: auto; font-size: 1.15em; color: var(--color-contrast); }
+	.portfolio__website-nav b { padding: .55em .9em; background: var(--color-contrast); color: var(--color-canvas); font-weight: 500; }
+	.portfolio__planet-hero { position: relative; min-height: 22em; overflow: hidden; background: var(--color-atmosphere); }
+	.portfolio__planet-copy { position: relative; z-index: 2; width: 46%; padding: 2.7em 0 0 2.8em; }
+	.portfolio__planet-copy small { font-size: .55em; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--color-text-secondary); }
+	.portfolio__planet-copy strong { display: block; margin-top: .7em; font-family: var(--font-heading); font-size: 2.25em; font-weight: 500; letter-spacing: -.06em; line-height: .95; color: var(--color-contrast); }
+	.portfolio__planet-copy p { margin-top: 1em; font-size: .7em; line-height: 1.45; color: var(--color-text-secondary); }
+	.portfolio__planet-copy > span { display: inline-block; margin-top: 1.25em; padding: .75em 1em; background: var(--color-contrast); color: var(--color-canvas); font-size: .6em; font-weight: 600; }
+	.portfolio__kitchen { position: absolute; inset: 0; }
+	.portfolio__cabinet, .portfolio__island, .portfolio__stool, .portfolio__lamp { position: absolute; display: block; }
+	.portfolio__cabinet { top: 0; bottom: 0; width: 17%; background: var(--color-canvas-alt); border-left: 1px solid var(--color-border); }
+	.portfolio__cabinet--left { left: 45%; } .portfolio__cabinet--right { right: 0; width: 23%; }
+	.portfolio__island { right: 5%; bottom: 0; width: 52%; height: 34%; background: var(--color-canvas); border: 1px solid var(--color-border); box-shadow: var(--elevation-1); }
+	.portfolio__island::before { position: absolute; top: -.35em; left: -3%; width: 106%; height: .7em; background: var(--color-canvas-alt); content: ""; }
+	.portfolio__stool { bottom: 3%; width: 6%; height: 19%; border: .45em solid var(--color-contrast); border-bottom: 0; border-radius: 50% 50% 0 0; }
+	.portfolio__stool--one { right: 29%; } .portfolio__stool--two { right: 17%; }
+	.portfolio__lamp { top: 0; width: 1px; height: 28%; background: var(--color-text-muted); }
+	.portfolio__lamp::after { position: absolute; bottom: -1.5em; left: -1em; width: 2em; height: 1.3em; border-radius: 0 0 50% 50%; background: var(--color-canvas); content: ""; }
+	.portfolio__lamp--one { right: 35%; } .portfolio__lamp--two { right: 25%; }
+	.portfolio__project-footer, .portfolio__compact-footer { display: flex; align-items: center; justify-content: space-between; gap: var(--spacing-md); margin-top: auto; padding-top: var(--spacing-lg); border-top: 1px solid var(--color-border); }
+	.portfolio__project-footer p { font-size: .7em; color: var(--color-text-muted); } .portfolio__project-footer p span { padding-inline: .45em; }
+	.portfolio__project-footer a, .portfolio__compact-footer a { display: inline-flex; align-items: center; gap: .65em; color: var(--accent-deep); font-size: .75em; font-weight: 700; text-decoration: none; white-space: nowrap; }
+	.portfolio__top-arrow, .portfolio__project-footer a span, .portfolio__compact-footer a span { transition: transform 220ms ease; }
+
+	@media (hover: hover) and (pointer: fine) {
+		.portfolio__project:hover, .portfolio__project:focus-within { transform: translateY(-.35em); border-color: var(--accent-brand); box-shadow: var(--elevation-2); }
+		.portfolio__project:hover .portfolio__top-arrow, .portfolio__project:focus-within .portfolio__top-arrow, .portfolio__project:hover .portfolio__project-footer a span, .portfolio__project:hover .portfolio__compact-footer a span, .portfolio__project:focus-within .portfolio__project-footer a span, .portfolio__project:focus-within .portfolio__compact-footer a span { transform: translateX(.25em); }
+	}
+
+	.portfolio__project--compact { padding: var(--spacing-lg); }
+	.portfolio__project--compact .portfolio__project-intro { margin-top: var(--spacing-md); }
+	.portfolio__project--compact .portfolio__project-intro h3 { font-size: 1.3em; }
+	.portfolio__reviews, .portfolio__booking { display: grid; align-items: center; gap: var(--spacing-md); margin-top: var(--spacing-lg); color: inherit; text-decoration: none; }
+	.portfolio__reviews { grid-template-columns: 1fr 1.45fr 1fr; }
+	.portfolio__google-card, .portfolio__review-stat, .portfolio__calendar, .portfolio__booking-form, .portfolio__confirmed { min-width: 0; padding: .9em; border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-canvas); }
+	.portfolio__google-card { display: flex; flex-direction: column; gap: .35em; } .portfolio__google-card strong { font-size: 1em; color: var(--color-contrast); } .portfolio__google-card strong b { color: var(--accent-text); }
+	.portfolio__stars { display: inline-flex; gap: .1em; color: var(--accent-brand); } .portfolio__stars :global(svg) { width: .8em; height: .8em; }
+	.portfolio__google-card small, .portfolio__review-stat small { font-size: .55em; color: var(--color-text-muted); } .portfolio__google-card em { margin-top: .25em; padding: .65em; background: var(--color-contrast); border-radius: var(--radius-sm); font-size: .55em; font-style: normal; text-align: center; color: var(--color-canvas); }
+	.portfolio__review-flow { display: grid; gap: .7em; } .portfolio__review-flow > div { display: flex; align-items: center; gap: .65em; padding: .65em; border: 1px solid var(--color-border); border-radius: var(--radius-sm); } .portfolio__review-flow b { display: grid; place-items: center; width: 1.8em; height: 1.8em; border-radius: 50%; background: var(--accent-wash); color: var(--accent-deep); font-size: .65em; } .portfolio__review-flow p { display: grid; gap: .15em; } .portfolio__review-flow strong { font-size: .58em; color: var(--color-contrast); } .portfolio__review-flow small { font-size: .5em; color: var(--color-text-muted); }
+	.portfolio__review-stat { display: flex; flex-direction: column; gap: .55em; } .portfolio__review-stat strong { font-size: 1.55em; color: var(--color-contrast); } .portfolio__review-stat strong em { color: var(--accent-deep); font-size: .42em; font-style: normal; } .portfolio__review-stat > span { height: 2.2em; border-bottom: .18em solid var(--accent-brand); border-radius: 50%; }
+
+	.portfolio__booking { grid-template-columns: 1.05fr 1.25fr .8fr; } .portfolio__calendar { display: grid; gap: .55em; } .portfolio__calendar p { display: flex; justify-content: space-between; font-size: .55em; } .portfolio__calendar small { word-spacing: .55em; font-size: .44em; color: var(--color-text-muted); } .portfolio__calendar > span { font-size: .44em; word-spacing: .6em; color: var(--color-text-muted); } .portfolio__calendar > span b { padding: .35em; border-radius: 50%; background: var(--accent-fill); color: var(--color-contrast); }
+	.portfolio__booking-form { display: grid; gap: .35em; } .portfolio__booking-form small { margin-top: .2em; font-size: .48em; color: var(--color-text-muted); } .portfolio__booking-form p { padding: .65em; border: 1px solid var(--color-border); border-radius: var(--radius-sm); font-size: .52em; color: var(--color-text-secondary); }
+	.portfolio__confirmed { display: grid; place-items: center; gap: .55em; text-align: center; } .portfolio__confirmed > span { display: grid; place-items: center; width: 2.2em; height: 2.2em; border-radius: 50%; background: var(--accent-wash); color: var(--accent-deep); } .portfolio__confirmed :global(svg) { width: 1.2em; height: 1.2em; } .portfolio__confirmed strong { font-size: .62em; line-height: 1.35; color: var(--color-contrast); } .portfolio__confirmed small { font-size: .42em; color: var(--color-text-muted); }
+
+	@media screen and (max-width: 991px) { .portfolio__grid { grid-template-columns: 1fr; } .portfolio__side { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: none; } }
+	@media screen and (max-width: 767px) { .portfolio__header { margin-bottom: var(--spacing-3xl); } .portfolio__project { padding: var(--spacing-lg); } .portfolio__side { grid-template-columns: 1fr; } .portfolio__website-nav span { display: none; } .portfolio__planet-hero { min-height: 18em; } .portfolio__planet-copy { width: 58%; padding: 1.75em 0 0 1.5em; } .portfolio__planet-copy strong { font-size: 1.65em; } .portfolio__reviews, .portfolio__booking { grid-template-columns: 1fr; } .portfolio__project-footer { align-items: flex-start; flex-direction: column; } }
+	@media (prefers-reduced-motion: reduce) { .portfolio__project, .portfolio__top-arrow, .portfolio__project-footer a span, .portfolio__compact-footer a span { transition: none; } }
+</style>

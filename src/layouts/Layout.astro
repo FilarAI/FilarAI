@@ -1,0 +1,72 @@
+---
+import "../styles/global.css";
+import Header from "../components/Header.astro";
+import CookieBanner from "../components/CookieBanner.astro";
+
+interface Props {
+	title?: string;
+	description?: string;
+	/** Ścieżka do obrazu OG (1200×630). Domyślnie globalny. */
+	ogImage?: string;
+	/** Wyłącz indeksowanie (strony robocze, podglądy). */
+	noindex?: boolean;
+}
+
+const {
+	title = "FilarAI — Strony, systemy AI i marketing dla małych firm",
+	description = "Buduję strony WWW, systemy AI, SEO/GEO i kampanie Meta Ads dla małych firm. Konkret zamiast obietnic — pierwsza rozmowa bez zobowiązań, odpowiadam w 15 minut.",
+	ogImage = "/og-default.png",
+	noindex = false,
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site ?? "https://filarai.com");
+const ogImageUrl = new URL(ogImage, Astro.site ?? "https://filarai.com");
+---
+
+<html lang="pl">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="generator" content={Astro.generator} />
+
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<link rel="canonical" href={canonical} />
+		{noindex && <meta name="robots" content="noindex, nofollow" />}
+
+		<!-- Open Graph — bez tego link wrzucony na WhatsAppa/Facebooka to goły URL bez podglądu -->
+		<meta property="og:type" content="website" />
+		<meta property="og:locale" content="pl_PL" />
+		<meta property="og:site_name" content="FilarAI" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={canonical} />
+		<meta property="og:image" content={ogImageUrl} />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={ogImageUrl} />
+
+		<link rel="icon" type="image/svg+xml" href="/favicon-light.svg" media="(prefers-color-scheme: light)" />
+		<link rel="icon" type="image/svg+xml" href="/favicon-dark.svg" media="(prefers-color-scheme: dark)" />
+		<link rel="icon" type="image/svg+xml" href="/favicon-light.svg" />
+		<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff" />
+		<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0a0a0a" />
+
+		<!-- Synonym (fontshare) — zastąpił Geist + Inter -->
+		<link rel="preconnect" href="https://api.fontshare.com" />
+		<link
+			rel="stylesheet"
+			href="https://api.fontshare.com/v2/css?f[]=synonym@400,500,600,700&display=swap"
+		/>
+	</head>
+	<body>
+		<a href="#main" class="sr-only">Przejdź do treści</a>
+		<Header />
+		<slot />
+		<CookieBanner />
+	</body>
+</html>

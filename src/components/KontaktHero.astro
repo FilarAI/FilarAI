@@ -1,0 +1,542 @@
+---
+// KontaktHero — hero podstrony /kontakt.
+// Warm off-white bg, big title, 3 karty kontaktowe (Telefon / Email / WhatsApp).
+// Dane: +48 534458418 / kontakt@filarai.com / wa.me/+48534458418
+
+const contacts = [
+	{
+		id: "phone",
+		label: "Telefon",
+		value: "+48 534 458 418",
+		href: "tel:+48534458418",
+		cta: "Zadzwoń teraz",
+		icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>`,
+	},
+	{
+		id: "email",
+		label: "E-mail",
+		value: "kontakt@filarai.com",
+		href: "mailto:kontakt@filarai.com",
+		cta: "Napisz maila",
+		icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>`,
+	},
+	{
+		id: "whatsapp",
+		label: "WhatsApp",
+		value: "Odpisuję w kilka minut",
+		href: "https://wa.me/+48534458418",
+		cta: "Otwórz WhatsApp",
+		icon: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.46 0-9.9 4.44-9.9 9.9 0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.21c5.46 0 9.9-4.44 9.9-9.9 0-5.46-4.44-9.9-9.9-9.9zM17 15.62c-.2.55-1.16 1.06-1.6 1.13-.42.07-.94.1-1.53-.1-.36-.11-.83-.27-1.44-.53-2.53-1.09-4.18-3.63-4.31-3.8-.13-.16-1.03-1.36-1.03-2.6 0-1.23.64-1.83.87-2.09.23-.26.5-.32.66-.32h.48c.15 0 .35-.06.55.42.2.5.7 1.71.76 1.83.06.13.1.28.02.44-.08.16-.12.26-.23.4-.11.14-.23.31-.33.42-.11.11-.22.24-.1.47.13.23.58.96 1.24 1.56.85.75 1.57 1 1.8 1.11.23.11.36.09.5-.05.13-.14.57-.66.72-.89.15-.23.3-.19.51-.12.21.08 1.34.63 1.57.74.23.11.38.17.44.26.06.09.06.55-.14 1.08z"/></svg>`,
+		featured: true,
+	},
+	{
+		id: "meeting",
+		label: "Spotkanie online",
+		value: "30 min konsultacji na żywo",
+		href: "mailto:kontakt@filarai.com?subject=Chc%C4%99%20um%C3%B3wi%C4%87%20spotkanie",
+		cta: "Wybierz termin",
+		icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="15" height="15" rx="2"/><path d="M3 10h15M7 3v4M14 3v4"/><path d="M19 14v5M21.5 16.5h-5"/></svg>`,
+		featured: true,
+	},
+];
+---
+
+<section class="kontakt section--light">
+	<div class="kontakt__outer">
+		<div class="kontakt__header">
+			<span class="kontakt__eyebrow">
+				<span class="kontakt__eyebrow-dot" aria-hidden="true"></span>
+				Kontakt
+			</span>
+			<h1 class="kontakt__title">Porozmawiajmy o Twojej firmie.</h1>
+			<p class="kontakt__subtitle">
+				Wybierz najwygodniejszą formę kontaktu — telefon, WhatsApp, e-mail lub szybkie spotkanie online.
+			</p>
+		</div>
+
+		<div class="kontakt__panel">
+			<div class="kontakt__intro">
+				<p class="kontakt__availability"><span aria-hidden="true"></span>Dostępny</p>
+				<p class="kontakt__intro-copy">Pierwsza rozmowa jest bezpłatna. Odpowiadam zwykle w ciągu 24h i pomagam dobrać najlepsze rozwiązanie dla Twojej firmy.</p>
+				<ul class="kontakt__benefits">
+					<li><span aria-hidden="true">♢</span>Bez zobowiązań</li>
+					<li><span aria-hidden="true">◷</span>Odpowiedź do 24h</li>
+					<li><span aria-hidden="true">♙</span>Kontakt bezpośrednio ze mną</li>
+				</ul>
+				<div class="kontakt__actions">
+					<a class="kontakt__primary-action" href="mailto:kontakt@filarai.com?subject=Chc%C4%99%20um%C3%B3wi%C4%87%20rozmow%C4%99">Umów rozmowę <span aria-hidden="true">→</span></a>
+					<a class="kontakt__secondary-action" href="https://wa.me/+48534458418" target="_blank" rel="noopener">Napisz na WhatsApp <span aria-hidden="true">→</span></a>
+				</div>
+			</div>
+
+			<div class="kontakt__cards">
+				{
+					contacts.map((c) => (
+						<a
+							href={c.href}
+							class:list={["kontakt__card", c.featured && "kontakt__card--featured"]}
+							target={c.id === "whatsapp" ? "_blank" : undefined}
+							rel={c.id === "whatsapp" ? "noopener" : undefined}
+						>
+							<span class="kontakt__card-icon" set:html={c.icon} />
+							<div class="kontakt__card-body">
+								<p class="kontakt__card-label">{c.label}</p>
+								<p class="kontakt__card-value">{c.value}</p>
+							</div>
+							<span class="kontakt__card-cta">{c.cta}<span aria-hidden="true">→</span></span>
+						</a>
+					))
+				}
+			</div>
+			<p class="kontakt__panel-note"><span aria-hidden="true">✦</span>Najczęściej wybierane: szybkie spotkanie online lub wiadomość na WhatsApp.</p>
+		</div>
+	</div>
+</section>
+
+<style>
+	.kontakt {
+		--k-accent: var(--accent-brand);
+		--k-accent-soft: rgba(168, 196, 71, 0.12);
+		--k-whatsapp: #25d366;
+		background-color: #f7f6f2;
+	}
+
+	.kontakt__outer {
+		max-width: var(--size-container);
+		margin-inline: auto;
+		padding-inline: 3em;
+		padding-block: var(--spacing-section);
+	}
+
+	.kontakt__header {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+		gap: 1em;
+		margin-bottom: 3em;
+	}
+
+	.kontakt__eyebrow {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5em;
+		padding: 0.5em 1em;
+		font-family: var(--font-body);
+		font-size: 0.75em;
+		font-weight: 600;
+		letter-spacing: 2px;
+		text-transform: uppercase;
+		color: var(--accent-deep);
+		background-color: var(--color-canvas);
+		border: 1px solid var(--color-border);
+		border-radius: 999em;
+	}
+
+	.kontakt__eyebrow-dot {
+		width: 0.5em;
+		height: 0.5em;
+		border-radius: 50%;
+		background-color: var(--k-accent);
+	}
+
+	.kontakt__title {
+		font-family: var(--font-heading);
+		font-size: 4em;
+		font-weight: 700;
+		line-height: 1.05;
+		letter-spacing: -1.5px;
+		color: var(--color-contrast);
+		max-width: 18em;
+	}
+
+	.kontakt__subtitle {
+		font-size: 1.0625em;
+		line-height: 1.55;
+		color: var(--color-text-secondary);
+		max-width: 32em;
+	}
+
+	.kontakt__cards {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 1.25em;
+	}
+
+	.kontakt__card {
+		display: flex;
+		flex-direction: column;
+		gap: 1em;
+		padding: 1.75em;
+		background-color: var(--color-canvas);
+		border: 1px solid var(--color-border);
+		border-radius: 1em;
+		text-decoration: none;
+		color: inherit;
+		transition:
+			transform 220ms ease,
+			border-color 220ms ease,
+			box-shadow 220ms ease;
+	}
+
+	.kontakt__card:hover {
+		transform: translateY(-4px);
+		border-color: rgba(168, 196, 71, 0.35);
+		box-shadow:
+			0 1px 2px rgba(0, 0, 0, 0.04),
+			0 16px 32px rgba(0, 0, 0, 0.06);
+	}
+
+	.kontakt__card-icon {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		align-self: flex-start;
+		width: 3em;
+		height: 3em;
+		border-radius: 0.75em;
+		background-color: var(--k-accent-soft);
+		color: var(--accent-deep);
+	}
+
+	.kontakt__card--featured .kontakt__card-icon {
+		background-color: rgba(37, 211, 102, 0.15);
+		color: var(--k-whatsapp);
+	}
+
+	.kontakt__card-icon svg {
+		width: 1.5em;
+		height: 1.5em;
+	}
+
+	.kontakt__card-body {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		gap: 0.25em;
+	}
+
+	.kontakt__card-label {
+		font-family: var(--font-body);
+		font-size: 0.8125em;
+		font-weight: 600;
+		letter-spacing: 1.5px;
+		text-transform: uppercase;
+		color: var(--color-text-muted);
+	}
+
+	.kontakt__card-value {
+		font-family: var(--font-heading);
+		font-size: 1.375em;
+		font-weight: 700;
+		color: var(--color-contrast);
+	}
+
+	.kontakt__card-cta {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5em;
+		font-family: var(--font-body);
+		font-size: 0.9375em;
+		font-weight: 600;
+		color: var(--accent-deep);
+	}
+
+	.kontakt__card--featured .kontakt__card-cta {
+		color: var(--k-whatsapp);
+	}
+
+	@media screen and (max-width: 991px) {
+		.kontakt__outer {
+			padding-inline: 1.5em;
+		}
+
+		.kontakt__title {
+			font-size: 2.75em;
+		}
+
+		.kontakt__cards {
+			grid-template-columns: minmax(0, 1fr);
+		}
+	}
+
+	/* Kontakt: desktopowy panel kontaktu */
+	.kontakt {
+		background-color: var(--color-canvas);
+	}
+
+	.kontakt__outer {
+		padding-block: clamp(5em, 8vw, 7.5em) var(--spacing-section);
+	}
+
+	.kontakt__header {
+		gap: 0;
+		margin-bottom: clamp(2.5em, 4vw, 3.75em);
+	}
+
+	.kontakt__title {
+		max-width: 16em;
+		margin-top: 0.8em;
+		font-size: clamp(2.65em, 4.45vw, 4.35em);
+		line-height: 1.04;
+		letter-spacing: -0.055em;
+	}
+
+	.kontakt__subtitle {
+		max-width: 62em;
+		margin-top: 0.75em;
+		font-size: var(--text-lead);
+	}
+
+	.kontakt__panel {
+		display: grid;
+		grid-template-columns: minmax(17em, 0.82fr) minmax(0, 1.38fr);
+		grid-template-areas:
+			"intro cards"
+			"note note";
+		background: var(--color-canvas);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-lg);
+		box-shadow: var(--elevation-2);
+		overflow: hidden;
+	}
+
+	.kontakt__intro {
+		grid-area: intro;
+		padding: clamp(2em, 3.25vw, 3.5em);
+		border-right: 1px solid var(--color-border);
+	}
+
+	.kontakt__availability {
+		display: flex;
+		align-items: center;
+		gap: 0.7em;
+		font-size: 0.95em;
+		font-weight: 700;
+		color: var(--accent-deep);
+	}
+
+	.kontakt__availability span {
+		width: 0.65em;
+		height: 0.65em;
+		border-radius: 50%;
+		background: var(--accent-deep);
+	}
+
+	.kontakt__intro-copy {
+		max-width: 20em;
+		margin-top: 1.35em;
+		font-size: 1.02em;
+		line-height: 1.56;
+		color: var(--color-text-secondary);
+	}
+
+	.kontakt__benefits {
+		display: grid;
+		gap: 0.55em;
+		margin-top: 1.65em;
+		padding: 0;
+		list-style: none;
+	}
+
+	.kontakt__benefits li {
+		display: flex;
+		align-items: center;
+		gap: 1em;
+		padding: 0.78em 1em;
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-sm);
+		font-size: 0.88em;
+		font-weight: 500;
+		color: var(--color-contrast);
+	}
+
+	.kontakt__benefits span {
+		width: 1.25em;
+		font-size: 1.25em;
+		line-height: 1;
+		text-align: center;
+	}
+
+	.kontakt__actions {
+		display: flex;
+		align-items: center;
+		flex-wrap: wrap;
+		gap: 1.5em;
+		margin-top: 2.2em;
+	}
+
+	.kontakt__primary-action,
+	.kontakt__secondary-action,
+	.kontakt__card-cta {
+		position: relative;
+		overflow: hidden;
+		isolation: isolate;
+		display: inline-flex;
+		align-items: center;
+		gap: 1em;
+		padding: 0.9em 1.35em;
+		border-radius: var(--radius-pill);
+		background-color: var(--color-accent);
+		color: var(--color-contrast);
+		font-family: var(--font-body);
+		font-size: 0.9em;
+		font-weight: var(--weight-emphasis);
+		text-decoration: none;
+	}
+
+	.kontakt__card-cta {
+		align-self: flex-start;
+		padding: 0.7em 1em;
+		font-size: 0.78em;
+	}
+
+	.kontakt__cards {
+		grid-area: cards;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: var(--spacing-lg);
+		padding: clamp(1.5em, 3vw, 2.5em);
+	}
+
+	.kontakt__card {
+		min-height: 12.25em;
+		gap: 0.9em;
+		padding: 1.65em;
+		border-radius: var(--radius-md);
+		box-shadow: none;
+	}
+
+	.kontakt__card--featured {
+		border-color: var(--accent-brand);
+		background-color: var(--accent-wash);
+	}
+
+	.kontakt__card-icon,
+	.kontakt__card--featured .kontakt__card-icon {
+		width: 2.5em;
+		height: 2.5em;
+		padding: 0;
+		background: transparent;
+		color: var(--color-contrast);
+	}
+
+	.kontakt__card--featured .kontakt__card-icon {
+		color: var(--accent-deep);
+	}
+
+	.kontakt__card-icon svg {
+		width: 1.85em;
+		height: 1.85em;
+	}
+
+	.kontakt__card-body {
+		gap: 0.35em;
+	}
+
+	.kontakt__card-label {
+		font-family: var(--font-heading);
+		font-size: 1.15em;
+		font-weight: 700;
+		letter-spacing: -0.025em;
+		text-transform: none;
+		color: var(--color-contrast);
+	}
+
+	.kontakt__card-value {
+		font-family: var(--font-body);
+		font-size: 0.92em;
+		font-weight: 400;
+		line-height: 1.45;
+		color: var(--color-text-secondary);
+	}
+
+	.kontakt__card:hover {
+		transform: translateY(-0.28em);
+		border-color: var(--accent-brand);
+		box-shadow: var(--elevation-2);
+	}
+
+	.kontakt__panel-note {
+		grid-area: note;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 1em;
+		padding: 1.35em 2em;
+		border-top: 1px solid var(--color-border);
+		font-size: 0.92em;
+		color: var(--color-text-secondary);
+		text-align: center;
+	}
+
+	.kontakt__panel-note span {
+		font-size: 1.5em;
+		color: var(--accent-brand);
+	}
+
+	@media screen and (max-width: 991px) {
+		.kontakt__panel {
+			grid-template-columns: 1fr;
+			grid-template-areas:
+				"intro"
+				"cards"
+				"note";
+		}
+
+		.kontakt__intro {
+			border-right: 0;
+			border-bottom: 1px solid var(--color-border);
+		}
+
+		.kontakt__intro-copy {
+			max-width: 42em;
+		}
+
+		.kontakt__cards {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+	}
+
+	@media screen and (max-width: 640px) {
+		.kontakt__outer {
+			padding-inline: var(--container-padding);
+		}
+
+		.kontakt__title {
+			font-size: clamp(2.45em, 11vw, 3.25em);
+		}
+
+		.kontakt__subtitle {
+			font-size: 1em;
+		}
+
+		.kontakt__panel {
+			border-radius: var(--radius-md);
+		}
+
+		.kontakt__intro,
+		.kontakt__cards {
+			padding: var(--spacing-lg);
+		}
+
+		.kontakt__actions {
+			align-items: flex-start;
+			gap: 1.2em;
+		}
+
+		.kontakt__cards {
+			grid-template-columns: 1fr;
+		}
+
+		.kontakt__card {
+			min-height: 0;
+		}
+
+		.kontakt__panel-note {
+			align-items: flex-start;
+			justify-content: flex-start;
+			padding: 1.2em var(--spacing-lg);
+			text-align: left;
+		}
+	}
+</style>

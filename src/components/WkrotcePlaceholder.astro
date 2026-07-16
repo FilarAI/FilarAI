@@ -1,0 +1,183 @@
+---
+// WkrotcePlaceholder — reużywalna sekcja "wkrótce" dla podstron w budowie.
+// Props: title, subtitle (opt), desc (opt), icon (opt: nazwa SVG z presetu).
+
+interface Props {
+	title: string;
+	subtitle?: string;
+	desc?: string;
+}
+
+const {
+	title,
+	subtitle = "Ta podstrona jest w budowie.",
+	desc = "Aktualnie rozbudowuję ten obszar. W międzyczasie napisz do mnie bezpośrednio – odpowiadam w 24h.",
+} = Astro.props;
+---
+
+<section class="wkrotce section--light">
+	<div class="wkrotce__outer">
+		<div class="wkrotce__eyebrow">
+			<span class="wkrotce__eyebrow-dot" aria-hidden="true"></span>
+			Wkrótce
+		</div>
+
+		<span class="wkrotce__icon" aria-hidden="true">
+			<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+				<path d="M6 3h12M6 21h12" />
+				<path d="M8 3v3l4 5-4 5v3M16 3v3l-4 5 4 5v3" />
+				<path d="M10 8h4" />
+			</svg>
+		</span>
+
+		<h1 class="wkrotce__title">{title}</h1>
+		<p class="wkrotce__subtitle">{subtitle}</p>
+		<p class="wkrotce__desc">{desc}</p>
+
+		<div class="wkrotce__ctas">
+			<a href="/kontakt" class="wkrotce__cta wkrotce__cta--primary">
+				<span>Umów rozmowę</span>
+				<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18">
+					<path d="M5 12h14M13 6l6 6-6 6" />
+				</svg>
+			</a>
+			<a href="/" class="wkrotce__cta wkrotce__cta--ghost">
+				<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18">
+					<path d="M19 12H5M11 6l-6 6 6 6" />
+				</svg>
+				<span>Wróć na główną</span>
+			</a>
+		</div>
+	</div>
+</section>
+
+<style>
+	.wkrotce {
+		--wk-accent: var(--accent-brand);
+		--wk-accent-soft: rgba(168, 196, 71, 0.12);
+		background-color: #f7f6f2;
+		min-height: calc(100vh - 5.25em);
+		display: flex;
+		align-items: center;
+	}
+
+	.wkrotce__outer {
+		max-width: 44em;
+		margin-inline: auto;
+		padding-inline: 1.5em;
+		padding-block: 4em;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+		gap: 1.25em;
+	}
+
+	.wkrotce__eyebrow {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5em;
+		padding: 0.5em 1em;
+		font-family: var(--font-body);
+		font-size: 0.75em;
+		font-weight: 600;
+		letter-spacing: 2px;
+		text-transform: uppercase;
+		color: var(--accent-deep);
+		background-color: var(--color-canvas);
+		border: 1px solid var(--color-border);
+		border-radius: 999em;
+	}
+
+	.wkrotce__eyebrow-dot {
+		width: 0.5em;
+		height: 0.5em;
+		border-radius: 50%;
+		background-color: var(--wk-accent);
+	}
+
+	.wkrotce__icon {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 4.5em;
+		height: 4.5em;
+		border-radius: 1em;
+		background-color: var(--wk-accent-soft);
+		color: var(--accent-deep);
+	}
+
+	.wkrotce__icon svg {
+		width: 2em;
+		height: 2em;
+	}
+
+	.wkrotce__title {
+		font-family: var(--font-heading);
+		font-size: 4em;
+		font-weight: 700;
+		line-height: 1;
+		letter-spacing: -1.5px;
+		color: var(--color-contrast);
+	}
+
+	.wkrotce__subtitle {
+		font-family: var(--font-heading);
+		font-size: 1.375em;
+		font-weight: 600;
+		color: var(--color-contrast);
+	}
+
+	.wkrotce__desc {
+		font-size: 1em;
+		line-height: 1.55;
+		color: var(--color-text-secondary);
+		max-width: 32em;
+	}
+
+	.wkrotce__ctas {
+		display: flex;
+		gap: 0.75em;
+		margin-top: 1em;
+		flex-wrap: wrap;
+		justify-content: center;
+	}
+
+	.wkrotce__cta {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.625em;
+		padding: 0.875em 1.5em;
+		font-family: var(--font-body);
+		font-size: 0.9375em;
+		font-weight: 600;
+		border-radius: 999em;
+		text-decoration: none;
+		transition: transform 180ms ease;
+	}
+
+	.wkrotce__cta:hover {
+		transform: translateY(-1px);
+	}
+
+	.wkrotce__cta--primary {
+		background-color: var(--color-contrast);
+		color: var(--color-canvas);
+	}
+
+	.wkrotce__cta--ghost {
+		background-color: var(--color-canvas);
+		color: var(--color-contrast);
+		border: 1px solid var(--color-border);
+	}
+
+	@media screen and (max-width: 767px) {
+		.wkrotce__title {
+			font-size: 2.5em;
+		}
+
+		.wkrotce__subtitle {
+			font-size: 1.125em;
+		}
+	}
+</style>

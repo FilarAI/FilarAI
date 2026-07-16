@@ -1,0 +1,1365 @@
+---
+// Hero — sekcja 1 strony głównej. Right side: stacked gallery kart oferty
+// + pill switcher pod nimi. Kolumny wyrównane do środka pionowo.
+
+// Logotypy zaufania — trzy, w JEDNEJ linii obok labela.
+// Wcześniej były to cztery napisy, które łamały się na dwie poszarpane linie —
+// rozwalał je wpis "Kancelaria Radcy Prawnego Dr. Radkiewicz" (40 znaków).
+//
+// Renderowane maską CSS, nie <img>: pliki są jednokolorowe, a złote logo Domków
+// (#dea334) ma na kremowym tle Hero kontrast ~2:1 — byłoby prawie niewidoczne.
+// Maska sprawia, że dziedziczą kolor rodzica, więc cały rząd jest monochromatyczny
+// i czytelny. `ratio` pochodzi z viewBox pliku — trzyma proporcje bez CLS.
+interface TrustLogo {
+	label: string;
+	src: string;
+	ratio: string;
+	/** Korekta optyczna — logotypy o równej wysokości nie ważą wizualnie tyle samo. */
+	scale?: number;
+}
+
+const trustLogos: TrustLogo[] = [
+	{ label: "Domki na Luzie", src: "/klienci/loga/domki-na-luzie.svg", ratio: "1888.74 / 471.98" },
+	// Wariant _ciemne — na jasne tło Hero. Plik bez sufiksu już nie istnieje.
+	{ label: "Planeta Mebli", src: "/klienci/loga/planeta-mebli.svg", ratio: "1920 / 819" },
+	// Filar to wąski wordmark — przy równej wysokości czytał się słabiej niż reszta.
+	{ label: "Filar Usługi", src: "/klienci/loga/filar-uslugi.svg", ratio: "1732 / 693", scale: 1.3 },
+];
+
+// Dwie osobne obietnice — wcześniej sklejone w jedno zdanie 15px, które ginęło.
+const promises = ["Odpowiadam w 15 minut", "Pierwsza rozmowa bez zobowiązań"];
+
+const icon = {
+	nodes: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="6" r="2"/><circle cx="5" cy="18" r="2"/><circle cx="18" cy="12" r="2"/><path d="M7 6.6h3.5a4 4 0 0 1 4 4v0M7 17.4h3.5a4 4 0 0 0 4-4v0"/></svg>`,
+	browser: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/><circle cx="6.5" cy="6.5" r="0.7" fill="currentColor" stroke="none"/><circle cx="9" cy="6.5" r="0.7" fill="currentColor" stroke="none"/></svg>`,
+	trend: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17l5-5 4 4 7-8"/><path d="M14 8h6v6"/></svg>`,
+	megaphone: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10v4h4l7 5V5l-7 5H4z"/><path d="M18 8a4 4 0 0 1 0 8"/></svg>`,
+	person: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-3.5 3-6 7-6s7 2.5 7 6"/></svg>`,
+	sparkle: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8L12 3z"/></svg>`,
+	filter: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16l-6 7v6l-4 2v-8L4 5z"/></svg>`,
+	database: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="6" rx="7" ry="2.5"/><path d="M5 6v6c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5V6"/><path d="M5 12v6c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5v-6"/></svg>`,
+	whatsapp: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 0 0-7.6 13.8L3 21l4.4-1.4A9 9 0 1 0 12 3z"/><path d="M8.5 8.7c0 3.8 2.9 6.8 6.8 6.8"/></svg>`,
+	refresh: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12a8 8 0 1 1-2.6-5.9"/><path d="M20 4v5h-5"/></svg>`,
+	clock: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>`,
+	globe: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 4 5.7 4 9s-1.5 6.5-4 9c-2.5-2.5-4-5.7-4-9s1.5-6.5 4-9z"/></svg>`,
+	check: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-9"/></svg>`,
+	sparkline: `<svg viewBox="0 0 80 28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="0,22 14,18 28,20 42,10 56,12 70,4"/></svg>`,
+	arrow: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>`,
+};
+
+interface Service {
+	id: string;
+	name: string;
+	tabLabel: string;
+	tabIcon: string;
+	tagline: string;
+	headerIcon: string;
+}
+
+const services: Service[] = [
+	{
+		id: "systemy-ai",
+		name: "Systemy AI",
+		tabLabel: "Systemy AI",
+		tabIcon: icon.nodes,
+		tagline: "Automatyzacje i inteligentne systemy, które pracują dla Twojej firmy.",
+		headerIcon: icon.nodes,
+	},
+	{
+		id: "strony",
+		name: "Strony WWW",
+		tabLabel: "Strony WWW",
+		tabIcon: icon.browser,
+		tagline: "Szybkie strony, które przynoszą realnych klientów, nie kliki.",
+		headerIcon: icon.browser,
+	},
+	{
+		id: "seo-geo",
+		name: "SEO & GEO",
+		tabLabel: "SEO & GEO",
+		tabIcon: icon.trend,
+		tagline: "Widoczność w Google i AI Search — tam gdzie szukają klienci.",
+		headerIcon: icon.trend,
+	},
+	{
+		id: "meta-ads",
+		name: "Meta Ads",
+		tabLabel: "Meta Ads",
+		tabIcon: icon.megaphone,
+		tagline: "Kampanie reklamowe na Facebooku i Instagramie, ze zwrotem 3-5x.",
+		headerIcon: icon.megaphone,
+	},
+];
+
+const pipeline = [
+	{ icon: icon.person, name: "Nowy lead", desc: "Formularz / Reklama" },
+	{ icon: icon.sparkle, name: "AI Agent", desc: "Kwalifikacja i analiza", active: true },
+	{ icon: icon.filter, name: "Kwalifikacja", desc: "Ocena potencjału" },
+	{ icon: icon.database, name: "CRM", desc: "Zapis i organizacja" },
+	{ icon: icon.whatsapp, name: "WhatsApp", desc: "Wiadomość do klienta" },
+];
+---
+
+<section class="hero section--light">
+	<div class="hero__inner container">
+		<div class="hero__grid">
+			<div class="hero__left">
+				<span class="hero__badge">
+					<span class="hero__badge-dot" aria-hidden="true"></span>
+					<span class="hero__badge-text">STRONY &bull; SYSTEMY AI &bull; WZROST</span>
+				</span>
+
+				<h1 class="hero__title">
+					Strony, systemy AI i marketing dla{" "}
+					<span class="hero__accent-word">małych firm.</span>
+				</h1>
+
+				<p class="hero__subtitle">
+					Buduję to, co realnie przynosi klientów – bez pustych obietnic.
+				</p>
+
+				<div class="hero__ctas">
+					<a href="/kontakt" class="hero__cta hero__cta--primary">
+						Umów rozmowę <span aria-hidden="true">→</span>
+					</a>
+					<a href="/portfolio" class="hero__cta hero__cta--secondary">
+						<span class="hero__cta-icon" set:html={icon.globe} />
+						Zobacz portfolio
+					</a>
+				</div>
+
+				<div class="hero__trust">
+					<span class="hero__trust-label">Zaufali mi</span>
+					<span class="hero__trust-sep" aria-hidden="true"></span>
+					<ul class="hero__trust-logos">
+						{
+							trustLogos.map((logo) => (
+								<li>
+									<span
+										class="hero__trust-logo"
+										style={`--logo-src: url("${logo.src}"); --logo-ratio: ${logo.ratio}; --logo-scale: ${logo.scale ?? 1};`}
+										role="img"
+										aria-label={logo.label}
+									/>
+								</li>
+							))
+						}
+					</ul>
+				</div>
+
+				<ul class="hero__promises">
+					{
+						promises.map((text) => (
+							<li class="hero__promise">
+								<span class="hero__promise-check" aria-hidden="true" set:html={icon.check} />
+								{text}
+							</li>
+						))
+					}
+				</ul>
+			</div>
+
+			<div class="hero__right">
+				<div class="hero__stack" data-active="1">
+					{
+						services.map((svc, idx) => (
+							<article class="hero__card" data-card={svc.id} data-index={idx}>
+								<div class="hero__card-header">
+									<div class="hero__card-icon" set:html={svc.headerIcon} />
+									<div class="hero__card-heading">
+										<h2 class="hero__card-title">{svc.name}</h2>
+										<p class="hero__card-tagline">{svc.tagline}</p>
+									</div>
+								</div>
+
+								{svc.id === "systemy-ai" && (
+									<div class="hero__preview hero__preview--pipeline">
+										<div class="hero__pipeline">
+											{pipeline.map((step) => (
+												<div class="hero__pipe-step">
+													<div
+														class="hero__pipe-icon"
+														data-active={step.active ? "true" : "false"}
+														set:html={step.icon}
+													/>
+													<span class="hero__pipe-dot" aria-hidden="true" />
+													<p class="hero__pipe-name">{step.name}</p>
+													<p class="hero__pipe-desc">{step.desc}</p>
+													{step.active && <span class="hero__pipe-badge">Aktywny</span>}
+												</div>
+											))}
+										</div>
+										<div class="hero__kpi-row">
+											<div class="hero__kpi">
+												<span class="hero__kpi-icon" set:html={icon.refresh} />
+												<span class="hero__kpi-label">Zautomatyzowane procesy</span>
+												<span class="hero__kpi-value">24/7</span>
+											</div>
+											<div class="hero__kpi">
+												<span class="hero__kpi-icon" set:html={icon.clock} />
+												<span class="hero__kpi-label">Oszczędność czasu</span>
+												<span class="hero__kpi-value hero__kpi-value--accent">+87%</span>
+											</div>
+											<div class="hero__kpi">
+												<span class="hero__kpi-label">Więcej konwersji</span>
+												<span class="hero__kpi-spark" set:html={icon.sparkline} />
+											</div>
+										</div>
+									</div>
+								)}
+
+								{svc.id === "strony" && (
+									<div class="hero__preview hero__preview--browser">
+										<div class="hero__browser">
+											<div class="hero__browser-bar">
+												<span class="hero__browser-dot" style="background:#ff5f57" />
+												<span class="hero__browser-dot" style="background:#ffbd2e" />
+												<span class="hero__browser-dot" style="background:#28c840" />
+												<span class="hero__browser-url">▣&nbsp; planetamebli.pl</span>
+												<span class="hero__browser-refresh" aria-hidden="true">↻</span>
+												<span class="hero__browser-more" aria-hidden="true">•••</span>
+											</div>
+											<div class="hero__browser-body">
+												<img src="/images/strony/aps-demo.png" alt="Podgląd strony internetowej Planeta Mebli" />
+											</div>
+										</div>
+										<div class="hero__kpi-row">
+											<div class="hero__kpi">
+												<span class="hero__kpi-label">Ładowanie strony</span>
+												<span class="hero__kpi-value">0.8s</span>
+											</div>
+											<div class="hero__kpi">
+												<span class="hero__kpi-label">Konwersja</span>
+												<span class="hero__kpi-value hero__kpi-value--accent">+42%</span>
+											</div>
+											<div class="hero__kpi">
+												<span class="hero__kpi-label">Mobile score</span>
+												<span class="hero__kpi-value">98/100</span>
+											</div>
+										</div>
+									</div>
+								)}
+
+								{svc.id === "seo-geo" && (
+									<div class="hero__preview hero__preview--seo">
+										<div class="hero__seo-chart">
+											<div class="hero__seo-head">
+												<span class="hero__seo-label">Pozycja #1 w Google</span>
+												<span class="hero__seo-badge">↑ 87%</span>
+											</div>
+											<svg viewBox="0 0 300 100" class="hero__seo-svg" preserveAspectRatio="none">
+												<defs>
+													<linearGradient id="seoGrad" x1="0" y1="0" x2="0" y2="1">
+														<stop offset="0%" stop-color="#A8C447" stop-opacity="0.25" />
+														<stop offset="100%" stop-color="#A8C447" stop-opacity="0" />
+													</linearGradient>
+												</defs>
+												<polygon points="0,85 40,70 80,60 120,45 160,50 200,30 240,25 300,10 300,100 0,100" fill="url(#seoGrad)" />
+												<polyline points="0,85 40,70 80,60 120,45 160,50 200,30 240,25 300,10" fill="none" stroke="#A8C447" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+											</svg>
+											<div class="hero__seo-axis">
+												<span>Sty</span><span>Lut</span><span>Mar</span><span>Kwi</span><span>Maj</span><span>Cze</span>
+											</div>
+										</div>
+										<div class="hero__kpi-row">
+											<div class="hero__kpi">
+												<span class="hero__kpi-label">Ruch organiczny</span>
+												<span class="hero__kpi-value hero__kpi-value--accent">+320%</span>
+											</div>
+											<div class="hero__kpi">
+												<span class="hero__kpi-label">Widoczność AI</span>
+												<span class="hero__kpi-value">12 platform</span>
+											</div>
+											<div class="hero__kpi">
+												<span class="hero__kpi-label">Cytowania</span>
+												<span class="hero__kpi-value">+47</span>
+											</div>
+										</div>
+									</div>
+								)}
+
+								{svc.id === "meta-ads" && (
+									<div class="hero__preview hero__preview--ads">
+										<div class="hero__ads-panel">
+											<div class="hero__ads-row">
+												<div>
+													<p class="hero__ads-label">Leady</p>
+													<p class="hero__ads-value">47</p>
+												</div>
+												<div>
+													<p class="hero__ads-label">Koszt leada</p>
+													<p class="hero__ads-value">102 zł <span class="hero__ads-delta">↓18%</span></p>
+												</div>
+											</div>
+											<span class="hero__ads-spark" set:html={icon.sparkline} />
+										</div>
+										<div class="hero__kpi-row">
+											<div class="hero__kpi">
+												<span class="hero__kpi-label">CTR</span>
+												<span class="hero__kpi-value hero__kpi-value--accent">4.2%</span>
+											</div>
+											<div class="hero__kpi">
+												<span class="hero__kpi-label">ROAS</span>
+												<span class="hero__kpi-value">3.8x</span>
+											</div>
+											<div class="hero__kpi">
+												<span class="hero__kpi-label">Zasięg / tydz.</span>
+												<span class="hero__kpi-value">24k</span>
+											</div>
+										</div>
+									</div>
+								)}
+							</article>
+						))
+					}
+				</div>
+
+				<div class="hero__switcher" role="tablist" aria-label="Wybór usługi">
+					{
+						services.map((svc, idx) => (
+							<button
+								type="button"
+								role="tab"
+								class="hero__tab"
+								data-tab={idx}
+								aria-selected={idx === 1 ? "true" : "false"}
+							>
+								<span class="hero__tab-icon" set:html={svc.tabIcon} />
+								<span class="hero__tab-label">{svc.tabLabel}</span>
+								<span class="hero__tab-progress" aria-hidden="true">
+									<span class="hero__tab-progress-fill"></span>
+								</span>
+							</button>
+						))
+					}
+				</div>
+			</div>
+		</div>
+	</div>
+
+	{/* Scroll indicator — sam napis przy dolnej krawędzi. Klik przewija do pierwszej
+	    <section> po Hero (JS pomija <aside.logostrip>). */}
+	<button
+		type="button"
+		class="hero__scroll"
+		data-hero-scroll
+		aria-label="Przewiń do kolejnej sekcji"
+	>
+		<span class="hero__scroll-label">Scroll</span>
+	</button>
+</section>
+
+<script>
+	// Scroll indicator — klik przewija do NASTĘPNEJ sekcji po Hero.
+	// Kolejność DOM: <section.hero> → <aside.logostrip> → <section.wprow>.
+	// Bierzemy następny <section>, nie hardkoderyczne ".wprow" — jeśli
+	// przestawisz sekcje, target dostosuje się sam.
+	const scrollBtn = document.querySelector<HTMLButtonElement>("[data-hero-scroll]");
+	if (scrollBtn) {
+		const hero = scrollBtn.closest("section");
+		scrollBtn.addEventListener("click", () => {
+			// nextElementSibling(<aside>).nextElementSibling(<section>)
+			let el = hero?.nextElementSibling;
+			while (el && el.tagName !== "SECTION") el = el.nextElementSibling;
+			if (!el) return;
+			const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+			el.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "start" });
+		});
+	}
+
+	const stack = document.querySelector<HTMLElement>(".hero__stack");
+	const tabs = document.querySelectorAll<HTMLButtonElement>(".hero__tab");
+	const AUTOPLAY_MS = 4000;
+
+	if (stack && tabs.length) {
+		let activeIdx = 0;
+		let autoplayTimer: number | null = null;
+		let autoplayOn = true;
+
+		const setActive = (idx: number, restartProgress = true) => {
+			activeIdx = idx;
+			stack.dataset.active = String(idx);
+			const cards = stack.querySelectorAll<HTMLElement>(".hero__card");
+			const total = cards.length;
+			cards.forEach((card, i) => {
+				const rel = (i - idx + total) % total;
+				card.dataset.pos = String(rel);
+			});
+			tabs.forEach((tab, i) => tab.setAttribute("aria-selected", i === idx ? "true" : "false"));
+
+			if (restartProgress && autoplayOn) {
+				tabs.forEach((tab) => {
+					const bar = tab.querySelector<HTMLElement>(".hero__tab-progress-fill");
+					if (bar) bar.style.animation = "none";
+				});
+				const activeBar = tabs[idx].querySelector<HTMLElement>(".hero__tab-progress-fill");
+				if (activeBar) {
+					void activeBar.offsetWidth;
+					activeBar.style.animation = `heroTabFill ${AUTOPLAY_MS}ms linear forwards`;
+				}
+			}
+		};
+
+		const advance = () => setActive((activeIdx + 1) % tabs.length);
+
+		const startAutoplay = () => {
+			stopAutoplay();
+			autoplayTimer = window.setInterval(advance, AUTOPLAY_MS);
+		};
+
+		const stopAutoplay = () => {
+			if (autoplayTimer !== null) {
+				clearInterval(autoplayTimer);
+				autoplayTimer = null;
+			}
+		};
+
+		const killAutoplay = () => {
+			autoplayOn = false;
+			stopAutoplay();
+			tabs.forEach((tab) => {
+				const bar = tab.querySelector<HTMLElement>(".hero__tab-progress-fill");
+				if (bar) bar.style.animation = "none";
+			});
+		};
+
+		setActive(1);
+		startAutoplay();
+
+		tabs.forEach((tab, i) => {
+			tab.addEventListener("click", () => {
+				killAutoplay();
+				setActive(i, false);
+			});
+		});
+
+		// Pauza autoplay gdy karta poza viewportem (oszczędza baterię, nie skacze po powrocie)
+		document.addEventListener("visibilitychange", () => {
+			if (!autoplayOn) return;
+			if (document.hidden) stopAutoplay();
+			else startAutoplay();
+		});
+	}
+</script>
+
+<style>
+	.hero {
+		--hero-accent: var(--accent-brand);
+		--hero-accent-strong: var(--accent-deep);
+		--hero-accent-soft: var(--accent-wash);
+		position: relative;
+		overflow: hidden;
+		/* 100dvh, nie 100vh — na iOS Safari pasek adresu zmienia vh w trakcie scrolla
+		   i layout skacze. dvh mierzy realny, aktualny viewport.
+		   Odejmujemy header + --logostrip-peek, żeby górna krawędź paska z logotypami
+		   wystawała spod folda (sygnał: strona ma ciąg dalszy). */
+		min-height: calc(100dvh - var(--header-height) - var(--logostrip-peek));
+		display: flex;
+		align-items: center;
+		padding-block: 1.5em 2.5em;
+		background-color: var(--color-canvas);
+	}
+
+	.hero__inner {
+		max-width: var(--size-container);
+		margin-inline: auto;
+		padding-inline: 3em;
+		width: 100%;
+	}
+
+	.hero__grid {
+		display: grid;
+		grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+		align-items: center;
+		gap: 3em;
+	}
+
+	/* ===== LEFT ===== */
+
+	.hero__left {
+		display: flex;
+		flex-direction: column;
+		gap: 1.125em;
+	}
+
+	.hero__badge {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.625em;
+		align-self: flex-start;
+		padding: 0.5em 1em;
+		background-color: var(--color-canvas);
+		border-radius: 999em;
+		border: 1px solid var(--color-border);
+	}
+
+	.hero__badge-dot {
+		width: 0.5em;
+		height: 0.5em;
+		border-radius: 50%;
+		background-color: var(--color-contrast);
+	}
+
+	.hero__badge-text {
+		font-family: var(--font-body);
+		font-size: 0.75em;
+		font-weight: 600;
+		letter-spacing: 1.2px;
+		color: var(--color-text-secondary);
+	}
+
+	.hero__title {
+		font-family: var(--font-heading);
+		font-size: var(--text-h1);
+		line-height: 1.05;
+		font-weight: 700;
+		color: var(--color-contrast);
+		letter-spacing: -0.5px;
+	}
+
+	/* H1 to duży tekst (>24px bold), więc próg WCAG to 3:1, nie 4.5:1.
+	   --accent-text daje 3.48:1 na ciepłym tle i jest bliżej pierwotnej oliwki
+	   niż ciemniejszy --accent-deep. Poprzednio: #a8c447 = 1.82:1, nie przechodziło. */
+	.hero__accent-word {
+		color: var(--accent-text);
+	}
+
+	.hero__subtitle {
+		max-width: 30em;
+		font-size: var(--text-lead);
+		line-height: var(--lh-lead);
+		color: var(--color-text-secondary);
+	}
+
+	.hero__ctas {
+		display: flex;
+		gap: 0.75em;
+		margin-top: 0.5em;
+	}
+
+	.hero__cta {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.625em;
+		padding: 0.75em 1.375em;
+		font-family: var(--font-body);
+		font-size: 0.9375em;
+		font-weight: 600;
+		border-radius: 999em;
+		border: 1px solid transparent;
+	}
+
+	.hero__cta--primary {
+		background-color: var(--hero-accent);
+		color: var(--color-contrast);
+	}
+
+	.hero__cta--secondary {
+		background-color: var(--color-canvas);
+		color: var(--color-contrast);
+		border-color: var(--color-border);
+	}
+
+	.hero__cta-icon {
+		display: inline-flex;
+		width: 1.125em;
+		height: 1.125em;
+	}
+
+	.hero__cta-icon svg {
+		width: 100%;
+		height: 100%;
+	}
+
+	/* ===== Zaufali mi — JEDNA linia: label | separator | 3 logotypy ===== */
+
+	.hero__trust {
+		display: flex;
+		align-items: center;
+		flex-wrap: nowrap; /* nigdy nie łamiemy tego rzędu */
+		gap: 1em;
+		margin-top: 1.25em;
+	}
+
+	.hero__trust-label {
+		flex-shrink: 0;
+		font-size: 0.9375em; /* było 0.875em (14px) */
+		font-weight: 600;
+		white-space: nowrap;
+		color: var(--color-text-muted);
+	}
+
+	.hero__trust-sep {
+		flex-shrink: 0;
+		width: 1px;
+		height: 1.25em;
+		background-color: var(--color-border);
+	}
+
+	.hero__trust-logos {
+		display: flex;
+		align-items: center;
+		flex-wrap: nowrap;
+		gap: 1.75em;
+		list-style: none;
+		/* Kolor dziedziczony przez maski logotypów. --color-text-muted daje 4.72:1
+		   na kremowym tle — grafika informacyjna wymaga 3:1, więc z zapasem. */
+		color: var(--color-text-muted);
+	}
+
+	/* Logo jako maska, nie <img> — pliki są jednokolorowe i mają różne barwy marek
+	   (złoto #dea334, czerwień #e0060d, czerń #1f1a17). Złote na kremowym tle ma
+	   kontrast ~2:1 i byłoby nieczytelne. Maska ujednolica cały rząd. */
+	.hero__trust-logo {
+		display: block;
+		height: calc(1.5em * var(--logo-scale, 1));
+		width: auto;
+		aspect-ratio: var(--logo-ratio);
+		background-color: currentColor;
+		-webkit-mask-image: var(--logo-src);
+		mask-image: var(--logo-src);
+		-webkit-mask-repeat: no-repeat;
+		mask-repeat: no-repeat;
+		-webkit-mask-position: center;
+		mask-position: center;
+		-webkit-mask-size: contain;
+		mask-size: contain;
+		transition: color var(--transition-base);
+	}
+
+	.hero__trust-logos li:hover {
+		color: var(--color-contrast);
+	}
+
+	/* ===== Obietnice — dwa chipsy =====
+	   Wcześniej jedno zdanie 15px, goły tekst w pustce. Kontrast miał dobry (9.94:1),
+	   ale zero masy wizualnej. Chipsy dostają białe tło na kremowym Hero, obramowanie
+	   i oliwkowy check — czytają się jak odhaczone obietnice, nie jak przypis. */
+
+	.hero__promises {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.625em;
+		margin-top: 1.25em;
+		list-style: none;
+	}
+
+	.hero__promise {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5em;
+		padding: 0.5em 1em 0.5em 0.5em;
+		font-size: 0.9375em;
+		font-weight: var(--weight-emphasis);
+		line-height: 1.3;
+		color: var(--color-contrast);
+		background-color: var(--color-canvas);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-pill);
+		box-shadow: var(--shadow-card);
+	}
+
+	.hero__promise-check {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 1.5em;
+		height: 1.5em;
+		flex-shrink: 0;
+		border-radius: 50%;
+		background-color: var(--accent-wash);
+		color: var(--accent-deep);
+	}
+
+	.hero__promise-check svg {
+		width: 0.875em;
+		height: 0.875em;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.hero__trust-logo {
+			transition: none;
+		}
+	}
+
+	/* ===== RIGHT — stack + switcher ===== */
+
+	.hero__right {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 1.5em;
+	}
+
+	.hero__stack {
+		position: relative;
+		width: 100%;
+		height: clamp(31em, 41vw, 40em);
+	}
+
+	.hero__card {
+		position: absolute;
+		inset: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 0;
+		padding: 1.5em 1.75em;
+		background-color: var(--color-canvas);
+		border-radius: var(--radius-lg);
+		border: 1px solid var(--color-border);
+		box-shadow: var(--elevation-3);
+		transition: opacity 260ms ease, transform 260ms cubic-bezier(.22, 1, .36, 1);
+	}
+
+	.hero__card[data-pos="0"] {
+		opacity: 1;
+		transform: translateY(0);
+		z-index: 4;
+		pointer-events: auto;
+	}
+	.hero__card[data-pos="1"],
+	.hero__card[data-pos="2"],
+	.hero__card[data-pos="3"] {
+		opacity: 0;
+		transform: translateY(.65em) scale(.985);
+		pointer-events: none;
+		z-index: 0;
+	}
+
+	.hero__card-header {
+		display: flex;
+		align-items: center;
+		gap: .9em;
+		padding-bottom: 1.2em;
+	}
+
+	.hero__card-icon {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 2.95em;
+		height: 2.95em;
+		flex-shrink: 0;
+		border-radius: var(--radius-md);
+		background-color: var(--color-canvas);
+		border: 1px solid var(--color-border);
+		color: var(--color-contrast);
+	}
+
+	.hero__card-icon svg {
+		width: 1.375em;
+		height: 1.375em;
+	}
+
+	.hero__card-heading {
+		display: flex;
+		flex-direction: column;
+		gap: 0.25em;
+	}
+
+	.hero__card-title {
+		font-family: var(--font-heading);
+		font-size: 1.35em;
+		font-weight: 700;
+		line-height: 1.1;
+		color: var(--color-contrast);
+	}
+
+	.hero__card-tagline {
+		font-size: .9em;
+		line-height: 1.4;
+		color: var(--color-text-secondary);
+	}
+
+	/* ===== Preview: Pipeline ===== */
+
+	.hero__pipeline {
+		display: grid;
+		grid-template-columns: repeat(5, 1fr);
+		gap: 0.75em;
+		padding-block: 0.5em;
+	}
+
+	.hero__pipe-step {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 0.5em;
+		text-align: center;
+	}
+
+	.hero__pipe-icon {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 2.375em;
+		height: 2.375em;
+		border-radius: 0.5em;
+		background-color: var(--color-canvas);
+		border: 1px solid var(--color-border);
+		color: var(--color-contrast);
+	}
+
+	.hero__pipe-icon[data-active="true"] {
+		background-color: var(--color-contrast);
+		border-color: var(--color-contrast);
+		color: var(--color-canvas);
+	}
+
+	.hero__pipe-icon svg {
+		width: 1.25em;
+		height: 1.25em;
+	}
+
+	.hero__pipe-dot {
+		display: none;
+	}
+
+	.hero__pipe-name {
+		font-size: 0.8125em;
+		font-weight: 700;
+		color: var(--color-contrast);
+	}
+
+	.hero__pipe-desc {
+		font-size: 0.6875em;
+		line-height: 1.3;
+		color: var(--color-text-muted);
+	}
+
+	.hero__pipe-badge {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.375em;
+		padding: 0.1875em 0.625em 0.1875em 0.5em;
+		font-size: 0.6875em;
+		font-weight: 600;
+		color: var(--color-contrast);
+		background-color: var(--color-canvas);
+		border: 1px solid var(--color-border);
+		border-radius: 999em;
+		margin-top: 0.125em;
+	}
+
+	.hero__pipe-badge::before {
+		content: "";
+		width: 0.5em;
+		height: 0.5em;
+		border-radius: 50%;
+		background-color: var(--hero-accent);
+	}
+
+	.hero__kpi-row {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 0;
+		padding: 1.15em .25em 0;
+		border-top: 0;
+	}
+
+	.hero__kpi {
+		display: flex;
+		flex-direction: column;
+		gap: 0.25em;
+		align-items: center;
+		text-align: center;
+		border-right: 1px solid var(--color-border);
+	}
+
+	.hero__kpi:last-child {
+		border-right: 0;
+	}
+
+	.hero__kpi-icon {
+		display: inline-flex;
+		width: 1em;
+		height: 1em;
+		color: var(--color-text-muted);
+	}
+
+	.hero__kpi-icon svg {
+		width: 100%;
+		height: 100%;
+	}
+
+	.hero__kpi-label {
+		font-size: .78em;
+		color: var(--color-text-muted);
+	}
+
+	.hero__kpi-value {
+		font-family: var(--font-heading);
+		font-size: 1.45em;
+		font-weight: 700;
+		color: var(--color-contrast);
+	}
+
+	.hero__kpi-value--accent {
+		color: var(--accent-deep);
+	}
+
+	.hero__kpi-spark {
+		display: inline-flex;
+		width: 5em;
+		height: 1.5em;
+		color: var(--accent-deep);
+	}
+
+	.hero__kpi-spark svg {
+		width: 100%;
+		height: 100%;
+	}
+
+	/* ===== Preview: Browser (Strony WWW) ===== */
+
+	.hero__preview--browser {
+		display: flex;
+		flex: 1;
+		min-height: 0;
+		flex-direction: column;
+	}
+
+	.hero__browser {
+		display: flex;
+		flex: 1;
+		min-height: 0;
+		flex-direction: column;
+		border-radius: var(--radius-md);
+		overflow: hidden;
+		border: 1px solid var(--color-border);
+		background-color: var(--color-canvas);
+	}
+
+	.hero__browser-bar {
+		position: relative;
+		display: flex;
+		align-items: center;
+		gap: 0.375em;
+		padding: 1em 1.25em;
+		background-color: var(--color-canvas);
+		border-bottom: 1px solid var(--color-border);
+	}
+
+	.hero__browser-dot {
+		width: 0.625em;
+		height: 0.625em;
+		border-radius: 50%;
+		display: inline-block;
+	}
+
+	.hero__browser-url {
+		position: absolute;
+		left: 50%;
+		width: min(52%, 18em);
+		padding: .55em .85em;
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-sm);
+		font-size: .72em;
+		font-weight: 600;
+		text-align: center;
+		color: var(--color-text-muted);
+		transform: translateX(-50%);
+	}
+
+	.hero__browser-refresh {
+		position: absolute;
+		left: calc(76% - 1em);
+		font-size: 1.15em;
+		color: var(--color-text-muted);
+	}
+
+	.hero__browser-more {
+		margin-left: auto;
+		font-size: .85em;
+		letter-spacing: .15em;
+		color: var(--color-text-muted);
+	}
+
+	.hero__browser-body {
+		flex: 1;
+		min-height: 0;
+		overflow: hidden;
+		background: var(--color-atmosphere);
+	}
+
+	.hero__browser-body img {
+		display: block;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: center;
+	}
+
+	/* ===== Preview: SEO chart ===== */
+
+	.hero__seo-chart {
+		padding: 1em;
+		border-radius: 0.625em;
+		background-color: #fafafa;
+		border: 1px solid var(--color-border);
+	}
+
+	.hero__seo-head {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin-bottom: 0.5em;
+	}
+
+	.hero__seo-label {
+		font-family: var(--font-heading);
+		font-size: 0.9375em;
+		font-weight: 700;
+		color: var(--color-contrast);
+	}
+
+	.hero__seo-badge {
+		font-size: 0.75em;
+		font-weight: 700;
+		color: var(--hero-accent-strong);
+		background-color: var(--hero-accent-soft);
+		padding: 0.25em 0.625em;
+		border-radius: 0.375em;
+	}
+
+	.hero__seo-svg {
+		width: 100%;
+		height: 6em;
+		display: block;
+	}
+
+	.hero__seo-axis {
+		display: flex;
+		justify-content: space-between;
+		font-size: 0.6875em;
+		color: var(--color-text-muted);
+		margin-top: 0.25em;
+	}
+
+	/* ===== Preview: Ads panel ===== */
+
+	.hero__ads-panel {
+		display: flex;
+		flex-direction: column;
+		gap: 0.75em;
+		padding: 1em;
+		border-radius: 0.625em;
+		background-color: #fafafa;
+		border: 1px solid var(--color-border);
+	}
+
+	.hero__ads-row {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 1em;
+	}
+
+	.hero__ads-label {
+		font-size: 0.75em;
+		color: var(--color-text-muted);
+	}
+
+	.hero__ads-value {
+		font-family: var(--font-heading);
+		font-size: 1.5em;
+		font-weight: 700;
+		color: var(--color-contrast);
+	}
+
+	.hero__ads-delta {
+		font-size: 0.55em;
+		color: var(--accent-deep);
+		vertical-align: middle;
+		margin-left: 0.25em;
+	}
+
+	.hero__ads-spark {
+		display: inline-flex;
+		width: 100%;
+		height: 2em;
+		color: var(--accent-deep);
+	}
+
+	.hero__ads-spark svg {
+		width: 100%;
+		height: 100%;
+	}
+
+	/* ===== Switcher (pill tabs pod stackiem) ===== */
+
+	.hero__switcher {
+		display: inline-flex;
+		align-items: stretch;
+		gap: 0;
+		padding: .3em;
+		background-color: var(--color-canvas);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-pill);
+		box-shadow: var(--elevation-1);
+	}
+
+	.hero__tab {
+		position: relative;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.5em;
+		padding: .8em 1.05em;
+		min-height: 2.75em; /* 44px — touch target */
+		font-family: var(--font-body);
+		font-size: 0.9375em; /* było 0.875em (14px) */
+		font-weight: 600;
+		color: var(--color-text-secondary);
+		background: transparent;
+		border: none;
+		border-radius: var(--radius-pill);
+		cursor: pointer;
+		transition:
+			background-color 180ms ease,
+			color 180ms ease;
+	}
+
+	.hero__tab-icon {
+		display: inline-flex;
+		width: 1.125em;
+		height: 1.125em;
+		flex-shrink: 0;
+		/* Ikona nieaktywnej zakładki przygaszona — po najechaniu i po aktywacji
+		   dochodzi do pełnej siły razem z tekstem. */
+		opacity: 0.7;
+		transition: opacity 180ms ease;
+	}
+
+	.hero__tab-icon svg {
+		width: 100%;
+		height: 100%;
+	}
+
+	/* Nieaktywne zakładki miały `background: transparent` i nic więcej — nie czytały
+	   się jako klikalne. Hover daje im teraz tło w akcencie, więc widać, że to
+	   kontrolki, a nie etykiety. */
+	.hero__tab:hover {
+		background-color: var(--accent-wash);
+		color: var(--color-contrast);
+	}
+
+	.hero__tab:hover .hero__tab-icon {
+		opacity: 1;
+	}
+
+	.hero__tab[aria-selected="true"] {
+		background-color: var(--color-contrast);
+		color: var(--color-canvas);
+	}
+
+	.hero__tab[aria-selected="true"] .hero__tab-icon {
+		opacity: 1;
+	}
+
+	.hero__tab-progress {
+		position: absolute;
+		bottom: 0.25em;
+		left: 20%;
+		right: 20%;
+		height: 2px;
+		background-color: rgba(255, 255, 255, 0.15);
+		border-radius: 999em;
+		overflow: hidden;
+		opacity: 0;
+		transition: opacity 200ms ease;
+	}
+
+	.hero__tab[aria-selected="true"] .hero__tab-progress {
+		opacity: 1;
+	}
+
+	.hero__tab-progress-fill {
+		display: block;
+		width: 0;
+		height: 100%;
+		background-color: var(--hero-accent);
+		border-radius: 999em;
+	}
+
+	@keyframes heroTabFill {
+		from {
+			width: 0;
+		}
+		to {
+			width: 100%;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.hero__tab-progress-fill {
+			animation: none !important;
+			width: 100%;
+		}
+	}
+
+	@media screen and (max-width: 991px) {
+		.hero {
+			min-height: auto;
+			padding-block: 3em 5em;
+		}
+
+		.hero__inner {
+			padding-inline: var(--container-padding);
+		}
+
+		.hero__grid {
+			grid-template-columns: minmax(0, 1fr);
+			gap: 3.5em;
+		}
+
+		.hero__right {
+			width: min(100%, 44em);
+			margin-inline: auto;
+		}
+	}
+
+	@media screen and (max-width: 767px) {
+		.hero {
+			padding-block: 2.25em 4em;
+		}
+
+		.hero__title {
+			font-size: clamp(2.55em, 11vw, 3.75em);
+		}
+
+		.hero__ctas {
+			flex-wrap: wrap;
+		}
+
+		.hero__trust {
+			flex-wrap: wrap;
+		}
+
+		.hero__stack {
+			height: clamp(24em, 105vw, 31em);
+		}
+
+		.hero__card {
+			padding: 1em;
+		}
+
+		.hero__card-header {
+			padding-bottom: .9em;
+		}
+
+		.hero__card-title {
+			font-size: 1.1em;
+		}
+
+		.hero__card-tagline {
+			font-size: .76em;
+		}
+
+		.hero__browser-bar {
+			padding: .75em;
+		}
+
+		.hero__browser-url {
+			width: 58%;
+			padding: .45em .6em;
+			font-size: .58em;
+		}
+
+		.hero__browser-refresh {
+			left: auto;
+			right: 2.85em;
+			font-size: .95em;
+		}
+
+		.hero__kpi-row {
+			padding-top: .9em;
+		}
+
+		.hero__kpi-label {
+			font-size: .62em;
+		}
+
+		.hero__kpi-value {
+			font-size: 1.05em;
+		}
+
+		.hero__switcher {
+			max-width: 100%;
+			overflow-x: auto;
+		}
+
+		.hero__tab {
+			flex: 0 0 auto;
+			padding: .7em .8em;
+			font-size: .75em;
+		}
+
+		.hero__tab-label {
+			white-space: nowrap;
+		}
+	}
+
+	/* ===== Scroll indicator ===== */
+
+	.hero__scroll {
+		position: absolute;
+		left: 50%;
+		bottom: 0.7em;
+		transform: translateX(-50%);
+		z-index: 5;
+
+		display: inline-flex;
+		flex-direction: column;
+		align-items: center;
+		padding: 0.5em 0.75em;
+
+		background: none;
+		border: none;
+		color: var(--color-text-muted);
+
+		cursor: pointer;
+		transition: color var(--transition-base);
+	}
+
+	.hero__scroll:hover,
+	.hero__scroll:focus-visible {
+		color: var(--color-contrast);
+	}
+
+	.hero__scroll-label {
+		font-family: var(--font-body);
+		font-size: 0.6875em; /* 11px — mały label, wersaliki go optycznie podnoszą */
+		font-weight: 600;
+		letter-spacing: 3px;
+		text-transform: uppercase;
+		line-height: 1;
+		animation: hero-scroll-shake 2.8s cubic-bezier(.36, .07, .19, .97) infinite;
+		will-change: transform;
+	}
+
+	@keyframes hero-scroll-shake {
+		0%, 68%, 100% { transform: translateX(0); }
+		72% { transform: translateX(-.2em) rotate(-2deg); }
+		76% { transform: translateX(.2em) rotate(2deg); }
+		80% { transform: translateX(-.13em) rotate(-1.2deg); }
+		84% { transform: translateX(.1em) rotate(1deg); }
+		88% { transform: translateX(0); }
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.hero__scroll,
+		.hero__scroll:hover {
+			transition: none;
+		}
+		.hero__scroll-label {
+			animation: none;
+		}
+	}
+
+	@media screen and (max-width: 767px) {
+		.hero__scroll {
+			bottom: 0.35em;
+		}
+	}
+</style>

@@ -1,0 +1,159 @@
+---
+// LogoStrip — czarny full-width pasek pod Hero z logotypami klientów. Statyczny (bez marquee).
+//
+// Wysokość paska jest SPRZĘŻONA z Hero: `.hero` ma
+// `min-height: calc(100dvh - 5.25em - var(--logostrip-peek))`, dzięki czemu górna
+// krawędź paska wystaje spod folda i sygnalizuje, że strona ma ciąg dalszy.
+// Zmieniasz --logostrip-peek → zmienia się to, ile widać. Nic więcej nie ruszaj.
+
+interface Client {
+	label: string;
+	src: string;
+	/** Z viewBox pliku SVG — trzyma proporcje bez CLS (aspect-ratio). */
+	ratio: string;
+	/** Korekta optyczna. Logotypy o tej samej wysokości nie zawsze ważą tyle samo. */
+	scale?: number;
+}
+
+// Wszystkie logotypy w oryginalnych barwach marek — każdy plik ma już wariant
+// na ciemne tło (light/jasne/negatyw), więc renderują się czytelnie na czarnym.
+// Kwadratowe znaki (parafia, HC) potrzebują większej skali, bo przy tej samej
+// wysokości co wordmarki ważą wizualnie mniej.
+const clients: Client[] = [
+	{ label: "Planeta Mebli", src: "/klienci/loga/planeta-mebli-light.svg", ratio: "1921 / 819" },
+	{ label: "Domki na Luzie", src: "/klienci/loga/domki-na-luzie.svg", ratio: "1888.74 / 471.98" },
+	{ label: "Filar Drone", src: "/klienci/loga/filar-drone-light.svg", ratio: "1916 / 821" },
+	{ label: "Eden Capital", src: "/klienci/loga/eden-capital-light.svg", ratio: "1540 / 387" },
+	{
+		label: "Parafia św. Marii Magdaleny",
+		src: "/klienci/loga/parafia-jasne.svg",
+		ratio: "1254 / 1254",
+		scale: 1.6,
+	},
+	{ label: "HC", src: "/klienci/loga/hc.svg", ratio: "1700 / 1700", scale: 1.4 },
+];
+---
+
+<aside class="logostrip" aria-label="Klienci">
+	<div class="logostrip__viewport">
+		<ul class="logostrip__track">
+			{
+				clients.map((c) => (
+					<li class="logostrip__item">
+						<img
+							class="logostrip__logo"
+							src={c.src}
+							alt={c.label}
+							style={`--logo-ratio: ${c.ratio}; --logo-scale: ${c.scale ?? 1};`}
+						/>
+					</li>
+				))
+			}
+		</ul>
+	</div>
+</aside>
+
+<style>
+	.logostrip {
+		width: 100%;
+		padding-block: 1.875em;
+		background-color: var(--color-atmosphere-dark);
+		overflow: hidden;
+	}
+
+	.logostrip__viewport {
+		max-width: var(--size-container);
+		margin-inline: auto;
+		padding-inline: 1.5em;
+	}
+
+	.logostrip__track {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		flex-wrap: wrap;
+		gap: 2.5em;
+		list-style: none;
+	}
+
+	.logostrip__item {
+		display: inline-flex;
+		align-items: center;
+		flex-shrink: 0;
+	}
+
+	/* ===== Logotypy — wszystkie <img> w oryginalnych barwach marek =====
+	   Równane po WYSOKOŚCI, nie szerokości — proporcje są skrajnie różne
+	   (HC 1:1, Domki 4:1). Równanie po szerokości zrobiłoby z HC ogromny
+	   kwadrat, a z Domków cienki pasek. --logo-scale to korekta optyczna dla
+	   znaków kwadratowych, które przy równej wysokości z wordmarkami ważą mniej.
+
+	   Hover: default 78% opacity + lekki grayscale (0.15), hover 100% + pełny kolor.
+	   To standard "pasek zaufania" z Awwwards — na starcie skromny, na najechaniu
+	   ożywa. Grayscale nie 100% jak w typowych implementacjach, bo wtedy pasek
+	   traci charakter marek — 15% wystarczy żeby stonować bez zabijania kolorów. */
+
+	.logostrip__logo {
+		display: block;
+		height: calc(3em * var(--logo-scale, 1));
+		width: auto;
+		aspect-ratio: var(--logo-ratio);
+		object-fit: contain;
+		opacity: 0.78;
+		filter: grayscale(0.15);
+		transition:
+			opacity 260ms ease,
+			filter 260ms ease,
+			transform 260ms ease;
+	}
+
+	.logostrip__item:hover .logostrip__logo,
+	.logostrip__item:focus-within .logostrip__logo {
+		opacity: 1;
+		filter: grayscale(0);
+		transform: scale(1.04);
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.logostrip__logo {
+			transition: opacity 260ms ease, filter 260ms ease;
+		}
+		.logostrip__item:hover .logostrip__logo,
+		.logostrip__item:focus-within .logostrip__logo {
+			transform: none;
+		}
+	}
+
+	/* ===== Responsywność ===== */
+
+	@media screen and (max-width: 991px) {
+		.logostrip__track {
+			gap: 2em;
+		}
+
+		.logostrip__logo {
+			height: calc(2.5em * var(--logo-scale, 1));
+		}
+	}
+
+	@media screen and (max-width: 767px) {
+		.logostrip {
+			padding-block: 1.25em;
+		}
+
+		.logostrip__track {
+			justify-content: center;
+			gap: 1.75em;
+		}
+
+		.logostrip__logo {
+			height: calc(2.125em * var(--logo-scale, 1));
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.logostrip__item {
+			transition: none;
+		}
+	}
+</style>

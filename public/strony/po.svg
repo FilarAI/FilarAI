@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" width="1600" height="1000" role="img" aria-label="Placeholder — strona po">
+  <rect width="1600" height="1000" fill="#ffffff"/>
+  <rect x="0" y="0" width="1600" height="76" fill="#0a0a0a"/>
+  <rect x="48" y="28" width="140" height="20" rx="4" fill="#ffffff"/>
+  <rect x="1180" y="24" width="180" height="28" rx="14" fill="#d6fd70"/>
+  <rect x="1390" y="24" width="160" height="28" rx="14" fill="#2a2a28"/>
+  <rect x="120" y="210" width="760" height="54" rx="8" fill="#0a0a0a"/>
+  <rect x="120" y="286" width="600" height="54" rx="8" fill="#6b8f1f"/>
+  <rect x="120" y="400" width="300" height="64" rx="32" fill="#d6fd70"/>
+  <rect x="440" y="400" width="220" height="64" rx="32" fill="#f2f7e4"/>
+  <rect x="120" y="580" width="420" height="300" rx="16" fill="#f7f6f2" stroke="#e6e6e3" stroke-width="2"/>
+  <rect x="590" y="580" width="420" height="300" rx="16" fill="#f7f6f2" stroke="#e6e6e3" stroke-width="2"/>
+  <rect x="1060" y="580" width="420" height="300" rx="16" fill="#f7f6f2" stroke="#e6e6e3" stroke-width="2"/>
+  <circle cx="180" cy="650" r="26" fill="#d6fd70"/>
+  <circle cx="650" cy="650" r="26" fill="#d6fd70"/>
+  <circle cx="1120" cy="650" r="26" fill="#d6fd70"/>
+  <text x="800" y="960" font-family="system-ui, sans-serif" font-size="40" font-weight="600" fill="#b8b8b3" text-anchor="middle">PO — podmień: public/strony/po.jpg</text>
+</svg>

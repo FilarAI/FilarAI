@@ -1,0 +1,370 @@
+---
+// TYMCZASOWA strona porównawcza fontów. Usunąć po wyborze pary.
+const pairs = [
+	{
+		id: "a",
+		name: "A — Cabinet Grotesk + Satoshi",
+		heading: "'Cabinet Grotesk', system-ui, sans-serif",
+		body: "'Satoshi', system-ui, sans-serif",
+		vibe: "Editorial, konkretny. Cabinet ma charakter w nagłówkach, Satoshi nie męczy w treści.",
+		why: "Najbezpieczniejszy wybór o dużym zwrocie. Pasuje jednocześnie do techy i do lokalnej firmy — a ty sprzedajesz technologię lokalnym firmom.",
+		risk: "Najmniejsze. Satoshi ma metryki zbliżone do Inter — layout się nie rozjedzie.",
+	},
+	{
+		id: "b",
+		name: "B — Clash Display + General Sans",
+		heading: "'Clash Display', system-ui, sans-serif",
+		body: "'General Sans', system-ui, sans-serif",
+		vibe: "Mocny, statement. Clash krzyczy w hero, General Sans uspokaja w treści.",
+		why: "Największy charakter z trójki. General Sans jest humanistyczny — mniej męczy starsze oko niż geometryczne sansy.",
+		risk: "Clash Display jest szerszy niż Geist — nagłówki urosną, H1 może potrzebować mniejszego rozmiaru.",
+	},
+	{
+		id: "c",
+		name: "C — Synonym (jeden font)",
+		heading: "'Synonym', system-ui, sans-serif",
+		body: "'Synonym', system-ui, sans-serif",
+		vibe: "Techy, czysty, minimalny. Jeden font, różne wagi.",
+		why: "Bezpośredni upgrade z Geist — Synonym to dokładnie lepszy Geist. Najlżejszy bundle, zero ryzyka rozjazdu.",
+		risk: "Najmniej charakteru z trójki. Bezpieczny, ale nie zapamiętasz go.",
+	},
+];
+---
+
+<html lang="pl">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="robots" content="noindex" />
+		<title>Porównanie fontów — FilarAI</title>
+		<link rel="preconnect" href="https://api.fontshare.com" />
+		<link
+			rel="stylesheet"
+			href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@500,700,800&f[]=satoshi@400,500,700&f[]=clash-display@500,600,700&f[]=general-sans@400,500,600&f[]=synonym@400,500,600,700&display=swap"
+		/>
+	</head>
+	<body>
+		<header class="page-head">
+			<h1>Porównanie fontów</h1>
+			<p>
+				Ten sam tekst z Hero w trzech parach. Obecnie: <strong>Geist + Inter</strong> — oba na
+				czarnej liście „AI look". Wszystkie trzy pary mają komplet polskich znaków i licencję
+				komercyjną.
+			</p>
+			<p class="page-head__hint">
+				Patrz na: jak siedzi <strong>„ą ę ł ń ś ź ż"</strong>, czy nagłówek ma charakter, czy cyfry
+				są czytelne, czy tekst nie męczy.
+			</p>
+		</header>
+
+		{
+			pairs.map((p) => (
+				<section class="pair" style={`--fh: ${p.heading}; --fb: ${p.body};`}>
+					<div class="pair__label">
+						<span class="pair__id">{p.id.toUpperCase()}</span>
+						<div>
+							<h2 class="pair__name">{p.name}</h2>
+							<p class="pair__vibe">{p.vibe}</p>
+						</div>
+					</div>
+
+					<div class="demo">
+						<span class="demo__badge">● STRONY • SYSTEMY AI • WZROST</span>
+
+						<h3 class="demo__h1">
+							Strony, systemy AI i marketing dla <span class="demo__accent">małych firm.</span>
+						</h3>
+
+						<p class="demo__lead">Buduję to, co realnie przynosi klientów – bez pustych obietnic.</p>
+
+						<div class="demo__btns">
+							<span class="demo__btn demo__btn--primary">Umów rozmowę →</span>
+							<span class="demo__btn demo__btn--ghost">Zobacz portfolio</span>
+						</div>
+
+						<div class="demo__row">
+							<div class="demo__stat">
+								<span class="demo__stat-label">Ruch organiczny</span>
+								<span class="demo__stat-val demo__stat-val--accent">+320%</span>
+							</div>
+							<div class="demo__stat">
+								<span class="demo__stat-label">Widoczność AI</span>
+								<span class="demo__stat-val">12 platform</span>
+							</div>
+							<div class="demo__stat">
+								<span class="demo__stat-label">Ładowanie strony</span>
+								<span class="demo__stat-val">0,8s</span>
+							</div>
+						</div>
+
+						<h4 class="demo__h2">Jak wygląda współpraca</h4>
+						<p class="demo__body">
+							Zaczynamy od rozmowy — pytam o Twoją firmę, klientów i to, co dziś nie działa. Żadnych
+							slajdów, żadnej ściemy. Wychodzisz z konkretem: co zbudujemy, ile to zajmie i ile
+							kosztuje. Pierwsza rozmowa jest bez zobowiązań, odpowiadam w ciągu 24 godzin.
+						</p>
+						<p class="demo__body demo__body--small">
+							Zaufali mi: Planeta Mebli, Elgraf, Domki na Luzie, Stolarstwo Kaczmarek, Kancelaria
+							Radcy Prawnego dr. Radkiewicz.
+						</p>
+					</div>
+
+					<div class="pair__notes">
+						<p>
+							<strong>Dlaczego:</strong> {p.why}
+						</p>
+						<p>
+							<strong>Ryzyko:</strong> {p.risk}
+						</p>
+					</div>
+				</section>
+			))
+		}
+
+		<footer class="page-foot">
+			<p>Wybierz literę (A / B / C) i wróć do czatu.</p>
+		</footer>
+	</body>
+</html>
+
+<style>
+	:root {
+		--ink: #0a0a0a;
+		--muted: #6b6e76;
+		--line: #e6e6e3;
+		--warm: #f7f6f2;
+		--accent: #a8c447;
+	}
+
+	* {
+		box-sizing: border-box;
+		margin: 0;
+		padding: 0;
+	}
+
+	body {
+		background: #fff;
+		color: var(--ink);
+		font-family: system-ui, sans-serif;
+		padding: 3rem 1.5rem 5rem;
+	}
+
+	.page-head {
+		max-width: 46rem;
+		margin: 0 auto 4rem;
+	}
+
+	.page-head h1 {
+		font-size: 2rem;
+		letter-spacing: -0.02em;
+		margin-bottom: 1rem;
+	}
+
+	.page-head p {
+		color: var(--muted);
+		line-height: 1.6;
+		margin-bottom: 0.75rem;
+	}
+
+	.page-head__hint {
+		padding: 0.875rem 1rem;
+		background: var(--warm);
+		border-left: 3px solid var(--accent);
+		border-radius: 0 0.5rem 0.5rem 0;
+		font-size: 0.9375rem;
+	}
+
+	/* ===== Para ===== */
+
+	.pair {
+		max-width: 62rem;
+		margin: 0 auto 5rem;
+		padding-bottom: 4rem;
+		border-bottom: 1px solid var(--line);
+	}
+
+	.pair:last-of-type {
+		border-bottom: none;
+	}
+
+	.pair__label {
+		display: flex;
+		align-items: flex-start;
+		gap: 1rem;
+		margin-bottom: 1.5rem;
+	}
+
+	.pair__id {
+		display: grid;
+		place-items: center;
+		flex-shrink: 0;
+		width: 2.5rem;
+		height: 2.5rem;
+		border-radius: 0.625rem;
+		background: var(--ink);
+		color: #fff;
+		font-weight: 700;
+		font-size: 1rem;
+	}
+
+	.pair__name {
+		font-size: 1.25rem;
+		letter-spacing: -0.01em;
+		margin-bottom: 0.25rem;
+	}
+
+	.pair__vibe {
+		color: var(--muted);
+		font-size: 0.9375rem;
+		line-height: 1.5;
+	}
+
+	/* ===== Demo — tu żyją testowane fonty ===== */
+
+	.demo {
+		padding: 2.5rem;
+		background: var(--warm);
+		border-radius: 1rem;
+	}
+
+	.demo__badge {
+		display: inline-block;
+		padding: 0.5rem 1rem;
+		margin-bottom: 1.5rem;
+		background: #fff;
+		border: 1px solid var(--line);
+		border-radius: 999px;
+		font-family: var(--fb);
+		font-size: 0.75rem;
+		font-weight: 600;
+		letter-spacing: 1.5px;
+		text-transform: uppercase;
+	}
+
+	.demo__h1 {
+		max-width: 16ch;
+		margin-bottom: 1.25rem;
+		font-family: var(--fh);
+		font-size: clamp(2.25rem, 5vw, 3.5rem);
+		font-weight: 700;
+		line-height: 1.08;
+		letter-spacing: -0.025em;
+		text-wrap: balance;
+	}
+
+	.demo__accent {
+		color: var(--accent);
+	}
+
+	.demo__lead {
+		max-width: 42ch;
+		margin-bottom: 1.75rem;
+		font-family: var(--fb);
+		font-size: 1.125rem;
+		font-weight: 400;
+		line-height: 1.6;
+		color: #3d3d46;
+	}
+
+	.demo__btns {
+		display: flex;
+		gap: 0.75rem;
+		margin-bottom: 2.5rem;
+	}
+
+	.demo__btn {
+		padding: 0.875rem 1.5rem;
+		border-radius: 999px;
+		font-family: var(--fb);
+		font-size: 1rem;
+		font-weight: 500;
+	}
+
+	.demo__btn--primary {
+		background: var(--accent);
+		color: var(--ink);
+	}
+
+	.demo__btn--ghost {
+		background: #fff;
+		border: 1px solid var(--line);
+	}
+
+	.demo__row {
+		display: flex;
+		gap: 3rem;
+		flex-wrap: wrap;
+		padding: 1.5rem 0;
+		margin-bottom: 2.5rem;
+		border-top: 1px solid var(--line);
+		border-bottom: 1px solid var(--line);
+	}
+
+	.demo__stat {
+		display: flex;
+		flex-direction: column;
+		gap: 0.375rem;
+	}
+
+	.demo__stat-label {
+		font-family: var(--fb);
+		font-size: 0.875rem;
+		color: var(--muted);
+	}
+
+	.demo__stat-val {
+		font-family: var(--fh);
+		font-size: 1.5rem;
+		font-weight: 600;
+		font-variant-numeric: tabular-nums;
+		letter-spacing: -0.01em;
+	}
+
+	.demo__stat-val--accent {
+		color: #6b8f1f;
+	}
+
+	.demo__h2 {
+		margin-bottom: 0.875rem;
+		font-family: var(--fh);
+		font-size: 1.75rem;
+		font-weight: 600;
+		letter-spacing: -0.02em;
+	}
+
+	.demo__body {
+		max-width: 62ch;
+		font-family: var(--fb);
+		font-size: 1.0625rem;
+		line-height: 1.65;
+		color: #3d3d46;
+	}
+
+	.demo__body--small {
+		margin-top: 1rem;
+		font-size: 0.9375rem;
+		color: var(--muted);
+	}
+
+	/* ===== Notatki ===== */
+
+	.pair__notes {
+		display: grid;
+		gap: 0.625rem;
+		margin-top: 1.5rem;
+		font-size: 0.9375rem;
+		line-height: 1.6;
+		color: var(--muted);
+	}
+
+	.pair__notes strong {
+		color: var(--ink);
+	}
+
+	.page-foot {
+		max-width: 62rem;
+		margin: 0 auto;
+		text-align: center;
+		color: var(--muted);
+	}
+</style>

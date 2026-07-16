@@ -1,0 +1,249 @@
+---
+// Layout dla stron prawnych (polityka prywatności, regulamin).
+// Wąska kolumna tekstu (65ch), ciepłe tło, akcent oliwkowy — spójne z resztą serwisu.
+import Layout from "./Layout.astro";
+import Footer from "../components/Footer.astro";
+
+interface Props {
+	title: string;
+	description: string;
+	/** Nagłówek H1 na stronie (jeśli inny niż <title>). */
+	heading: string;
+	/** Data ostatniej aktualizacji, format: "14 lipca 2026". */
+	updated: string;
+}
+
+const { title, description, heading, updated } = Astro.props;
+---
+
+<Layout title={title} description={description}>
+	<main id="main">
+		<article class="legal section--atmosphere">
+			<div class="legal__inner container">
+				<header class="legal__head">
+					<a href="/" class="legal__back">
+						<span aria-hidden="true">←</span> Wróć na stronę główną
+					</a>
+					<h1 class="legal__title">{heading}</h1>
+					<p class="legal__updated">Ostatnia aktualizacja: {updated}</p>
+				</header>
+
+				<div class="legal__prose">
+					<slot />
+				</div>
+
+				<footer class="legal__foot">
+					<p>
+						Masz pytanie o te zapisy? Napisz na
+						<a href="mailto:kontakt@filarai.com">kontakt@filarai.com</a> — odpowiadam w 24h.
+					</p>
+				</footer>
+			</div>
+		</article>
+	</main>
+	<Footer />
+</Layout>
+
+<style>
+	.legal {
+		padding-block: 4em 6em;
+	}
+
+	.legal__inner {
+		max-width: 52em;
+	}
+
+	/* ===== Nagłówek ===== */
+
+	.legal__head {
+		padding-bottom: 2.5em;
+		margin-bottom: 3em;
+		border-bottom: 1px solid var(--color-border);
+	}
+
+	.legal__back {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5em;
+		margin-bottom: 2em;
+		font-size: 0.9375em;
+		font-weight: var(--weight-emphasis);
+		color: var(--color-text-muted);
+		transition: color var(--transition-fast);
+	}
+
+	.legal__back:hover {
+		color: var(--accent-deep);
+	}
+
+	.legal__title {
+		margin-bottom: 0.5em;
+		font-size: 2.75em;
+		font-weight: 600;
+		line-height: 1.1;
+	}
+
+	.legal__updated {
+		font-size: 0.9375em;
+		color: var(--color-text-muted);
+	}
+
+	/* ===== Treść ===== */
+
+	.legal__prose {
+		font-size: 1.0625em;
+		line-height: 1.7;
+		color: var(--color-text-secondary);
+	}
+
+	.legal__prose :global(h2) {
+		margin-top: 2.5em;
+		margin-bottom: 0.75em;
+		font-size: 1.5em;
+		font-weight: 600;
+		line-height: 1.25;
+		color: var(--color-contrast);
+	}
+
+	.legal__prose :global(h2:first-child) {
+		margin-top: 0;
+	}
+
+	.legal__prose :global(h3) {
+		margin-top: 1.75em;
+		margin-bottom: 0.5em;
+		font-size: 1.125em;
+		font-weight: 600;
+		color: var(--color-contrast);
+	}
+
+	.legal__prose :global(p) {
+		margin-bottom: 1.125em;
+	}
+
+	.legal__prose :global(ul),
+	.legal__prose :global(ol) {
+		margin-bottom: 1.5em;
+		padding-left: 0;
+	}
+
+	.legal__prose :global(li) {
+		position: relative;
+		padding-left: 1.5em;
+		margin-bottom: 0.625em;
+	}
+
+	/* Kropka listy w akcencie — jedyne miejsce gdzie oliwka wchodzi w treść */
+	.legal__prose :global(ul li::before) {
+		content: "";
+		position: absolute;
+		top: 0.7em;
+		left: 0.25em;
+		width: 0.375em;
+		height: 0.375em;
+		border-radius: 50%;
+		background-color: var(--accent-brand);
+	}
+
+	.legal__prose :global(ol) {
+		counter-reset: legal-ol;
+	}
+
+	.legal__prose :global(ol li) {
+		counter-increment: legal-ol;
+	}
+
+	.legal__prose :global(ol li::before) {
+		content: counter(legal-ol) ".";
+		position: absolute;
+		left: 0;
+		font-weight: 600;
+		color: var(--accent-deep);
+		font-variant-numeric: tabular-nums;
+	}
+
+	.legal__prose :global(a) {
+		color: var(--accent-deep);
+		text-decoration: underline;
+		text-underline-offset: 0.15em;
+		text-decoration-thickness: 1px;
+	}
+
+	.legal__prose :global(a:hover) {
+		text-decoration-thickness: 2px;
+	}
+
+	.legal__prose :global(strong) {
+		font-weight: 600;
+		color: var(--color-contrast);
+	}
+
+	/* Blok "uwaga" — np. placeholder na dane firmy */
+	.legal__prose :global(.legal-note) {
+		padding: 1.25em 1.5em;
+		margin-bottom: 1.75em;
+		background-color: var(--accent-wash);
+		border-left: 3px solid var(--accent-brand);
+		border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+		font-size: 0.9375em;
+	}
+
+	.legal__prose :global(.legal-note p:last-child) {
+		margin-bottom: 0;
+	}
+
+	/* Tabela danych (np. rejestr cookies) */
+	.legal__prose :global(table) {
+		width: 100%;
+		margin-bottom: 1.75em;
+		border-collapse: collapse;
+		font-size: 0.9375em;
+	}
+
+	.legal__prose :global(th) {
+		padding: 0.75em 1em;
+		text-align: left;
+		font-weight: 600;
+		color: var(--color-contrast);
+		background-color: var(--color-canvas);
+		border-bottom: 1px solid var(--color-border);
+	}
+
+	.legal__prose :global(td) {
+		padding: 0.75em 1em;
+		border-bottom: 1px solid var(--color-border);
+		vertical-align: top;
+	}
+
+	/* ===== Stopka artykułu ===== */
+
+	.legal__foot {
+		padding-top: 2.5em;
+		margin-top: 3.5em;
+		border-top: 1px solid var(--color-border);
+		font-size: 0.9375em;
+		color: var(--color-text-muted);
+	}
+
+	.legal__foot a {
+		color: var(--accent-deep);
+		font-weight: var(--weight-emphasis);
+	}
+
+	/* ===== Responsywność ===== */
+
+	@media screen and (max-width: 767px) {
+		.legal {
+			padding-block: 2.5em 4em;
+		}
+
+		.legal__title {
+			font-size: 2em;
+		}
+
+		.legal__prose :global(table) {
+			display: block;
+			overflow-x: auto;
+		}
+	}
+</style>

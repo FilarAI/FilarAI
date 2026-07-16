@@ -1,0 +1,351 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Footer from "../components/Footer.astro";
+
+// Każdy ślepy zaułek musi mieć wyjście — stąd konkretne linki, nie samo "wróć".
+const links = [
+	{ label: "Strona główna", href: "/", desc: "Od początku" },
+	{ label: "Portfolio", href: "/portfolio", desc: "Co już zbudowałem" },
+	{ label: "Kontakt", href: "/kontakt", desc: "Napisz albo zadzwoń" },
+];
+---
+
+<Layout
+	title="Nie znaleziono strony — FilarAI"
+	description="Ta strona nie istnieje albo została przeniesiona."
+	noindex={true}
+>
+	<main id="main">
+		<section class="nf section--atmosphere">
+			<div class="nf__inner container">
+				<div class="nf__content">
+					<span class="nf__code" aria-hidden="true">404</span>
+
+					<h1 class="nf__title">Tej strony tu nie ma.</h1>
+
+					<p class="nf__lead">
+						Link mógł się zdezaktualizować albo w adresie jest literówka. Nic straconego — poniżej
+						masz drogę dalej.
+					</p>
+
+					<nav class="nf__links" aria-label="Dokąd dalej">
+						{
+							links.map((link) => (
+								<a href={link.href} class="nf__link">
+									<span class="nf__link-body">
+										<span class="nf__link-label">{link.label}</span>
+										<span class="nf__link-desc">{link.desc}</span>
+									</span>
+									<span class="nf__link-arrow" aria-hidden="true">
+										→
+									</span>
+								</a>
+							))
+						}
+					</nav>
+
+					<p class="nf__note">
+						Szukałeś czegoś konkretnego i nie znalazłeś? Napisz na
+						<a href="mailto:kontakt@filarai.com">kontakt@filarai.com</a> — podrzucę bezpośredni
+						link.
+					</p>
+				</div>
+
+				<div class="nf__visual" aria-hidden="true">
+					<div class="nf__browser">
+						<div class="nf__browser-bar">
+							<span class="nf__dot nf__dot--r"></span>
+							<span class="nf__dot nf__dot--y"></span>
+							<span class="nf__dot nf__dot--g"></span>
+							<span class="nf__browser-url">filarai.com/???</span>
+						</div>
+						<div class="nf__browser-body">
+							<div class="nf__skeleton nf__skeleton--w70"></div>
+							<div class="nf__skeleton nf__skeleton--w90"></div>
+							<div class="nf__skeleton nf__skeleton--w45"></div>
+							<div class="nf__browser-empty">
+								<span class="nf__browser-empty-mark">?</span>
+								<span class="nf__browser-empty-text">Pusto</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+	<Footer />
+</Layout>
+
+<style>
+	.nf {
+		display: flex;
+		align-items: center;
+		min-height: calc(100dvh - 5.25em);
+		padding-block: 4em;
+	}
+
+	.nf__inner {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
+		align-items: center;
+		gap: 4em;
+		width: 100%;
+	}
+
+	/* ===== Lewa kolumna ===== */
+
+	.nf__code {
+		display: block;
+		margin-bottom: 0.5em;
+		font-family: var(--font-heading);
+		font-size: 1em;
+		font-weight: 600;
+		letter-spacing: 3px;
+		color: var(--accent-deep);
+		font-variant-numeric: tabular-nums;
+	}
+
+	.nf__title {
+		margin-bottom: 0.625em;
+		font-size: 3em;
+		font-weight: 600;
+		line-height: 1.1;
+	}
+
+	.nf__lead {
+		max-width: 32em;
+		margin-bottom: 2.5em;
+		font-size: 1.0625em;
+		line-height: 1.6;
+		color: var(--color-text-secondary);
+	}
+
+	/* ===== Linki ===== */
+
+	.nf__links {
+		display: flex;
+		flex-direction: column;
+		gap: 0.625em;
+		max-width: 26em;
+		margin-bottom: 2.5em;
+	}
+
+	.nf__link {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1em;
+		padding: 1em 1.25em;
+		background-color: var(--color-canvas);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-md);
+		transition:
+			border-color var(--transition-base),
+			transform var(--transition-base),
+			box-shadow var(--transition-base);
+	}
+
+	.nf__link:hover {
+		border-color: var(--accent-brand);
+		transform: translateY(-2px);
+		box-shadow: var(--shadow-card);
+	}
+
+	.nf__link-body {
+		display: flex;
+		flex-direction: column;
+		gap: 0.125em;
+	}
+
+	.nf__link-label {
+		font-weight: var(--weight-emphasis);
+		color: var(--color-contrast);
+	}
+
+	.nf__link-desc {
+		font-size: 0.875em;
+		color: var(--color-text-muted);
+	}
+
+	.nf__link-arrow {
+		flex-shrink: 0;
+		color: var(--color-text-muted);
+		transition:
+			transform var(--transition-base),
+			color var(--transition-base);
+	}
+
+	.nf__link:hover .nf__link-arrow {
+		transform: translateX(3px);
+		color: var(--accent-deep);
+	}
+
+	.nf__note {
+		font-size: 0.9375em;
+		color: var(--color-text-muted);
+	}
+
+	.nf__note a {
+		color: var(--accent-deep);
+		font-weight: var(--weight-emphasis);
+		text-decoration: underline;
+		text-underline-offset: 0.15em;
+	}
+
+	/* ===== Prawa kolumna — makieta pustej strony ===== */
+
+	.nf__visual {
+		display: flex;
+		justify-content: center;
+	}
+
+	.nf__browser {
+		width: 100%;
+		max-width: 28em;
+		background-color: var(--color-canvas);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-md);
+		box-shadow: var(--shadow-card);
+		overflow: hidden;
+	}
+
+	.nf__browser-bar {
+		display: flex;
+		align-items: center;
+		gap: 0.5em;
+		padding: 0.75em 1em;
+		background-color: var(--color-atmosphere);
+		border-bottom: 1px solid var(--color-border);
+	}
+
+	.nf__dot {
+		width: 0.625em;
+		height: 0.625em;
+		border-radius: 50%;
+	}
+
+	.nf__dot--r {
+		background-color: #ff5f57;
+	}
+	.nf__dot--y {
+		background-color: #febc2e;
+	}
+	.nf__dot--g {
+		background-color: #28c840;
+	}
+
+	.nf__browser-url {
+		margin-left: 0.75em;
+		font-size: 0.8125em;
+		color: var(--color-text-muted);
+	}
+
+	.nf__browser-body {
+		display: flex;
+		flex-direction: column;
+		gap: 0.75em;
+		padding: 1.5em;
+	}
+
+	.nf__skeleton {
+		height: 0.625em;
+		background-color: var(--color-atmosphere);
+		border-radius: var(--radius-sm);
+	}
+
+	.nf__skeleton--w70 {
+		width: 70%;
+	}
+	.nf__skeleton--w90 {
+		width: 90%;
+	}
+	.nf__skeleton--w45 {
+		width: 45%;
+	}
+
+	.nf__browser-empty {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: 0.5em;
+		margin-top: 1em;
+		padding: 2.5em 1em;
+		background-color: var(--accent-wash);
+		border: 1px dashed var(--accent-brand);
+		border-radius: var(--radius-sm);
+	}
+
+	.nf__browser-empty-mark {
+		display: grid;
+		place-items: center;
+		width: 2.5em;
+		height: 2.5em;
+		border-radius: 50%;
+		background-color: var(--color-canvas);
+		border: 1px solid var(--accent-brand);
+		font-family: var(--font-heading);
+		font-size: 1.125em;
+		font-weight: 600;
+		color: var(--accent-deep);
+	}
+
+	.nf__browser-empty-text {
+		font-size: 0.8125em;
+		font-weight: var(--weight-emphasis);
+		letter-spacing: 1px;
+		text-transform: uppercase;
+		color: var(--accent-deep);
+	}
+
+	/* ===== Responsywność ===== */
+
+	@media screen and (max-width: 991px) {
+		.nf__inner {
+			gap: 2.5em;
+		}
+
+		.nf__title {
+			font-size: 2.5em;
+		}
+	}
+
+	@media screen and (max-width: 767px) {
+		.nf {
+			min-height: auto;
+			padding-block: 3em 4em;
+		}
+
+		.nf__inner {
+			grid-template-columns: minmax(0, 1fr);
+			gap: 3em;
+		}
+
+		.nf__visual {
+			order: -1;
+		}
+
+		.nf__title {
+			font-size: 2em;
+		}
+
+		.nf__links {
+			max-width: none;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.nf__link,
+		.nf__link-arrow {
+			transition: none;
+		}
+
+		.nf__link:hover {
+			transform: none;
+		}
+
+		.nf__link:hover .nf__link-arrow {
+			transform: none;
+		}
+	}
+</style>

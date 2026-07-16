@@ -1,0 +1,579 @@
+---
+// OMnie — rzeczowa prezentacja założyciela i sposobu pracy.
+// Zdjęcie jest celowo zastąpione placeholderem do czasu dostarczenia oryginalnego pliku.
+
+interface Feature {
+	num: string;
+	title: string;
+	desc: string;
+}
+
+interface Expertise {
+	label: string;
+	icon: string;
+}
+
+const features: Feature[] = [
+	{
+		num: "01",
+		title: "Bezpośredni kontakt",
+		desc: "Rozmawiasz ze mną. Ja też buduję projekt.",
+	},
+	{
+		num: "02",
+		title: "Szybkie decyzje",
+		desc: "Bez handlowców, pośredników i przekazywania briefu.",
+	},
+	{
+		num: "03",
+		title: "Konkretne wdrożenie",
+		desc: "Liczy się działający system i realny efekt dla Twojej firmy.",
+	},
+];
+
+const icon = {
+	globe: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M3.8 12h16.4M12 3.5c2.1 2.2 3.2 5 3.2 8.5S14.1 18.3 12 20.5c-2.1-2.2-3.2-5-3.2-8.5S9.9 5.7 12 3.5z"/></svg>`,
+	system: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="5" rx="1"/><rect x="3" y="16" width="6" height="5" rx="1"/><rect x="15" y="16" width="6" height="5" rx="1"/><path d="M12 8v4M6 16v-2h12v2"/></svg>`,
+	bolt: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m13 2-8 12h6l-1 8 9-12h-6z"/></svg>`,
+	pin: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M19 10c0 5-7 10-7 10S5 15 5 10a7 7 0 1 1 14 0z"/><circle cx="12" cy="10" r="2.25"/></svg>`,
+	calendar: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 9h16M8 3v4M16 3v4M9 14l2 2 4-4"/></svg>`,
+};
+
+const expertise: Expertise[] = [
+	{ label: "Strony WWW", icon: icon.globe },
+	{ label: "Systemy AI", icon: icon.system },
+	{ label: "Automatyzacje", icon: icon.bolt },
+];
+---
+
+<section class="omnie section--atmosphere">
+	<div class="omnie__outer">
+		<div class="omnie__grid">
+			<article class="omnie__profile" aria-label="Profil Kacpra Filara">
+				<div class="omnie__photo">
+					<!-- Gdy zdjęcie będzie gotowe, zastąp .omnie__photo-placeholder obrazem z alt. -->
+					<div class="omnie__photo-placeholder" aria-label="Miejsce na zdjęcie Kacpra Filara">
+						<span class="omnie__photo-mark" aria-hidden="true"></span>
+						<span class="omnie__photo-note">Zdjęcie Kacpra</span>
+					</div>
+
+					<div class="omnie__photo-badges" aria-label="Rola i dostępność">
+						<p class="omnie__role">
+							<span class="omnie__badge-dot" aria-hidden="true"></span>
+							Founder <span>/</span> <strong>Filar AI</strong>
+						</p>
+						<p class="omnie__available">
+							<span class="omnie__badge-dot" aria-hidden="true"></span>
+							Dostępny
+						</p>
+					</div>
+				</div>
+
+				<div class="omnie__identity">
+					<h3 class="omnie__name">Kacper Filar</h3>
+					<div class="omnie__identity-meta">
+						<p class="omnie__job">Founder, <strong>Filar AI</strong></p>
+						<p class="omnie__location">
+							<span set:html={icon.pin} aria-hidden="true"></span>
+							Kraków / Rabka-Zdrój
+						</p>
+					</div>
+				</div>
+
+				<ul class="omnie__expertise" aria-label="Obszary specjalizacji">
+					{
+						expertise.map((item) => (
+							<li class="omnie__expertise-item">
+								<span set:html={item.icon} aria-hidden="true"></span>
+								{item.label}
+							</li>
+						))
+					}
+				</ul>
+			</article>
+
+			<div class="omnie__content">
+				<p class="omnie__eyebrow">
+					<span class="omnie__eyebrow-dot" aria-hidden="true"></span>
+					O mnie
+				</p>
+
+				<h2 class="omnie__title">
+					Buduję systemy,<br />
+					które mają działać.<br />
+					<span>Nie tylko dobrze wyglądać.</span>
+				</h2>
+
+				<p class="omnie__intro">
+					Prowadzę Filar AI i osobiście realizuję projekty od pierwszej rozmowy po wdrożenie.
+					Buduję strony i systemy dla małych firm, które chcą zdobywać klientów i ograniczać
+					ręczną pracę.
+				</p>
+
+				<ol class="omnie__features">
+					{
+						features.map((feature) => (
+							<li class="omnie__feature">
+								<span class="omnie__feature-num">{feature.num}</span>
+								<div class="omnie__feature-body">
+									<h3>{feature.title}</h3>
+									<p>{feature.desc}</p>
+								</div>
+							</li>
+						))
+					}
+				</ol>
+
+				<div class="omnie__cta-wrap">
+					<p class="omnie__cta-question">Masz projekt albo problem do rozwiązania?</p>
+					<div class="omnie__cta-row">
+						<a class="omnie__cta" href="/kontakt">
+							<span set:html={icon.calendar} aria-hidden="true"></span>
+							Umów rozmowę
+							<span class="omnie__cta-arrow" aria-hidden="true">→</span>
+						</a>
+						<p class="omnie__cta-note">Pierwsza rozmowa<br />bez zobowiązań.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<style>
+	.omnie__outer {
+		max-width: var(--size-container);
+		margin-inline: auto;
+		padding: var(--spacing-section) var(--container-padding);
+	}
+
+	.omnie__grid {
+		display: grid;
+		grid-template-columns: minmax(0, 0.94fr) minmax(0, 1.06fr);
+		gap: clamp(3em, 6vw, 6.5em);
+		align-items: center;
+	}
+
+	/* ===== Profil ===== */
+
+	.omnie__profile {
+		overflow: hidden;
+		background: var(--color-canvas);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-lg);
+		box-shadow: var(--elevation-2);
+		transition: transform 320ms cubic-bezier(.22, 1, .36, 1), border-color 220ms ease, box-shadow 320ms cubic-bezier(.22, 1, .36, 1);
+	}
+
+	.omnie__photo {
+		position: relative;
+		aspect-ratio: 0.89;
+		overflow: hidden;
+		background: var(--color-atmosphere-dark);
+	}
+
+	.omnie__photo-placeholder {
+		position: absolute;
+		inset: 0;
+		display: grid;
+		place-items: center;
+		background: var(--color-atmosphere-dark);
+	}
+
+	.omnie__photo-mark {
+		width: 7em;
+		height: 8em;
+		background-color: var(--color-canvas);
+		opacity: 0.16;
+		-webkit-mask: url(/logo/filar-ai-mark-white.svg) center / contain no-repeat;
+		mask: url(/logo/filar-ai-mark-white.svg) center / contain no-repeat;
+		transition: opacity 260ms ease, transform 320ms cubic-bezier(.22, 1, .36, 1);
+	}
+
+	.omnie__photo-note {
+		position: absolute;
+		bottom: 1.5em;
+		left: 1.5em;
+		font-size: var(--text-sm);
+		font-weight: 500;
+		color: var(--color-text-on-dark-muted);
+	}
+
+	.omnie__photo-badges {
+		position: absolute;
+		top: 1.25em;
+		left: 1.25em;
+		right: 1.25em;
+		display: flex;
+		justify-content: space-between;
+		gap: var(--spacing-sm);
+	}
+
+	.omnie__role,
+	.omnie__available {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.45em;
+		margin: 0;
+		padding: 0.7em 0.9em;
+		background: var(--color-canvas);
+		border-radius: var(--radius-sm);
+		box-shadow: var(--elevation-1);
+		font-size: 0.75em;
+		font-weight: 700;
+		letter-spacing: 0.075em;
+		line-height: 1;
+		text-transform: uppercase;
+		color: var(--color-contrast);
+	}
+
+	.omnie__role span:not(.omnie__badge-dot) {
+		color: var(--color-text-muted);
+	}
+
+	.omnie__role strong {
+		color: var(--accent-deep);
+	}
+
+	.omnie__badge-dot,
+	.omnie__eyebrow-dot {
+		width: 0.5em;
+		height: 0.5em;
+		flex: 0 0 auto;
+		border-radius: 50%;
+		background: var(--accent-brand);
+	}
+
+	.omnie__identity {
+		padding: var(--spacing-xl) var(--spacing-xl) var(--spacing-lg);
+	}
+
+	.omnie__name {
+		font-family: var(--font-heading);
+		font-size: var(--text-h3);
+		font-weight: 700;
+		letter-spacing: -0.04em;
+		line-height: var(--lh-display);
+		color: var(--color-contrast);
+	}
+
+	.omnie__identity-meta {
+		display: flex;
+		justify-content: space-between;
+		gap: var(--spacing-md);
+		margin-top: var(--spacing-sm);
+		font-size: var(--text-sm);
+		color: var(--color-text-secondary);
+	}
+
+	.omnie__job,
+	.omnie__location {
+		margin: 0;
+	}
+
+	.omnie__job strong {
+		font-weight: 600;
+		color: var(--accent-deep);
+	}
+
+	.omnie__location {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.45em;
+		white-space: nowrap;
+	}
+
+	.omnie__location :global(svg) {
+		width: 1.2em;
+		height: 1.2em;
+		color: var(--color-contrast);
+	}
+
+	.omnie__expertise {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		margin: 0 var(--spacing-xl) var(--spacing-xl);
+		padding: var(--spacing-lg) 0 0;
+		list-style: none;
+		border-top: 1px solid var(--color-border);
+	}
+
+	.omnie__expertise-item {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.7em;
+		padding-inline: var(--spacing-sm);
+		font-size: 0.6875em;
+		font-weight: 700;
+		letter-spacing: 0.07em;
+		line-height: 1.2;
+		text-align: center;
+		text-transform: uppercase;
+		color: var(--color-contrast);
+	}
+
+	.omnie__expertise-item + .omnie__expertise-item {
+		border-left: 1px solid var(--color-border);
+	}
+
+	.omnie__expertise-item :global(svg) {
+		width: 1.7em;
+		height: 1.7em;
+		flex: 0 0 auto;
+	}
+
+	/* ===== Treść ===== */
+
+	.omnie__content {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		padding-top: var(--spacing-lg);
+	}
+
+	.omnie__eyebrow {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.55em;
+		margin: 0;
+		font-size: var(--text-sm);
+		font-weight: 700;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		color: var(--accent-deep);
+	}
+
+	.omnie__title {
+		max-width: 12em;
+		margin-top: var(--spacing-lg);
+		font-family: var(--font-heading);
+		font-size: var(--text-h2);
+		font-weight: 700;
+		letter-spacing: -0.055em;
+		line-height: 1.08;
+		text-wrap: balance;
+		color: var(--color-contrast);
+	}
+
+	.omnie__title span {
+		color: var(--accent-text);
+	}
+
+	.omnie__intro {
+		max-width: 35em;
+		margin-top: var(--spacing-xl);
+		font-size: var(--text-lead);
+		line-height: var(--lh-lead);
+		color: var(--color-text-secondary);
+	}
+
+	.omnie__features {
+		width: 100%;
+		margin-top: var(--spacing-2xl);
+		padding: 0;
+		list-style: none;
+	}
+
+	.omnie__feature {
+		position: relative;
+		display: grid;
+		grid-template-columns: 5.5em minmax(0, 1fr);
+		gap: var(--spacing-lg);
+		align-items: start;
+		min-height: 7.75em;
+		transition: transform 240ms cubic-bezier(.22, 1, .36, 1);
+	}
+
+	.omnie__feature-num {
+		font-family: var(--font-heading);
+		font-size: 3em;
+		font-weight: 700;
+		letter-spacing: -0.075em;
+		line-height: 0.94;
+		color: var(--accent-text);
+	}
+
+	.omnie__feature-body {
+		position: relative;
+		width: 100%;
+		min-width: 0;
+		padding: 0.1em 0 var(--spacing-xl) 1.1em;
+	}
+
+	.omnie__feature + .omnie__feature::before {
+		position: absolute;
+		top: 0;
+		left: calc(5.5em + var(--spacing-lg));
+		right: 0;
+		height: 1px;
+		background: var(--color-border);
+		content: "";
+	}
+
+	.omnie__feature-body h3 {
+		position: relative;
+		font-family: var(--font-heading);
+		font-size: 1.125em;
+		font-weight: 700;
+		line-height: var(--lh-heading);
+		color: var(--color-contrast);
+	}
+
+	.omnie__feature-body h3::before {
+		position: absolute;
+		top: 0.42em;
+		left: -1.1em;
+		width: 0.45em;
+		height: 0.45em;
+		border-radius: 50%;
+		background: var(--accent-brand);
+		content: "";
+		transition: transform 220ms ease, background-color 220ms ease;
+	}
+
+	.omnie__feature-body p {
+		max-width: 23em;
+		margin-top: var(--spacing-xs);
+		font-size: 1em;
+		line-height: 1.5;
+		color: var(--color-text-secondary);
+	}
+
+	.omnie__cta-wrap {
+		width: 100%;
+		margin-top: var(--spacing-lg);
+	}
+
+	.omnie__cta-question {
+		font-family: var(--font-heading);
+		font-size: 1.125em;
+		font-weight: 700;
+		color: var(--color-contrast);
+	}
+
+	.omnie__cta-row {
+		display: flex;
+		align-items: center;
+		gap: var(--spacing-xl);
+		margin-top: var(--spacing-md);
+	}
+
+	.omnie__cta {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.75em;
+		padding: 0.9em 1.45em;
+		border-radius: var(--radius-md);
+		background: var(--accent-deep);
+		font-size: 1em;
+		font-weight: 600;
+		text-decoration: none;
+		color: var(--color-canvas);
+		transition: transform var(--transition-base), background-color var(--transition-base);
+	}
+
+	.omnie__cta:hover {
+		background: var(--accent-text);
+		transform: translateY(-2px);
+	}
+
+	.omnie__cta:active {
+		transform: translateY(0) scale(0.98);
+	}
+
+	.omnie__cta:focus-visible {
+		outline: 2px solid var(--color-contrast);
+		outline-offset: 3px;
+	}
+
+	.omnie__cta :global(svg) {
+		width: 1.25em;
+		height: 1.25em;
+	}
+
+	.omnie__cta-arrow {
+		margin-left: 0.45em;
+		font-size: 1.2em;
+		line-height: 1;
+	}
+
+	.omnie__cta-note {
+		font-size: var(--text-sm);
+		line-height: 1.45;
+		color: var(--color-text-secondary);
+	}
+
+	@media (hover: hover) and (pointer: fine) {
+		.omnie__profile:hover { transform: translateY(-.4em); border-color: var(--accent-brand); box-shadow: var(--elevation-3); }
+		.omnie__profile:hover .omnie__photo-mark { opacity: .24; transform: scale(1.06); }
+		.omnie__feature:hover { transform: translateX(.35em); }
+		.omnie__feature:hover .omnie__feature-body h3::before { background-color: var(--accent-deep); transform: scale(1.28); }
+	}
+
+	@media screen and (max-width: 991px) {
+		.omnie__grid {
+			grid-template-columns: minmax(0, 1fr);
+			max-width: 42em;
+			margin-inline: auto;
+		}
+
+		.omnie__profile {
+			max-width: 34em;
+			width: 100%;
+		}
+
+		.omnie__photo {
+			aspect-ratio: 1.4;
+		}
+	}
+
+	@media screen and (max-width: 767px) {
+		.omnie__outer {
+			padding-block: var(--spacing-5xl);
+		}
+
+		.omnie__identity-meta {
+			flex-direction: column;
+			gap: var(--spacing-xs);
+		}
+
+		.omnie__expertise {
+			margin-inline: var(--spacing-lg);
+		}
+
+		.omnie__expertise-item {
+			flex-direction: column;
+			gap: 0.45em;
+			font-size: 0.625em;
+		}
+
+		.omnie__title br {
+			display: none;
+		}
+
+		.omnie__feature {
+			grid-template-columns: 3.75em minmax(0, 1fr);
+			gap: var(--spacing-md);
+			min-height: 0;
+		}
+
+		.omnie__feature-num {
+			font-size: 2.25em;
+		}
+
+		.omnie__feature + .omnie__feature::before {
+			left: calc(3.75em + var(--spacing-md));
+		}
+
+		.omnie__cta-row {
+			align-items: flex-start;
+			flex-direction: column;
+			gap: var(--spacing-sm);
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.omnie__profile, .omnie__photo-mark, .omnie__feature, .omnie__feature-body h3::before { transition: none; }
+	}
+</style>

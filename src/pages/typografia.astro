@@ -1,0 +1,620 @@
+---
+// TYMCZASOWA strona do ustalenia skali typograficznej. Usunąć po wyborze.
+import Layout from "../layouts/Layout.astro";
+
+const ctaVariants = [
+	{
+		id: "1",
+		name: "Większe",
+		spec: "72px, normalna wielkość liter",
+		cls: "cta--big",
+		note: "Największy tekst na stronie — większy nawet niż H1. Mocne zamknięcie, ale formalnie łamie hierarchię.",
+	},
+	{
+		id: "2",
+		name: "Capslock zwarty",
+		spec: "44px, WERSALIKI, tracking +2px",
+		cls: "cta--caps",
+		note: "Mniejszy stopień, ale wersaliki dają masę i powagę. Hierarchia zostaje nienaruszona — H1 dalej rządzi.",
+	},
+	{
+		id: "3",
+		name: "Capslock mocny",
+		spec: "56px, WERSALIKI, tracking +2px",
+		cls: "cta--caps-big",
+		note: "Kompromis: wersaliki + większy stopień. Krzyczy, ale nadal nie przebija H1 (64px).",
+	},
+];
+---
+
+<Layout title="Skala typograficzna — FilarAI" noindex={true}>
+	<main id="main">
+		<section class="tp section--atmosphere">
+			<div class="tp__inner container">
+				<header class="tp__head">
+					<h1 class="tp__page-title">Skala typograficzna</h1>
+
+					<div class="tp__now">
+						<p>
+							<strong>Zmiana względem wariantu C:</strong> H1 zjeżdża z 72 na
+							<strong>64px</strong>, podtytuł rośnie z 19 na <strong>20px</strong>. Stosunek
+							tytuł/podtytuł spada z 3,8 na <strong>3,2</strong> — to była ta dysproporcja. Tytuły
+							sekcji na 48px, żeby H1 miało nad nimi wyraźną przewagę (64÷48 = 1,33).
+						</p>
+					</div>
+				</header>
+
+				{/* ===== 1. Suwaki ===== */}
+
+				<section class="tp__part">
+					<h2 class="tp__part-title">
+						<span class="tp__num">1</span> Dostrój proporcję
+					</h2>
+					<p class="tp__part-lead">
+						Ruszaj suwakami i patrz na blok niżej. Domyślnie ustawione na moją propozycję.
+					</p>
+
+					<div class="tp__controls">
+						<label class="tp__ctrl">
+							<span class="tp__ctrl-label">
+								Hero H1 <output id="out-h1">64</output>px
+							</span>
+							<input type="range" id="in-h1" min="48" max="80" step="2" value="64" />
+						</label>
+
+						<label class="tp__ctrl">
+							<span class="tp__ctrl-label">
+								Podtytuł <output id="out-lead">20</output>px
+							</span>
+							<input type="range" id="in-lead" min="16" max="24" step="1" value="20" />
+						</label>
+
+						<label class="tp__ctrl">
+							<span class="tp__ctrl-label">
+								Tytuł sekcji <output id="out-h2">48</output>px
+							</span>
+							<input type="range" id="in-h2" min="32" max="64" step="2" value="48" />
+						</label>
+
+						<div class="tp__ratio">
+							<span class="tp__ratio-label">Stosunek H1 / podtytuł</span>
+							<strong id="out-ratio">3.2</strong>
+							<span class="tp__ratio-hint" id="out-verdict">w sam raz</span>
+						</div>
+					</div>
+
+					<div class="tp__demo" id="demo">
+						<span class="tp__tag">Hero</span>
+						<h3 class="tp__hero-title">
+							Strony, systemy AI i marketing dla <span class="tp__accent">małych firm.</span>
+						</h3>
+						<p class="tp__hero-lead">Buduję to, co realnie przynosi klientów – bez pustych obietnic.</p>
+
+						<hr class="tp__rule" />
+
+						<span class="tp__tag">Sekcja</span>
+						<h3 class="tp__sec-title">Jak wygląda współpraca</h3>
+						<p class="tp__sec-lead">
+							Zaczynamy od rozmowy — pytam o Twoją firmę, klientów i to, co dziś nie działa.
+							Wychodzisz z konkretem: co zbudujemy, ile to zajmie i ile kosztuje.
+						</p>
+
+						<div class="tp__cards">
+							{
+								["Rozmowa", "Wycena", "Wdrożenie"].map((c, i) => (
+									<div class="tp__card">
+										<span class="tp__card-num">0{i + 1}</span>
+										<h4 class="tp__card-title">{c}</h4>
+										<p class="tp__card-body">
+											Krótki opis kroku, taki jak w prawdziwej karcie na stronie. Treść ma 17px.
+										</p>
+									</div>
+								))
+							}
+						</div>
+					</div>
+				</section>
+
+				{/* ===== 2. CTA ===== */}
+
+				<section class="tp__part">
+					<h2 class="tp__part-title">
+						<span class="tp__num">2</span> Finalne CTA — wybierz jeden
+					</h2>
+					<p class="tp__part-lead">
+						Wszystkie trzy na tym samym tle co prawdziwa sekcja. Odsuń się od ekranu i zobacz, który
+						zatrzymuje wzrok.
+					</p>
+
+					{
+						ctaVariants.map((v) => (
+							<div class="tp__cta-row">
+								<div class="tp__cta-meta">
+									<span class="tp__cta-id">{v.id}</span>
+									<div>
+										<h3 class="tp__cta-name">{v.name}</h3>
+										<p class="tp__cta-spec">{v.spec}</p>
+										<p class="tp__cta-note">{v.note}</p>
+									</div>
+								</div>
+
+								<div class="tp__cta-box">
+									<h4 class={`tp__cta-title ${v.cls}`}>Porozmawiajmy o Twojej firmie.</h4>
+									<p class="tp__cta-lead">
+										Pierwsza rozmowa jest bez zobowiązań. Odpowiadam w ciągu 24 godzin.
+									</p>
+									<span class="tp__btn">Umów rozmowę →</span>
+								</div>
+							</div>
+						))
+					}
+				</section>
+
+				<footer class="tp__foot">
+					<p>
+						Podaj: rozmiary z suwaków (H1 / podtytuł / sekcja) + numer CTA. Np.
+						<strong>„64 / 20 / 48, CTA 3"</strong>.
+					</p>
+				</footer>
+			</div>
+		</section>
+	</main>
+</Layout>
+
+<script>
+	const $ = (id: string) => document.getElementById(id);
+	const demo = $("demo");
+	const outRatio = $("out-ratio");
+	const outVerdict = $("out-verdict");
+
+	if (demo && outRatio && outVerdict) {
+		const controls: Array<[string, string, string]> = [
+			["in-h1", "out-h1", "--h1"],
+			["in-lead", "out-lead", "--lead"],
+			["in-h2", "out-h2", "--h2"],
+		];
+
+		const sync = () => {
+			for (const [inId, outId, cssVar] of controls) {
+				const input = $(inId) as HTMLInputElement | null;
+				const out = $(outId);
+				if (!input || !out) continue;
+				const px = Number(input.value);
+				out.textContent = String(px);
+				demo.style.setProperty(cssVar, `${px / 16}em`);
+			}
+
+			const h1 = Number(($("in-h1") as HTMLInputElement).value);
+			const lead = Number(($("in-lead") as HTMLInputElement).value);
+			const ratio = h1 / lead;
+			outRatio.textContent = ratio.toFixed(2);
+
+			// Progi z doświadczenia: poniżej 2.6 hierarchia się rozmywa,
+			// powyżej 3.6 podtytuł ginie przy tytule (to był problem wariantu C: 3.8).
+			let verdict: string, tone: string;
+			if (ratio < 2.6) {
+				verdict = "za mały kontrast — tytuł nie dominuje";
+				tone = "warn";
+			} else if (ratio > 3.6) {
+				verdict = "za duża dysproporcja — podtytuł ginie";
+				tone = "warn";
+			} else {
+				verdict = "w sam raz";
+				tone = "ok";
+			}
+			outVerdict.textContent = verdict;
+			outVerdict.dataset.tone = tone;
+		};
+
+		for (const [inId] of controls) {
+			$(inId)?.addEventListener("input", sync);
+		}
+		sync();
+	}
+</script>
+
+<style>
+	.tp {
+		padding-block: 3em 5em;
+	}
+
+	.tp__inner {
+		max-width: 62em;
+	}
+
+	/* ===== Nagłówek ===== */
+
+	.tp__head {
+		max-width: 44em;
+		padding-bottom: 2.5em;
+		margin-bottom: 3em;
+		border-bottom: 1px solid var(--color-border);
+	}
+
+	.tp__page-title {
+		margin-bottom: 1em;
+		font-size: 2.5em;
+		font-weight: 600;
+		line-height: 1.1;
+	}
+
+	.tp__now {
+		padding: 1.25em 1.5em;
+		background-color: var(--accent-wash);
+		border-left: 3px solid var(--accent-brand);
+		border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+		font-size: 0.9375em;
+		line-height: 1.65;
+		color: var(--color-text-secondary);
+	}
+
+	.tp__now strong {
+		color: var(--color-contrast);
+	}
+
+	/* ===== Części ===== */
+
+	.tp__part {
+		margin-bottom: 4em;
+	}
+
+	.tp__part-title {
+		display: flex;
+		align-items: center;
+		gap: 0.625em;
+		margin-bottom: 0.375em;
+		font-size: 1.5em;
+		font-weight: 600;
+	}
+
+	.tp__num {
+		display: grid;
+		place-items: center;
+		width: 1.5em;
+		height: 1.5em;
+		border-radius: 50%;
+		background-color: var(--color-contrast);
+		color: var(--color-text-on-dark);
+		font-size: 0.75em;
+		font-weight: 700;
+		font-variant-numeric: tabular-nums;
+	}
+
+	.tp__part-lead {
+		margin-bottom: 1.5em;
+		font-size: 1em;
+		line-height: 1.6;
+		color: var(--color-text-muted);
+	}
+
+	/* ===== Suwaki ===== */
+
+	.tp__controls {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr)) auto;
+		align-items: end;
+		gap: 1.5em;
+		padding: 1.5em;
+		margin-bottom: 1.5em;
+		background-color: var(--color-canvas);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-md);
+	}
+
+	.tp__ctrl {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5em;
+	}
+
+	.tp__ctrl-label {
+		font-size: 0.875em;
+		font-weight: var(--weight-emphasis);
+		color: var(--color-contrast);
+		font-variant-numeric: tabular-nums;
+	}
+
+	.tp__ctrl output {
+		color: var(--accent-deep);
+		font-weight: 700;
+	}
+
+	.tp__ctrl input[type="range"] {
+		width: 100%;
+		accent-color: var(--accent-brand);
+		cursor: pointer;
+	}
+
+	.tp__ratio {
+		display: flex;
+		flex-direction: column;
+		gap: 0.125em;
+		padding-left: 1.5em;
+		border-left: 1px solid var(--color-border);
+		white-space: nowrap;
+	}
+
+	.tp__ratio-label {
+		font-size: 0.75em;
+		text-transform: uppercase;
+		letter-spacing: 1px;
+		color: var(--color-text-muted);
+	}
+
+	.tp__ratio strong {
+		font-size: 1.5em;
+		font-weight: 700;
+		font-variant-numeric: tabular-nums;
+		color: var(--color-contrast);
+	}
+
+	.tp__ratio-hint {
+		font-size: 0.8125em;
+		font-weight: var(--weight-emphasis);
+	}
+
+	.tp__ratio-hint[data-tone="ok"] {
+		color: var(--accent-deep);
+	}
+
+	.tp__ratio-hint[data-tone="warn"] {
+		color: #b45309;
+	}
+
+	/* ===== Demo ===== */
+
+	.tp__demo {
+		--h1: 4em;
+		--h2: 3em;
+		--lead: 1.25em;
+
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 0.625em;
+		padding: 2.5em;
+		background-color: var(--color-canvas);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-lg);
+	}
+
+	.tp__tag {
+		display: inline-block;
+		padding: 0.25em 0.625em;
+		background-color: var(--accent-wash);
+		border-radius: var(--radius-sm);
+		font-size: 0.75rem;
+		font-weight: 600;
+		letter-spacing: 0.5px;
+		text-transform: uppercase;
+		color: var(--accent-deep);
+	}
+
+	.tp__rule {
+		width: 100%;
+		margin-block: 2.5em;
+		border: none;
+		border-top: 1px dashed var(--color-border);
+	}
+
+	.tp__hero-title {
+		max-width: 16ch;
+		font-size: var(--h1);
+		font-weight: 600;
+		line-height: 1.08;
+		letter-spacing: -0.025em;
+		text-wrap: balance;
+	}
+
+	.tp__accent {
+		color: var(--accent-text);
+	}
+
+	.tp__hero-lead {
+		max-width: 40ch;
+		font-size: var(--lead);
+		line-height: 1.6;
+		color: var(--color-text-secondary);
+	}
+
+	.tp__sec-title {
+		font-size: var(--h2);
+		font-weight: 600;
+		line-height: 1.15;
+		letter-spacing: -0.02em;
+	}
+
+	.tp__sec-lead {
+		max-width: 52ch;
+		font-size: var(--lead);
+		line-height: 1.6;
+		color: var(--color-text-secondary);
+	}
+
+	.tp__cards {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 1em;
+		width: 100%;
+		margin-top: 1.5em;
+	}
+
+	.tp__card {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5em;
+		padding: 1.25em;
+		background-color: var(--color-atmosphere);
+		border-radius: var(--radius-md);
+	}
+
+	.tp__card-num {
+		font-size: 0.8125em;
+		font-weight: 600;
+		color: var(--accent-deep);
+		font-variant-numeric: tabular-nums;
+	}
+
+	.tp__card-title {
+		font-size: 1.5em;
+		font-weight: 600;
+		line-height: 1.25;
+	}
+
+	.tp__card-body {
+		font-size: 1.0625em;
+		line-height: 1.6;
+		color: var(--color-text-secondary);
+	}
+
+	/* ===== CTA ===== */
+
+	.tp__cta-row {
+		display: grid;
+		grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+		align-items: center;
+		gap: 2em;
+		margin-bottom: 1.5em;
+	}
+
+	.tp__cta-meta {
+		display: flex;
+		align-items: flex-start;
+		gap: 0.875em;
+	}
+
+	.tp__cta-id {
+		display: grid;
+		place-items: center;
+		flex-shrink: 0;
+		width: 2em;
+		height: 2em;
+		border-radius: 0.5em;
+		background-color: var(--color-contrast);
+		color: var(--color-text-on-dark);
+		font-weight: 700;
+		font-size: 0.875em;
+		font-variant-numeric: tabular-nums;
+	}
+
+	.tp__cta-name {
+		font-size: 1.125em;
+		font-weight: 600;
+	}
+
+	.tp__cta-spec {
+		margin-bottom: 0.5em;
+		font-size: 0.875em;
+		color: var(--accent-deep);
+		font-weight: var(--weight-emphasis);
+		font-variant-numeric: tabular-nums;
+	}
+
+	.tp__cta-note {
+		font-size: 0.875em;
+		line-height: 1.55;
+		color: var(--color-text-muted);
+	}
+
+	.tp__cta-box {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 0.75em;
+		padding: 2.5em 1.5em;
+		text-align: center;
+		background-color: var(--color-canvas);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-lg);
+	}
+
+	.tp__cta-title {
+		max-width: 18ch;
+		font-weight: 600;
+		line-height: 1.1;
+		text-wrap: balance;
+	}
+
+	/* Wariant 1 — większe */
+	.cta--big {
+		font-size: 4.5em; /* 72px */
+		letter-spacing: -0.025em;
+	}
+
+	/* Wariant 2 — capslock zwarty.
+	   Wersaliki BEZ dodatniego trackingu się zlewają — stąd +2px. */
+	.cta--caps {
+		font-size: 2.75em; /* 44px */
+		text-transform: uppercase;
+		letter-spacing: 2px;
+		line-height: 1.2;
+	}
+
+	/* Wariant 3 — capslock mocny */
+	.cta--caps-big {
+		font-size: 3.5em; /* 56px */
+		text-transform: uppercase;
+		letter-spacing: 2px;
+		line-height: 1.15;
+	}
+
+	.tp__cta-lead {
+		max-width: 34ch;
+		font-size: 1.25em;
+		line-height: 1.6;
+		color: var(--color-text-secondary);
+	}
+
+	.tp__btn {
+		margin-top: 0.5em;
+		padding: 0.875em 1.75em;
+		background-color: var(--accent-fill);
+		border-radius: var(--radius-pill);
+		font-weight: var(--weight-emphasis);
+		color: var(--color-contrast);
+	}
+
+	/* ===== Stopka ===== */
+
+	.tp__foot {
+		padding-top: 2.5em;
+		border-top: 1px solid var(--color-border);
+		text-align: center;
+		color: var(--color-text-muted);
+	}
+
+	.tp__foot strong {
+		color: var(--color-contrast);
+	}
+
+	/* ===== Responsywność ===== */
+
+	@media screen and (max-width: 991px) {
+		.tp__controls {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+
+		.tp__ratio {
+			padding-left: 0;
+			border-left: none;
+		}
+
+		.tp__cta-row {
+			grid-template-columns: minmax(0, 1fr);
+		}
+	}
+
+	@media screen and (max-width: 767px) {
+		.tp__controls {
+			grid-template-columns: minmax(0, 1fr);
+		}
+
+		.tp__demo {
+			padding: 1.5em;
+		}
+
+		.tp__cards {
+			grid-template-columns: minmax(0, 1fr);
+		}
+	}
+</style>

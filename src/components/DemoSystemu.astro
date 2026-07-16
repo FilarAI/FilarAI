@@ -1,0 +1,1118 @@
+---
+// DemoSystemu — redesign wg attachment.
+// Jasna sekcja z czarną ramką w środku (jak Liczby/CTA). Wewnątrz:
+// LEFT: pill badge, H2 z lime akcentem, subtitle, scenariusz-card, 2 CTA, 4-krokowy flow, 3 features
+// RIGHT: view switcher (Telefon/Dashboard) + iPhone mockup z WhatsApp chatem
+
+interface Step {
+	num: string;
+	name: string;
+	icon: string;
+}
+
+const steps: Step[] = [
+	{
+		num: "01",
+		name: "Zapytanie",
+		icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H8l-4 4V5z"/><path d="M8 10h8M8 13h5"/></svg>`,
+	},
+	{
+		num: "02",
+		name: "Lead zapisany",
+		icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.25"/><path d="M5.5 20c.7-3.2 3-5 6.5-5s5.8 1.8 6.5 5"/></svg>`,
+	},
+	{
+		num: "03",
+		name: "Odpowiedź",
+		icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m21 3-7.4 18-3.8-7.8L2 9.4 21 3Z"/><path d="m9.8 13.2 4.3-4.3"/></svg>`,
+	},
+	{
+		num: "04",
+		name: "Follow-up",
+		icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><path d="M12 7v5l3 2"/></svg>`,
+	},
+];
+
+const stats = [
+	{ value: "<5 min", label: "czas odpowiedzi" },
+	{ value: "24/7", label: "system aktywny" },
+	{ value: "AUTO", label: "follow-up klienta" },
+];
+---
+
+<section class="demo section--light">
+	<div class="demo__outer">
+		<div class="demo__frame">
+			<div class="demo__grid">
+				<div class="demo__left">
+					<span class="demo__badge">
+						<span class="demo__badge-dot" aria-hidden="true"></span>
+						Demo na żywo
+					</span>
+
+					<p class="demo__eyebrow">System AI w akcji</p>
+					<h2 class="demo__title">Zobacz, co dzieje się<br /><span class="demo__accent">po wysłaniu zapytania.</span></h2>
+
+					<p class="demo__subtitle">
+						System odbiera kontakt, odpowiada i pilnuje klienta — bez ręcznego odpisywania.
+					</p>
+
+					<div class="demo__scenario">
+						<span class="demo__scenario-dot" aria-hidden="true"></span>
+						<span class="demo__scenario-value">Zapytanie ze strony WWW</span>
+						<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m7 10 5 5 5-5"/></svg>
+					</div>
+
+					<div class="demo__ctas">
+						<button type="button" class="demo__cta demo__cta--primary" data-demo-start>
+							<span class="demo__cta-icon" aria-hidden="true">
+								<svg viewBox="0 0 24 24" fill="currentColor">
+									<path d="M6 4l14 8-14 8V4z" />
+								</svg>
+							</span>
+							Uruchom demo
+						</button>
+						<a href="/kontakt" class="demo__cta demo__cta--ghost">
+							Porozmawiaj o systemie
+							<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16">
+								<path d="M5 12h14M13 6l6 6-6 6" />
+							</svg>
+						</a>
+					</div>
+
+					<ol class="demo__flow">
+						{
+							steps.map((step, i) => (
+							<li class:list={["demo__step", { "demo__step--active": i === 2 }]}>
+								<span class="demo__step-icon" set:html={step.icon} />
+								{i < 2 && <span class="demo__step-complete" aria-label="Krok ukończony">✓</span>}
+								<p class="demo__step-name">
+									{step.num} {step.name}
+								</p>
+								</li>
+							))
+						}
+					</ol>
+
+					<ul class="demo__stats">
+						{
+							stats.map((stat) => (
+								<li class="demo__stat">
+									<strong>{stat.value}</strong>
+									<span>{stat.label}</span>
+								</li>
+							))
+						}
+					</ul>
+				</div>
+
+				<div class="demo__right">
+					<div class="demo__view-row">
+						<span class="demo__view-label">Widok demo:</span>
+						<div class="demo__view-switcher" role="tablist">
+							<button type="button" role="tab" class="demo__view-tab" data-view="phone" aria-selected="true">
+								<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="16" height="16">
+									<rect x="7" y="3" width="10" height="18" rx="2" />
+									<path d="M11 18h2" />
+								</svg>
+								Telefon
+							</button>
+							<button type="button" role="tab" class="demo__view-tab" data-view="dashboard" aria-selected="false">
+								<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="16" height="16">
+									<rect x="3" y="4" width="18" height="12" rx="2" />
+									<path d="M8 20h8M12 16v4" />
+								</svg>
+								Dashboard
+							</button>
+						</div>
+					</div>
+
+					<div class="demo__phone">
+						<div class="demo__phone-notch" aria-hidden="true"></div>
+						<div class="demo__phone-screen">
+							<div class="demo__status">
+								<span class="demo__status-time">9:41</span>
+								<span class="demo__status-icons" aria-hidden="true">
+									<svg viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><rect x="4" y="14" width="2" height="4"/><rect x="8" y="12" width="2" height="6"/><rect x="12" y="10" width="2" height="8"/><rect x="16" y="8" width="2" height="10"/></svg>
+									<svg viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M12 5a13 13 0 0 1 9 3.6l-2 2a10 10 0 0 0-14 0l-2-2A13 13 0 0 1 12 5zm0 5a8 8 0 0 1 5.4 2.1l-2 2a5 5 0 0 0-6.8 0l-2-2A8 8 0 0 1 12 10zm0 5a3 3 0 0 1 2.1.9l-2.1 2.1-2.1-2.1A3 3 0 0 1 12 15z"/></svg>
+									<svg viewBox="0 0 26 12" fill="none" width="20" height="10"><rect x="1" y="1" width="20" height="10" rx="2" stroke="currentColor" stroke-width="1"/><rect x="3" y="3" width="16" height="6" rx="1" fill="currentColor"/><rect x="22" y="4" width="1.5" height="4" fill="currentColor"/></svg>
+								</span>
+							</div>
+
+							<div class="demo__chat-header">
+								<span class="demo__chat-back" aria-hidden="true">‹</span>
+								<span class="demo__chat-avatar">F</span>
+								<div class="demo__chat-user">
+									<p class="demo__chat-name">Filar AI</p>
+									<p class="demo__chat-status"><span class="demo__chat-online"></span> online</p>
+								</div>
+								<span class="demo__chat-menu" aria-hidden="true">⋮</span>
+							</div>
+
+							<div class="demo__chat">
+								<div class="demo__bubble demo__bubble--in">
+									<p>Dzień dobry, jestem zainteresowany stworzeniem strony dla mojej firmy. Czy możecie przygotować wycenę?</p>
+									<span class="demo__time">10:31</span>
+								</div>
+								<div class="demo__bubble demo__bubble--out">
+									<p>Cześć! Dzięki za wiadomość 👋 Przygotowałem kilka pytań, aby lepiej dopasować ofertę do Twoich potrzeb.</p>
+									<span class="demo__time">10:31 <span class="demo__tick">✓✓</span></span>
+								</div>
+								<button class="demo__quick" type="button">
+									<span class="demo__quick-icon" aria-hidden="true">💬</span>
+									Jaki rodzaj strony Cię interesuje?
+									<span class="demo__quick-arrow" aria-hidden="true">›</span>
+								</button>
+								<button class="demo__quick" type="button">
+									<span class="demo__quick-icon" aria-hidden="true">💬</span>
+									Ile podstron orientacyjnie potrzebujesz?
+									<span class="demo__quick-arrow" aria-hidden="true">›</span>
+								</button>
+								<button class="demo__quick" type="button">
+									<span class="demo__quick-icon" aria-hidden="true">📅</span>
+									Kiedy planujesz rozpocząć projekt?
+									<span class="demo__quick-arrow" aria-hidden="true">›</span>
+								</button>
+								<span class="demo__time demo__time--center">10:32</span>
+								<div class="demo__bubble demo__bubble--in">
+									<p>Strona firmowa, 5–10 podstron, najlepiej jak najszybciej.</p>
+									<span class="demo__time">10:33 <span class="demo__tick">✓✓</span></span>
+								</div>
+								<div class="demo__bubble demo__bubble--out">
+									<p>Dzięki! Otrzymałeś wstępną wycenę na email. W razie pytań jestem do dyspozycji.</p>
+									<span class="demo__time">10:34</span>
+								</div>
+								<div class="demo__bubble demo__bubble--out">
+									<p>Zaplanowałem follow-up za 24h, żeby upewnić się, że wszystko jasne.</p>
+									<span class="demo__time">10:34 <span class="demo__tick">✓✓</span></span>
+								</div>
+							</div>
+
+							<div class="demo__composer">
+								<span class="demo__composer-plus" aria-hidden="true">+</span>
+								<span class="demo__composer-input">Wiadomość</span>
+								<span class="demo__composer-icons" aria-hidden="true">
+									<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M21 12l-9 9a5 5 0 0 1-7-7l9-9a3 3 0 0 1 4 4l-8 8a1 1 0 0 1-1-1l8-8"/></svg>
+									<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><rect x="3" y="6" width="18" height="14" rx="2"/><path d="M8 6l2-2h4l2 2"/><circle cx="12" cy="13" r="4"/></svg>
+								</span>
+								<span class="demo__composer-mic" aria-hidden="true">
+									<svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M12 3a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3zm7 9a7 7 0 0 1-14 0h2a5 5 0 0 0 10 0h2zm-8 8v-2h2v2h-2z"/></svg>
+								</span>
+							</div>
+						</div>
+					</div>
+
+					<div class="demo__dashboard" hidden>
+						<div class="demo__dash-header">
+							<div>
+								<p class="demo__dash-title">Panel automatyzacji</p>
+								<p class="demo__dash-sub">Scenariusz: Zapytanie o stronę WWW</p>
+							</div>
+							<span class="demo__dash-range">Ostatnie 24h</span>
+						</div>
+
+						<div class="demo__dash-kpis">
+							<div class="demo__dash-kpi">
+								<span class="demo__dash-kpi-label">Wysłane</span>
+								<span class="demo__dash-kpi-value">247</span>
+								<span class="demo__dash-kpi-delta">+18%</span>
+							</div>
+							<div class="demo__dash-kpi">
+								<span class="demo__dash-kpi-label">Odpowiedziało</span>
+								<span class="demo__dash-kpi-value">89%</span>
+								<span class="demo__dash-kpi-delta">220 z 247</span>
+							</div>
+							<div class="demo__dash-kpi">
+								<span class="demo__dash-kpi-label">Konwersje</span>
+								<span class="demo__dash-kpi-value">34%</span>
+								<span class="demo__dash-kpi-delta">75 klientów</span>
+							</div>
+						</div>
+
+						<div class="demo__dash-chart-card">
+							<div class="demo__dash-chart-head">
+								<span class="demo__dash-chart-title">Aktywność</span>
+								<span class="demo__dash-chart-legend">
+									<span class="demo__dash-legend-dot"></span> Wiadomości
+								</span>
+							</div>
+							<svg viewBox="0 0 320 90" class="demo__dash-chart" preserveAspectRatio="none">
+								<polygon points="0,70 32,55 64,60 96,42 128,50 160,30 192,38 224,22 256,28 288,14 320,20 320,90 0,90" fill="var(--accent-brand)" opacity=".18" />
+								<polyline points="0,70 32,55 64,60 96,42 128,50 160,30 192,38 224,22 256,28 288,14 320,20" fill="none" stroke="var(--accent-fill)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+								<circle cx="288" cy="14" r="4" fill="var(--accent-fill)" />
+								<circle cx="288" cy="14" r="8" fill="none" stroke="var(--accent-fill)" stroke-opacity=".35" />
+							</svg>
+							<div class="demo__dash-axis">
+								<span>00</span><span>04</span><span>08</span><span>12</span><span>16</span><span>20</span><span>Teraz</span>
+							</div>
+						</div>
+
+						<div class="demo__dash-list">
+							<p class="demo__dash-list-title">Ostatnie rozmowy</p>
+							<div class="demo__dash-row">
+								<span class="demo__dash-row-avatar">MK</span>
+								<div class="demo__dash-row-body">
+									<p class="demo__dash-row-name">Marcin Kwiecień</p>
+									<p class="demo__dash-row-msg">„Strona firmowa, 5–10 podstron..."</p>
+								</div>
+								<span class="demo__dash-row-tag">Wycena</span>
+								<span class="demo__dash-row-time">10:34</span>
+							</div>
+							<div class="demo__dash-row">
+								<span class="demo__dash-row-avatar">AN</span>
+								<div class="demo__dash-row-body">
+									<p class="demo__dash-row-name">Anna Nowak</p>
+									<p class="demo__dash-row-msg">„Sklep internetowy z integracją..."</p>
+								</div>
+								<span class="demo__dash-row-tag demo__dash-row-tag--pending">W trakcie</span>
+								<span class="demo__dash-row-time">10:28</span>
+							</div>
+							<div class="demo__dash-row">
+								<span class="demo__dash-row-avatar">JW</span>
+								<div class="demo__dash-row-body">
+									<p class="demo__dash-row-name">Jakub Wiśniewski</p>
+									<p class="demo__dash-row-msg">„Landing dla nowego produktu..."</p>
+								</div>
+								<span class="demo__dash-row-tag">Wycena</span>
+								<span class="demo__dash-row-time">10:12</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<script>
+	const root = document.querySelector<HTMLElement>(".demo");
+	if (root) {
+		const tabs = root.querySelectorAll<HTMLButtonElement>(".demo__view-tab");
+		const phone = root.querySelector<HTMLElement>(".demo__phone");
+		const dash = root.querySelector<HTMLElement>(".demo__dashboard");
+		const start = root.querySelector<HTMLButtonElement>("[data-demo-start]");
+
+		const selectView = (view: string | undefined) => {
+			tabs.forEach((tab) => tab.setAttribute("aria-selected", tab.dataset.view === view ? "true" : "false"));
+			if (phone) phone.hidden = view !== "phone";
+			if (dash) dash.hidden = view !== "dashboard";
+		};
+
+		tabs.forEach((tab) => {
+			tab.addEventListener("click", () => {
+				selectView(tab.dataset.view);
+			});
+		});
+
+		start?.addEventListener("click", () => selectView("phone"));
+	}
+</script>
+
+<style>
+	.demo__outer {
+		max-width: var(--size-container);
+		margin-inline: auto;
+		padding-inline: var(--container-padding);
+		padding-block: var(--spacing-section);
+	}
+
+	.demo__frame {
+		position: relative;
+		background-color: var(--color-atmosphere-dark);
+		border-radius: var(--radius-lg);
+		padding: 2.25em 3em 2.75em;
+		color: var(--color-text-on-dark);
+		overflow: hidden;
+	}
+
+	.demo__grid {
+		display: grid;
+		grid-template-columns: minmax(0, 1.08fr) minmax(21em, 0.92fr);
+		gap: 3em;
+		align-items: stretch;
+	}
+
+	/* ===== LEFT ===== */
+
+	.demo__left {
+		display: flex;
+		flex-direction: column;
+		gap: 1.35em;
+	}
+
+	.demo__badge {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5em;
+		align-self: flex-start;
+		padding: 0.5em 1em;
+		font-family: var(--font-body);
+		font-size: 0.8125em;
+		font-weight: var(--weight-emphasis);
+		letter-spacing: 1px;
+		text-transform: uppercase;
+		color: var(--color-text-on-dark);
+		background-color: rgba(255, 255, 255, 0.06);
+		border: 1px solid rgba(255, 255, 255, 0.12);
+		border-radius: var(--radius-pill);
+	}
+
+	.demo__badge-dot {
+		width: 0.5em;
+		height: 0.5em;
+		border-radius: 50%;
+		background-color: var(--color-accent);
+		box-shadow: 0 0 .75em var(--color-accent);
+	}
+
+	.demo__eyebrow {
+		margin-top: 2.35em;
+		font-size: .78em;
+		font-weight: var(--weight-emphasis);
+		letter-spacing: .14em;
+		text-transform: uppercase;
+		color: var(--color-text-on-dark-muted);
+	}
+
+	.demo__title {
+		font-family: var(--font-heading);
+		font-size: 3.25em;
+		font-weight: var(--weight-heading);
+		line-height: .98;
+		letter-spacing: -.05em;
+		text-wrap: balance;
+		color: var(--color-text-on-dark);
+	}
+
+	.demo__accent {
+		color: var(--color-accent);
+	}
+
+	.demo__subtitle {
+		max-width: 29em;
+		font-size: 1.2em;
+		line-height: var(--lh-lead);
+		color: var(--color-text-on-dark-muted);
+	}
+
+	.demo__scenario {
+		display: flex;
+		align-items: center;
+		gap: .75em;
+		width: 100%;
+		max-width: 31.25em;
+		padding: .9em 1.25em;
+		background-color: rgba(255, 255, 255, 0.04);
+		border: 1px solid rgba(255, 255, 255, 0.08);
+		border-radius: var(--radius-md);
+	}
+
+	.demo__scenario-dot {
+		width: .75em;
+		height: .75em;
+		flex: 0 0 auto;
+		border-radius: 50%;
+		background-color: var(--color-accent);
+	}
+
+	.demo__scenario-value {
+		font-family: var(--font-heading);
+		font-size: .94em;
+		font-weight: var(--weight-emphasis);
+		color: var(--color-text-on-dark);
+	}
+
+	.demo__scenario > svg { width: 1.1em; height: 1.1em; margin-left: auto; color: var(--color-text-on-dark-muted); }
+
+	.demo__ctas {
+		display: flex;
+		gap: 1.25em;
+		margin-top: .1em;
+	}
+
+	.demo__cta {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.625em;
+		padding: .85em 1.35em;
+		font-family: var(--font-body);
+		font-size: 0.9375em;
+		font-weight: var(--weight-emphasis);
+		border-radius: var(--radius-pill);
+		text-decoration: none;
+		transition: transform var(--transition-fast), background-color var(--transition-fast);
+		cursor: pointer;
+	}
+
+	.demo__cta--primary {
+		background-color: var(--accent-fill);
+		border: 1px solid var(--accent-fill);
+		color: var(--color-contrast);
+	}
+
+	.demo__cta-icon {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 1.15em;
+		height: 1.15em;
+		color: currentColor;
+	}
+
+	.demo__cta-icon svg {
+		width: 0.75em;
+		height: 0.75em;
+	}
+
+	.demo__cta--ghost {
+		background-color: transparent;
+		padding-inline: 0;
+		border: 0;
+		border-radius: 0;
+		border-bottom: 1px solid var(--color-text-on-dark-muted);
+		color: var(--color-text-on-dark);
+	}
+
+	.demo__cta:hover {
+		transform: translateY(-1px);
+	}
+
+	/* ===== Przebieg i efekty ===== */
+
+	.demo__flow {
+		position: relative;
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: .85em;
+		margin-top: 1.4em;
+		padding-top: 1em;
+		list-style: none;
+	}
+
+	.demo__flow::before {
+		position: absolute;
+		top: 2.7em;
+		left: 1.8em;
+		right: 1.8em;
+		border-top: 1px dashed var(--color-border-on-dark);
+		content: "";
+	}
+
+	.demo__step {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		gap: .65em;
+		z-index: 1;
+	}
+
+	.demo__step-icon {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 3.5em;
+		height: 3.5em;
+		border-radius: 1.05em;
+		background-color: var(--color-atmosphere-dark-alt);
+		border: 1px solid var(--color-border-on-dark);
+		color: var(--color-text-on-dark);
+		box-shadow: inset 0 1px 0 rgba(255, 255, 255, .05);
+		transition: color var(--transition-base), border-color var(--transition-base), background-color var(--transition-base), transform var(--transition-base);
+	}
+
+	.demo__step-icon svg { width: 1.45em; height: 1.45em; stroke-width: 1.8; }
+	.demo__step-complete { position: absolute; top: -.25em; left: 2.65em; display: grid; width: 1.35em; height: 1.35em; place-items: center; border: .12em solid var(--color-atmosphere-dark); border-radius: 50%; background-color: var(--accent-fill); color: var(--color-contrast); font-size: .65em; font-weight: var(--weight-heading); line-height: 1; }
+
+	.demo__step-name {
+		font-family: var(--font-heading);
+		font-size: .83em;
+		font-weight: var(--weight-emphasis);
+		color: var(--color-text-on-dark-muted);
+	}
+
+	.demo__step--active .demo__step-icon {
+		color: var(--accent-fill);
+		border-color: var(--accent-fill);
+		background-color: rgba(214, 253, 112, .06);
+		box-shadow: 0 0 0 .15em rgba(214, 253, 112, .08);
+	}
+
+	.demo__step--active .demo__step-name { color: var(--accent-fill); }
+
+	.demo__stats {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		margin-top: auto;
+		padding-top: 1.8em;
+		border-top: 1px solid var(--color-border-on-dark);
+		list-style: none;
+	}
+
+	.demo__stat {
+		display: grid;
+		gap: .25em;
+		padding-inline: 1.5em;
+		border-left: 1px solid var(--color-border-on-dark);
+	}
+
+	.demo__stat:first-child { padding-left: 0; border-left: 0; }
+	.demo__stat strong {
+		font-family: var(--font-heading);
+		font-size: 1.65em;
+		font-weight: var(--weight-heading);
+		line-height: 1;
+		letter-spacing: -.04em;
+		color: var(--accent-fill);
+	}
+
+	.demo__stat span { font-size: .78em; color: var(--color-text-on-dark-muted); }
+
+	/* ===== RIGHT — widok switcher + telefon ===== */
+
+	.demo__right {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 1.25em;
+	}
+
+	.demo__view-row {
+		display: flex;
+		align-items: center;
+		gap: 1em;
+		align-self: flex-end;
+	}
+
+	.demo__view-label {
+		font-size: .875em;
+		color: var(--color-text-on-dark-muted);
+	}
+
+	.demo__view-switcher {
+		display: inline-flex;
+		align-items: stretch;
+		padding: 0.25em;
+		background-color: rgba(255, 255, 255, 0.04);
+		border: 1px solid rgba(255, 255, 255, 0.1);
+		border-radius: var(--radius-pill);
+	}
+
+	.demo__view-tab {
+		position: relative;
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5em;
+		padding: 0.5em 1em;
+		font-family: var(--font-body);
+		font-size: 0.875em;
+		font-weight: var(--weight-emphasis);
+		color: var(--color-text-on-dark-muted);
+		background: transparent;
+		border: none;
+		border-radius: var(--radius-pill);
+		cursor: pointer;
+	}
+
+	.demo__view-tab[aria-selected="true"] {
+		color: var(--color-accent);
+		background-color: rgba(214, 253, 112, 0.1);
+		border: 1px solid rgba(214, 253, 112, 0.35);
+	}
+
+	.demo__view-tab[aria-selected="true"] svg {
+		color: var(--color-accent);
+	}
+
+	/* ===== Phone mockup ===== */
+
+	.demo__phone {
+		position: relative;
+		width: 21em;
+		aspect-ratio: 9 / 19;
+		background-color: var(--color-atmosphere-dark-alt);
+		border: .15em solid var(--color-atmosphere-dark-alt);
+		border-radius: 2.5em;
+		padding: 0.5em;
+		box-shadow: var(--elevation-3);
+	}
+
+	.demo__phone-notch {
+		position: absolute;
+		top: 0.75em;
+		left: 50%;
+		transform: translateX(-50%);
+		width: 6em;
+		height: 1.25em;
+		background-color: var(--color-contrast);
+		border-radius: var(--radius-pill);
+		z-index: 3;
+	}
+
+	.demo__phone-screen {
+		width: 100%;
+		height: 100%;
+		background-color: var(--color-atmosphere-dark);
+		border-radius: 2em;
+		overflow: hidden;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.demo__status {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 0.75em 1.5em 0.375em;
+		color: var(--color-text-on-dark);
+		font-size: 0.75em;
+	}
+
+	.demo__status-time {
+		font-weight: 700;
+	}
+
+	.demo__status-icons {
+		display: inline-flex;
+		gap: 0.25em;
+		align-items: center;
+	}
+
+	.demo__chat-header {
+		display: flex;
+		align-items: center;
+		gap: 0.5em;
+		padding: 0.5em 0.75em;
+		background-color: var(--color-atmosphere-dark-alt);
+		border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+	}
+
+	.demo__chat-back {
+		color: var(--color-text-on-dark);
+		font-size: 1.25em;
+	}
+
+	.demo__chat-avatar {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 1.75em;
+		height: 1.75em;
+		border-radius: 50%;
+		background-color: var(--color-accent);
+		color: var(--color-contrast);
+		font-family: var(--font-heading);
+		font-size: 0.6875em;
+		font-weight: 700;
+	}
+
+	.demo__chat-user {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.demo__chat-name {
+		font-size: 0.6875em;
+		font-weight: 700;
+		color: var(--color-text-on-dark);
+	}
+
+	.demo__chat-status {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.25em;
+		font-size: 0.5625em;
+		color: var(--color-text-on-dark-muted);
+	}
+
+	.demo__chat-online {
+		width: 0.375em;
+		height: 0.375em;
+		border-radius: 50%;
+		background-color: var(--color-accent);
+	}
+
+	.demo__chat-menu {
+		color: var(--color-text-on-dark);
+		font-size: 0.875em;
+	}
+
+	.demo__chat {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		gap: 0.375em;
+		padding: 0.5em 0.75em;
+		overflow: hidden;
+	}
+
+	.demo__bubble {
+		max-width: 90%;
+		padding: 0.5em 0.625em;
+		border-radius: 0.75em;
+	}
+
+	.demo__bubble p {
+		font-size: 0.625em;
+		line-height: 1.35;
+		color: var(--color-text-on-dark);
+	}
+
+	.demo__bubble--in {
+		align-self: flex-start;
+		background-color: var(--color-atmosphere-dark-alt);
+	}
+
+	.demo__bubble--out {
+		align-self: flex-end;
+		background-color: rgba(214, 253, 112, 0.12);
+		border: 1px solid rgba(214, 253, 112, 0.25);
+	}
+
+	.demo__time {
+		display: block;
+		text-align: right;
+		font-size: 0.5em;
+		color: var(--color-text-on-dark-muted);
+		margin-top: 0.25em;
+	}
+
+	.demo__time--center {
+		align-self: center;
+		text-align: center;
+	}
+
+	.demo__tick {
+		color: var(--color-accent);
+	}
+
+	.demo__quick {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.375em;
+		padding: 0.5em 0.625em;
+		font-size: 0.625em;
+		text-align: left;
+		color: var(--color-text-on-dark);
+		background-color: var(--color-atmosphere-dark-alt);
+		border: 0;
+		border-radius: 0.5em;
+		cursor: pointer;
+	}
+
+	.demo__quick-icon {
+		font-size: 0.75em;
+	}
+
+	.demo__quick-arrow {
+		color: var(--color-text-on-dark-muted);
+		font-size: 0.75em;
+	}
+
+	.demo__composer {
+		display: flex;
+		align-items: center;
+		gap: 0.375em;
+		padding: 0.5em 0.75em;
+		background-color: var(--color-atmosphere-dark-alt);
+		border-top: 1px solid rgba(255, 255, 255, 0.05);
+	}
+
+	.demo__composer-plus {
+		color: var(--color-text-on-dark);
+		font-size: 1em;
+	}
+
+	.demo__composer-input {
+		flex: 1;
+		padding: 0.375em 0.625em;
+		font-size: 0.625em;
+		color: var(--color-text-on-dark-muted);
+		background-color: var(--color-atmosphere-dark);
+		border-radius: var(--radius-pill);
+	}
+
+	.demo__composer-icons {
+		display: inline-flex;
+		gap: 0.375em;
+		color: var(--color-text-on-dark-muted);
+	}
+
+	.demo__composer-mic {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 1.5em;
+		height: 1.5em;
+		border-radius: 50%;
+		background-color: var(--color-accent);
+		color: var(--color-contrast);
+	}
+
+	/* ===== Dashboard view ===== */
+
+	.demo__dashboard {
+		width: 21em;
+		aspect-ratio: 9 / 19;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		gap: 1em;
+		padding: 1.25em;
+		background-color: rgba(255, 255, 255, 0.03);
+		border: 1px solid rgba(255, 255, 255, 0.08);
+		border-radius: 1.25em;
+		overflow: hidden;
+	}
+
+	.demo__dashboard[hidden] {
+		display: none;
+	}
+
+	.demo__phone[hidden] {
+		display: none;
+	}
+
+	.demo__dash-header {
+		display: flex;
+		align-items: flex-start;
+		justify-content: space-between;
+		gap: 1em;
+	}
+
+	.demo__dash-title {
+		font-family: var(--font-heading);
+		font-size: 1em;
+		font-weight: 700;
+		color: var(--color-text-on-dark);
+	}
+
+	.demo__dash-sub {
+		margin-top: 0.125em;
+		font-size: 0.75em;
+		color: var(--color-text-on-dark-muted);
+	}
+
+	.demo__dash-range {
+		font-size: 0.75em;
+		padding: 0.375em 0.625em;
+		background-color: rgba(255, 255, 255, 0.06);
+		border: 1px solid rgba(255, 255, 255, 0.1);
+		border-radius: 0.5em;
+		color: var(--color-text-on-dark-muted);
+	}
+
+	.demo__dash-kpis {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 0.5em;
+	}
+
+	.demo__dash-kpi {
+		display: flex;
+		flex-direction: column;
+		gap: 0.125em;
+		padding: 0.75em;
+		background-color: rgba(255, 255, 255, 0.04);
+		border: 1px solid rgba(255, 255, 255, 0.08);
+		border-radius: 0.75em;
+	}
+
+	.demo__dash-kpi-label {
+		font-size: 0.625em;
+		color: var(--color-text-on-dark-muted);
+	}
+
+	.demo__dash-kpi-value {
+		font-family: var(--font-heading);
+		font-size: 1.5em;
+		font-weight: 700;
+		color: var(--color-text-on-dark);
+		line-height: 1;
+		margin-top: 0.125em;
+	}
+
+	.demo__dash-kpi-delta {
+		font-size: 0.625em;
+		color: var(--color-accent);
+		margin-top: 0.125em;
+	}
+
+	.demo__dash-chart-card {
+		padding: 0.75em 0.875em;
+		background-color: rgba(255, 255, 255, 0.04);
+		border: 1px solid rgba(255, 255, 255, 0.08);
+		border-radius: 0.75em;
+	}
+
+	.demo__dash-chart-head {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin-bottom: 0.5em;
+	}
+
+	.demo__dash-chart-title {
+		font-size: 0.75em;
+		font-weight: 600;
+		color: var(--color-text-on-dark);
+	}
+
+	.demo__dash-chart-legend {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.375em;
+		font-size: 0.625em;
+		color: var(--color-text-on-dark-muted);
+	}
+
+	.demo__dash-legend-dot {
+		width: 0.5em;
+		height: 0.5em;
+		border-radius: 50%;
+		background-color: var(--color-accent);
+	}
+
+	.demo__dash-chart {
+		width: 100%;
+		height: 5em;
+		display: block;
+	}
+
+	.demo__dash-axis {
+		display: flex;
+		justify-content: space-between;
+		margin-top: 0.375em;
+		font-size: 0.5625em;
+		color: var(--color-text-on-dark-muted);
+	}
+
+	.demo__dash-list {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5em;
+		padding: 0.75em 0.875em;
+		background-color: rgba(255, 255, 255, 0.04);
+		border: 1px solid rgba(255, 255, 255, 0.08);
+		border-radius: 0.75em;
+	}
+
+	.demo__dash-list-title {
+		font-size: 0.75em;
+		font-weight: 600;
+		color: var(--color-text-on-dark);
+		margin-bottom: 0.25em;
+	}
+
+	.demo__dash-row {
+		display: grid;
+		grid-template-columns: 1.75em minmax(0, 1fr) auto auto;
+		gap: 0.625em;
+		align-items: center;
+		padding: 0.375em 0;
+		border-top: 1px solid rgba(255, 255, 255, 0.05);
+	}
+
+	.demo__dash-row:first-of-type {
+		border-top: none;
+	}
+
+	.demo__dash-row-avatar {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 1.75em;
+		height: 1.75em;
+		border-radius: 50%;
+		background-color: rgba(214, 253, 112, 0.15);
+		color: var(--color-accent);
+		font-family: var(--font-heading);
+		font-size: 0.625em;
+		font-weight: 700;
+	}
+
+	.demo__dash-row-body {
+		display: flex;
+		flex-direction: column;
+		min-width: 0;
+	}
+
+	.demo__dash-row-name {
+		font-size: 0.75em;
+		font-weight: 600;
+		color: var(--color-text-on-dark);
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	.demo__dash-row-msg {
+		font-size: 0.625em;
+		color: var(--color-text-on-dark-muted);
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	.demo__dash-row-tag {
+		font-size: 0.5625em;
+		padding: 0.25em 0.5em;
+		background-color: rgba(214, 253, 112, 0.12);
+		border: 1px solid rgba(214, 253, 112, 0.25);
+		border-radius: 999em;
+		color: var(--color-accent);
+	}
+
+	.demo__dash-row-tag--pending {
+		background-color: rgba(255, 255, 255, 0.05);
+		border-color: rgba(255, 255, 255, 0.1);
+		color: var(--color-text-on-dark-muted);
+	}
+
+	.demo__dash-row-time {
+		font-size: 0.625em;
+		color: var(--color-text-on-dark-muted);
+	}
+
+	@media screen and (max-width: 991px) {
+		.demo__frame { padding: var(--spacing-xl); }
+		.demo__grid { grid-template-columns: 1fr; gap: var(--spacing-3xl); }
+		.demo__left { min-height: auto; }
+		.demo__eyebrow { margin-top: var(--spacing-xl); }
+		.demo__stats { margin-top: var(--spacing-xl); }
+		.demo__right { align-items: center; }
+		.demo__view-row { align-self: center; }
+	}
+
+	@media screen and (max-width: 767px) {
+		.demo__outer { padding-inline: var(--container-padding); padding-block: var(--spacing-4xl); }
+		.demo__frame { padding: var(--spacing-lg); border-radius: var(--radius-md); }
+		.demo__title { font-size: var(--text-h2); }
+		.demo__subtitle { font-size: var(--text-body); }
+		.demo__ctas { flex-wrap: wrap; gap: var(--spacing-md); }
+		.demo__flow { gap: var(--spacing-sm); }
+		.demo__step-icon { width: 3em; height: 3em; }
+		.demo__step-name { font-size: .72em; }
+		.demo__stats { padding-top: var(--spacing-lg); }
+		.demo__stat { padding-inline: var(--spacing-md); }
+		.demo__stat strong { font-size: 1.35em; }
+		.demo__stat span { font-size: .7em; }
+		.demo__view-label { display: none; }
+		.demo__phone { width: min(21em, 100%); }
+		.demo__dashboard { width: min(21em, 100%); }
+	}
+
+	@media screen and (max-width: 479px) {
+		.demo__badge { font-size: .72em; }
+		.demo__title { font-size: 2em; }
+		.demo__scenario { padding-inline: var(--spacing-md); }
+		.demo__flow { grid-template-columns: repeat(2, 1fr); row-gap: var(--spacing-lg); }
+		.demo__flow::before { display: none; }
+		.demo__stats { grid-template-columns: 1fr; gap: var(--spacing-md); }
+		.demo__stat, .demo__stat:first-child { padding-left: 0; border-left: 0; }
+		.demo__stat { padding-bottom: var(--spacing-md); border-bottom: 1px solid var(--color-border-on-dark); }
+		.demo__stat:last-child { padding-bottom: 0; border-bottom: 0; }
+		.demo__view-tab { padding-inline: .75em; }
+	}
+</style>

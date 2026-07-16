@@ -1,0 +1,325 @@
+---
+// Footer — sekcja 10 strony głównej ("Finalne CTA + Stopka", część stopki).
+// Tło strony ciemne (.section--dark), pełna szerokość, bez ramki/section-frame
+// (w odróżnieniu od LiczbyZaufania/DemoSystemu/Cta — tu cała sekcja jest czarna,
+// nie jasna sekcja z ciemną ramką w środku).
+//
+// TODO: podmienić placeholdery kontaktowe (WhatsApp/Email/Telefon) i linki
+// social (LinkedIn/Instagram) na docelowe, gdy user je dostarczy.
+// TODO: podmienić kotwice "Oferta" (#strony, #systemy-ai, #seo-geo, #meta-ads)
+// i "#o-mnie" gdy powstaną docelowe podstrony/sekcje (Oferta jeszcze nie zbudowana
+// jako osobna strona, patrz src/pages/).
+
+interface FooterLink {
+	label: string;
+	href: string;
+}
+
+interface FooterColumn {
+	title: string;
+	links: FooterLink[];
+}
+
+const columns: FooterColumn[] = [
+	{
+		title: "Oferta",
+		links: [
+			{ label: "Strony WWW", href: "#strony" },
+			{ label: "Systemy AI", href: "#systemy-ai" },
+			{ label: "SEO & GEO", href: "#seo-geo" },
+			{ label: "Meta Ads", href: "#meta-ads" },
+		],
+	},
+	{
+		title: "Firma",
+		links: [
+			{ label: "O mnie", href: "#o-mnie" },
+			{ label: "Portfolio", href: "/portfolio" },
+			{ label: "Kontakt", href: "/kontakt" },
+		],
+	},
+	{
+		title: "Kontakt",
+		links: [
+			{ label: "WhatsApp", href: "https://wa.me/+48534458418" },
+			{ label: "Email", href: "mailto:kontakt@filarai.com" },
+			{ label: "Telefon", href: "tel:+48534458418" },
+		],
+	},
+];
+
+const socialLinks = [
+	{ label: "LinkedIn", href: "https://www.linkedin.com/in/kacper-filar/", icon: "linkedin" as const },
+	{ label: "Instagram", href: "https://www.instagram.com", icon: "instagram" as const },
+	{ label: "Upwork", href: "https://www.upwork.com/freelancers/~01b19c821e8eb909ae", icon: "upwork" as const },
+];
+
+---
+
+<footer class="footer section--dark">
+	<div class="footer__inner">
+		<div class="footer__top">
+			<nav class="footer__col" aria-label="Oferta">
+				<h3 class="footer__col-title">{columns[0].title}</h3>
+				<ul class="footer__col-links">
+					{columns[0].links.map((link) => (
+						<li><a href={link.href}>{link.label}</a></li>
+					))}
+				</ul>
+			</nav>
+
+			<nav class="footer__col" aria-label="Firma">
+				<h3 class="footer__col-title">{columns[1].title}</h3>
+				<ul class="footer__col-links">
+					{columns[1].links.map((link) => (
+						<li><a href={link.href}>{link.label}</a></li>
+					))}
+				</ul>
+			</nav>
+
+			<nav class="footer__col" aria-label="Kontakt">
+				<h3 class="footer__col-title">{columns[2].title}</h3>
+				<ul class="footer__col-links">
+					{columns[2].links.map((link) => (
+						<li><a href={link.href}>{link.label}</a></li>
+					))}
+				</ul>
+			</nav>
+
+			<nav class="footer__col" aria-label="Obserwuj">
+				<h3 class="footer__col-title">Obserwuj</h3>
+				<ul class="footer__col-links footer__col-links--social">
+					{socialLinks.map((social) => (
+						<li>
+							<a href={social.href} class="footer__social-link" target="_blank" rel="noopener noreferrer" aria-label={`Otwórz profil Filar AI na ${social.label} w nowej karcie`}>
+								<span class="footer__social-icon" aria-hidden="true">
+									{social.icon === "linkedin" && <span class="footer__social-icon-text">in</span>}
+									{social.icon === "instagram" && (
+										<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+											<rect x="3" y="3" width="18" height="18" rx="5" />
+											<circle cx="12" cy="12" r="4" />
+											<circle cx="17.2" cy="6.8" r="0.6" fill="currentColor" stroke="none" />
+										</svg>
+									)}
+									{social.icon === "upwork" && <img src="/images/logos/upwork.svg" alt="" />}
+								</span>
+							</a>
+						</li>
+					))}
+				</ul>
+			</nav>
+
+			<div class="footer__logo">
+				<img
+					src="/logo/filar-ai-mark-white.svg"
+					alt="FILAR AI"
+					width="566"
+					height="686"
+					class="footer__logo-img"
+				/>
+			</div>
+		</div>
+
+		<hr class="footer__divider" />
+
+		<div class="footer__bottom">
+			<p>&copy; 2026 FilarAI. Wszystkie prawa zastrzeżone.</p>
+
+			<nav class="footer__legal" aria-label="Informacje prawne">
+				<a href="/polityka-prywatnosci">Polityka prywatności</a>
+				<span class="footer__legal-sep" aria-hidden="true">•</span>
+				<a href="/regulamin">Regulamin</a>
+			</nav>
+
+			<p>Rabka-Zdrój, Polska</p>
+		</div>
+	</div>
+
+	<div class="footer__giant" aria-hidden="true">
+		<img src="/logo/filar-ai-wordmark-white.svg" alt="" width="1227" height="359" />
+	</div>
+</footer>
+
+<style>
+	.footer {
+		overflow: hidden;
+		padding-block-start: 6em;
+		padding-block-end: 0;
+	}
+
+	.footer__inner {
+		position: relative;
+		z-index: 1;
+		max-width: var(--size-container);
+		margin-inline: auto;
+		padding-inline: 1.5em;
+	}
+
+	/* ===== Row 1 — kolumny ===== */
+
+	.footer__top {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr) auto;
+		align-items: start;
+		gap: 1em;
+	}
+
+	.footer__col-title {
+		font-size: 1.25em;
+		font-weight: 700;
+		color: var(--color-text-on-dark);
+	}
+
+	.footer__col-links {
+		display: flex;
+		flex-direction: column;
+		gap: 1.125em;
+		margin-top: 1.5em;
+	}
+
+	.footer__col-links a {
+		display: inline-flex;
+		width: fit-content;
+		font-size: 1em;
+		line-height: 1.3;
+		color: var(--color-text-on-dark-muted);
+		text-decoration: none;
+		transition: color var(--transition-base), transform var(--transition-base), opacity var(--transition-base);
+	}
+
+	.footer__col-links a:hover {
+		color: var(--color-text-on-dark);
+		transform: translateX(.25em);
+	}
+
+	.footer a:focus-visible {
+		outline: .125em solid var(--accent-fill);
+		outline-offset: .25em;
+		border-radius: var(--radius-sm);
+	}
+
+	.footer__col-links--social {
+		flex-direction: row;
+		align-items: center;
+		gap: 1.35em;
+	}
+
+	.footer__social-link {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 3em;
+		height: 3em;
+	}
+
+	.footer__social-icon {
+		display: grid;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		height: 100%;
+		flex-shrink: 0;
+		color: var(--color-text-on-dark);
+	}
+
+	.footer__social-icon-text {
+		font-family: var(--font-heading);
+		font-size: 2.1em;
+		font-weight: var(--weight-heading);
+		line-height: 1;
+	}
+
+	.footer__social-icon svg { width: 2.3em; height: 2.3em; }
+	.footer__social-icon img { width: 2.75em; height: 2.75em; object-fit: contain; filter: brightness(0) invert(1); }
+	.footer__social-link:hover { transform: translateY(-.18em) scale(1.08); }
+	.footer__social-link:hover .footer__social-icon { color: var(--accent-fill); }
+	.footer__social-link:hover img { opacity: .82; }
+
+	/* ===== Logo FILAR AI (białe) ===== */
+
+	.footer__logo {
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
+	}
+
+	/* Znak "F" jest PIONOWY (0.82:1) — poprzedni logotyp był poziomy (3:1).
+	   Dlatego wymiarujemy przez height, nie width: width: 14em zrobiłoby z niego
+	   słup na pół stopki. */
+	.footer__logo-img {
+		height: 5.5em;
+		width: auto;
+		display: block;
+	}
+
+	/* ===== Row 2 — divider ===== */
+
+	.footer__divider {
+		margin-top: 3.5em;
+		border: none;
+		border-top: 1px solid var(--color-border-on-dark);
+	}
+
+	/* ===== Row 3 — bottom bar ===== */
+
+	.footer__bottom {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1em;
+		margin-top: 2em;
+		padding-bottom: 2em;
+		font-size: 0.875em;
+		color: var(--color-text-on-dark-muted);
+	}
+
+	/* ===== Linki prawne ===== */
+
+	.footer__legal {
+		display: flex;
+		align-items: center;
+		gap: 0.75em;
+	}
+
+	.footer__legal a {
+		color: var(--color-text-on-dark-muted);
+		text-decoration: none;
+		transition: color var(--transition-base), transform var(--transition-base);
+	}
+
+	.footer__legal a:hover {
+		color: var(--color-text-on-dark);
+		transform: translateY(-.15em);
+	}
+
+	.footer__legal-sep {
+		color: var(--color-border-on-dark);
+	}
+
+	@media screen and (max-width: 767px) {
+		.footer__bottom {
+			flex-direction: column;
+			align-items: flex-start;
+			gap: 0.75em;
+		}
+	}
+
+	/* ===== Row 4 — wielkie FILARAI ===== */
+
+	/* Wielki logotyp na dole footera. */
+	.footer__giant {
+		display: flex;
+		align-items: flex-end;
+		justify-content: center;
+		width: 100%;
+		margin-top: 1em;
+		padding-inline: 1.5em;
+	}
+
+	.footer__giant img {
+		width: min(100%, 86em);
+		height: auto;
+		display: block;
+	}
+
+</style>

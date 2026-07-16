@@ -1,0 +1,267 @@
+---
+// Pakiety — cennik stron w widełkach (3 pakiety) + dodatki jednorazowe (logo,
+// identyfikacja, copy). Środkowy pakiet wyróżniony jako polecany.
+
+interface Pakiet {
+	id: string;
+	name: string;
+	tagline: string;
+	price: string;
+	unit: string;
+	features: string[];
+	featured?: boolean;
+}
+
+const pakiety: Pakiet[] = [
+	{
+		id: "landing",
+		name: "Landing Page",
+		tagline: "Jedna mocna strona pod konkretny cel",
+		price: "1 500–3 000",
+		unit: "zł",
+		features: [
+			"Jedna strona nastawiona na konwersję",
+			"Design custom pod Twoją markę",
+			"Mobile-first + SEO on-page",
+			"Formularz kontaktowy na maila",
+			"Wdrożenie + hosting startowy",
+		],
+	},
+	{
+		id: "wizytowka",
+		name: "Strona wielostronicowa",
+		tagline: "Pełna wizytówka firmy w sieci",
+		price: "3 000–6 000",
+		unit: "zł",
+		featured: true,
+		features: [
+			"Do 6 podstron (oferta, o firmie, kontakt…)",
+			"Design custom + system podstron",
+			"Mobile-first + rozbudowane SEO",
+			"CMS — samodzielna edycja treści",
+			"Formularz → mail lub CRM",
+			"Wdrożenie + 30 dni wsparcia",
+		],
+	},
+	{
+		id: "sklep",
+		name: "Sklep / system",
+		tagline: "Sprzedaż lub rezerwacje online",
+		price: "6 000–12 000",
+		unit: "zł",
+		features: [
+			"Sklep lub system rezerwacji",
+			"Integracja płatności i wysyłki",
+			"Panel do zarządzania zamówieniami",
+			"Mobile-first + SEO produktowe",
+			"Automatyzacje i powiadomienia",
+			"Wdrożenie + 30 dni wsparcia",
+		],
+	},
+];
+
+interface Addon {
+	name: string;
+	desc: string;
+	price: string;
+	icon: string;
+}
+
+const addons: Addon[] = [
+	{
+		name: "Projekt logo",
+		desc: "Znak firmowy w wektorze, warianty na jasne i ciemne tło.",
+		price: "od 500 zł",
+		icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 0 0 18M12 3a9 9 0 0 1 0 18"/></svg>`,
+	},
+	{
+		name: "Identyfikacja wizualna",
+		desc: "Paleta kolorów, typografia i zasady spójnej marki.",
+		price: "od 800 zł",
+		icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 1 0 0 18c1.5 0 2-1 2-2 0-1.5 1-2 2-2h1a4 4 0 0 0 4-4c0-5-4-8-9-8z"/><circle cx="7.5" cy="10.5" r="1"/><circle cx="12" cy="7.5" r="1"/><circle cx="16.5" cy="10.5" r="1"/></svg>`,
+	},
+	{
+		name: "Copywriting",
+		desc: "Teksty pisane pod sprzedaż i pod SEO — gotowe na stronę.",
+		price: "od 400 zł",
+		icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16M6 16l9-9 3 3-9 9H6v-3z"/><path d="M13.5 6.5l3 3"/></svg>`,
+	},
+];
+---
+
+<section class="pakiety section--light">
+	<div class="pakiety__outer">
+		<div class="pakiety__header">
+			<p class="pakiety__eyebrow"><i aria-hidden="true"></i><b>Cennik</b><span>/</span> orientacyjne widełki</p>
+			<h2 class="pakiety__title">Wybierz zakres, dopasuję resztę.</h2>
+			<p class="pakiety__subtitle">Podane widełki to punkt wyjścia. Ostateczna wycena zależy od zakresu — dostaniesz ją po krótkiej rozmowie, bez zobowiązań.</p>
+		</div>
+
+		<ul class="pakiety__grid">
+			{
+				pakiety.map((p) => (
+					<li class:list={["pakiety__card", p.featured && "pakiety__card--featured"]}>
+						{p.featured && <span class="pakiety__badge">Najczęściej wybierany</span>}
+						<div class="pakiety__card-head">
+							<h3 class="pakiety__name">{p.name}</h3>
+							<p class="pakiety__tagline">{p.tagline}</p>
+						</div>
+						<p class="pakiety__price"><span class="pakiety__price-from">od</span> {p.price} <em>{p.unit}</em></p>
+						<ul class="pakiety__features">
+							{p.features.map((f) => (
+								<li>
+									<span class="pakiety__check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg></span>
+									{f}
+								</li>
+							))}
+						</ul>
+						<a href="/kontakt" class:list={["btn", p.featured ? "btn--primary" : "btn--secondary", "pakiety__cta"]}>
+							Wyceń projekt <span aria-hidden="true">→</span>
+						</a>
+					</li>
+				))
+			}
+		</ul>
+
+		<div class="pakiety__addons">
+			<div class="pakiety__addons-head">
+				<h3 class="pakiety__addons-title">Dodatki jednorazowe</h3>
+				<p class="pakiety__addons-sub">Potrzebne raz, na start — możesz dołożyć do dowolnego pakietu.</p>
+			</div>
+			<ul class="pakiety__addons-grid">
+				{
+					addons.map((a) => (
+						<li class="pakiety__addon">
+							<span class="pakiety__addon-icon" set:html={a.icon} />
+							<div class="pakiety__addon-body">
+								<h4 class="pakiety__addon-name">{a.name}</h4>
+								<p class="pakiety__addon-desc">{a.desc}</p>
+							</div>
+							<span class="pakiety__addon-price">{a.price}</span>
+						</li>
+					))
+				}
+			</ul>
+		</div>
+	</div>
+</section>
+
+<style>
+	.pakiety__outer {
+		max-width: var(--size-container);
+		margin-inline: auto;
+		padding-inline: var(--container-padding);
+		padding-block: var(--spacing-section);
+	}
+
+	.pakiety__header { max-width: 40em; margin-bottom: var(--spacing-3xl); }
+	.pakiety__eyebrow {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.65em;
+		font-size: 0.75em;
+		font-weight: var(--weight-emphasis);
+		letter-spacing: 0.16em;
+		text-transform: uppercase;
+		color: var(--color-text-secondary);
+	}
+	.pakiety__eyebrow i { width: 0.55em; height: 0.55em; border-radius: 50%; background-color: var(--accent-brand); }
+	.pakiety__eyebrow b { color: var(--color-contrast); }
+	.pakiety__eyebrow > span { color: var(--accent-brand); }
+	.pakiety__title {
+		margin-top: var(--spacing-lg);
+		font-family: var(--font-heading);
+		font-size: var(--text-h2);
+		font-weight: var(--weight-heading);
+		line-height: var(--lh-heading);
+		letter-spacing: -1px;
+		color: var(--color-contrast);
+	}
+	.pakiety__subtitle { margin-top: var(--spacing-md); font-size: var(--text-lead); line-height: var(--lh-lead); color: var(--color-text-secondary); }
+
+	/* ===== Karty pakietów ===== */
+	.pakiety__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--spacing-lg); list-style: none; align-items: stretch; }
+	.pakiety__card {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing-lg);
+		padding: var(--spacing-2xl);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-lg);
+		background-color: var(--color-canvas);
+		box-shadow: var(--elevation-1);
+		transition: box-shadow var(--transition-base), transform var(--transition-base), border-color var(--transition-base);
+	}
+	.pakiety__card:hover { box-shadow: var(--elevation-2); transform: translateY(-0.25em); }
+	.pakiety__card--featured {
+		border-color: var(--accent-brand);
+		box-shadow: var(--elevation-3);
+		background-color: var(--color-atmosphere);
+	}
+	.pakiety__badge {
+		position: absolute;
+		top: 0;
+		left: var(--spacing-2xl);
+		transform: translateY(-50%);
+		padding: 0.4em 0.9em;
+		border-radius: var(--radius-pill);
+		background-color: var(--accent-fill);
+		color: var(--color-contrast);
+		font-size: 0.7em;
+		font-weight: var(--weight-emphasis);
+		letter-spacing: 0.04em;
+	}
+	.pakiety__name { font-family: var(--font-heading); font-size: var(--text-h3); font-weight: var(--weight-heading); color: var(--color-contrast); }
+	.pakiety__tagline { margin-top: 0.35em; font-size: var(--text-sm); color: var(--color-text-secondary); }
+	.pakiety__price { font-family: var(--font-heading); font-size: 2.25em; font-weight: var(--weight-heading); letter-spacing: -1px; color: var(--color-contrast); line-height: 1; }
+	.pakiety__price-from { font-size: 0.4em; font-weight: var(--weight-emphasis); letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-text-muted); vertical-align: middle; }
+	.pakiety__price em { font-size: 0.5em; font-style: normal; font-weight: var(--weight-emphasis); color: var(--color-text-secondary); }
+
+	.pakiety__features { display: grid; gap: 0.75em; list-style: none; flex-grow: 1; }
+	.pakiety__features li { display: grid; grid-template-columns: 1.5em 1fr; gap: 0.6em; align-items: start; font-size: var(--text-sm); line-height: 1.4; color: var(--color-text-secondary); }
+	.pakiety__check { display: grid; place-items: center; width: 1.5em; height: 1.5em; border-radius: 50%; background-color: var(--accent-wash); color: var(--accent-deep); }
+	.pakiety__check svg { width: 0.9em; height: 0.9em; }
+	.pakiety__cta { justify-content: center; margin-top: auto; }
+
+	/* ===== Dodatki jednorazowe ===== */
+	.pakiety__addons {
+		margin-top: var(--spacing-3xl);
+		padding: var(--spacing-2xl);
+		border: 1px dashed var(--color-border);
+		border-radius: var(--radius-lg);
+		background-color: var(--color-atmosphere);
+	}
+	.pakiety__addons-head { margin-bottom: var(--spacing-xl); }
+	.pakiety__addons-title { font-family: var(--font-heading); font-size: var(--text-h3); font-weight: var(--weight-heading); color: var(--color-contrast); }
+	.pakiety__addons-sub { margin-top: 0.35em; font-size: var(--text-sm); color: var(--color-text-secondary); }
+	.pakiety__addons-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--spacing-lg); list-style: none; }
+	.pakiety__addon {
+		display: grid;
+		grid-template-columns: auto 1fr;
+		grid-template-rows: auto auto;
+		column-gap: var(--spacing-md);
+		row-gap: 0.5em;
+		align-items: start;
+		padding: var(--spacing-lg);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-md);
+		background-color: var(--color-canvas);
+	}
+	.pakiety__addon-icon { display: grid; place-items: center; width: 2.75em; height: 2.75em; border-radius: var(--radius-md); background-color: var(--accent-wash); color: var(--accent-deep); grid-row: 1 / 3; }
+	.pakiety__addon-icon svg { width: 1.4em; height: 1.4em; }
+	.pakiety__addon-name { font-family: var(--font-heading); font-size: 1.0625em; font-weight: var(--weight-heading); color: var(--color-contrast); }
+	.pakiety__addon-desc { font-size: var(--text-sm); line-height: 1.45; color: var(--color-text-secondary); }
+	.pakiety__addon-price { grid-column: 2; font-size: var(--text-sm); font-weight: var(--weight-emphasis); color: var(--accent-deep); }
+
+	/* ===== Responsywność ===== */
+	@media screen and (max-width: 991px) {
+		.pakiety__grid { grid-template-columns: 1fr; max-width: 32em; }
+		.pakiety__card--featured { order: -1; }
+		.pakiety__addons-grid { grid-template-columns: 1fr; }
+	}
+	@media screen and (max-width: 767px) {
+		.pakiety__outer { padding-block: var(--spacing-4xl); }
+		.pakiety__card, .pakiety__addons { padding: var(--spacing-xl); }
+	}
+</style>

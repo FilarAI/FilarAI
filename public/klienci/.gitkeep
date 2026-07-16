@@ -1,0 +1,5 @@
+Katalog na realne screenshoty klientów dla sekcji Portfolio.
+Podmień placeholdery odwołaniami <img src="/klienci/..."> w src/components/Portfolio.astro:
+- planeta-mebli.png
+- elgraf.png
+- domki-na-luzie.png

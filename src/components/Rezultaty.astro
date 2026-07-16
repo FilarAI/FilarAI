@@ -1,0 +1,613 @@
+---
+// Rezultaty — redesign wg attachment: warm off-white bg, olive/citron accent,
+// left-aligned header, duża karta wykresu z liniowym chartem 6 tygodni, 4 KPI cards pod spodem.
+
+interface Kpi {
+	name: string;
+	prefix?: string;
+	target: number;
+	suffix?: string;
+	decimals?: number;
+	desc: string;
+	icon: string;
+}
+
+const kpis: Kpi[] = [
+	{
+		name: "Szybsza odpowiedź",
+		prefix: "<",
+		target: 5,
+		suffix: " min",
+		desc: "Średni czas pierwszej odpowiedzi na nowe zapytanie.",
+		icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H8l-4 4V5z"/><path d="M8 10h8M8 13h5"/></svg>`,
+	},
+	{
+		name: "Konwersja zapytania",
+		target: 8.2,
+		decimals: 1,
+		suffix: "%",
+		desc: "Więcej klientów pozyskanych z automatycznych rozmów.",
+		icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3 2.5-5 6-5s6 2 6 5"/><circle cx="17" cy="9" r="2.5"/><path d="M14.5 20c0-2 1.5-3.5 4-3.5s3.5 1.5 3.5 3.5"/></svg>`,
+	},
+	{
+		name: "Czas oszczędzony",
+		target: 12,
+		suffix: "h+",
+		desc: "Mniej ręcznej pracy każdego tygodnia dzięki AI.",
+		icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>`,
+	},
+];
+
+// Punkty wykresu — 6 tygodni, wartości % (0-100)
+const points = [5, 17, 32, 53, 74, 95];
+const chartW = 900;
+const chartH = 320;
+const padL = 60;
+const padR = 40;
+const padT = 20;
+const padB = 40;
+const innerW = chartW - padL - padR;
+const innerH = chartH - padT - padB;
+
+const coords = points.map((v, i) => ({
+	x: padL + (i * innerW) / (points.length - 1),
+	y: padT + innerH - (v / 100) * innerH,
+}));
+
+// Ścieżka smooth przez Catmull-Rom → Bezier
+const smoothPath = (pts: { x: number; y: number }[]) => {
+	if (pts.length < 2) return "";
+	let d = `M ${pts[0].x} ${pts[0].y}`;
+	for (let i = 0; i < pts.length - 1; i++) {
+		const p0 = pts[i - 1] || pts[i];
+		const p1 = pts[i];
+		const p2 = pts[i + 1];
+		const p3 = pts[i + 2] || p2;
+		const cp1x = p1.x + (p2.x - p0.x) / 6;
+		const cp1y = p1.y + (p2.y - p0.y) / 6;
+		const cp2x = p2.x - (p3.x - p1.x) / 6;
+		const cp2y = p2.y - (p3.y - p1.y) / 6;
+		d += ` C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${p2.x} ${p2.y}`;
+	}
+	return d;
+};
+
+const linePath = smoothPath(coords);
+const areaPath = `${linePath} L ${coords[coords.length - 1].x} ${padT + innerH} L ${coords[0].x} ${padT + innerH} Z`;
+
+const yTicks = [0, 25, 50, 75, 100];
+const highlightIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-9"/><path d="M14 6h6v6"/></svg>`;
+---
+
+<section class="rezultaty section--atmosphere">
+	<div class="rezultaty__outer">
+		<div class="rezultaty__header">
+			<span class="rezultaty__eyebrow">
+				<span class="rezultaty__eyebrow-dot" aria-hidden="true"></span>
+				Rezultaty
+			</span>
+			<h2 class="rezultaty__title">
+				Wymierne efekty,<br />
+				które robią różnicę
+			</h2>
+			<p class="rezultaty__subtitle">Systemy AI pracują dla Ciebie 24/7 i przekładają się na realne wyniki.</p>
+		</div>
+
+		<div class="rezultaty__chart-card">
+			<article class="rezultaty__highlight">
+				<span class="rezultaty__highlight-icon" set:html={highlightIcon} />
+				<p>Więcej zapytań</p>
+				<strong><span class="rezultaty__counter" data-target="147" data-prefix="+" data-suffix="%">0</span><i aria-hidden="true">↑</i></strong>
+				<small>Wzrost liczby zapytań dzięki automatyzacji i SEO</small>
+			</article>
+			<div class="rezultaty__chart-head">
+				<div>
+					<p class="rezultaty__chart-title">Wzrost efektów w czasie</p>
+					<p class="rezultaty__chart-sub">Na podstawie danych z ostatnich 6 tygodni</p>
+				</div>
+				<span class="rezultaty__chart-badge">6 tygodni⌄</span>
+			</div>
+
+			<div class="rezultaty__chart-wrap">
+				<svg
+					viewBox={`0 0 ${chartW} ${chartH}`}
+					class="rezultaty__chart"
+					preserveAspectRatio="xMidYMid meet"
+				>
+					{
+						yTicks.map((tick) => {
+							const y = padT + innerH - (tick / 100) * innerH;
+							return (
+								<g>
+									<line
+										x1={padL}
+										y1={y}
+										x2={chartW - padR}
+										y2={y}
+										stroke="var(--color-border)"
+										stroke-width="1"
+										stroke-dasharray="3 4"
+									/>
+									<text
+										x={padL - 12}
+										y={y + 4}
+										text-anchor="end"
+										font-family="Synonym, sans-serif"
+										font-size="13"
+										fill="var(--color-text-muted)"
+									>
+										{tick}%
+									</text>
+								</g>
+							);
+						})
+					}
+
+					<path class="rezultaty__chart-area" d={areaPath} fill="var(--accent-wash)" opacity="0.72" />
+					<path class="rezultaty__chart-line" d={linePath} fill="none" stroke="var(--accent-deep)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+
+					{
+						coords.map((pt, i) => {
+							const isLast = i === coords.length - 1;
+							return (
+								<g class="rezultaty__chart-point" data-index={i} tabindex="0" role="button" aria-label={`Tydzień ${i + 1}: ${points[i]}%`}>
+									{isLast && (
+										<circle cx={pt.x} cy={pt.y} r="14" fill="var(--accent-wash)" />
+									)}
+									<circle
+										cx={pt.x}
+										cy={pt.y}
+										r={isLast ? 7 : 6}
+										fill="var(--color-canvas)"
+										stroke="var(--accent-deep)"
+										stroke-width={isLast ? 3 : 2.2}
+									/>
+									<text
+										x={pt.x}
+										y={chartH - 10}
+										text-anchor="middle"
+										font-family="Synonym, sans-serif"
+										font-size="14"
+										fill="var(--color-text-muted)"
+									>
+										Tydzień {i + 1}
+									</text>
+								</g>
+							);
+						})
+					}
+				</svg>
+				<div class="rezultaty__chart-tooltip" role="status" aria-hidden="true"></div>
+			</div>
+			<aside class="rezultaty__chart-callout"><strong>✦ &nbsp; <span class="rezultaty__counter" data-target="147" data-prefix="+" data-suffix="%">0</span> więcej zapytań</strong><span>Wzrost po wdrożeniu</span></aside>
+			<p class="rezultaty__chart-note">⌾ &nbsp; Przykładowe dane z wdrożenia klienta</p>
+		</div>
+
+		<div class="rezultaty__kpis">
+			{
+				kpis.map((kpi) => (
+					<article class="rezultaty__kpi">
+						<span class="rezultaty__kpi-icon" set:html={kpi.icon} />
+						<p class="rezultaty__kpi-name">{kpi.name}</p>
+						<p class="rezultaty__kpi-value">
+							<span class="rezultaty__counter" data-target={kpi.target} data-prefix={kpi.prefix} data-suffix={kpi.suffix} data-decimals={kpi.decimals}>0</span>
+							<span class="rezultaty__kpi-arrow" aria-hidden="true">
+								<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+									<path d="M12 19V5M6 11l6-6 6 6" />
+								</svg>
+							</span>
+						</p>
+						<p class="rezultaty__kpi-desc">{kpi.desc}</p>
+					</article>
+				))
+			}
+		</div>
+	</div>
+</section>
+
+<script>
+	const results = document.querySelector<HTMLElement>(".rezultaty");
+
+	if (results) {
+		const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+		const counters = results.querySelectorAll<HTMLElement>(".rezultaty__counter");
+		const chart = results.querySelector<SVGSVGElement>(".rezultaty__chart");
+		const chartWrap = results.querySelector<HTMLElement>(".rezultaty__chart-wrap");
+		const tooltip = results.querySelector<HTMLElement>(".rezultaty__chart-tooltip");
+		const chartValues = [5, 17, 32, 53, 74, 95];
+
+		const formatValue = (value: number, decimals: number, prefix: string, suffix: string) => {
+			return `${prefix}${value.toLocaleString("pl-PL", { minimumFractionDigits: decimals, maximumFractionDigits: decimals })}${suffix}`;
+		};
+
+		const renderCounter = (element: HTMLElement, progress: number) => {
+			const target = Number(element.dataset.target ?? 0);
+			const decimals = Number(element.dataset.decimals ?? 0);
+			const prefix = element.dataset.prefix ?? "";
+			const suffix = element.dataset.suffix ?? "";
+			element.textContent = formatValue(target * progress, decimals, prefix, suffix);
+		};
+
+		const animateCounter = (element: HTMLElement) => {
+			if (element.dataset.counted === "true") return;
+			element.dataset.counted = "true";
+			if (reducedMotion) {
+				renderCounter(element, 1);
+				return;
+			}
+			const start = performance.now();
+			const duration = 1725;
+			const tick = (now: number) => {
+				const progress = Math.min((now - start) / duration, 1);
+				const eased = 1 - Math.pow(1 - progress, 3);
+				renderCounter(element, eased);
+				if (progress < 1) requestAnimationFrame(tick);
+			};
+			requestAnimationFrame(tick);
+		};
+
+		const showPoint = (index: number) => {
+			if (!chart || !chartWrap || !tooltip) return;
+			const point = chart.querySelector<SVGGElement>(`.rezultaty__chart-point[data-index="${index}"]`);
+			const dot = point?.querySelector<SVGCircleElement>("circle:last-of-type");
+			if (!point || !dot) return;
+			chart.querySelectorAll<SVGGElement>(".rezultaty__chart-point").forEach((item) => item.toggleAttribute("data-active", item === point));
+			const dotRect = dot.getBoundingClientRect();
+			const wrapRect = chartWrap.getBoundingClientRect();
+			tooltip.textContent = `Tydzień ${index + 1}: ${chartValues[index]}%`;
+			tooltip.style.left = `${dotRect.left - wrapRect.left + dotRect.width / 2}px`;
+			tooltip.style.top = `${dotRect.top - wrapRect.top + dotRect.height / 2}px`;
+			tooltip.setAttribute("aria-hidden", "false");
+		};
+
+		const hideTooltip = () => {
+			if (!chart || !tooltip) return;
+			tooltip.setAttribute("aria-hidden", "true");
+			chart.querySelectorAll(".rezultaty__chart-point[data-active]").forEach((point) => point.removeAttribute("data-active"));
+		};
+
+		if (chart) {
+			chart.addEventListener("pointermove", (event) => {
+				const points = Array.from(chart.querySelectorAll<SVGGElement>(".rezultaty__chart-point"));
+				const closestIndex = points.reduce((closest, point, index) => {
+					const rect = point.getBoundingClientRect();
+					const distance = Math.abs(rect.left + rect.width / 2 - event.clientX);
+					return distance < closest.distance ? { index, distance } : closest;
+				}, { index: 0, distance: Number.POSITIVE_INFINITY }).index;
+				showPoint(closestIndex);
+			});
+			chart.addEventListener("pointerleave", hideTooltip);
+			chart.querySelectorAll<SVGGElement>(".rezultaty__chart-point").forEach((point) => {
+				const index = Number(point.dataset.index);
+				point.addEventListener("pointerenter", () => showPoint(index));
+				point.addEventListener("focus", () => showPoint(index));
+				point.addEventListener("blur", hideTooltip);
+			});
+		}
+
+		const startResults = () => {
+			counters.forEach(animateCounter);
+			if (chart) chart.dataset.animated = "true";
+		};
+
+		if (reducedMotion) {
+			startResults();
+		} else {
+			const observer = new IntersectionObserver((entries) => {
+				if (!entries.some((entry) => entry.isIntersecting)) return;
+				startResults();
+				observer.disconnect();
+			}, { threshold: 0.25 });
+			observer.observe(results);
+		}
+	}
+</script>
+
+<style>
+	.rezultaty {
+		--rez-accent: var(--accent-brand);
+		--rez-accent-soft: rgba(168, 196, 71, 0.15);
+		
+	}
+
+	.rezultaty__outer {
+		max-width: var(--size-container);
+		margin-inline: auto;
+		padding-inline: var(--container-padding);
+		padding-block: var(--spacing-section);
+	}
+
+	.rezultaty__header {
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing-md);
+		margin-bottom: 3em;
+	}
+
+	.rezultaty__eyebrow {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5em;
+		align-self: flex-start;
+		font-family: var(--font-body);
+		font-size: 0.75em;
+		font-weight: 600;
+		letter-spacing: 2px;
+		text-transform: uppercase;
+		color: var(--color-text-secondary);
+	}
+
+	.rezultaty__eyebrow-dot {
+		width: 0.75em;
+		height: 0.75em;
+		border-radius: 50%;
+		background-color: var(--rez-accent);
+	}
+
+	.rezultaty__title {
+		font-family: var(--font-heading);
+		font-size: var(--text-h2);
+		font-weight: 700;
+		line-height: 1.05;
+		letter-spacing: -0.055em;
+		color: var(--color-contrast);
+	}
+
+	.rezultaty__subtitle {
+		font-size: var(--text-lead);
+		color: var(--color-text-secondary);
+	}
+
+	/* ===== Chart card ===== */
+
+	.rezultaty__chart-card {
+		position: relative;
+		background-color: var(--color-canvas);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-lg);
+		padding: var(--spacing-xl) var(--spacing-xl) var(--spacing-lg);
+		box-shadow: var(--elevation-1);
+		margin: 0 0 var(--spacing-lg) 3em;
+	}
+
+	.rezultaty__chart-head {
+		display: flex;
+		align-items: flex-start;
+		justify-content: space-between;
+		gap: 1em;
+		margin: 0 0 var(--spacing-lg) 14em;
+	}
+
+	.rezultaty__chart-title {
+		font-family: var(--font-heading);
+		font-size: 1.125em;
+		font-weight: 700;
+		color: var(--color-contrast);
+	}
+
+	.rezultaty__chart-sub {
+		margin-top: 0.25em;
+		font-size: 0.8125em;
+		color: var(--color-text-secondary);
+	}
+
+	.rezultaty__chart-badge {
+		padding: 0.65em 1em;
+		font-family: var(--font-body);
+		font-size: 0.75em;
+		font-weight: 600;
+		color: var(--color-contrast);
+		background-color: var(--color-canvas);
+		border: 1px solid var(--accent-wash);
+		border-radius: var(--radius-pill);
+	}
+
+	.rezultaty__chart-wrap {
+		position: relative;
+		width: calc(100% - 14em);
+		margin-left: 14em;
+	}
+
+	.rezultaty__chart {
+		width: 100%;
+		height: auto;
+		display: block;
+		cursor: crosshair;
+	}
+
+	.rezultaty__chart-line { stroke-dasharray: 1400; stroke-dashoffset: 1400; }
+	.rezultaty__chart-area { opacity: 0; }
+	.rezultaty__chart-point { cursor: pointer; opacity: 0; transform-box: fill-box; transform-origin: center; }
+	.rezultaty__chart[data-animated="true"] .rezultaty__chart-line { animation: rezultaty-draw 2.025s cubic-bezier(.2, .8, .2, 1) forwards; }
+	.rezultaty__chart[data-animated="true"] .rezultaty__chart-area { animation: rezultaty-fade 1.2s ease .975s forwards; }
+	.rezultaty__chart[data-animated="true"] .rezultaty__chart-point { animation: rezultaty-point .675s ease forwards; }
+	.rezultaty__chart[data-animated="true"] .rezultaty__chart-point[data-index="1"] { animation-delay: .3s; }
+	.rezultaty__chart[data-animated="true"] .rezultaty__chart-point[data-index="2"] { animation-delay: .525s; }
+	.rezultaty__chart[data-animated="true"] .rezultaty__chart-point[data-index="3"] { animation-delay: .75s; }
+	.rezultaty__chart[data-animated="true"] .rezultaty__chart-point[data-index="4"] { animation-delay: .975s; }
+	.rezultaty__chart[data-animated="true"] .rezultaty__chart-point[data-index="5"] { animation-delay: 1.2s; }
+	.rezultaty__chart-point[data-active] circle:last-of-type { fill: var(--accent-wash); stroke-width: 3; }
+	.rezultaty__chart-point:focus { outline: none; }
+	.rezultaty__chart-point:focus circle:last-of-type { stroke: var(--accent-brand); }
+	.rezultaty__chart-tooltip {
+		position: absolute;
+		z-index: 3;
+		padding: .55em .75em;
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-sm);
+		background-color: var(--color-canvas);
+		box-shadow: var(--elevation-2);
+		font-size: .72em;
+		font-weight: var(--weight-emphasis);
+		color: var(--color-contrast);
+		pointer-events: none;
+		transform: translate(-50%, calc(-100% - .85em));
+		transition: opacity var(--transition-fast);
+		white-space: nowrap;
+	}
+	.rezultaty__chart-tooltip[aria-hidden="true"] { opacity: 0; }
+	@keyframes rezultaty-draw { to { stroke-dashoffset: 0; } }
+	@keyframes rezultaty-fade { to { opacity: .72; } }
+	@keyframes rezultaty-point { from { opacity: 0; transform: scale(.6); } to { opacity: 1; transform: scale(1); } }
+	@media (prefers-reduced-motion: reduce) {
+		.rezultaty__chart-line { stroke-dashoffset: 0; }
+		.rezultaty__chart-area, .rezultaty__chart-point { opacity: 1; animation: none !important; }
+	}
+
+	.rezultaty__highlight {
+		position: absolute;
+		z-index: 2;
+		top: 6em;
+		left: -3em;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: var(--spacing-md);
+		width: 13em;
+		padding: var(--spacing-xl);
+		background: var(--color-canvas);
+		border: 1px solid var(--accent-wash);
+		border-radius: var(--radius-lg);
+		box-shadow: var(--elevation-2);
+	}
+
+	.rezultaty__highlight-icon {
+		display: grid;
+		place-items: center;
+		width: 3em;
+		height: 3em;
+		border-radius: var(--radius-md);
+		background: var(--accent-wash);
+		color: var(--color-contrast);
+	}
+
+	.rezultaty__highlight-icon :global(svg) { width: 1.5em; height: 1.5em; }
+	.rezultaty__highlight p { font-family: var(--font-heading); font-size: 1.125em; font-weight: 700; color: var(--color-contrast); }
+	.rezultaty__highlight strong { display: flex; flex-direction: column; align-items: flex-start; font-family: var(--font-heading); font-size: 3em; font-weight: 700; letter-spacing: -0.075em; line-height: 1; color: var(--color-contrast); }
+	.rezultaty__highlight strong i { display: grid; place-items: center; width: .65em; height: .65em; margin-top: .18em; border-radius: 50%; background: var(--accent-wash); color: var(--accent-deep); font-family: var(--font-body); font-size: .45em; font-style: normal; }
+	.rezultaty__highlight small { font-size: var(--text-sm); line-height: 1.55; color: var(--color-text-secondary); }
+
+	.rezultaty__chart-callout {
+		position: absolute;
+		right: -2.5em;
+		top: 11.25em;
+		display: grid;
+		gap: .45em;
+		padding: 1em 1.35em;
+		background: var(--color-canvas);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-md);
+		box-shadow: var(--elevation-2);
+	}
+
+	.rezultaty__chart-callout strong { font-size: .875em; color: var(--color-contrast); }
+	.rezultaty__chart-callout span { padding-left: 1.5em; font-size: .7em; color: var(--color-text-secondary); }
+	.rezultaty__chart-note { margin: var(--spacing-md) 0 0 14em; padding-top: var(--spacing-md); border-top: 1px solid var(--color-border); font-size: var(--text-sm); color: var(--color-text-secondary); }
+
+	/* ===== KPI grid ===== */
+
+	.rezultaty__kpis {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: var(--spacing-lg);
+	}
+
+	.rezultaty__kpi {
+		display: grid;
+		grid-template-columns: auto minmax(0, 1fr);
+		grid-template-areas: "icon name" "icon value" "icon desc";
+		column-gap: var(--spacing-lg);
+		row-gap: .25em;
+		padding: var(--spacing-lg);
+		background-color: var(--color-canvas);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-md);
+		box-shadow: var(--elevation-1);
+	}
+
+	.rezultaty__kpi-icon {
+		grid-area: icon;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		align-self: center;
+		width: 2.5em;
+		height: 2.5em;
+		border-radius: 0.625em;
+		background-color: var(--rez-accent-soft);
+		color: var(--color-contrast);
+	}
+
+	.rezultaty__kpi-icon svg {
+		width: 1.25em;
+		height: 1.25em;
+	}
+
+	.rezultaty__kpi-name {
+		grid-area: name;
+		font-family: var(--font-heading);
+		font-size: .875em;
+		font-weight: 700;
+		color: var(--color-contrast);
+	}
+
+	.rezultaty__kpi-value {
+		grid-area: value;
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5em;
+		font-family: var(--font-heading);
+		font-size: 2.25em;
+		font-weight: 700;
+		line-height: 1;
+		color: var(--color-contrast);
+		letter-spacing: -1px;
+	}
+
+	.rezultaty__kpi-arrow {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 0.75em;
+		height: 0.75em;
+		color: var(--accent-deep);
+	}
+
+	.rezultaty__kpi-arrow svg {
+		width: 100%;
+		height: 100%;
+	}
+
+	.rezultaty__kpi-desc {
+		grid-area: desc;
+		font-size: var(--text-sm);
+		line-height: 1.45;
+		color: var(--color-text-secondary);
+	}
+
+	/* ===== Responsywność ===== */
+
+	@media screen and (max-width: 991px) {
+		.rezultaty__outer {
+			padding-inline: 1.5em;
+		}
+
+
+		.rezultaty__chart-card { margin-left: 0; }
+		.rezultaty__highlight { position: static; width: auto; margin-bottom: var(--spacing-lg); }
+		.rezultaty__chart-head { margin-left: 0; }
+		.rezultaty__chart-wrap { width: 100%; margin-left: 0; }
+		.rezultaty__chart-callout { display: none; }
+		.rezultaty__chart-note { margin-left: 0; }
+		.rezultaty__kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+	}
+
+	@media screen and (max-width: 767px) {
+
+		.rezultaty__kpis { grid-template-columns: minmax(0, 1fr); }
+
+		.rezultaty__kpi-value {
+			font-size: 2em;
+		}
+	}
+</style>

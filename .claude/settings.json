@@ -1,0 +1,44 @@
+{
+  "disableAllHooks": false,
+  "respectGitignore": true,
+  "env": {
+    "CLAUDE_AUTOCOMPACT_PCT_OVERRIDE": "80"
+  },
+  "permissions": {
+    "allow": [
+      "Edit(*)",
+      "Write(*)",
+      "NotebookEdit(*)",
+      "Bash(*)",
+      "WebSearch",
+      "WebFetch(domain:docs.anthropic.com)",
+      "WebFetch(domain:support.claude.com)",
+      "WebFetch(domain:github.com)"
+    ],
+    "deny": [],
+    "ask": [
+      "Bash(rm *)",
+      "Bash(rmdir *)",
+      "Bash(shred *)",
+      "Bash(unlink *)",
+      "Bash(dd *)",
+      "Bash(mkfs *)",
+      "Bash(fdisk *)",
+      "Bash(chmod *)",
+      "Bash(chown *)",
+      "Bash(npm *)",
+      "Bash(pip *)",
+      "Bash(pip3 *)",
+      "Bash(yarn *)",
+      "Bash(pnpm *)",
+      "Bash(docker *)",
+      "Bash(kubectl *)",
+      "Bash(firebase *)",
+      "Bash(gcloud *)",
+      "Bash(wget *)",
+      "Bash(kill *)",
+      "Bash(killall *)",
+      "Bash(pkill *)"
+    ]
+  }
+}

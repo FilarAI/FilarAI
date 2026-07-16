@@ -1,0 +1,380 @@
+---
+const navLinks = [
+	{ label: "Strony", href: "/strony" },
+	{ label: "Systemy AI", href: "/systemy" },
+	{ label: "Meta Ads", href: "/ads" },
+	{ label: "Portfolio", href: "/portfolio" },
+	{ label: "Kontakt", href: "/kontakt" },
+];
+---
+
+<header class="site-header" id="site-header" data-scrolled="false" data-open="false">
+	<nav class="site-header__nav" aria-label="Główna nawigacja">
+		<a href="/" class="site-header__logo" aria-label="FilarAI — strona główna">
+			{/* SVG, nie PNG — poprzedni plik miał wypalone białe tło, które rysowało
+			    prostokąt pod logotypem na kremowym Hero. */}
+			<img
+				src="/logo/filar-ai-wordmark-dark.svg"
+				alt="FILAR AI"
+				width="1217"
+				height="346"
+				class="site-header__logo-img"
+			/>
+		</a>
+
+		<ul class="site-header__links" id="site-header-links">
+			{
+				navLinks.map((link) => (
+					<li>
+						<a href={link.href}>{link.label}</a>
+					</li>
+				))
+			}
+		</ul>
+
+		<a href="/kontakt" class="btn btn--primary site-header__cta">Umów rozmowę</a>
+
+		<button
+			type="button"
+			class="site-header__toggle"
+			id="site-header-toggle"
+			aria-expanded="false"
+			aria-controls="site-header-mobile"
+			aria-label="Otwórz menu nawigacji"
+		>
+			<svg viewBox="0 0 32 32" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+				<path
+					class="site-header__toggle-morph"
+					d="M27 10 13 10C10.8 10 9 8.2 9 6 9 3.5 10.8 2 13 2 15.2 2 17 3.8 17 6L17 26C17 28.2 18.8 30 21 30 23.2 30 25 28.2 25 26 25 23.8 23.2 22 21 22L7 22"
+				/>
+				<path d="M7 16 27 16" />
+			</svg>
+		</button>
+	</nav>
+
+	<div class="site-header__mobile" id="site-header-mobile" aria-hidden="true">
+		<div class="site-header__mobile-inner">
+			<ul class="site-header__mobile-links">
+				{
+					navLinks.map((link) => (
+						<li>
+							<a href={link.href}>{link.label}</a>
+						</li>
+					))
+				}
+			</ul>
+			<div class="site-header__mobile-actions">
+				<a href="/kontakt" class="btn btn--primary">Umów rozmowę</a>
+			</div>
+		</div>
+	</div>
+</header>
+
+<style>
+	.site-header {
+		position: sticky;
+		top: 0;
+		z-index: 50;
+		width: 100%;
+		max-width: 72em;
+		margin-inline: auto;
+		border-block-end: 1px solid transparent;
+		transition:
+			max-width 300ms ease-out,
+			top 300ms ease-out,
+			background-color 300ms ease-out,
+			border-color 300ms ease-out,
+			box-shadow 300ms ease-out,
+			backdrop-filter 300ms ease-out,
+			border-radius 300ms ease-out,
+			margin-top 300ms ease-out;
+	}
+
+	/* Delikatna krawędź oddziela białe menu od równie jasnego Hero. */
+	.site-header::after {
+		position: absolute;
+		bottom: 0;
+		left: 50%;
+		width: 100vw;
+		height: 1px;
+		content: "";
+		background-color: var(--color-border);
+		opacity: 1;
+		pointer-events: none;
+		transform: translateX(-50%);
+		transition: opacity 180ms ease;
+	}
+
+	/* Po scrollu pasek "odkleja się" od krawędzi ekranu.
+	   Odstęp robi `top`, NIE `margin-top`. Sticky przykleja element na `top` od
+	   górnej krawędzi viewportu — margin-top działa tylko w normalnym przepływie,
+	   więc po przyklejeniu nie dawał żadnej przerwy (stąd "brak odstępu po scrollu").
+	   Dodatkowo margin-top przesuwałby treść pod spodem i strona by skakała. */
+	.site-header[data-scrolled="true"] {
+		top: 0.875em;
+		max-width: 60em;
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-lg);
+		background-color: rgb(255 255 255 / 0.85);
+		box-shadow: 0 4px 20px rgb(10 10 10 / 0.06);
+	}
+
+	.site-header[data-scrolled="true"]::after {
+		opacity: 0;
+	}
+
+	@supports (backdrop-filter: blur(12px)) {
+		.site-header[data-scrolled="true"] {
+			background-color: rgb(255 255 255 / 0.6);
+			backdrop-filter: blur(12px);
+		}
+	}
+
+	.site-header[data-open="true"] {
+		background-color: rgb(255 255 255 / 0.95);
+	}
+
+	.site-header__nav {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1.5em;
+		height: 5.25em;
+		padding-inline: 1.5em;
+		transition: height 300ms ease-out, padding-inline 300ms ease-out;
+	}
+
+	.site-header[data-scrolled="true"] .site-header__nav {
+		height: 3.25em;
+		padding-inline: 0.75em;
+	}
+
+	.site-header__logo {
+		display: inline-flex;
+		align-items: center;
+		flex-shrink: 0;
+	}
+
+	.site-header__logo-img {
+		height: 2.7em;
+		width: auto;
+		display: block;
+		transition: height 300ms ease-out;
+	}
+
+	/* Po scrollu pasek chudnie do 3.25em — logo musi zejść razem z nim. */
+	.site-header[data-scrolled="true"] .site-header__logo-img {
+		height: 2.1em;
+	}
+
+	.site-header__links {
+		display: flex;
+		align-items: center;
+		gap: 0.125em;
+		list-style: none;
+	}
+
+	/* Wersaliki + waga 600. Litery były za drobne w wersji 16px/400.
+	   Kapitaliki mają wyższą wysokość znaku niż minuskuła, więc 15px w wersalikach
+	   czyta się większe niż 16px małymi literami — przy mniejszej zajętości miejsca.
+	   letter-spacing jest OBOWIĄZKOWY: wersaliki bez dodatniego trackingu się zlewają. */
+	.site-header__links a {
+		display: block;
+		font-family: var(--font-body);
+		font-size: 0.9375em;
+		font-weight: 600;
+		letter-spacing: 1px;
+		text-transform: uppercase;
+		white-space: nowrap;
+		color: var(--color-contrast);
+		padding: 0.625em 0.875em;
+		border-radius: var(--radius-sm);
+		transition: background-color 150ms ease;
+	}
+
+	.site-header__links a:hover {
+		background-color: var(--accent-wash);
+	}
+
+	.site-header__cta {
+		flex-shrink: 0;
+		height: 2.5em;
+		padding-inline: 1.5em;
+		font-size: 1em;
+		height: 2.875em;
+	}
+
+	.site-header__toggle {
+		display: none;
+		align-items: center;
+		justify-content: center;
+		width: 2.5em;
+		height: 2.5em;
+		flex-shrink: 0;
+		background: none;
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-sm);
+		color: var(--color-contrast);
+		cursor: pointer;
+	}
+
+	.site-header__toggle-morph {
+		stroke-dasharray: 12 63;
+		transition: stroke-dasharray 300ms ease-in-out, stroke-dashoffset 300ms ease-in-out;
+	}
+
+	.site-header[data-open="true"] .site-header__toggle svg {
+		transform: rotate(-45deg);
+	}
+
+	.site-header__toggle svg {
+		transition: transform 300ms ease-in-out;
+	}
+
+	.site-header[data-open="true"] .site-header__toggle-morph {
+		stroke-dasharray: 20 300;
+		stroke-dashoffset: -32.42;
+	}
+
+	.site-header__mobile {
+		display: none;
+	}
+
+	@media screen and (max-width: 767px) {
+		.site-header {
+			max-width: 100%;
+			margin-inline: 0;
+			border-radius: 0 !important;
+			border: none !important;
+			border-block-end: 1px solid transparent !important;
+			margin-top: 0 !important;
+		}
+
+		.site-header::after {
+			display: none;
+		}
+
+		.site-header[data-scrolled="true"] {
+			border-block-end: 1px solid var(--color-border) !important;
+		}
+
+		.site-header__links,
+		.site-header__cta {
+			display: none;
+		}
+
+		.site-header__toggle {
+			display: inline-flex;
+		}
+
+		.site-header__mobile {
+			display: block;
+			position: fixed;
+			inset: 4em 0 0 0;
+			z-index: 40;
+			background-color: rgb(255 255 255 / 0.95);
+			backdrop-filter: blur(12px);
+			border-block: 1px solid var(--color-border);
+			opacity: 0;
+			pointer-events: none;
+			transform: scale(0.97);
+			transition: opacity 200ms ease-out, transform 200ms ease-out;
+		}
+
+		.site-header[data-open="true"] .site-header__mobile {
+			opacity: 1;
+			pointer-events: auto;
+			transform: scale(1);
+		}
+
+		.site-header__mobile-inner {
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+			gap: 1em;
+			height: 100%;
+			padding: 1.5em;
+		}
+
+		.site-header__mobile-links {
+			display: flex;
+			flex-direction: column;
+			gap: 0.25em;
+			list-style: none;
+		}
+
+		.site-header__mobile-links a {
+			display: block;
+			width: 100%;
+			padding: 0.875em 1em;
+			font-family: var(--font-body);
+			font-size: 1.125em;
+			color: var(--color-contrast);
+			border-radius: var(--radius-sm);
+			min-height: 2.75em;
+		}
+
+		.site-header__mobile-links a:hover,
+		.site-header__mobile-links a:focus-visible {
+			background-color: var(--color-atmosphere);
+		}
+
+		.site-header__mobile-actions {
+			display: flex;
+			flex-direction: column;
+			gap: 0.5em;
+		}
+
+		.site-header__mobile-actions .btn {
+			width: 100%;
+		}
+	}
+</style>
+
+<script>
+	const header = document.getElementById("site-header");
+	const toggle = document.getElementById("site-header-toggle");
+	const mobile = document.getElementById("site-header-mobile");
+
+	if (header && toggle && mobile) {
+		let open = false;
+		let scrolled = false;
+
+		const setScrolled = (value: boolean) => {
+			if (value === scrolled) return;
+			scrolled = value;
+			header.dataset.scrolled = String(value);
+		};
+
+		const setOpen = (value: boolean) => {
+			open = value;
+			header.dataset.open = String(value);
+			toggle.setAttribute("aria-expanded", String(value));
+			mobile.setAttribute("aria-hidden", String(!value));
+			document.body.style.overflow = value ? "hidden" : "";
+		};
+
+		const onScroll = () => {
+			setScrolled(window.scrollY > 10);
+		};
+
+		window.addEventListener("scroll", onScroll, { passive: true });
+		onScroll();
+
+		toggle.addEventListener("click", () => {
+			setOpen(!open);
+		});
+
+		mobile.querySelectorAll("a").forEach((link) => {
+			link.addEventListener("click", () => {
+				setOpen(false);
+			});
+		});
+
+		window.addEventListener("resize", () => {
+			if (window.innerWidth >= 768 && open) {
+				setOpen(false);
+			}
+		});
+	}
+</script>

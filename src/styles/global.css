@@ -1,0 +1,678 @@
+/* ==========================================================================
+   Fluid Scaling System
+   Viewport-based scaling — all em values scale automatically.
+   ========================================================================== */
+
+/* Desktop */
+:root {
+  --size-unit: 16; /* body font-size in design — no px */
+  --size-container-ideal: 1440; /* Figma frame width — set during Phase 0 */
+  --size-container-min: 992px;
+  --size-container-max: 1440px;
+  --size-container: clamp(var(--size-container-min), 100vw, var(--size-container-max));
+  --size-font: calc(var(--size-container) / (var(--size-container-ideal) / var(--size-unit)));
+  --container-padding: 3.25em;
+}
+
+/* Tablet */
+@media screen and (max-width: 991px) {
+  :root {
+    --size-container-ideal: 834;
+    --size-container-min: 768px;
+    --size-container-max: 991px;
+    --container-padding: 1.5em;
+
+    /* Skala typograficzna — kroki responsywne trzymane TUTAJ, nie w komponentach.
+       Sekcje wołają var(--text-h2) i dostają właściwy rozmiar same z siebie. */
+    --text-h1: 3em; /* 48px */
+    --text-cta: 2.75em; /* 44px */
+    --text-h2: 2.25em; /* 36px */
+    --text-h3: 1.375em; /* 22px */
+    --text-lead: 1.1875em; /* 19px */
+  }
+}
+
+/* Mobile Landscape */
+@media screen and (max-width: 767px) {
+  :root {
+    --size-container-ideal: 550;
+    --size-container-min: 480px;
+    --size-container-max: 767px;
+    --container-padding: 1em;
+
+    --text-h1: 2.375em; /* 38px */
+    --text-cta: 2.25em; /* 36px */
+    --text-h2: 1.875em; /* 30px */
+    --text-h3: 1.25em; /* 20px */
+    --text-lead: 1.125em; /* 18px */
+    --text-body: 1.0625em; /* 17px — nie schodzimy niżej, Safari zoomuje inputy <16px */
+  }
+}
+
+/* Mobile Portrait */
+@media screen and (max-width: 479px) {
+  :root {
+    --size-container-ideal: 390;
+    --size-container-min: 320px;
+    --size-container-max: 479px;
+    --container-padding: 1em;
+    /* Floor na 16px — bez tego --size-font spada do ~13px przy 320px viewport,
+       co łamie zasadę "min 16px body text" i ściąga touch targety poniżej 44px. */
+    --size-font: max(16px, calc(var(--size-container) / (var(--size-container-ideal) / var(--size-unit))));
+  }
+}
+
+/* ==========================================================================
+   Design Tokens — Update per project (Phase 0)
+   ========================================================================== */
+
+:root {
+  /* ===== Kolory — system 4 ról (FilarAI, finalny zapis) ===== */
+
+  /* 1. Canvas — neutralna biała baza */
+  --color-canvas: #ffffff;
+  --color-canvas-alt: #fafafa;
+
+  /* 2. Atmosphere — ciepła baza oddzielająca sekcje od bieli.
+     Rytm tła strony: warm → dark → white → warm → dark → white → warm …
+     Czerń jest INTERPUNKCJĄ (pasek logo, Liczby, finalne CTA + stopka), nie przypadkiem. */
+  --color-atmosphere: #f7f6f2;
+  --color-atmosphere-dark: #0a0a0a;
+  --color-atmosphere-dark-alt: #1a1a18;
+
+  /* ===== 3. Accent — JEDNA drabina cytrynowo-oliwkowa =====
+     Wcześniej strona miała 5 akcentów (limonka, oliwka, indygo #6366f1, niebieski
+     #4d5bf9, pomarańcz). Indygo to kanoniczny "AI look", a #4d5bf9 był jego
+     przypadkowym duplikatem. Wszystkie skasowane — został jeden odcień w 5 stopniach.
+
+     REGUŁA: --accent-brand to kolor POWIERZCHNI I GRAFIKI (wykresy, ikony, obramowania,
+     kropki). NIGDY tekst — ma 1.82:1 na ciepłym tle i nie przechodzi WCAG.
+     Do tekstu wyłącznie --accent-text (duży) albo --accent-deep (mały). */
+  --accent-wash: #f2f7e4;   /* tło badge'y, hover fill                                  */
+  --accent-fill: #d6fd70;   /* limonka — wypełnienie przycisków, czarny tekst 17:1 ✅   */
+  --accent-brand: #a8c447;  /* oliwka — grafika/powierzchnie. NIE tekst.                */
+  --accent-text: #6b8f1f;   /* tekst ≥24px bold (H1 accent) — 3.48:1 na warm ✅ large AA */
+  --accent-deep: #5a7a15;   /* tekst normalny (linki, labelki) — 4.59:1 na warm ✅ AA    */
+
+  /* Aliasy wstecznej zgodności — .btn i starsze komponenty wołają te nazwy */
+  --color-accent: var(--accent-fill);
+  --color-accent-text: var(--accent-deep);
+
+  /* 4. Contrast — czerń, nagłówki/kluczowy tekst/secondary buttony na jasnym tle */
+  --color-contrast: #0a0a0a;
+
+  /* Tekst pomocniczy — zmierzone przybliżenie z hero.png (potwierdź jeśli masz dokładne wartości) */
+  --color-text-secondary: #3d3d46;  /* np. opis pod nagłówkiem Hero */
+  --color-text-muted: #6b6e76;      /* np. pasek loga klientów, drobne labelki */
+  --color-text-on-dark: #ffffff;
+  --color-text-on-dark-muted: #b0b0ac;
+
+  --color-border: #e6e6e3;
+  /* Separator na ciemnym tle (np. pionowe linie w Pasku liczb) */
+  --color-border-on-dark: rgba(255, 255, 255, 0.14);
+
+  /* ===== Typografia — Synonym (fontshare), jeden font, różne wagi =====
+     Poprzednio Geist + Inter. Oba są na czarnej liście "AI look" — Inter to
+     najczęstszy odcisk palca AI-designu, Geist to font Vercela. Synonym daje ten
+     sam techniczny charakter, ale nie wygląda jak template.
+     Ładowany w Layout.astro z api.fontshare.com. */
+  --font-heading: "Synonym", system-ui, sans-serif;
+  --font-body: "Synonym", system-ui, sans-serif;
+
+  /* Wagi — przy jednym foncie hierarchię niosą wagi, nie kroje */
+  --weight-heading: 600;
+  --weight-body: 400;
+  --weight-emphasis: 500;
+
+  /* ===== Skala typograficzna =====
+     Wcześniej tytuły sekcji miały 10 różnych rozmiarów (48…96px), a H1 Hero
+     (52px) był MNIEJSZY niż nagłówek CTA (96px) — hierarchia stała na głowie.
+     Podtytuły w pięciu sekcjach miały 16px, poniżej progu czytelności na desktopie.
+
+     Stosunki, które trzymają tę skalę (zmieniasz liczbę — sprawdź je):
+       H1 ÷ podtytuł   60÷21 = 2.86   (pasmo 2.6–3.6; wyżej podtytuł ginie)
+       H1 ÷ sekcja     60÷44 = 1.36   (H1 musi bezspornie wygrywać)
+       sekcja ÷ podtyt 44÷21 = 2.10   (poniżej 2.0 nagłówek zlewa się z tekstem)
+
+     --text-cta jest większe od sekcji (przykuwa uwagę na końcu ścieżki), ale
+     MNIEJSZE od H1 — główna teza strony zostaje najważniejsza typograficznie.
+     Dodatkową masę CTA bierze z wagi 700, nie z wersalików: to zdanie, a nie
+     hasło, a capslock na zdaniu czyta się jak krzyk i spowalnia skanowanie. */
+  --text-h1: 3.75em;      /* 60px — WYŁĄCZNIE Hero H1                    */
+  --text-cta: 3.5em;      /* 56px — WYŁĄCZNIE finalne CTA przed stopką   */
+  --text-h2: 2.75em;      /* 44px — wszystkie tytuły sekcji, jednolicie  */
+  --text-h3: 1.5em;       /* 24px — tytuły kart                          */
+  --text-lead: 1.3125em;  /* 21px — podtytuły sekcji                     */
+  --text-body: 1.0625em;  /* 17px — treść. Twarda podłoga na desktopie.  */
+  --text-sm: 0.9375em;    /* 15px — podpisy, labelki                     */
+
+  --lh-display: 1.08;
+  --lh-heading: 1.2;
+  --lh-lead: 1.6;
+  --lh-body: 1.65;
+
+  /* Spacing scale */
+  --spacing-xs: 0.25em;
+  --spacing-sm: 0.5em;
+  --spacing-md: 1em;
+  --spacing-lg: 1.5em;
+  --spacing-xl: 2em;
+  --spacing-2xl: 2.5em;
+  --spacing-3xl: 3em;
+  --spacing-4xl: 3.25em;
+  --spacing-5xl: 4em;
+  --spacing-section: 6.25em;
+
+  /* Border radius — inset-card motif */
+  --radius-sm: 0.5em;      /* 8px — małe elementy, badge */
+  --radius-md: 1em;        /* 16px — mniejsze karty wewnętrzne */
+  --radius-lg: 1.75em;     /* 28px — główny motyw kart FilarAI */
+  --radius-pill: 3em;      /* przyciski pigułkowe */
+
+  /* Cień — miękki i CIEPŁY. Neutralna czerń na ciepłym tle #f7f6f2 wychodzi brudno-szara;
+     cień musi nieść odcień podłoża. Jedno źródło światła: z góry. */
+  --shadow-card: 0 1px 2px rgba(58, 50, 30, 0.05), 0 8px 24px rgba(58, 50, 30, 0.07);
+  --shadow-card-hover: 0 2px 4px rgba(58, 50, 30, 0.06), 0 16px 40px rgba(58, 50, 30, 0.1);
+
+  /* Skala elewacji — 3 ciepłe poziomy, jedno źródło światła z góry.
+     Uzupełnia --shadow-card*. Używaj gdy potrzebna JAWNA hierarchia głębi (element
+     unoszący się nad innym), np. hub nad panelem w Wprowadzeniu. Wyżej = wyższy poziom. */
+  --elevation-1: 0 1px 2px rgba(58, 50, 30, 0.05), 0 4px 12px rgba(58, 50, 30, 0.05);
+  --elevation-2: 0 2px 6px rgba(58, 50, 30, 0.06), 0 12px 28px rgba(58, 50, 30, 0.09);
+  --elevation-3: 0 6px 16px rgba(58, 50, 30, 0.08), 0 28px 60px rgba(58, 50, 30, 0.14);
+
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-base: 250ms ease;
+
+  /* Wysokość headera — Hero odejmuje ją, żeby zmieścić się w jednym ekranie. */
+  --header-height: 5.25em;
+
+  /* Ile paska z logotypami wystaje spod folda na Hero.
+     Sygnał "strona ma ciąg dalszy" — bez tego Hero kończy się dokładnie na
+     krawędzi ekranu i nic nie zachęca do scrollowania.
+     Używane w Hero.astro (min-height) — zmieniasz tu, działa tam. */
+  --logostrip-peek: 2.25em;
+}
+
+/* ==========================================================================
+   Reset
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--size-font);
+  font-weight: var(--weight-body);
+  color: var(--color-text-secondary);
+  background-color: var(--color-canvas);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3 {
+  color: var(--color-contrast);
+  font-weight: var(--weight-heading);
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+  line-height: 1.143;
+  overflow-wrap: break-word;
+  /* Rozkłada nagłówek na równe linie zamiast zostawiać sierotę
+     (np. "firm." samo na trzeciej linii w H1 Hero). */
+  text-wrap: balance;
+  letter-spacing: -0.02em;
+}
+
+p {
+  overflow-wrap: break-word;
+  /* Nie zostawia jednego słowa na ostatniej linii akapitu. */
+  text-wrap: pretty;
+}
+
+/* Cyfry o stałej szerokości — bez tego liczniki count-up (Liczby, Rezultaty)
+   drgają w trakcie animacji, bo każda cyfra ma inną szerokość. */
+[data-count],
+.stat-value,
+time,
+td {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ==========================================================================
+   Base Utilities
+   ========================================================================== */
+
+.container {
+  width: 100%;
+  max-width: var(--size-container);
+  margin-inline: auto;
+  padding-inline: var(--container-padding);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Section label — uppercase eyebrow text */
+.section-label {
+  font-family: var(--font-body);
+  font-size: 1em;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 2.4px;
+  text-transform: uppercase;
+}
+
+/* ==========================================================================
+   Section variants — jasne / ciemne (patrz SITEMAP w PROJECT_BRIEF.md,
+   sekcje typu "Pasek liczb", "Demo animacja", "Finalne CTA + Stopka" są ciemne)
+   ========================================================================== */
+
+.section--light {
+  background-color: var(--color-canvas);
+}
+
+.section--atmosphere {
+  background-color: var(--color-atmosphere);
+}
+
+.section--dark {
+  background-color: var(--color-atmosphere-dark);
+  color: var(--color-text-on-dark-muted);
+}
+
+.section--dark h1,
+.section--dark h2,
+.section--dark h3 {
+  color: var(--color-text-on-dark);
+}
+
+/* ==========================================================================
+   Card motif — "floating card" widoczny w Hero (Strony WWW / Systemy AI /
+   SEO&GEO / Meta Ads). Używaj tego jako bazy dla KAŻDEJ karty w serwisie,
+   żeby wszystkie sekcje trzymały ten sam język wizualny.
+   ========================================================================== */
+
+.card {
+  background-color: var(--color-canvas);
+  border-radius: var(--radius-lg); /* 28px */
+  box-shadow: var(--shadow-card);
+  padding: var(--spacing-lg);
+}
+
+/* ==========================================================================
+   Kafel-ikona — akcentowy zaokrąglony kwadrat z glifem.
+   Reużywalny w całym serwisie (diagram Wprowadzenia, listy cech, karty).
+   Rozmiar steruj przez font-size / width na wywołaniu. Wariant --solid = wypełniony
+   oliwką (dla elementów "wejściowych"/aktywnych), baza = miękki wash.
+   ========================================================================== */
+
+.icon-tile {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75em;
+  height: 2.75em;
+  flex-shrink: 0;
+  border-radius: var(--radius-md);
+  background-color: var(--accent-wash);
+  color: var(--accent-deep);
+}
+
+.icon-tile svg {
+  width: 1.375em;
+  height: 1.375em;
+}
+
+.icon-tile--solid {
+  background-color: var(--accent-brand);
+  color: var(--color-contrast);
+}
+
+/* Atmosferyczna poświata — miękkie oliwkowe światło tła. Kładź jako element
+   pozycjonowany absolutnie ZA treścią; rodzic musi mieć position != static. */
+.atmo-glow {
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(168, 196, 71, 0.28) 0%,
+    rgba(168, 196, 71, 0) 70%
+  );
+}
+
+/* Duży zaokrąglony kontener sekcji (np. cały Hero) w tonie Atmosphere,
+   wewnątrz którego "unoszą się" białe .card */
+.section-frame {
+  background-color: var(--color-atmosphere);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-3xl) var(--container-padding);
+}
+
+/* Wariant ciemny — kontener typu "Pasek liczb" / Demo / Stopka (sekcje 2, 4, 10) */
+.section-frame--dark {
+  background-color: var(--color-atmosphere-dark);
+  color: var(--color-text-on-dark-muted);
+}
+
+.section-frame--dark h1,
+.section-frame--dark h2,
+.section-frame--dark h3 {
+  color: var(--color-text-on-dark);
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+  width: fit-content;
+  height: 3em;
+  padding-inline: 1.5em;
+  font-family: var(--font-body);
+  font-size: 1em;
+  font-weight: var(--weight-emphasis);
+  line-height: 1.5;
+  border: none;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  white-space: nowrap;
+  text-decoration: none;
+  transition: opacity var(--transition-fast);
+}
+
+/* Primary — limonkowa pigułka, czarny tekst (jak "Umów rozmowę" w Hero) */
+.btn--primary {
+  background-color: var(--color-accent);
+  color: var(--color-contrast);
+}
+
+/* Secondary — ciemna pigułka/prostokąt, biały tekst (na jasnym tle) */
+.btn--secondary {
+  background-color: var(--color-contrast);
+  color: var(--color-text-on-dark);
+}
+
+/* Na ciemnej sekcji: przycisk primary zostaje limonkowy, secondary staje się jasny */
+.section--dark .btn--secondary {
+  background-color: var(--color-canvas);
+  color: var(--color-contrast);
+}
+
+/* Dark — czarna pigułka z limonkowym tekstem, używana z .btn__badge (okrąg-strzałka).
+   Np. CTA w sekcji Oferta. Reużywalny wariant, nie duplikuj lokalnie w komponentach. */
+.btn--dark {
+  background-color: var(--color-contrast);
+  color: var(--color-accent);
+  padding-right: 0.375em;
+}
+
+/* Outline light — przezroczyste tło, biały border/tekst. Używane na sekcjach
+   ciemnych jako przycisk secondary obok .btn--primary (np. finalne CTA). */
+.btn--outline-light {
+	background-color: transparent;
+	color: var(--color-text-on-dark);
+	border: 1.5px solid var(--color-text-on-dark);
+}
+
+.btn__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2em;
+  height: 2em;
+  border-radius: 50%;
+  background-color: var(--color-accent);
+  color: var(--color-contrast);
+  flex-shrink: 0;
+  font-size: 1em;
+  line-height: 1;
+}
+
+/* Wspólny ruch CTA: przyciski prowadzące do rozmowy, oferty albo dalszego kroku
+   reagują jednakowo niezależnie od sekcji. */
+body :is(
+  .btn,
+  .hero__cta,
+  .demo__cta,
+  .cta__btn,
+  .omnie__cta,
+  .oferta__cta,
+  .oferta__footer-link,
+  .faq__contact-cta,
+  .wkrotce__cta,
+  .kontakt__primary-action,
+  .kontakt__secondary-action,
+  .kontakt__card-cta,
+  .proces__meeting-button,
+  .proces__notion-link
+) {
+  transition:
+    transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 0.25s cubic-bezier(0.2, 0.8, 0.2, 1),
+    border-color 0.25s ease !important;
+}
+
+body :is(
+  .btn--primary,
+  .hero__cta--primary,
+  .demo__cta--primary,
+  .cta__btn--primary,
+  .omnie__cta,
+  .oferta__cta,
+  .faq__contact-cta,
+  .wkrotce__cta--primary,
+  .kontakt__primary-action,
+  .kontakt__card-cta,
+  .proces__meeting-button
+):hover,
+body .kontakt__card:hover .kontakt__card-cta {
+  transform: translateY(-3px) !important;
+  box-shadow: 0 10px 18px color-mix(in srgb, var(--accent-deep) 18%, transparent) !important;
+}
+
+body :is(
+  .btn--secondary,
+  .hero__cta--secondary,
+  .demo__cta--ghost,
+  .cta__btn--ghost,
+  .oferta__footer-link,
+  .wkrotce__cta--ghost,
+  .kontakt__secondary-action,
+  .proces__notion-link
+):hover {
+  transform: translateY(-3px) !important;
+  box-shadow: 0 10px 18px color-mix(in srgb, var(--accent-deep) 12%, transparent) !important;
+  border-color: var(--accent-brand) !important;
+}
+
+body :is(
+  .hero__cta--primary,
+  .cta__btn--primary,
+  .omnie__cta,
+  .oferta__cta,
+  .faq__contact-cta,
+  .wkrotce__cta--primary,
+  .kontakt__primary-action
+):hover > :is(svg, span[aria-hidden="true"], .omnie__cta-arrow, .oferta__cta-badge),
+body .kontakt__card:hover .kontakt__card-cta > span {
+  transform: translateX(5px);
+}
+
+body .demo__cta--primary:hover .demo__cta-icon {
+  transform: translateX(5px);
+}
+
+body :is(
+  .hero__cta--secondary,
+  .demo__cta--ghost,
+  .cta__btn--ghost,
+  .wkrotce__cta--ghost,
+  .kontakt__secondary-action,
+  .proces__notion-link
+):hover > :is(svg, .hero__cta-icon, .cta__btn-icon, span[aria-hidden="true"]) {
+  transform: rotate(-12deg);
+}
+
+body :is(
+  .hero__cta > :is(svg, span[aria-hidden="true"], .hero__cta-icon),
+  .demo__cta > :is(svg, .demo__cta-icon),
+  .cta__btn > :is(svg, .cta__btn-icon),
+  .omnie__cta-arrow,
+  .oferta__cta-badge,
+  .oferta__footer-link > span,
+  .faq__contact-cta > span,
+  .wkrotce__cta > svg,
+  .kontakt__primary-action > span,
+  .kontakt__secondary-action > span,
+  .kontakt__card-cta > span,
+  .proces__notion-link > svg
+) {
+  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body :is(
+    .btn,
+    .hero__cta,
+    .demo__cta,
+    .cta__btn,
+    .omnie__cta,
+    .oferta__cta,
+    .oferta__footer-link,
+    .faq__contact-cta,
+    .wkrotce__cta,
+    .kontakt__primary-action,
+    .kontakt__secondary-action,
+    .kontakt__card-cta,
+    .proces__meeting-button,
+    .proces__notion-link
+  ) {
+    transition: none !important;
+  }
+
+  body :is(
+    .btn--primary,
+    .btn--secondary,
+    .hero__cta,
+    .demo__cta,
+    .cta__btn,
+    .omnie__cta,
+    .oferta__cta,
+    .oferta__footer-link,
+    .faq__contact-cta,
+    .wkrotce__cta,
+    .kontakt__primary-action,
+    .kontakt__secondary-action,
+    .kontakt__card-cta,
+    .proces__meeting-button,
+    .proces__notion-link
+  ):hover,
+  body .kontakt__card:hover .kontakt__card-cta {
+    transform: none !important;
+  }
+}
+
+/* ==========================================================================
+   Focus & Accessibility
+   ========================================================================== */
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.sr-only:focus {
+  position: fixed;
+  top: 0.5em;
+  left: 0.5em;
+  z-index: 9999;
+  width: auto;
+  height: auto;
+  padding: 0.75em 1.5em;
+  margin: 0;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+  background-color: var(--color-contrast);
+  color: var(--color-text-on-dark);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+}
+
+.btn:hover {
+  opacity: 0.85;
+}
+
+/* Scroll offset — kompensuje sticky header przy scrollIntoView / anchor jumpów */
+section {
+  scroll-margin-top: 5.5em;
+}

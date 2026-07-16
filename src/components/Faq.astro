@@ -1,0 +1,997 @@
+---
+// FAQ — redesign wg attachment: left sidebar + tabs + akordeon w jednym kontenerze,
+// stopka wewnątrz tej samej ramki. Akcent indygo.
+
+interface FaqItem {
+	question: string;
+	answer: string;
+	category: string;
+}
+
+const categories = [
+	{ id: "ogolne", label: "Ogólne" },
+	{ id: "systemy-ai", label: "Systemy AI" },
+	{ id: "strony", label: "Strony WWW" },
+	{ id: "seo-geo", label: "SEO & GEO" },
+	{ id: "meta-ads", label: "Meta Ads" },
+];
+
+const faqItems: FaqItem[] = [
+	{
+		category: "ogolne",
+		question: "Ile to kosztuje?",
+		answer:
+			"Koszt zależy od zakresu projektu, wdrażanych rozwiązań oraz specyfiki Twojej branży. Po krótkiej analizie przygotujemy dopasowaną propozycję wraz z harmonogramem i wyceną. Płacisz za konkretne efekty, nie za obietnice.",
+	},
+	{
+		category: "ogolne",
+		question: "Ile trwa realizacja?",
+		answer:
+			"Strona: 7-14 dni. System AI: 2-4 tygodnie. Pełen zestaw (strona + system + SEO): 4-6 tygodni. Harmonogram ustalamy przed startem.",
+	},
+	{
+		category: "ogolne",
+		question: "Czy to zadziała dla mojej branży?",
+		answer:
+			"Tak — pracowałem z firmami usługowymi z różnych branż: od stolarstwa, przez wynajem, po usługi B2B. Rozwiązania dopasowuję do specyfiki Twojej firmy, nie kopiuję jednego szablonu.",
+	},
+	{
+		category: "ogolne",
+		question: "Co się dzieje po podpisaniu umowy?",
+		answer:
+			"Dostajesz krótki brief do wypełnienia (30 min), potem wchodzimy w realizację. Codziennie masz podgląd postępu na dedykowanym panelu w Notion i możesz komentować.",
+	},
+	{
+		category: "systemy-ai",
+		question: "Co konkretnie może dla mnie zrobić AI?",
+		answer:
+			"Automatyzuje najbardziej powtarzalne prace: odpowiada na zapytania klientów 24/7, przypomina o opiniach, umawia wizyty, wysyła follow-upy po sprzedaży. Ty odbierasz tylko potwierdzenia.",
+	},
+	{
+		category: "systemy-ai",
+		question: "Czy klient pozna, że rozmawia z botem?",
+		answer:
+			"Bot ma Twój ton głosu, imię i podpis. Klient dostaje spersonalizowaną odpowiedź w kilka sekund. W trudnych sprawach automatycznie przekierowuje rozmowę do Ciebie.",
+	},
+	{
+		category: "systemy-ai",
+		question: "Czy mogę wyłączyć AI kiedy chcę?",
+		answer:
+			"Tak — jeden switch w panelu. Możesz też ustawić harmonogram (np. AI aktywne tylko wieczorami i w weekendy). Ty zachowujesz pełną kontrolę.",
+	},
+	{
+		category: "strony",
+		question: "Czy strona będzie działać na telefonie?",
+		answer:
+			"Tak — wszystkie strony są w pełni responsywne i optymalizowane pod mobile. Ponad 60% Twoich klientów wejdzie z telefonu, więc to priorytet.",
+	},
+	{
+		category: "strony",
+		question: "Czy mogę sam edytować treści po wdrożeniu?",
+		answer:
+			"Tak — dostajesz prosty panel do zmiany tekstów, zdjęć i cen. Bez znajomości kodu. Więcej zmian? Napisz do mnie, zrobimy razem.",
+	},
+	{
+		category: "strony",
+		question: "Ile stron mogę mieć?",
+		answer:
+			"Standardowo: strona główna + 3-5 podstron (oferta, portfolio, kontakt, o mnie). Można rozbudowywać — cennik za każdą kolejną ustalamy w wycenie.",
+	},
+	{
+		category: "seo-geo",
+		question: "Kiedy zobaczę pierwsze efekty SEO?",
+		answer:
+			"Pierwsze wzrosty w Google Search Console: 2-4 tygodnie. Realne przesunięcia w rankingu i wzrost zapytań: 2-3 miesiące. GEO (widoczność w AI Search) działa szybciej — pierwsze cytowania po 4-6 tygodniach.",
+	},
+	{
+		category: "seo-geo",
+		question: "Co to jest GEO?",
+		answer:
+			"Generative Engine Optimization — optymalizacja pod wyszukiwarki AI (ChatGPT, Perplexity, Google AI Overviews). To nowy standard: klient nie wpisuje w Google, tylko pyta AI, a AI cytuje Twoją firmę.",
+	},
+	{
+		category: "seo-geo",
+		question: "Czy trzeba płacić Google?",
+		answer:
+			"Nie. SEO i GEO to widoczność organiczna, bez opłat za kliknięcie. Płacisz tylko za wdrożenie i miesięczny monitoring — nie za ruch.",
+	},
+	{
+		category: "meta-ads",
+		question: "Ile trzeba wydać, żeby to się opłacało?",
+		answer:
+			"Minimalny sensowny budżet: 1500-2500 zł/mies. Poniżej algorytm Meta nie zdąży się nauczyć. Wyższy budżet = szybsza optymalizacja, ale reguła zwrotu 3-5x działa od pierwszego miesiąca.",
+	},
+	{
+		category: "meta-ads",
+		question: "Kiedy uruchomicie kampanie Meta Ads?",
+		answer:
+			"Ta usługa startuje wkrótce. Zapisz się na powiadomienie — dostaniesz specjalne warunki dla pierwszych klientów.",
+	},
+];
+
+const defaultCategory = "ogolne";
+
+---
+
+<section class="faq section--light">
+	<div class="faq__outer">
+		<div class="faq__header">
+			<p class="faq__eyebrow">
+				<span class="faq__eyebrow-dot" aria-hidden="true"></span>
+				<span class="faq__eyebrow-text">FAQ</span>
+			</p>
+			<h2 class="faq__title">Najczęściej zadawane pytania</h2>
+			<p class="faq__subtitle">Wszystko, co warto wiedzieć, zanim zaczniemy współpracę.</p>
+		</div>
+
+		<div class="faq__layout">
+			<aside class="faq__sidebar">
+				<span class="faq__sidebar-line" aria-hidden="true"></span>
+				<p class="faq__sidebar-copy">Konkretne odpowiedzi<br />dotyczące kosztów, terminów<br />i sposobu współpracy.</p>
+				<div class="faq__contact-card">
+					<span class="faq__contact-icon" aria-hidden="true">
+						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14v-3a8 8 0 0 1 16 0v3"/><path d="M4 14h3v5H5a1 1 0 0 1-1-1v-4ZM20 14h-3v5h2a1 1 0 0 0 1-1v-4Z"/><path d="M17 19c0 1.1-.9 2-2 2h-2"/></svg>
+					</span>
+					<p class="faq__contact-title">Nie znalazłeś odpowiedzi?</p>
+					<a href="mailto:kontakt@filarai.com" class="faq__contact-email">kontakt@filarai.com</a>
+					<a href="/kontakt" class="faq__contact-cta">Umów rozmowę <span aria-hidden="true">→</span></a>
+				</div>
+			</aside>
+
+			<div class="faq__main">
+					<div class="faq__tabs" role="tablist" aria-label="Kategorie pytań">
+						{
+							categories.map((cat) => (
+								<button
+									type="button"
+									role="tab"
+									class="faq__tab"
+									data-tab={cat.id}
+									aria-selected={cat.id === defaultCategory ? "true" : "false"}
+								>
+									{cat.label}
+								</button>
+							))
+						}
+					</div>
+
+					<div class="faq__panels">
+						{
+							categories.map((cat) => (
+								<div class="faq__panel" data-panel={cat.id} role="tabpanel" hidden={cat.id !== defaultCategory}>
+									<div class="faq__list">
+										{faqItems
+											.filter((item) => item.category === cat.id)
+											.map((item, i) => (
+												<article class="faq__item" data-open={i === 0 ? "true" : "false"}>
+													<button type="button" class="faq__summary" aria-expanded={i === 0 ? "true" : "false"}>
+														<span class="faq__item-number">{String(i + 1).padStart(2, "0")}</span>
+														<span class="faq__question">{item.question}</span>
+														<span class="faq__toggle" aria-hidden="true"></span>
+													</button>
+													<div class="faq__answer-wrap">
+														<div class="faq__answer-inner"><p class="faq__answer">{item.answer}</p></div>
+													</div>
+												</article>
+											))}
+									</div>
+								</div>
+							))
+						}
+					</div>
+				</div>
+		</div>
+	</div>
+</section>
+
+<script>
+	const root = document.querySelector<HTMLElement>(".faq");
+	if (root) {
+		const tabs = root.querySelectorAll<HTMLButtonElement>(".faq__tab");
+		const panels = root.querySelectorAll<HTMLElement>(".faq__panel");
+		const setOpen = (item: HTMLElement, open: boolean) => {
+			item.dataset.open = String(open);
+			item.querySelector<HTMLButtonElement>(".faq__summary")?.setAttribute("aria-expanded", String(open));
+		};
+
+		const openFirstItem = (panel: HTMLElement) => {
+			const items = panel.querySelectorAll<HTMLElement>(".faq__item");
+			items.forEach((item, index) => setOpen(item, index === 0));
+		};
+
+		tabs.forEach((tab) => {
+			tab.addEventListener("click", () => {
+				const target = tab.dataset.tab;
+				tabs.forEach((t) => t.setAttribute("aria-selected", t === tab ? "true" : "false"));
+				panels.forEach((p) => {
+					const match = p.dataset.panel === target;
+					p.hidden = !match;
+					if (match) openFirstItem(p);
+				});
+			});
+		});
+
+		root.querySelectorAll<HTMLButtonElement>(".faq__summary").forEach((button) => {
+			button.addEventListener("click", () => {
+				const item = button.closest<HTMLElement>(".faq__item");
+				const panel = button.closest<HTMLElement>(".faq__panel");
+				if (!item || !panel) return;
+
+				const willOpen = item.dataset.open !== "true";
+				panel.querySelectorAll<HTMLElement>(".faq__item").forEach((entry) => setOpen(entry, false));
+				setOpen(item, willOpen);
+			});
+		});
+	}
+</script>
+
+<style>
+	.faq {
+		--faq-accent: var(--accent-brand);
+		--faq-accent-soft: rgba(168, 196, 71, 0.12);
+		--faq-accent-border: rgba(168, 196, 71, 0.28);
+	}
+
+	.faq__outer {
+		max-width: var(--size-container);
+		margin-inline: auto;
+		padding-inline: 1.5em;
+		padding-block: var(--spacing-section);
+	}
+
+	/* ===== Header ===== */
+
+	.faq__header {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+		margin-bottom: 2em;
+	}
+
+	.faq__eyebrow {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5em;
+		font-family: var(--font-body);
+		font-size: 0.8125em;
+		font-weight: 600;
+		letter-spacing: 2px;
+		text-transform: uppercase;
+		color: var(--accent-deep);
+	}
+
+	.faq__eyebrow-dot {
+		width: 0.5em;
+		height: 0.5em;
+		border-radius: 0.125em;
+		background-color: var(--faq-accent);
+	}
+
+	.faq__title {
+		margin-top: 0.75em;
+		font-family: var(--font-heading);
+		font-size: var(--text-h2);
+		font-weight: 700;
+		line-height: 1.02;
+		letter-spacing: -1.5px;
+		color: var(--color-contrast);
+	}
+
+	.faq__subtitle {
+		margin-top: 0.75em;
+		font-size: var(--text-lead);
+		color: var(--color-text-secondary);
+	}
+
+	/* ===== Frame (single container) ===== */
+
+	.faq__frame {
+		background-color: var(--color-atmosphere);
+		border: 1px solid var(--color-border);
+		border-radius: 1.5em;
+		padding: 2em;
+	}
+
+	.faq__body {
+		display: grid;
+		grid-template-columns: 16em minmax(0, 1fr);
+		gap: 2em;
+	}
+
+	/* ===== Sidebar ===== */
+
+	.faq__sidebar {
+		display: flex;
+		flex-direction: column;
+		gap: 1em;
+	}
+
+	.faq__sidebar-icon {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		align-self: flex-start;
+		width: 3em;
+		height: 3em;
+		border-radius: 0.75em;
+		background-color: var(--faq-accent-soft);
+		color: var(--accent-deep);
+	}
+
+	.faq__sidebar-icon svg {
+		width: 1.375em;
+		height: 1.375em;
+	}
+
+	.faq__sidebar-heading {
+		display: flex;
+		flex-direction: column;
+		gap: 0.25em;
+		margin-top: 0.5em;
+	}
+
+	.faq__sidebar-title {
+		font-family: var(--font-heading);
+		font-size: 1.125em;
+		font-weight: 700;
+		color: var(--color-contrast);
+	}
+
+	.faq__sidebar-desc {
+		font-size: 0.875em;
+		line-height: 1.4;
+		color: var(--color-text-secondary);
+	}
+
+	.faq__sidebar-list {
+		display: flex;
+		flex-direction: column;
+		gap: 0.875em;
+		list-style: none;
+		margin-top: 0.75em;
+		padding-top: 1em;
+		border-top: 1px solid var(--color-border);
+	}
+
+	.faq__sidebar-feature {
+		display: flex;
+		align-items: flex-start;
+		gap: 0.75em;
+	}
+
+	.faq__sidebar-feature-icon {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 1.5em;
+		height: 1.5em;
+		flex-shrink: 0;
+		color: var(--accent-deep);
+	}
+
+	.faq__sidebar-feature-icon svg {
+		width: 1.25em;
+		height: 1.25em;
+	}
+
+	.faq__sidebar-feature-title {
+		font-family: var(--font-heading);
+		font-size: 0.9375em;
+		font-weight: 700;
+		color: var(--color-contrast);
+	}
+
+	.faq__sidebar-feature-desc {
+		margin-top: 0.125em;
+		font-size: 0.8125em;
+		color: var(--color-text-secondary);
+	}
+
+	/* ===== Main (tabs + list) ===== */
+
+	.faq__main {
+		display: flex;
+		flex-direction: column;
+		gap: 1em;
+	}
+
+	.faq__tabs {
+		display: flex;
+		align-items: center;
+		gap: 0.25em;
+	}
+
+	.faq__tab {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		padding: 0.625em 1.125em;
+		font-family: var(--font-body);
+		font-size: 0.9375em;
+		font-weight: 600;
+		color: var(--color-text-secondary);
+		background: transparent;
+		border: none;
+		border-radius: 999em;
+		cursor: pointer;
+		transition:
+			background-color 180ms ease,
+			color 180ms ease;
+	}
+
+	.faq__tab:hover {
+		color: var(--color-contrast);
+	}
+
+	.faq__tab[aria-selected="true"] {
+		background-color: var(--color-contrast);
+		color: var(--color-canvas);
+	}
+
+	.faq__panels {
+		margin-top: 0.5em;
+	}
+
+	.faq__list {
+		display: flex;
+		flex-direction: column;
+		gap: 0.75em;
+	}
+
+	.faq__item {
+		background-color: var(--color-canvas);
+		border: 1px solid var(--color-border);
+		border-radius: 1em;
+		transition: border-color 180ms ease;
+	}
+
+	.faq__item[open] {
+		border-color: var(--faq-accent-border);
+	}
+
+	.faq__summary {
+		display: flex;
+		align-items: center;
+		gap: 1em;
+		min-height: 4em;
+		padding: 1em 1.25em;
+		cursor: pointer;
+		list-style: none;
+	}
+
+	.faq__summary::-webkit-details-marker {
+		display: none;
+	}
+
+	.faq__summary::marker {
+		content: "";
+	}
+
+	.faq__question {
+		flex: 1;
+		font-family: var(--font-heading);
+		font-size: 1.125em;
+		font-weight: 700;
+		line-height: 1.25;
+		color: var(--color-contrast);
+	}
+
+	.faq__toggle {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 2.25em;
+		height: 2.25em;
+		flex-shrink: 0;
+		border-radius: 50%;
+		background-color: var(--faq-accent-soft);
+		color: var(--accent-deep);
+	}
+
+	.faq__toggle-icon {
+		width: 1em;
+		height: 1em;
+	}
+
+	.faq__toggle-icon--minus {
+		display: none;
+	}
+
+	.faq__item[open] .faq__toggle-icon--plus {
+		display: none;
+	}
+
+	.faq__item[open] .faq__toggle-icon--minus {
+		display: block;
+	}
+
+	.faq__answer-wrap {
+		padding: 0 1.25em 1.25em;
+	}
+
+	.faq__answer {
+		max-width: 52em;
+		font-size: 0.9375em;
+		line-height: 1.6;
+		color: var(--color-text-secondary);
+	}
+
+	/* ===== Footer (INSIDE frame) ===== */
+
+	.faq__footer {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1.5em;
+		margin-top: 1.5em;
+		padding-top: 1.5em;
+		border-top: 1px dashed var(--color-border);
+	}
+
+	.faq__footer-left {
+		display: flex;
+		align-items: center;
+		gap: 1em;
+	}
+
+	.faq__footer-avatar {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 3em;
+		height: 3em;
+		flex-shrink: 0;
+		border-radius: 0.625em;
+		background-color: var(--faq-accent-soft);
+		color: var(--accent-deep);
+		font-family: var(--font-heading);
+		font-size: 1.25em;
+		font-weight: 700;
+	}
+
+	.faq__footer-copy {
+		display: flex;
+		flex-direction: column;
+		gap: 0.125em;
+	}
+
+	.faq__footer-title {
+		font-family: var(--font-heading);
+		font-size: 1em;
+		font-weight: 700;
+		color: var(--color-contrast);
+		line-height: 1.3;
+	}
+
+	.faq__footer-email {
+		font-size: 0.9375em;
+		color: var(--color-text-muted);
+	}
+
+	.faq__footer-cta {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.75em;
+		padding: 0.875em 1.25em;
+		font-family: var(--font-body);
+		font-size: 0.9375em;
+		font-weight: 600;
+		color: var(--color-canvas);
+		background-color: var(--color-contrast);
+		border-radius: 999em;
+		text-decoration: none;
+		flex-shrink: 0;
+		transition: transform 180ms ease;
+	}
+
+	.faq__footer-cta:hover {
+		transform: translateY(-1px);
+	}
+
+	.faq__footer-cta-arrow {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	/* ===== Responsywność ===== */
+
+	@media screen and (max-width: 991px) {
+
+		.faq__body {
+			grid-template-columns: minmax(0, 1fr);
+			gap: 1.5em;
+		}
+
+		.faq__tabs {
+			flex-wrap: wrap;
+		}
+	}
+
+	@media screen and (max-width: 767px) {
+		.faq__frame {
+			padding: 1.25em;
+		}
+
+
+		.faq__footer {
+			flex-direction: column;
+			align-items: stretch;
+		}
+
+		.faq__footer-cta {
+			justify-content: center;
+		}
+	}
+
+	/* ===== Reference layout: FAQ sidebar, tabs and fluid accordion ===== */
+
+	.faq__header {
+		margin-bottom: 3.5em;
+	}
+
+	.faq__layout {
+		display: grid;
+		grid-template-columns: minmax(15em, 0.45fr) minmax(0, 1.55fr);
+		gap: clamp(2em, 4.5vw, 5em);
+		align-items: stretch;
+	}
+
+	.faq__sidebar {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		gap: 0;
+		min-width: 0;
+		padding: 1.5em clamp(1.75em, 3vw, 3.5em) 0 0;
+		border-right: 1px solid var(--color-border);
+	}
+
+	.faq__sidebar-line {
+		display: block;
+		width: 2.25em;
+		height: 0.22em;
+		background-color: var(--accent-deep);
+		border-radius: 99em;
+	}
+
+	.faq__sidebar-copy {
+		margin-top: 2.1em;
+		font-family: var(--font-heading);
+		font-size: clamp(1.15em, 1.55vw, 1.45em);
+		font-weight: 600;
+		line-height: 1.48;
+		letter-spacing: -0.025em;
+		color: var(--color-contrast);
+	}
+
+	.faq__contact-card {
+		display: grid;
+		justify-items: start;
+		gap: 0.65em;
+		margin-top: auto;
+		padding: 1.7em;
+		background-color: var(--color-canvas);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-md);
+		box-shadow: var(--elevation-1);
+	}
+
+	.faq__contact-icon {
+		display: inline-grid;
+		width: 3.7em;
+		height: 3.7em;
+		place-items: center;
+		margin-bottom: 0.65em;
+		color: var(--accent-deep);
+		background-color: var(--faq-accent-soft);
+		border-radius: 50%;
+	}
+
+	.faq__contact-icon svg {
+		width: 1.55em;
+		height: 1.55em;
+	}
+
+	.faq__contact-title {
+		font-family: var(--font-heading);
+		font-size: 1.08em;
+		font-weight: 700;
+		line-height: 1.3;
+		color: var(--color-contrast);
+	}
+
+	.faq__contact-email {
+		color: var(--color-text-secondary);
+		font-size: 0.98em;
+		text-decoration: none;
+	}
+
+	.faq__contact-email:hover {
+		color: var(--accent-deep);
+	}
+
+	.faq__contact-cta {
+		display: inline-flex;
+		align-items: center;
+		gap: 1em;
+		width: 100%;
+		margin-top: 0.85em;
+		padding-top: 1.25em;
+		font-family: var(--font-heading);
+		font-weight: 700;
+		color: var(--accent-deep);
+		border-top: 1px solid var(--color-border);
+		text-decoration: none;
+		transition: color 180ms ease;
+	}
+
+	.faq__contact-cta span {
+		font-size: 1.3em;
+		line-height: 0;
+		transition: transform 220ms ease;
+	}
+
+	.faq__contact-cta:hover span {
+		transform: translateX(0.25em);
+	}
+
+	.faq__main {
+		display: block;
+		min-width: 0;
+	}
+
+	.faq__tabs {
+		display: grid;
+		grid-template-columns: repeat(5, minmax(0, 1fr));
+		gap: 0;
+		border-bottom: 1px solid var(--color-border);
+	}
+
+	.faq__tab {
+		position: relative;
+		min-height: 4.25em;
+		padding: 0.75em 0.5em;
+		font-size: clamp(0.8em, 1.05vw, 1em);
+		font-weight: 500;
+		border-radius: 0;
+		transition: color 200ms ease;
+	}
+
+	.faq__tab::after {
+		position: absolute;
+		bottom: -1px;
+		left: 50%;
+		width: 1.1em;
+		height: 0.22em;
+		content: "";
+		background-color: var(--accent-deep);
+		border-radius: 99em;
+		opacity: 0;
+		transform: translateX(-50%) scaleX(0.25);
+		transition: opacity 180ms ease, transform 220ms ease;
+	}
+
+	.faq__tab[aria-selected="true"] {
+		color: var(--color-contrast);
+		background-color: transparent;
+	}
+
+	.faq__tab[aria-selected="true"]::after {
+		opacity: 1;
+		transform: translateX(-50%) scaleX(1);
+	}
+
+	.faq__tab:focus-visible,
+	.faq__summary:focus-visible,
+	.faq__contact-cta:focus-visible,
+	.faq__contact-email:focus-visible {
+		outline: 2px solid var(--accent-deep);
+		outline-offset: 3px;
+	}
+
+	.faq__panels {
+		margin-top: 1.2em;
+	}
+
+	.faq__list {
+		gap: 0;
+	}
+
+	.faq__item {
+		position: relative;
+		overflow: clip;
+		background-color: transparent;
+		border: 0;
+		border-top: 1px solid var(--color-border);
+		border-radius: 0;
+		transition: background-color 240ms ease, border-color 240ms ease, box-shadow 240ms ease, margin 240ms ease;
+	}
+
+	.faq__item:first-child {
+		border-top: 0;
+	}
+
+	.faq__item[data-open="true"] {
+		z-index: 1;
+		margin-block: 0.3em;
+		background-color: var(--color-canvas);
+		border: 1px solid var(--color-border);
+		border-left: 0.2em solid var(--accent-deep);
+		border-radius: var(--radius-md);
+		box-shadow: var(--elevation-1);
+	}
+
+	.faq__summary {
+		display: grid;
+		grid-template-columns: 3.3em minmax(0, 1fr) 2.5em;
+		align-items: center;
+		gap: 0.9em;
+		width: 100%;
+		min-height: 5.2em;
+		padding: 1.2em 1.65em;
+		font: inherit;
+		text-align: left;
+		background: transparent;
+		border: 0;
+		cursor: pointer;
+	}
+
+	.faq__summary:hover .faq__question {
+		color: var(--accent-deep);
+	}
+
+	.faq__item-number {
+		font-family: var(--font-heading);
+		font-size: 1.18em;
+		font-weight: 700;
+		color: var(--accent-deep);
+	}
+
+	.faq__question {
+		font-size: clamp(1.03em, 1.35vw, 1.25em);
+		letter-spacing: -0.02em;
+		transition: color 180ms ease;
+	}
+
+	.faq__toggle {
+		position: relative;
+		display: block;
+		width: 2.1em;
+		height: 2.1em;
+		background: transparent;
+	}
+
+	.faq__toggle::before,
+	.faq__toggle::after {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		width: 1.05em;
+		height: 0.12em;
+		content: "";
+		background-color: var(--color-contrast);
+		border-radius: 99em;
+		transform: translate(-50%, -50%);
+		transition: transform 260ms ease, opacity 180ms ease;
+	}
+
+	.faq__toggle::after {
+		transform: translate(-50%, -50%) rotate(90deg);
+	}
+
+	.faq__item[data-open="true"] .faq__toggle::after {
+		opacity: 0;
+		transform: translate(-50%, -50%) rotate(90deg) scaleX(0.4);
+	}
+
+	.faq__answer-wrap {
+		display: grid;
+		grid-template-rows: 0fr;
+		padding: 0;
+		opacity: 0;
+		transition: grid-template-rows 420ms cubic-bezier(0.2, 0.8, 0.2, 1), opacity 220ms ease;
+	}
+
+	.faq__answer-inner {
+		min-height: 0;
+		overflow: hidden;
+	}
+
+	.faq__item[data-open="true"] .faq__answer-wrap {
+		grid-template-rows: 1fr;
+		opacity: 1;
+	}
+
+	.faq__answer {
+		max-width: 56em;
+		padding: 0 3.7em 1.5em 5.6em;
+		font-size: clamp(0.96em, 1.2vw, 1.07em);
+		line-height: 1.68;
+	}
+
+	@media screen and (max-width: 991px) {
+		.faq__layout {
+			grid-template-columns: minmax(0, 1fr);
+			gap: 2em;
+		}
+
+		.faq__sidebar {
+			display: grid;
+			grid-template-columns: minmax(0, 1fr) minmax(14em, 0.8fr);
+			column-gap: 2em;
+			padding: 0 0 2em;
+			border-right: 0;
+			border-bottom: 1px solid var(--color-border);
+		}
+
+		.faq__sidebar-line,
+		.faq__sidebar-copy {
+			grid-column: 1;
+		}
+
+		.faq__contact-card {
+			grid-column: 2;
+			grid-row: 1 / span 2;
+			margin: 0;
+		}
+	}
+
+	@media screen and (max-width: 767px) {
+		.faq__header {
+			margin-bottom: 2.25em;
+		}
+
+		.faq__layout {
+			gap: 1.75em;
+		}
+
+		.faq__sidebar {
+			display: flex;
+			padding-bottom: 1.75em;
+		}
+
+		.faq__sidebar-copy {
+			margin-top: 1.4em;
+		}
+
+		.faq__contact-card {
+			margin-top: 1.75em;
+		}
+
+		.faq__tabs {
+			display: flex;
+			justify-content: flex-start;
+			overflow-x: auto;
+			scrollbar-width: none;
+		}
+
+		.faq__tabs::-webkit-scrollbar {
+			display: none;
+		}
+
+		.faq__tab {
+			min-width: max-content;
+			padding-inline: 0.9em;
+		}
+
+		.faq__summary {
+			grid-template-columns: 2.65em minmax(0, 1fr) 1.8em;
+			min-height: 4.75em;
+			padding: 1.05em 1em;
+		}
+
+		.faq__answer {
+			padding: 0 1em 1.25em 3.65em;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.faq *,
+		.faq *::before,
+		.faq *::after {
+			transition-duration: 1ms !important;
+		}
+	}
+</style>

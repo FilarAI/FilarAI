@@ -1,0 +1,125 @@
+---
+// Jak wygląda współpraca — cztery konkretne etapy od rozmowy do wdrożenia.
+
+const steps = [
+	{ number: "01", label: "Rozmowa", title: "Rozmowa", desc: "Poznaję Twoją firmę i problem, który trzeba rozwiązać.", status: "30 min" },
+	{ number: "02", label: "Plan i wycena", title: "Plan i wycena", desc: "Dostajesz zakres, termin i koszt przed rozpoczęciem prac.", status: "Bez niespodzianek" },
+	{ number: "03", label: "Realizacja", title: "Realizacja", desc: "Buduję rozwiązanie. Postęp widzisz na bieżąco.", status: "Live progress" },
+	{ number: "04", label: "Wdrożenie i wsparcie", title: "Wdrożenie i wsparcie", desc: "Uruchamiamy system. Jestem dostępny po starcie.", status: "System online" },
+];
+
+const icon = {
+	check: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 12 3 3 7-7"/></svg>`,
+	calendar: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 9h16M8 3v4M16 3v4"/></svg>`,
+	arrow: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>`,
+	chart: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V9M10 19V5M16 19v-7M22 19H2"/></svg>`,
+};
+---
+
+<section class="proces section--atmosphere">
+	<div class="proces__outer">
+		<header class="proces__header">
+			<p class="proces__eyebrow"><span aria-hidden="true"></span> Proces</p>
+			<h2>Jak wygląda współpraca</h2>
+			<p>Od pierwszej rozmowy do działającego systemu. Bez chaosu i domysłów.</p>
+		</header>
+
+		<div class="proces__frame">
+			<ol class="proces__steps">
+				<li class="proces__step">
+					<div class="proces__step-head"><span class="proces__number">{steps[0].number}</span><strong>{steps[0].label}</strong></div>
+					<div class="proces__mock proces__mock--meeting">
+						<div class="proces__meeting-date"><span>‹</span><b>15 maja 2025</b><span>›</span></div>
+						<div class="proces__time">09:00</div><div class="proces__time proces__time--active">10:00 <i></i></div><div class="proces__time">11:00</div><div class="proces__time">12:00</div>
+						<button type="button" class="proces__meeting-button"><span set:html={icon.calendar} aria-hidden="true" /> Umów rozmowę</button>
+					</div>
+					<div class="proces__summary"><p>{steps[0].desc}</p><span class="proces__status"><i></i>{steps[0].status}</span></div>
+				</li>
+
+				<li class="proces__step">
+					<div class="proces__step-head"><span class="proces__number">{steps[1].number}</span><strong>{steps[1].label}</strong></div>
+					<div class="proces__mock proces__mock--plan">
+						<div class="proces__mock-title">▧ &nbsp; Plan projektu</div>
+						<div class="proces__plan-row"><span>Zakres prac</span><b set:html={icon.check} /></div>
+						<div class="proces__plan-row"><span>Harmonogram</span><b set:html={icon.check} /></div>
+						<div class="proces__plan-row"><span>Koszt</span><b set:html={icon.check} /></div>
+						<div class="proces__approved"><span set:html={icon.check} /> Plan zaakceptowany</div>
+					</div>
+					<div class="proces__summary"><p>{steps[1].desc}</p><span class="proces__status"><i></i>{steps[1].status}</span></div>
+				</li>
+
+				<li class="proces__step proces__step--active">
+					<div class="proces__step-head"><span class="proces__number">{steps[2].number}</span><strong>{steps[2].label}</strong></div>
+					<div class="proces__mock proces__mock--project">
+						<div class="proces__project-head"><span>&lt;/&gt; &nbsp; Projekt</span><span>•••</span></div>
+						<div class="proces__progress-label"><b>Postęp prac</b><strong>72%</strong></div><div class="proces__progress"><span></span></div>
+						<ul class="proces__task-list"><li>/ Strona WWW <b set:html={icon.check} /></li><li>/ Automatyzacja <b set:html={icon.check} /></li><li>/ Integracje <em>✣</em></li></ul>
+						<div class="proces__update"><i></i><span>Ostatnia aktualizacja<br /><b>Dzisiaj, 12:42</b></span></div>
+					</div>
+					<div class="proces__summary"><p>{steps[2].desc}</p><span class="proces__status"><b set:html={icon.chart} />{steps[2].status}</span></div>
+				</li>
+
+				<li class="proces__step">
+					<div class="proces__step-head"><span class="proces__number">{steps[3].number}</span><strong>{steps[3].label}</strong></div>
+					<div class="proces__mock proces__mock--system">
+						<div class="proces__mock-title">◎ &nbsp; System</div>
+						<div class="proces__system-online"><i></i><p><b>System online</b><span>Wszystkie usługi działają poprawnie.</span></p></div>
+						<ul class="proces__system-list"><li>Monitoring <b set:html={icon.check} /></li><li>Kopie zapasowe <b set:html={icon.check} /></li><li>Automatyzacje <b set:html={icon.check} /></li></ul>
+						<div class="proces__uptime">⌁ &nbsp; 99.9% uptime</div>
+					</div>
+					<div class="proces__summary"><p>{steps[3].desc}</p><span class="proces__status"><i></i>{steps[3].status}</span></div>
+				</li>
+			</ol>
+		</div>
+
+		<aside class="proces__notion">
+			<div class="proces__notion-mark"><img src="/images/logos/notion.svg" alt="Notion" /></div>
+			<div class="proces__notion-copy"><p>Panel klienta</p><h3>Cały projekt widzisz w swoim panelu w Notion</h3><span>Postęp prac, checklisty, pliki, komentarze i kolejne etapy — wszystko w jednym miejscu.</span></div>
+			<div class="proces__notion-preview"><div><b>Projekt Filar</b><span>● ● +2</span></div><p>Postęp projektu <i><em></em></i> <strong>72%</strong></p><small>5 / 7 zadań &nbsp; <b>● ● ● ● ○ ○</b></small></div>
+			<a href="/kontakt" class="proces__notion-link">Zobacz, jak wygląda panel <span set:html={icon.arrow} aria-hidden="true" /></a>
+		</aside>
+	</div>
+</section>
+
+<style>
+	.proces__outer { max-width: var(--size-container); margin-inline: auto; padding: var(--spacing-section) var(--container-padding); }
+	.proces__header { max-width: 50em; margin: 0 auto var(--spacing-4xl); text-align: center; }
+	.proces__eyebrow { display: inline-flex; align-items: center; gap: .55em; padding: .55em .95em; border: 1px solid var(--color-border); border-radius: var(--radius-pill); background: var(--color-canvas); font-size: var(--text-sm); font-weight: 700; letter-spacing: .15em; text-transform: uppercase; color: var(--color-contrast); }
+	.proces__eyebrow > span { width: .45em; height: .45em; border-radius: 50%; background: var(--accent-brand); }
+	.proces__header h2 { margin-top: var(--spacing-lg); font-family: var(--font-heading); font-size: var(--text-h2); font-weight: 700; letter-spacing: -.055em; line-height: var(--lh-display); color: var(--color-contrast); }
+	.proces__header > p:last-child { margin-top: var(--spacing-md); font-size: var(--text-lead); line-height: var(--lh-lead); color: var(--color-text-secondary); }
+
+	.proces__frame { padding: var(--spacing-xl); border: 1px solid var(--color-border); border-radius: var(--radius-lg); background: var(--color-canvas); box-shadow: var(--elevation-1); }
+	.proces__steps { position: relative; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--spacing-xl); list-style: none; }
+	.proces__steps::before { position: absolute; top: 2.4em; left: 7%; right: 7%; height: 1px; background: var(--accent-brand); opacity: .45; content: ""; }
+	.proces__step { position: relative; z-index: 1; display: flex; flex-direction: column; min-width: 0; padding: 0; transition: transform 280ms cubic-bezier(.22, 1, .36, 1); }
+	.proces__step--active { margin-top: -.4em; padding: .9em; border: 1px solid var(--accent-brand); border-radius: var(--radius-lg); background: var(--color-canvas); box-shadow: var(--elevation-2); }
+	.proces__step-head { display: flex; align-items: center; gap: var(--spacing-md); min-height: 3.6em; }
+	.proces__number { display: grid; place-items: center; width: 2.35em; height: 2.35em; border: 1px solid var(--accent-brand); border-radius: var(--radius-sm); background: var(--color-canvas); font-family: var(--font-heading); font-size: 1em; font-weight: 700; color: var(--accent-deep); }
+	.proces__step-head strong { font-size: .72em; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--color-contrast); white-space: nowrap; }
+	.proces__step--active .proces__number { border: 0; background: var(--accent-brand); color: var(--color-canvas); }
+	.proces__step--active .proces__step-head strong { color: var(--accent-deep); }
+
+	.proces__mock { display: flex; flex-direction: column; gap: .65em; min-height: 17.4em; margin-top: var(--spacing-lg); padding: var(--spacing-lg); border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-canvas); box-shadow: var(--elevation-1); transition: border-color 220ms ease, box-shadow 280ms cubic-bezier(.22, 1, .36, 1); }
+	.proces__summary { display: flex; flex: 1; flex-direction: column; align-items: center; justify-content: flex-end; gap: var(--spacing-md); padding: var(--spacing-lg) var(--spacing-sm) 0; text-align: center; }
+	.proces__summary p { max-width: 18em; min-height: 3.1em; font-size: var(--text-sm); line-height: 1.45; color: var(--color-text-secondary); }
+	.proces__status { display: inline-flex; align-items: center; gap: .6em; padding: .7em 1em; border: 1px solid var(--color-border); border-radius: var(--radius-pill); font-size: .62em; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; color: var(--accent-deep); white-space: nowrap; }
+	.proces__status i, .proces__summary .proces__status > i { width: .65em; height: .65em; border-radius: 50%; background: var(--accent-brand); } .proces__status :global(svg) { width: 1.1em; height: 1.1em; }
+
+	.proces__meeting-date { display: flex; justify-content: space-between; align-items: center; margin-bottom: .4em; font-size: .66em; color: var(--color-text-secondary); }.proces__meeting-date b { color: var(--color-contrast); }
+	.proces__time { padding: .62em .75em; border: 1px solid var(--color-border); border-radius: var(--radius-sm); font-size: .67em; color: var(--color-text-secondary); }.proces__time--active { display: flex; justify-content: space-between; background: var(--color-contrast); border-color: var(--color-contrast); color: var(--color-canvas); }.proces__time--active i { width: .6em; height: .6em; border-radius: 50%; background: var(--accent-fill); }
+	.proces__meeting-button { display: inline-flex; align-items: center; justify-content: center; gap: .7em; margin-top: auto; padding: .85em; border: 0; border-radius: var(--radius-sm); background: var(--color-contrast); font-family: var(--font-body); font-size: .66em; font-weight: 600; color: var(--color-canvas); }.proces__meeting-button :global(svg) { width: 1.25em; height: 1.25em; color: var(--accent-fill); }
+
+	.proces__mock-title, .proces__project-head { display: flex; align-items: center; justify-content: space-between; padding-bottom: .8em; border-bottom: 1px solid var(--color-border); font-size: .67em; font-weight: 700; color: var(--color-contrast); text-transform: uppercase; }.proces__plan-row { display: flex; align-items: center; justify-content: space-between; padding: .7em; border: 1px solid var(--color-border); border-radius: var(--radius-sm); font-size: .67em; color: var(--color-text-secondary); }.proces__plan-row b, .proces__task-list b, .proces__system-list b { display: grid; place-items: center; width: 1.35em; height: 1.35em; border-radius: 50%; background: var(--accent-wash); color: var(--accent-deep); }.proces__plan-row :global(svg), .proces__task-list :global(svg), .proces__system-list :global(svg) { width: .85em; height: .85em; }.proces__approved { display: flex; align-items: center; gap: .6em; margin-top: auto; padding: .8em; border-radius: var(--radius-sm); background: var(--accent-wash); font-size: .65em; font-weight: 700; color: var(--accent-deep); }.proces__approved span { display: grid; place-items: center; width: 1.5em; height: 1.5em; border-radius: 50%; border: 1px solid var(--accent-brand); }.proces__approved :global(svg) { width: .85em; height: .85em; }
+
+	.proces__progress-label { display: flex; justify-content: space-between; margin-top: .2em; font-size: .66em; color: var(--color-contrast); }.proces__progress-label strong { color: var(--accent-deep); }.proces__progress { height: .5em; border-radius: var(--radius-pill); background: var(--color-border); overflow: hidden; }.proces__progress span { display: block; width: 72%; height: 100%; border-radius: inherit; background: var(--accent-brand); }.proces__task-list { display: grid; gap: .65em; list-style: none; margin-top: .45em; }.proces__task-list li, .proces__system-list li { display: flex; align-items: center; justify-content: space-between; font-size: .67em; color: var(--color-text-secondary); }.proces__task-list em { color: var(--accent-deep); font-style: normal; }.proces__update { display: flex; align-items: center; gap: .6em; margin-top: auto; padding-top: .75em; border-top: 1px solid var(--color-border); font-size: .55em; line-height: 1.35; color: var(--color-text-muted); }.proces__update i { width: .65em; height: .65em; border-radius: 50%; background: var(--accent-brand); }.proces__update b { color: var(--color-text-secondary); }
+
+	.proces__system-online { display: flex; gap: .7em; padding: .8em; border: 1px solid var(--color-border); border-radius: var(--radius-sm); }.proces__system-online > i { width: .7em; height: .7em; flex: 0 0 auto; margin-top: .2em; border-radius: 50%; background: var(--accent-brand); }.proces__system-online p { display: grid; gap: .25em; }.proces__system-online b { font-size: .66em; text-transform: uppercase; color: var(--color-contrast); }.proces__system-online span { font-size: .54em; color: var(--color-text-muted); }.proces__system-list { display: grid; gap: .65em; list-style: none; }.proces__uptime { margin-top: auto; padding: .75em; border-radius: var(--radius-sm); background: var(--accent-wash); font-size: .62em; font-weight: 700; color: var(--accent-deep); }
+
+	.proces__notion { display: grid; grid-template-columns: auto minmax(0, 1.4fr) minmax(14em, .8fr) auto; align-items: center; gap: var(--spacing-xl); margin-top: var(--spacing-xl); padding: var(--spacing-xl); border: 1px solid var(--color-border); border-radius: var(--radius-lg); background: var(--color-canvas); box-shadow: var(--elevation-1); transition: transform 300ms cubic-bezier(.22, 1, .36, 1), border-color 220ms ease, box-shadow 300ms cubic-bezier(.22, 1, .36, 1); }.proces__notion-mark { display: grid; place-items: center; width: 4em; height: 4em; padding: .8em; border-radius: var(--radius-md); background: var(--accent-wash); }.proces__notion-mark img { display: block; width: 100%; height: 100%; object-fit: contain; }.proces__notion-copy > p { font-size: .7em; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--color-contrast); }.proces__notion-copy h3 { margin-top: .45em; font-family: var(--font-heading); font-size: 1.25em; font-weight: 700; color: var(--color-contrast); }.proces__notion-copy > span { display: block; margin-top: .45em; font-size: var(--text-sm); color: var(--color-text-secondary); }.proces__notion-preview { display: grid; gap: .75em; padding: 1em; border: 1px solid var(--color-border); border-radius: var(--radius-md); }.proces__notion-preview > div { display: flex; justify-content: space-between; font-size: .66em; color: var(--color-contrast); }.proces__notion-preview > div span { color: var(--color-text-muted); }.proces__notion-preview p { display: flex; align-items: center; gap: .6em; font-size: .6em; color: var(--color-text-secondary); }.proces__notion-preview p i { flex: 1; height: .6em; border-radius: var(--radius-pill); background: var(--color-border); overflow: hidden; }.proces__notion-preview p i em { display: block; width: 72%; height: 100%; background: var(--accent-brand); }.proces__notion-preview p strong { color: var(--color-contrast); }.proces__notion-preview small { font-size: .6em; color: var(--color-text-secondary); }.proces__notion-preview small b { color: var(--accent-brand); }.proces__notion-link { display: inline-flex; align-items: center; gap: .65em; padding: .8em 1em; border: 1px solid var(--color-border); border-radius: var(--radius-pill); font-size: .68em; font-weight: 700; white-space: nowrap; color: var(--color-contrast); text-decoration: none; }.proces__notion-link :global(svg) { width: 1.1em; height: 1.1em; color: var(--accent-deep); transition: transform 220ms ease; }
+	@media (hover: hover) and (pointer: fine) { .proces__step:hover { transform: translateY(-.25em); } .proces__step:hover .proces__mock { border-color: var(--accent-brand); box-shadow: var(--elevation-2); } .proces__notion:hover, .proces__notion:focus-within { transform: translateY(-.25em); border-color: var(--accent-brand); box-shadow: var(--elevation-2); } .proces__notion-link:hover :global(svg), .proces__notion-link:focus-visible :global(svg) { transform: translateX(.25em); } }
+
+	@media screen and (max-width: 991px) { .proces__steps { grid-template-columns: repeat(2, minmax(0, 1fr)); } .proces__steps::before { display: none; } .proces__notion { grid-template-columns: auto 1fr; } .proces__notion-preview { grid-column: 2; } .proces__notion-link { grid-column: 2; justify-self: start; } }
+	@media screen and (max-width: 767px) { .proces__frame { padding: var(--spacing-lg); } .proces__steps { grid-template-columns: 1fr; } .proces__step--active { margin-top: 0; } .proces__step-head strong { white-space: normal; } .proces__notion { grid-template-columns: 1fr; gap: var(--spacing-lg); } .proces__notion-preview, .proces__notion-link { grid-column: auto; } .proces__notion-link { justify-self: start; } }
+	@media (prefers-reduced-motion: reduce) { .proces__step, .proces__mock, .proces__notion, .proces__notion-link :global(svg) { transition: none; } }
+</style>

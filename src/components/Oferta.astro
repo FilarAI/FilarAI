@@ -1,0 +1,657 @@
+---
+// Oferta — redesign wg attachment: blueprint header, lista 4 rzędów z brackety [01],
+// ikoną, tytułem/opisem, ilustracją mockupową po prawej i strzałką.
+// Akcent oliwkowy (--accent-brand / --accent-deep) w stylu blueprint / technical drawing.
+
+interface OfferItem {
+	id: string;
+	number: string;
+	title: string;
+	desc: string;
+	icon: string;
+	illustration: "ai" | "www" | "seo" | "ads";
+	soon?: boolean;
+	href: string;
+}
+
+const items: OfferItem[] = [
+	{
+		id: "systemy-ai",
+		number: "01",
+		title: "Systemy AI",
+		desc: "Automatyzacje, które odpowiadają na zapytania, pilnują follow-upu i zamieniają kontakt w klienta.",
+		icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="6" r="2"/><circle cx="5" cy="18" r="2"/><circle cx="18" cy="12" r="2"/><path d="M7 6.6h3.5a4 4 0 0 1 4 4v0M7 17.4h3.5a4 4 0 0 0 4-4v0"/></svg>`,
+		illustration: "ai",
+		href: "/oferta",
+	},
+	{
+		id: "strony",
+		number: "02",
+		title: "Strony WWW",
+		desc: "Szybkie, nowoczesne strony nastawione na konwersję i wygodę użytkownika.",
+		icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/><circle cx="6.5" cy="6.5" r="0.7" fill="currentColor" stroke="none"/><circle cx="9" cy="6.5" r="0.7" fill="currentColor" stroke="none"/></svg>`,
+		illustration: "www",
+		href: "/oferta",
+	},
+	{
+		id: "seo-geo",
+		number: "03",
+		title: "SEO & GEO",
+		desc: "Widoczność tam, gdzie klienci szukają odpowiedzi – w Google i AI.",
+		icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17l5-5 4 4 7-8"/><path d="M14 8h6v6"/></svg>`,
+		illustration: "seo",
+		href: "/oferta",
+	},
+	{
+		id: "meta-ads",
+		number: "04",
+		title: "Meta Ads",
+		desc: "Skuteczne kampanie reklamowe, które przynoszą zapytania i realne wyniki.",
+		icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10v4h4l7 5V5l-7 5H4z"/><path d="M18 8a4 4 0 0 1 0 8"/></svg>`,
+		illustration: "ads",
+		soon: true,
+		href: "/oferta",
+	},
+];
+---
+
+<section class="oferta section--atmosphere">
+	<div class="oferta__outer">
+		<div class="oferta__header">
+			<p class="oferta__eyebrow"><i aria-hidden="true"></i><b>Oferta</b><span>/</span> 4 obszary współpracy</p>
+			<h2 class="oferta__title">Strony, systemy AI i marketing.<span>Cztery obszary, jeden cel – więcej klientów.</span></h2>
+			<p class="oferta__subtitle">Projektuję i wdrażam rozwiązania, które przyciągają klientów,<br />oszczędzają czas i realnie wspierają rozwój firmy.</p>
+		</div>
+
+		<div class="oferta__frame">
+			<ul class="oferta__list">
+				{
+					items.map((item) => (
+						<li class="oferta__item">
+							<a href={item.href} class="oferta__row">
+								<span class="oferta__number">{item.number}</span>
+
+								<span class="oferta__icon" set:html={item.icon} />
+
+								<div class="oferta__body">
+									<h3 class="oferta__item-title">{item.title}{item.soon && <em class="oferta__soon">wkrótce</em>}</h3>
+									<p class="oferta__item-desc">{item.desc}</p>
+								</div>
+
+								<div class:list={["oferta__illustration", `oferta__illustration--${item.illustration}`]}>
+									{item.illustration === "ai" && (
+										<svg viewBox="0 0 220 60" class="oferta__illu" aria-hidden="true">
+											<rect x="6" y="18" width="30" height="24" rx="4" fill="none" stroke="currentColor" stroke-width="1" opacity="0.35" />
+											<path d="M14 28h14M14 32h10" stroke="currentColor" stroke-width="1" opacity="0.35" stroke-linecap="round" />
+											<line x1="36" y1="30" x2="86" y2="30" stroke="var(--accent-brand)" stroke-width="1" stroke-dasharray="2 2" opacity="0.6" />
+											<g transform="translate(86 12)">
+												<rect x="0" y="0" width="36" height="36" rx="6" fill="var(--color-canvas)" stroke="var(--accent-brand)" stroke-width="1.5" />
+												<rect x="-4" y="-4" width="44" height="44" rx="10" fill="none" stroke="var(--accent-brand)" stroke-width="1" opacity="0.35" />
+												<circle cx="18" cy="18" r="4" fill="var(--accent-brand)" />
+												<circle cx="18" cy="18" r="2" fill="var(--color-canvas)" />
+											</g>
+											<line x1="132" y1="30" x2="184" y2="30" stroke="var(--accent-brand)" stroke-width="1" stroke-dasharray="2 2" opacity="0.6" />
+											<rect x="184" y="18" width="30" height="24" rx="4" fill="none" stroke="currentColor" stroke-width="1" opacity="0.35" />
+											<path d="M192 30l3 3 6-6" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.55" />
+										</svg>
+									)}
+									{item.illustration === "www" && (
+										<div class="oferta__site-preview" aria-hidden="true">
+											<div class="oferta__site-browserbar">
+												<span class="oferta__site-dots"><i></i><i></i><i></i></span>
+												<span class="oferta__site-address"></span>
+											</div>
+											<div class="oferta__site-content">
+												<div class="oferta__site-copy">
+													<strong>Twoja firma.<br />Więcej klientów.</strong>
+													<span>Tworzymy nowoczesne strony WWW, które przyciągają uwagę i zwiększają konwersję.</span>
+													<em>Umów bezpłatną konsultację <b>→</b></em>
+												</div>
+												<div class="oferta__site-art"><i></i><b></b></div>
+											</div>
+										</div>
+									)}
+									{item.illustration === "seo" && (
+										<div class="oferta__seo-card" aria-hidden="true">
+											<div class="oferta__seo-result">
+												<span>Wzrost widoczności</span>
+												<strong>+147%</strong>
+												<small>Ostatnie 6 miesięcy</small>
+											</div>
+											<svg viewBox="0 0 156 86" class="oferta__seo-chart">
+												<polyline points="10,66 38,42 67,45 99,18 125,20 147,5" fill="none" stroke="var(--accent-deep)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+												{[[10, 66], [38, 42], [67, 45], [99, 18], [125, 20], [147, 5]].map(([x, y], index) => (
+													<circle cx={x} cy={y} r={index === 5 ? "4.8" : "4"} fill="var(--accent-text)" />
+												))}
+											</svg>
+											<div class="oferta__seo-sources">
+												<span class="oferta__seo-google">G</span>
+												<span class="oferta__seo-ai">✺</span>
+												<span class="oferta__seo-spark">✦</span>
+											</div>
+										</div>
+									)}
+									{item.illustration === "ads" && (
+										<svg viewBox="0 0 220 60" class="oferta__illu" aria-hidden="true">
+											{[20, 82, 144].map((x, i) => (
+												<g transform={`translate(${x} 10)`}>
+													<rect
+														x="0"
+														y="0"
+														width="52"
+														height="40"
+														rx="3"
+														fill="none"
+														stroke={i === 1 ? "var(--accent-brand)" : "currentColor"}
+														stroke-width={i === 1 ? "1.5" : "1"}
+														opacity={i === 1 ? "1" : "0.4"}
+													/>
+													<circle cx="10" cy="10" r="3" fill="none" stroke="currentColor" stroke-width="0.8" opacity="0.5" />
+													<rect x="18" y="8" width="26" height="3" rx="1" fill="currentColor" opacity="0.35" />
+													<rect x="6" y="20" width="40" height="3" rx="1" fill="currentColor" opacity="0.25" />
+													<rect x="6" y="26" width="32" height="3" rx="1" fill="currentColor" opacity="0.25" />
+												</g>
+											))}
+										</svg>
+									)}
+								</div>
+
+								<span class="oferta__arrow" aria-hidden="true">
+									<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+										<path d="M5 12h14M13 6l6 6-6 6" />
+									</svg>
+								</span>
+							</a>
+						</li>
+					))
+				}
+			</ul>
+		</div>
+
+		<div class="oferta__footer">
+			<span class="oferta__footer-mark" aria-hidden="true">F</span>
+			<p class="oferta__footer-copy"><strong>Nie wiesz, od czego zacząć? Porozmawiajmy.</strong><span>Dobierzemy najlepsze rozwiązanie dla Twojej firmy.</span></p>
+			<a href="/oferta" class="oferta__cta">
+				<span>Zobacz pełną ofertę</span>
+				<span class="oferta__cta-badge" aria-hidden="true">
+					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14">
+						<path d="M5 12h14M13 6l6 6-6 6" />
+					</svg>
+				</span>
+			</a>
+			<a href="/kontakt" class="oferta__footer-link">Umów rozmowę <span aria-hidden="true">→</span></a>
+		</div>
+	</div>
+</section>
+
+<style>
+	.oferta__outer {
+		max-width: var(--size-container);
+		margin-inline: auto;
+		padding-inline: 1.5em;
+		padding-block: var(--spacing-section);
+	}
+
+	/* ===== Header (H2 + subtitle) ===== */
+
+	.oferta__header {
+		text-align: center;
+		margin-bottom: 3em;
+	}
+
+	.oferta__title {
+		font-family: var(--font-heading);
+		font-size: var(--text-h2);
+		font-weight: 700;
+		line-height: 1.05;
+		color: var(--color-contrast);
+		letter-spacing: -1px;
+	}
+
+	.oferta__subtitle {
+		margin-top: 1em;
+		font-size: var(--text-lead);
+		line-height: var(--lh-lead);
+		color: var(--color-text-secondary);
+	}
+
+	/* ===== Frame + lista rzędów ===== */
+
+	.oferta__frame {
+		background-color: var(--color-atmosphere);
+		border: 1px solid var(--color-border);
+		border-radius: 1.5em;
+		padding: 0.75em 1.5em;
+	}
+
+	.oferta__list {
+		list-style: none;
+	}
+
+	.oferta__item + .oferta__item {
+		border-top: 1px dashed var(--color-border);
+	}
+
+	.oferta__row {
+		position: relative;
+		display: grid;
+		grid-template-columns: 3em 4em minmax(0, 1fr) 14em 3em;
+		align-items: center;
+		gap: 1.5em;
+		padding: 1.5em 1em;
+		margin-inline: -1em;
+		border-radius: 1em;
+		text-decoration: none;
+		color: inherit;
+		transition:
+			background-color 220ms ease,
+			transform 220ms ease;
+	}
+
+	.oferta__row::before {
+		content: "";
+		position: absolute;
+		inset: 0;
+		border-radius: 1em;
+		border: 1px solid transparent;
+		pointer-events: none;
+		transition: border-color 220ms ease;
+	}
+
+	.oferta__row:hover {
+		background-color: var(--color-canvas);
+	}
+
+	.oferta__row:hover::before {
+		border-color: rgba(168, 196, 71, 0.3);
+	}
+
+	/* ===== Icon circle ===== */
+
+	.oferta__icon {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 3.5em;
+		height: 3.5em;
+		border-radius: 50%;
+		background-color: var(--color-canvas);
+		border: 1px solid var(--color-border);
+		color: var(--color-contrast);
+		flex-shrink: 0;
+		transition:
+			background-color 220ms ease,
+			border-color 220ms ease,
+			color 220ms ease,
+			transform 220ms ease;
+	}
+
+	.oferta__row:hover .oferta__icon {
+		background-color: rgba(168, 196, 71, 0.08);
+		border-color: rgba(168, 196, 71, 0.4);
+		color: var(--accent-deep);
+		transform: scale(1.05);
+	}
+
+	.oferta__icon svg {
+		width: 1.5em;
+		height: 1.5em;
+	}
+
+	/* ===== Body (title + desc) ===== */
+
+	.oferta__body {
+		display: flex;
+		flex-direction: column;
+		gap: 0.375em;
+	}
+
+	.oferta__item-title {
+		font-family: var(--font-heading);
+		font-size: 1.5em;
+		font-weight: 700;
+		color: var(--color-contrast);
+		line-height: 1.15;
+	}
+
+	.oferta__item-desc {
+		font-size: 0.9375em;
+		line-height: 1.45;
+		color: var(--color-text-secondary);
+		max-width: 28em;
+	}
+
+	/* ===== Illustration ===== */
+
+	.oferta__illustration {
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
+		color: var(--color-contrast);
+	}
+
+	.oferta__illu {
+		width: 100%;
+		height: 3.75em;
+		display: block;
+		transition:
+			transform 300ms ease,
+			opacity 220ms ease;
+		opacity: 0.85;
+	}
+
+	.oferta__row:hover .oferta__illu {
+		opacity: 1;
+		transform: scale(1.04);
+	}
+
+	.oferta__number {
+		transition:
+			color 220ms ease,
+			border-color 220ms ease;
+	}
+
+	.oferta__row:hover .oferta__number {
+		color: var(--color-contrast);
+	}
+
+	/* ===== Arrow / soon badge ===== */
+
+	.oferta__arrow {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 2.5em;
+		height: 2.5em;
+		border-radius: 50%;
+		background-color: transparent;
+		color: var(--accent-deep);
+		transition:
+			background-color 220ms ease,
+			color 220ms ease,
+			transform 220ms ease;
+	}
+
+	.oferta__arrow svg {
+		width: 1.25em;
+		height: 1.25em;
+	}
+
+	.oferta__row:hover .oferta__arrow {
+		background-color: var(--accent-brand);
+		color: var(--color-canvas);
+		transform: translateX(4px);
+	}
+
+	.oferta__soon {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		padding: 0.375em 0.75em;
+		font-size: 0.75em;
+		font-weight: 600;
+		color: var(--accent-deep);
+		background-color: rgba(168, 196, 71, 0.1);
+		border: 1px solid rgba(168, 196, 71, 0.25);
+		border-radius: 999em;
+		white-space: nowrap;
+	}
+
+	/* ===== Footer CTA ===== */
+
+	.oferta__footer {
+		display: flex;
+		justify-content: center;
+		margin-top: 2.5em;
+	}
+
+	.oferta__cta {
+		padding-inline: 1.5em;
+	}
+
+	.oferta__cta-badge {
+		background-color: var(--accent-brand);
+		color: var(--color-canvas);
+	}
+
+	/* ===== Responsywność ===== */
+
+	@media screen and (max-width: 991px) {
+
+		.oferta__row {
+			grid-template-columns: 2.5em 3em minmax(0, 1fr) 2.5em;
+			gap: 1em;
+		}
+
+		.oferta__illustration {
+			display: none;
+		}
+
+		.oferta__item-title {
+			font-size: 1.25em;
+		}
+	}
+
+	@media screen and (max-width: 767px) {
+		.oferta__row {
+			grid-template-columns: 2em minmax(0, 1fr) 2em;
+			gap: 0.75em;
+			padding-block: 1em;
+		}
+
+		.oferta__icon {
+			display: none;
+		}
+
+		.oferta__item-title {
+			font-size: 1.125em;
+		}
+
+		.oferta__item-desc {
+			font-size: 0.875em;
+		}
+	}
+
+	/* ===== Układ referencyjny ===== */
+	.oferta__outer { padding-inline: var(--container-padding); }
+	.oferta__header { max-width: 48em; margin-bottom: var(--spacing-2xl); text-align: left; }
+	.oferta__eyebrow {
+		display: inline-flex;
+		align-items: center;
+		gap: .65em;
+		font-size: .75em;
+		font-weight: var(--weight-emphasis);
+		letter-spacing: .16em;
+		color: var(--color-text-secondary);
+	}
+	.oferta__eyebrow i { width: .55em; height: .55em; border-radius: 50%; background-color: var(--accent-brand); }
+	.oferta__eyebrow b { color: var(--color-contrast); }
+	.oferta__eyebrow > span { color: var(--accent-brand); }
+	.oferta__title {
+		margin-top: var(--spacing-lg);
+		font-size: var(--text-h2);
+		font-weight: var(--weight-heading);
+		line-height: 1.1;
+		letter-spacing: -.05em;
+		text-wrap: balance;
+	}
+	.oferta__title span { display: block; color: var(--accent-text); }
+	.oferta__subtitle { margin-top: var(--spacing-lg); font-size: var(--text-body); line-height: var(--lh-body); }
+	.oferta__frame { padding: 1em 2em; border-radius: var(--radius-lg); background-color: var(--color-canvas); box-shadow: var(--elevation-1); }
+	.oferta__item + .oferta__item { border-top: 1px solid var(--color-border); }
+	.oferta__row {
+		grid-template-columns: 4em 4.5em minmax(17em, .88fr) minmax(20em, 1.12fr) 3em;
+		gap: var(--spacing-lg);
+		min-height: 8.8em;
+		margin-inline: 0;
+		padding: 1em 0;
+		border-radius: 0;
+	}
+	.oferta__row::before { display: none; }
+	.oferta__row:hover { background-color: transparent; transform: translateX(.2em); }
+	.oferta__number {
+		width: auto;
+		height: auto;
+		justify-content: flex-start;
+		gap: .75em;
+		font-size: 1em;
+		font-weight: var(--weight-heading);
+		color: var(--accent-deep);
+	}
+	.oferta__number i { width: .7em; height: .7em; border: .15em solid var(--accent-brand); border-radius: 50%; background-color: var(--accent-wash); }
+	.oferta__icon { width: 3.5em; height: 3.5em; border: 0; border-radius: 0; background-color: transparent; color: var(--color-contrast); }
+	.oferta__icon svg { width: 2.65em; height: 2.65em; }
+	.oferta__row:hover .oferta__icon { background-color: transparent; border: 0; color: var(--accent-deep); transform: none; }
+	.oferta__body { gap: .55em; }
+	.oferta__item-title { display: flex; align-items: center; gap: .7em; font-size: 1.45em; font-weight: var(--weight-heading); }
+	.oferta__item-desc { max-width: 25em; font-size: .86em; line-height: 1.55; }
+	.oferta__soon { padding: .4em .75em; border: 0; border-radius: var(--radius-pill); font-style: normal; font-size: .53em; letter-spacing: .1em; text-transform: uppercase; color: var(--accent-deep); background-color: var(--accent-wash); }
+	.oferta__illustration { position: relative; justify-content: center; min-width: 0; color: var(--color-contrast); }
+	.oferta__illu { width: 100%; max-width: 24em; height: 7.5em; opacity: .9; }
+	.oferta__illustration--www { justify-content: center; }
+	.oferta__site-preview {
+		width: 100%;
+		max-width: 24em;
+		overflow: hidden;
+		border: 1px solid var(--color-border);
+		border-radius: .9em;
+		background-color: var(--color-canvas);
+		box-shadow: var(--elevation-1);
+		transition: border-color var(--transition-base), box-shadow var(--transition-base), transform var(--transition-base);
+	}
+	.oferta__site-browserbar {
+		display: flex;
+		align-items: center;
+		gap: .9em;
+		height: 1.8em;
+		padding-inline: .7em;
+		border-bottom: 1px solid var(--color-border);
+	}
+	.oferta__site-dots { display: inline-flex; gap: .34em; }
+	.oferta__site-dots i { width: .42em; height: .42em; border-radius: 50%; background-color: var(--color-text-muted); opacity: .5; }
+	.oferta__site-dots i:first-child { background-color: var(--accent-text); opacity: .85; }
+	.oferta__site-dots i:nth-child(2) { background-color: var(--accent-brand); opacity: .8; }
+	.oferta__site-address { display: block; width: min(72%, 15em); height: .6em; border-radius: var(--radius-pill); background-color: var(--color-atmosphere); }
+	.oferta__site-content {
+		display: grid;
+		grid-template-columns: minmax(0, .93fr) minmax(0, 1.07fr);
+		gap: .8em;
+		align-items: center;
+		min-height: 7.35em;
+		padding: .85em 1em;
+	}
+	.oferta__site-copy { display: grid; justify-items: start; gap: .5em; min-width: 0; }
+	.oferta__site-copy strong {
+		font-family: var(--font-heading);
+		font-size: 1.17em;
+		font-weight: var(--weight-heading);
+		line-height: .98;
+		letter-spacing: -.06em;
+		color: var(--color-contrast);
+		text-wrap: balance;
+	}
+	.oferta__site-copy > span { font-size: .49em; line-height: 1.45; color: var(--color-text-secondary); }
+	.oferta__site-copy em {
+		display: inline-flex;
+		align-items: center;
+		gap: 1em;
+		padding: .55em .75em;
+		border-radius: var(--radius-sm);
+		background-color: var(--accent-deep);
+		color: var(--color-canvas);
+		font-size: .47em;
+		font-style: normal;
+		font-weight: var(--weight-emphasis);
+		white-space: nowrap;
+	}
+	.oferta__site-copy em b { font-size: 1.35em; font-weight: var(--weight-body); }
+	.oferta__site-art {
+		position: relative;
+		min-height: 5.4em;
+		overflow: hidden;
+		border: 1px solid var(--color-border);
+		border-radius: .7em;
+		background-color: var(--color-atmosphere);
+	}
+	.oferta__site-art::before,
+	.oferta__site-art::after { content: ""; position: absolute; inset: auto 0 0; height: 68%; background-color: var(--color-canvas-alt); clip-path: polygon(0 100%, 0 68%, 37% 0, 67% 76%, 100% 20%, 100% 100%); }
+	.oferta__site-art::after { height: 53%; background-color: var(--color-atmosphere); opacity: .72; clip-path: polygon(0 100%, 0 72%, 29% 17%, 55% 86%, 76% 23%, 100% 70%, 100% 100%); }
+	.oferta__site-art i { position: absolute; z-index: 1; top: 1em; right: 1.55em; width: 1.35em; height: 1.35em; border-radius: 50%; background-color: var(--color-border); opacity: .85; }
+	.oferta__site-art b { position: absolute; top: .65em; left: -38%; width: 30%; height: .18em; border-radius: var(--radius-pill); background-color: var(--color-canvas); opacity: .8; transform: translateX(-100%); transition: transform 500ms ease; }
+	.oferta__row:hover .oferta__site-preview { border-color: var(--accent-brand); box-shadow: var(--elevation-2); transform: translateY(-.12em); }
+	.oferta__row:hover .oferta__site-art b { transform: translateX(100%); }
+	.oferta__illustration--seo { justify-content: center; }
+	.oferta__seo-card {
+		display: grid;
+		grid-template-columns: minmax(8.5em, 1.05fr) minmax(8.5em, 1.2fr) 3.25em;
+		align-items: stretch;
+		width: 100%;
+		max-width: 25em;
+		min-height: 7em;
+		overflow: hidden;
+		background-color: var(--color-canvas);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-md);
+		box-shadow: var(--elevation-1);
+		transition: border-color 220ms ease, box-shadow 220ms ease, transform 220ms ease;
+	}
+	.oferta__seo-result { display: flex; flex-direction: column; justify-content: center; gap: .25em; padding: 1em 1.15em; border-right: 1px solid var(--color-border); }
+	.oferta__seo-result span { font-size: .65em; font-weight: var(--weight-emphasis); color: var(--color-contrast); }
+	.oferta__seo-result strong { font-family: var(--font-heading); font-size: 1.65em; font-weight: var(--weight-heading); letter-spacing: -.06em; line-height: 1; color: var(--accent-text); }
+	.oferta__seo-result small { font-size: .58em; color: var(--color-text-secondary); }
+	.oferta__seo-chart { width: 100%; height: 100%; min-height: 5.25em; padding: .8em .8em .7em; overflow: visible; }
+	.oferta__seo-sources { display: grid; place-items: center; align-content: space-evenly; padding-block: .45em; border-left: 1px solid var(--color-border); background-color: var(--color-canvas); }
+	.oferta__seo-sources span { display: grid; width: 1.2em; height: 1.2em; place-items: center; font-family: var(--font-heading); font-weight: var(--weight-heading); line-height: 1; color: var(--color-contrast); }
+	.oferta__seo-google { font-size: 1.15em; color: var(--accent-text) !important; }
+	.oferta__seo-ai { font-size: 1.05em; }
+	.oferta__seo-spark { font-size: 1em; }
+	.oferta__row:hover .oferta__seo-card { border-color: var(--accent-brand); box-shadow: var(--elevation-2); transform: translateY(-.12em); }
+	.oferta__row:hover .oferta__illu { transform: none; opacity: 1; }
+	.oferta__arrow { width: 2.75em; height: 2.75em; border: 1px solid var(--accent-brand); border-radius: 50%; color: var(--accent-deep); }
+	.oferta__arrow svg { width: 1.3em; height: 1.3em; }
+	.oferta__row:hover .oferta__arrow { background-color: var(--accent-wash); color: var(--accent-deep); transform: translateX(.2em); }
+	.oferta__footer {
+		display: grid;
+		grid-template-columns: auto minmax(0, 1fr) auto auto;
+		align-items: center;
+		gap: var(--spacing-lg);
+		margin-top: var(--spacing-lg);
+		padding: var(--spacing-lg);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-lg);
+		background-color: var(--color-canvas);
+	}
+	.oferta__footer-mark { display: grid; width: 3em; height: 3em; place-items: center; border-radius: 50%; background-color: var(--color-contrast); color: var(--color-canvas); font-family: var(--font-heading); font-weight: var(--weight-heading); }
+	.oferta__footer-copy { display: grid; gap: .2em; }
+	.oferta__footer-copy strong { font-size: .9em; color: var(--color-contrast); }
+	.oferta__footer-copy span { font-size: .78em; color: var(--color-text-secondary); }
+	.oferta__cta { display: inline-flex; align-items: center; gap: .9em; padding: .8em 1em  .8em 1.35em; border-radius: var(--radius-pill); background-color: var(--color-contrast); color: var(--color-canvas); font-size: .8em; font-weight: var(--weight-emphasis); text-decoration: none; transition: transform var(--transition-base), background-color var(--transition-base); white-space: nowrap; }
+	.oferta__cta-badge { display: grid; width: 2.1em; height: 2.1em; place-items: center; border-radius: 50%; background-color: var(--accent-brand); color: var(--color-canvas); }
+	.oferta__cta-badge svg { width: 1em; height: 1em; }
+	.oferta__cta:hover { background-color: var(--color-atmosphere-dark-alt); transform: translateY(-.12em); }
+	.oferta__footer-link { display: inline-flex; align-items: center; gap: 1.6em; padding-inline: var(--spacing-md); color: var(--color-contrast); font-size: .8em; font-weight: var(--weight-emphasis); text-decoration: none; white-space: nowrap; transition: color var(--transition-base), transform var(--transition-base); }
+	.oferta__footer-link:hover { color: var(--accent-deep); transform: translateX(.15em); }
+
+	@media screen and (max-width: 991px) {
+		.oferta__row { grid-template-columns: 3.8em 4em minmax(0, 1fr) 3em; }
+		.oferta__illustration { display: none; }
+		.oferta__footer { grid-template-columns: auto minmax(0, 1fr) auto; }
+		.oferta__footer-link { grid-column: 2 / -1; padding-left: 0; }
+	}
+
+	@media screen and (max-width: 767px) {
+		.oferta__outer { padding-inline: var(--container-padding); padding-block: var(--spacing-4xl); }
+		.oferta__title { font-size: var(--text-h2); }
+		.oferta__subtitle br { display: none; }
+		.oferta__frame { padding: var(--spacing-sm) var(--spacing-md); border-radius: var(--radius-md); }
+		.oferta__row { grid-template-columns: 3.4em minmax(0, 1fr) 2.5em; gap: var(--spacing-sm); min-height: 0; padding-block: var(--spacing-lg); }
+		.oferta__number { align-self: start; padding-top: .35em; font-size: .85em; }
+		.oferta__icon { display: none; }
+		.oferta__item-title { font-size: 1.2em; }
+		.oferta__item-desc { font-size: .82em; }
+		.oferta__arrow { width: 2.4em; height: 2.4em; }
+		.oferta__footer { grid-template-columns: auto minmax(0, 1fr); gap: var(--spacing-md); padding: var(--spacing-lg); border-radius: var(--radius-md); }
+		.oferta__cta { grid-column: 1 / -1; justify-content: center; }
+		.oferta__footer-link { grid-column: 1 / -1; justify-content: space-between; padding: var(--spacing-sm) 0 0; }
+	}
+</style>
