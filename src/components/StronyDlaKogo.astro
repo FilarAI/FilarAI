@@ -1,0 +1,141 @@
+---
+// StronyDlaKogo — kwalifikacja zamiast 3 generycznych kafli. Kontrast "pasujemy /
+// nie pasujemy", lewa kolumna dominuje wagą. Bez kart, bez ikon-kafli.
+// Wzorzec kontrastu spójny z paskiem "Bez systemu / Z systemem" we Wprowadzeniu.
+
+const pasuje = [
+	"Prowadzisz realną firmę usługową, produkcyjną lub lokalny biznes",
+	"Masz ofertę, która sprzedaje się w rozmowie, ale strona tego nie oddaje",
+	"Chcesz zapytań od klientów, nie nagród za design",
+	"Wolisz jedną osobę odpowiedzialną za całość niż agencję i pięciu opiekunów",
+];
+
+const niePasuje = [
+	"Szukasz najtańszego szablonu na już",
+	"Strona ma robić wrażenie na inwestorach, nie sprzedawać",
+	"Zakres zmienia się co tydzień i nikt nie decyduje",
+];
+---
+
+<section class="dlakogo section--atmosphere">
+	<div class="dlakogo__outer">
+		<div class="dlakogo__intro">
+			<h2 class="dlakogo__title">Nie każda firma potrzebuje nowej strony.</h2>
+			<p class="dlakogo__lead">
+				Wolę powiedzieć to na starcie, niż po podpisaniu umowy. Poniżej szczerze:
+				kiedy ma to sens, a kiedy szkoda Twoich pieniędzy.
+			</p>
+		</div>
+
+		<div class="dlakogo__split">
+			<div class="dlakogo__col dlakogo__col--yes">
+				<h3 class="dlakogo__col-title">Zbudujemy to razem, jeśli</h3>
+				<ul class="dlakogo__list">
+					{
+						pasuje.map((t) => (
+							<li>
+								<span class="dlakogo__mark" aria-hidden="true">
+									<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg>
+								</span>
+								{t}
+							</li>
+						))
+					}
+				</ul>
+			</div>
+
+			<div class="dlakogo__col dlakogo__col--no">
+				<h3 class="dlakogo__col-title">Odradzę Ci to, jeśli</h3>
+				<ul class="dlakogo__list">
+					{
+						niePasuje.map((t) => (
+							<li>
+								<span class="dlakogo__mark dlakogo__mark--muted" aria-hidden="true">
+									<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 12h12"/></svg>
+								</span>
+								{t}
+							</li>
+						))
+					}
+				</ul>
+				<p class="dlakogo__note">W takim wypadku powiem wprost i podpowiem tańszą drogę. Nie biorę projektów, które nie mają sensu.</p>
+			</div>
+		</div>
+	</div>
+</section>
+
+<style>
+	.dlakogo__outer {
+		max-width: var(--size-container);
+		margin-inline: auto;
+		padding-inline: var(--container-padding);
+		padding-block: var(--spacing-section);
+	}
+
+	.dlakogo__intro { max-width: 34em; margin-bottom: var(--spacing-3xl); }
+	.dlakogo__title {
+		font-family: var(--font-heading);
+		font-size: var(--text-h2);
+		font-weight: var(--weight-heading);
+		line-height: var(--lh-heading);
+		letter-spacing: -1px;
+		color: var(--color-contrast);
+		text-wrap: balance;
+	}
+	.dlakogo__lead { margin-top: var(--spacing-md); font-size: var(--text-lead); line-height: var(--lh-lead); color: var(--color-text-secondary); }
+
+	/* Asymetria: kolumna "tak" dominuje szerokością i wagą */
+	.dlakogo__split { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: var(--spacing-4xl); align-items: start; }
+
+	.dlakogo__col--no { padding-top: 0.15em; }
+	.dlakogo__col-title {
+		padding-bottom: var(--spacing-md);
+		border-bottom: 1px solid var(--color-border);
+		font-family: var(--font-heading);
+		font-size: var(--text-h3);
+		font-weight: var(--weight-heading);
+		color: var(--color-contrast);
+	}
+	.dlakogo__col--no .dlakogo__col-title { color: var(--color-text-muted); }
+
+	.dlakogo__list { display: grid; gap: var(--spacing-lg); margin-top: var(--spacing-lg); list-style: none; }
+	.dlakogo__list li {
+		display: grid;
+		grid-template-columns: 1.6em minmax(0, 1fr);
+		gap: var(--spacing-md);
+		align-items: start;
+		line-height: 1.5;
+		color: var(--color-contrast);
+	}
+	.dlakogo__col--yes .dlakogo__list li { font-size: 1.0625em; }
+	.dlakogo__col--no .dlakogo__list li { font-size: var(--text-sm); color: var(--color-text-muted); }
+
+	.dlakogo__mark {
+		display: grid;
+		place-items: center;
+		width: 1.6em;
+		height: 1.6em;
+		margin-top: 0.05em;
+		border-radius: 50%;
+		background-color: var(--accent-fill);
+		color: var(--color-contrast);
+	}
+	.dlakogo__mark svg { width: 0.9em; height: 0.9em; }
+	.dlakogo__mark--muted { background-color: transparent; border: 1px solid var(--color-border); color: var(--color-text-muted); }
+
+	.dlakogo__note {
+		margin-top: var(--spacing-xl);
+		padding-top: var(--spacing-lg);
+		border-top: 1px dashed var(--color-border);
+		font-size: var(--text-sm);
+		line-height: 1.55;
+		color: var(--color-text-secondary);
+	}
+
+	@media screen and (max-width: 991px) {
+		.dlakogo__split { grid-template-columns: 1fr; gap: var(--spacing-2xl); }
+	}
+	@media screen and (max-width: 767px) {
+		.dlakogo__outer { padding-block: var(--spacing-4xl); }
+	}
+</style>
