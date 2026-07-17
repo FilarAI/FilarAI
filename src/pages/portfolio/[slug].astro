@@ -1,0 +1,274 @@
+---
+// Case study realizacji. Pierwszy dynamiczny route w projekcie.
+//
+// Jeden szablon na wszystkie realizacje. Wariancja bierze się z OBECNOŚCI danych, nie
+// z ręcznie pisanego layoutu: typ (sylwetka płyty) × hero jest/nie ma × przed/po jest/nie ma
+// × rozwiazanie.length × link jest/nie ma. To ~48 kształtów bez linijki kodu per projekt.
+
+import { getImage } from "astro:assets";
+import Layout from "../../layouts/Layout.astro";
+import Cta from "../../components/Cta.astro";
+import Footer from "../../components/Footer.astro";
+import PlytaRealizacji from "../../components/PlytaRealizacji.astro";
+import PrzedPoSlider from "../../components/PrzedPoSlider.astro";
+import { projekty, etykietyTypow, proporcjeTypu, type Projekt } from "../../data/projekty";
+import { asset } from "../../data/realizacje-assets";
+
+export function getStaticPaths() {
+	// `nastepny` liczymy tutaj, gdzie i tak trzymamy indeks tablicy — strona nie musi
+	// go re-derive'ować. Zawija się na końcu.
+	return projekty.map((projekt, i) => ({
+		params: { slug: projekt.slug },
+		props: { projekt, nastepny: projekty[(i + 1) % projekty.length] },
+	}));
+}
+
+interface Props {
+	projekt: Projekt;
+	nastepny: Projekt;
+}
+
+const { projekt, nastepny } = Astro.props;
+const ratio = proporcjeTypu[projekt.typ];
+
+// Slider ma sens tylko z obiema połówkami. getImage trzyma jeden pipeline obrazów,
+// a PrzedPoSlider zostaje przy stringach (dzięki czemu /strony na SVG działa dalej).
+const przed = asset(projekt.slug, "przed");
+const po = asset(projekt.slug, "po");
+const przedSrc = przed ? (await getImage({ src: przed, width: 1600 })).src : null;
+const poSrc = po ? (await getImage({ src: po, width: 1600 })).src : null;
+---
+
+<Layout
+	title={`${projekt.klient} — realizacja | FilarAI`}
+	description={`${projekt.zakres} ${projekt.efekt}`}
+>
+	<main id="main">
+		<section class="cs-hero section--atmosphere">
+			<div class="cs-hero__outer">
+				<nav class="cs-hero__breadcrumb" aria-label="Ścieżka nawigacji">
+					<a href="/portfolio">Portfolio</a>
+					<span aria-hidden="true">/</span>
+					<span aria-current="page">{projekt.klient}</span>
+				</nav>
+
+				<h1 class="cs-hero__title">{projekt.klient}</h1>
+				<p class="cs-hero__lead">{projekt.zakres}</p>
+
+				<div class="cs-hero__foot">
+					<p class="cs-hero__meta">
+						<span>{projekt.branza}</span>
+						<i aria-hidden="true">·</i>
+						<span>{etykietyTypow[projekt.typ]}</span>
+						<i aria-hidden="true">·</i>
+						<span>{projekt.rok}</span>
+					</p>
+					{
+						projekt.link && (
+							<a class="btn btn--secondary" href={`https://${projekt.link}`} target="_blank" rel="noopener noreferrer">
+								Zobacz stronę na żywo <span aria-hidden="true">↗</span>
+							</a>
+						)
+					}
+				</div>
+
+				<div class="cs-hero__plyta">
+					<PlytaRealizacji
+						slug={projekt.slug}
+						klient={projekt.klient}
+						logo={projekt.logo}
+						ratio={ratio}
+						sizes="(max-width: 991px) 100vw, 80vw"
+						widths={[640, 1280, 1920]}
+					/>
+				</div>
+			</div>
+		</section>
+
+		<section class="cs-takty section--light">
+			<div class="cs-takty__outer">
+				<div class="cs-takt">
+					<p class="section-label">Problem</p>
+					<p class="cs-takt__proza">{projekt.problem}</p>
+				</div>
+
+				<div class="cs-takt">
+					<p class="section-label">Co zrobiłem</p>
+					{projekt.rozwiazanie.map((akapit) => <p class="cs-takt__proza">{akapit}</p>)}
+				</div>
+
+				<div class="cs-takt">
+					<p class="section-label">Efekt</p>
+					<p class="cs-takt__puenta">{projekt.efekt}</p>
+					<p class="cs-takt__proza">{projekt.rezultat}</p>
+				</div>
+			</div>
+		</section>
+
+		{
+			przedSrc && poSrc && (
+				<section class="cs-ppo section--atmosphere">
+					<div class="cs-ppo__outer">
+						<p class="section-label">Przed / po</p>
+						<h2 class="cs-ppo__title">Ta sama firma, inna strona.</h2>
+						<PrzedPoSlider
+							beforeSrc={przedSrc}
+							afterSrc={poSrc}
+							ratio="16 / 10"
+							beforeAlt={`${projekt.klient} — strona przed zmianą`}
+							afterAlt={`${projekt.klient} — strona po zmianie`}
+						/>
+					</div>
+				</section>
+			)
+		}
+
+		<section class="cs-next section--dark">
+			<a class="cs-next__link" href={`/portfolio/${nastepny.slug}`}>
+				<span class="cs-next__label">Następna realizacja</span>
+				<span class="cs-next__klient">{nastepny.klient}<i aria-hidden="true">→</i></span>
+			</a>
+		</section>
+
+		<Cta />
+	</main>
+	<Footer />
+</Layout>
+
+<style>
+	/* ===== Hero ===== */
+	.cs-hero__outer {
+		max-width: var(--size-container);
+		margin-inline: auto;
+		padding-inline: var(--container-padding);
+		padding-block: var(--spacing-3xl) var(--spacing-section);
+	}
+
+	.cs-hero__breadcrumb {
+		display: flex;
+		align-items: center;
+		gap: 0.6em;
+		font-size: var(--text-sm);
+		color: var(--color-text-muted);
+	}
+	.cs-hero__breadcrumb a { color: var(--accent-deep); text-decoration: none; }
+	.cs-hero__breadcrumb a:hover { text-decoration: underline; }
+
+	.cs-hero__title {
+		margin-top: var(--spacing-lg);
+		font-family: var(--font-heading);
+		font-size: var(--text-h1);
+		font-weight: var(--weight-heading);
+		line-height: var(--lh-display);
+		letter-spacing: -1.5px;
+		color: var(--color-contrast);
+	}
+	.cs-hero__lead {
+		margin-top: var(--spacing-md);
+		max-width: 34em;
+		font-size: var(--text-lead);
+		line-height: var(--lh-lead);
+		color: var(--color-text-secondary);
+	}
+
+	.cs-hero__foot {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: space-between;
+		gap: var(--spacing-md);
+		margin-top: var(--spacing-xl);
+		padding-bottom: var(--spacing-xl);
+		border-bottom: 1px solid var(--color-border);
+	}
+	.cs-hero__meta { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6em; font-size: var(--text-sm); color: var(--color-text-secondary); }
+	.cs-hero__meta i { color: var(--accent-brand); font-style: normal; }
+
+	.cs-hero__plyta { margin-top: var(--spacing-2xl); }
+
+	/* ===== Trzy takty ===== */
+	.cs-takty__outer {
+		max-width: var(--size-container);
+		margin-inline: auto;
+		padding-inline: var(--container-padding);
+		padding-block: var(--spacing-section);
+		display: grid;
+		gap: var(--spacing-3xl);
+	}
+	.cs-takt { max-width: 34em; }
+	.cs-takt__proza {
+		margin-top: var(--spacing-md);
+		font-size: var(--text-body);
+		line-height: var(--lh-body);
+		color: var(--color-text-secondary);
+	}
+	/* Efekt to puenta, nie kafelek statystyki */
+	.cs-takt__puenta {
+		margin-top: var(--spacing-md);
+		font-family: var(--font-heading);
+		font-size: var(--text-h3);
+		font-weight: var(--weight-heading);
+		line-height: 1.3;
+		letter-spacing: -0.5px;
+		color: var(--accent-deep);
+		text-wrap: balance;
+	}
+
+	/* ===== Przed / po ===== */
+	.cs-ppo__outer {
+		max-width: var(--size-container);
+		margin-inline: auto;
+		padding-inline: var(--container-padding);
+		padding-block: var(--spacing-section);
+	}
+	.cs-ppo__title {
+		margin-top: var(--spacing-md);
+		margin-bottom: var(--spacing-2xl);
+		font-family: var(--font-heading);
+		font-size: var(--text-h2);
+		font-weight: var(--weight-heading);
+		line-height: var(--lh-heading);
+		letter-spacing: -1px;
+		color: var(--color-contrast);
+	}
+
+	/* ===== Następna realizacja ===== */
+	.cs-next { background-color: var(--color-atmosphere-dark); }
+	.cs-next__link {
+		display: grid;
+		gap: 0.5em;
+		max-width: var(--size-container);
+		margin-inline: auto;
+		padding-inline: var(--container-padding);
+		padding-block: var(--spacing-4xl);
+		text-decoration: none;
+	}
+	.cs-next__label {
+		font-size: 0.75em;
+		font-weight: var(--weight-emphasis);
+		letter-spacing: 0.16em;
+		text-transform: uppercase;
+		color: var(--color-text-on-dark-muted);
+	}
+	.cs-next__klient {
+		display: flex;
+		align-items: center;
+		gap: 0.5em;
+		font-family: var(--font-heading);
+		font-size: var(--text-h2);
+		font-weight: var(--weight-heading);
+		letter-spacing: -1px;
+		color: var(--color-text-on-dark);
+	}
+	.cs-next__klient i { font-style: normal; color: var(--accent-brand); transition: transform var(--transition-base); }
+	.cs-next__link:hover .cs-next__klient i { transform: translateX(0.25em); }
+
+	/* ===== Responsywność ===== */
+	@media screen and (max-width: 767px) {
+		.cs-hero__outer { padding-block: var(--spacing-xl) var(--spacing-4xl); }
+		.cs-hero__title { letter-spacing: -0.5px; }
+		.cs-takty__outer { padding-block: var(--spacing-4xl); gap: var(--spacing-2xl); }
+		.cs-ppo__outer { padding-block: var(--spacing-4xl); }
+		.cs-next__link { padding-block: var(--spacing-3xl); }
+	}
+</style>

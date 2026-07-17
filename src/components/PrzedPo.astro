@@ -1,10 +1,11 @@
 ---
-// PrzedPo — interaktywny slider porównania "przed / po". Dwie warstwy obrazów,
-// górna (PO) przycięta clip-path wg pozycji uchwytu. Sterowanie: drag (pointer),
-// klawiatura (input range pod spodem, a11y), touch. Bez biblioteki.
+// PrzedPo — sekcja "przed / po" z nagłówkiem. Cienki konsument PrzedPoSlider.
+// Sam mechanizm slidera (markup + CSS + script) mieszka w PrzedPoSlider.astro.
 //
-// Obrazy: wrzuć screeny do public/strony/ jako `przed.jpg` i `po.jpg`.
-// Proporcje sceny trzyma --pp-ratio (domyślnie 16/10) — dostosuj do screenów.
+// Obrazy: wrzuć screeny do public/strony/ jako `przed.jpg` i `po.jpg` i podmień defaulty.
+// Proporcje sceny trzyma `ratio` — dostosuj do screenów.
+
+import PrzedPoSlider from "./PrzedPoSlider.astro";
 
 interface Props {
 	beforeSrc?: string;
@@ -27,30 +28,7 @@ const {
 			<p class="ppo__subtitle">Ta sama firma, ta sama oferta — inna strona. Po lewej stan wyjściowy, po prawej wersja, która zaczęła przynosić zapytania.</p>
 		</div>
 
-		<figure class="ppo__compare" style={`--pp-ratio: ${ratio};`}>
-			<div class="ppo__stage" data-ppo>
-				<img class="ppo__img" src={beforeSrc} alt="Strona przed metamorfozą" loading="lazy" />
-				<div class="ppo__after" data-ppo-after>
-					<img class="ppo__img" src={afterSrc} alt="Strona po metamorfozie" loading="lazy" />
-				</div>
-				<span class="ppo__tag ppo__tag--before" aria-hidden="true">Przed</span>
-				<span class="ppo__tag ppo__tag--after" aria-hidden="true">Po</span>
-				<div class="ppo__handle" data-ppo-handle aria-hidden="true">
-					<span class="ppo__line"></span>
-					<span class="ppo__grip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l-4 6 4 6M15 6l4 6-4 6"/></svg></span>
-				</div>
-				<input
-					class="ppo__range"
-					type="range"
-					min="0"
-					max="100"
-					value="50"
-					step="0.1"
-					data-ppo-range
-					aria-label="Suwak porównania przed i po"
-				/>
-			</div>
-		</figure>
+		<PrzedPoSlider beforeSrc={beforeSrc} afterSrc={afterSrc} ratio={ratio} />
 	</div>
 </section>
 
@@ -86,122 +64,4 @@ const {
 		color: var(--color-contrast);
 	}
 	.ppo__subtitle { margin-top: var(--spacing-md); font-size: var(--text-lead); line-height: var(--lh-lead); color: var(--color-text-secondary); }
-
-	/* ===== Compare ===== */
-	.ppo__compare { --pp-pos: 50%; margin: 0; }
-	.ppo__stage {
-		position: relative;
-		aspect-ratio: var(--pp-ratio);
-		width: 100%;
-		overflow: hidden;
-		border: 1px solid var(--color-border);
-		border-radius: var(--radius-lg);
-		background-color: var(--color-canvas-alt);
-		box-shadow: var(--elevation-2);
-		touch-action: pan-y;
-		user-select: none;
-	}
-	.ppo__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; }
-	.ppo__after { position: absolute; inset: 0; clip-path: inset(0 0 0 var(--pp-pos)); will-change: clip-path; }
-
-	.ppo__tag {
-		position: absolute;
-		top: 1em;
-		z-index: 3;
-		padding: 0.4em 0.85em;
-		border-radius: var(--radius-pill);
-		font-size: 0.7em;
-		font-weight: var(--weight-emphasis);
-		letter-spacing: 0.08em;
-		text-transform: uppercase;
-		backdrop-filter: blur(4px);
-	}
-	.ppo__tag--before { left: 1em; background-color: rgba(10, 10, 10, 0.6); color: var(--color-text-on-dark); }
-	.ppo__tag--after { right: 1em; background-color: var(--accent-fill); color: var(--color-contrast); }
-
-	.ppo__handle {
-		position: absolute;
-		top: 0;
-		bottom: 0;
-		left: var(--pp-pos);
-		z-index: 4;
-		width: 0;
-		transform: translateX(-50%);
-		display: grid;
-		place-items: center;
-		pointer-events: none;
-	}
-	.ppo__line { position: absolute; top: 0; bottom: 0; width: 2px; background-color: var(--color-canvas); box-shadow: 0 0 0 1px rgba(10, 10, 10, 0.12); }
-	.ppo__grip {
-		position: relative;
-		display: grid;
-		place-items: center;
-		width: 2.75em;
-		height: 2.75em;
-		border-radius: 50%;
-		background-color: var(--color-canvas);
-		color: var(--color-contrast);
-		box-shadow: var(--elevation-2);
-	}
-	.ppo__grip svg { width: 1.35em; height: 1.35em; }
-
-	/* Range: niewidzialny, na całej scenie — nośnik focusa/klawiatury + drag pointerem */
-	.ppo__range {
-		position: absolute;
-		inset: 0;
-		z-index: 5;
-		width: 100%;
-		height: 100%;
-		margin: 0;
-		opacity: 0;
-		cursor: ew-resize;
-		-webkit-appearance: none;
-		appearance: none;
-		background: transparent;
-	}
-	.ppo__range::-webkit-slider-thumb { -webkit-appearance: none; width: 2.75em; height: 100%; cursor: ew-resize; }
-	.ppo__range::-moz-range-thumb { width: 2.75em; height: 100%; border: 0; background: transparent; cursor: ew-resize; }
-	.ppo__range:focus-visible { outline: none; }
-	.ppo__range:focus-visible ~ .ppo__handle .ppo__grip { outline: 3px solid var(--accent-deep); outline-offset: 2px; }
-
-	@media screen and (max-width: 767px) {
-		.ppo__compare { --pp-ratio: 4 / 5; }
-		.ppo__grip { width: 2.4em; height: 2.4em; }
-	}
 </style>
-
-<script>
-	// Sync pozycji: input range (0–100) → --pp-pos (%). Pointer drag jedzie po tym samym
-	// stanie przez natywne zachowanie range (klik/drag ustawia value). Dodatkowo mapujemy
-	// pointer na value ręcznie, bo natywny range skacze do thumba, nie do kursora.
-	function initPpo(stage: HTMLElement) {
-		const after = stage.querySelector<HTMLElement>("[data-ppo-after]");
-		const range = stage.querySelector<HTMLInputElement>("[data-ppo-range]");
-		const compare = stage.closest<HTMLElement>(".ppo__compare");
-		if (!after || !range || !compare) return;
-
-		const apply = (v: number) => {
-			const pos = Math.max(0, Math.min(100, v));
-			compare.style.setProperty("--pp-pos", pos + "%");
-		};
-		apply(parseFloat(range.value));
-		range.addEventListener("input", () => apply(parseFloat(range.value)));
-
-		// Pointer → value po pozycji kursora (nie skok do thumba)
-		let dragging = false;
-		const setFromClientX = (clientX: number) => {
-			const r = stage.getBoundingClientRect();
-			const pct = ((clientX - r.left) / r.width) * 100;
-			range.value = String(Math.max(0, Math.min(100, pct)));
-			apply(parseFloat(range.value));
-		};
-		stage.addEventListener("pointerdown", (e) => {
-			dragging = true;
-			stage.setPointerCapture(e.pointerId);
-			setFromClientX(e.clientX);
-		});
-		stage.addEventListener("pointermove", (e) => { if (dragging) setFromClientX(e.clientX); });
-		stage.addEventListener("pointerup", (e) => { dragging = false; stage.releasePointerCapture(e.pointerId); });
-	}
-	document.querySelectorAll<HTMLElement>("[data-ppo]").forEach(initPpo);
-</script>

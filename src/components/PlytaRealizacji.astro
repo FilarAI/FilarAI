@@ -1,0 +1,82 @@
+---
+// PlytaRealizacji — obraz realizacji albo kafel z logiem. Jedno miejsce, w którym żyje
+// degradacja: brak screena to nie brak, tylko inny (legalny) design.
+//
+// Używane przez /portfolio (indeks) i /portfolio/[slug] (case study), stąd komponent —
+// logika "zdjęcie albo logo" nie może rozjechać się między tymi dwoma stronami.
+
+import { Image } from "astro:assets";
+import { asset } from "../data/realizacje-assets";
+
+interface Props {
+	slug: string;
+	klient: string;
+	logo?: string;
+	/** np. "16 / 10" — z proporcjeTypu. */
+	ratio: string;
+	sizes?: string;
+	widths?: number[];
+}
+
+const {
+	slug,
+	klient,
+	logo,
+	ratio,
+	sizes = "(max-width: 991px) 100vw, 60vw",
+	widths = [480, 960, 1440],
+} = Astro.props;
+
+const hero = asset(slug, "hero");
+---
+
+<div class="plyta" style={`--plyta-ratio: ${ratio};`} data-plyta={hero ? "foto" : "logo"}>
+	{
+		hero ? (
+			<Image class="plyta__img" src={hero} alt={`${klient} — zrzut ekranu realizacji`} widths={widths} sizes={sizes} />
+		) : logo ? (
+			<img class="plyta__logo" src={logo} alt={klient} loading="lazy" />
+		) : (
+			<span class="plyta__nazwa">{klient}</span>
+		)
+	}
+</div>
+
+<style>
+	.plyta {
+		position: relative;
+		display: grid;
+		place-items: center;
+		aspect-ratio: var(--plyta-ratio);
+		overflow: hidden;
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-md);
+		background-color: var(--color-atmosphere);
+	}
+
+	.plyta__img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: top center;
+		display: block;
+		transition: transform var(--transition-base);
+	}
+
+	/* Fallback: logo klienta na ciepłym tle. Czyta się celowo obok zdjęcia — szary box nie. */
+	.plyta__logo {
+		width: min(48%, 12em);
+		height: auto;
+		max-height: 40%;
+		object-fit: contain;
+		opacity: 0.85;
+	}
+
+	.plyta__nazwa {
+		font-family: var(--font-heading);
+		font-size: 1.25em;
+		font-weight: var(--weight-heading);
+		letter-spacing: -0.5px;
+		color: var(--color-text-muted);
+	}
+</style>
