@@ -23,6 +23,7 @@ const kategorie = kolejnoscTypow
 	.filter((k) => k.ile > 0);
 
 const najstarszy = Math.min(...projekty.map((p) => p.rok));
+const dwucyfrowo = (n: number) => String(n).padStart(2, "0");
 ---
 
 <Layout
@@ -32,22 +33,37 @@ const najstarszy = Math.min(...projekty.map((p) => p.rok));
 	<main id="main">
 		<section class="pf-hero section--atmosphere">
 			<div class="pf-hero__outer">
-				<h1 class="pf-hero__title">Konkretne firmy.<span>Konkretne wdrożenia.</span></h1>
-				<p class="pf-hero__lead">
-					Bez okrągłych zdań o „transformacji". Poniżej to, co zbudowałem, dla kogo
-					i co się przez to zmieniło.
-				</p>
-				<p class="pf-hero__licznik">{projekty.length} realizacji, od {najstarszy}</p>
-			</div>
-		</section>
+				<span class="pf-hero__corner pf-hero__corner--tl" aria-hidden="true"></span>
+				<span class="pf-hero__corner pf-hero__corner--tr" aria-hidden="true"></span>
+				<span class="pf-hero__corner pf-hero__corner--bl" aria-hidden="true"></span>
+				<span class="pf-hero__corner pf-hero__corner--br" aria-hidden="true"></span>
 
-		<section class="indeks section--light">
-			<div class="indeks__outer">
-				{/* Radia PRZED siatką — wymóg kombinatora `~`. */}
+				<p class="pf-hero__eyebrow"><i aria-hidden="true"></i><b>Portfolio</b><span>/</span> realizacje</p>
+
+				<div class="pf-hero__split">
+					<div class="pf-hero__copy">
+						<h1 class="pf-hero__title">Konkretne firmy.<span>Konkretne wdrożenia.</span></h1>
+						<p class="pf-hero__lead">
+							Bez okrągłych zdań o „transformacji". Poniżej to, co zbudowałem, dla kogo
+							i co się przez to zmieniło.
+						</p>
+					</div>
+
+					{/* Szyna meta — celowo mała i techniczna. Duże cyfry z podpisami to
+					    hero-metric template, którego nie tykamy. */}
+					<dl class="pf-hero__rail">
+						<div><dt>Realizacji</dt><dd>{dwucyfrowo(projekty.length)}</dd></div>
+						<div><dt>Od</dt><dd>{najstarszy}</dd></div>
+						<div><dt>Kategorie</dt><dd>{dwucyfrowo(kategorie.length)}</dd></div>
+					</dl>
+				</div>
+
+				{/* Filtr w foldzie — strona zaczyna działać, zanim zescrollujesz.
+				    Radia i siatka nie są rodzeństwem, więc filtruje `:has()`, nie `~`. */}
 				<input type="radio" name="filtr" id="f-all" class="sr-only" checked />
 				{kategorie.map((k) => <input type="radio" name="filtr" id={`f-${k.typ}`} class="sr-only" />)}
 
-				<div class="indeks__filtr" role="group" aria-label="Filtruj realizacje">
+				<div class="pf-hero__filtr" role="group" aria-label="Filtruj realizacje">
 					<label for="f-all">Wszystko <b>{projekty.length}</b></label>
 					{
 						kategorie.map((k) => (
@@ -57,7 +73,11 @@ const najstarszy = Math.min(...projekty.map((p) => p.rok));
 						))
 					}
 				</div>
+			</div>
+		</section>
 
+		<section class="indeks section--light">
+			<div class="indeks__outer">
 				<ol class="indeks__siatka">
 					{
 						projekty.map((p) => (
@@ -104,13 +124,52 @@ const najstarszy = Math.min(...projekty.map((p) => p.rok));
 </Layout>
 
 <style>
-	/* ===== Hero ===== */
+	/* ===== Hero — masthead indeksu ===== */
 	.pf-hero__outer {
+		position: relative;
 		max-width: var(--size-container);
 		margin-inline: auto;
 		padding-inline: var(--container-padding);
-		padding-block: var(--spacing-section) var(--spacing-4xl);
+		padding-block: var(--spacing-3xl) var(--spacing-xl);
 	}
+
+	/* Blueprint brackets — ten sam motyw co w Cta */
+	.pf-hero__corner {
+		position: absolute;
+		width: 1.25em;
+		height: 1.25em;
+		border-color: var(--accent-brand);
+		border-style: solid;
+		border-width: 0;
+		pointer-events: none;
+	}
+	.pf-hero__corner--tl { top: 1em; left: 1.5em; border-left-width: 1px; border-top-width: 1px; }
+	.pf-hero__corner--tr { top: 1em; right: 1.5em; border-right-width: 1px; border-top-width: 1px; }
+	.pf-hero__corner--bl { bottom: 1em; left: 1.5em; border-left-width: 1px; border-bottom-width: 1px; }
+	.pf-hero__corner--br { bottom: 1em; right: 1.5em; border-right-width: 1px; border-bottom-width: 1px; }
+
+	.pf-hero__eyebrow {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.65em;
+		font-size: 0.75em;
+		font-weight: var(--weight-emphasis);
+		letter-spacing: 2px;
+		text-transform: uppercase;
+		color: var(--color-text-secondary);
+	}
+	.pf-hero__eyebrow i { width: 0.55em; height: 0.55em; border-radius: 50%; background-color: var(--accent-brand); }
+	.pf-hero__eyebrow b { color: var(--color-contrast); }
+	.pf-hero__eyebrow > span { color: var(--accent-brand); }
+
+	.pf-hero__split {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) auto;
+		align-items: end;
+		gap: var(--spacing-4xl);
+		margin-top: var(--spacing-lg);
+	}
+
 	.pf-hero__title {
 		font-family: var(--font-heading);
 		font-size: var(--text-h1);
@@ -123,17 +182,28 @@ const najstarszy = Math.min(...projekty.map((p) => p.rok));
 	.pf-hero__title span { display: block; color: var(--accent-text); }
 	.pf-hero__lead {
 		margin-top: var(--spacing-lg);
-		max-width: 34em;
+		max-width: 32em;
 		font-size: var(--text-lead);
 		line-height: var(--lh-lead);
 		color: var(--color-text-secondary);
 	}
-	.pf-hero__licznik {
-		margin-top: var(--spacing-xl);
-		font-size: var(--text-sm);
-		font-weight: var(--weight-emphasis);
-		letter-spacing: 1px;
-		color: var(--color-text-muted);
+
+	/* Szyna meta — wypełnia martwą prawą połowę treścią, która coś znaczy */
+	.pf-hero__rail {
+		display: grid;
+		gap: 0.6em;
+		min-width: 11em;
+		padding-left: var(--spacing-xl);
+		border-left: 1px solid var(--color-border);
+	}
+	.pf-hero__rail > div { display: flex; align-items: baseline; justify-content: space-between; gap: var(--spacing-md); }
+	.pf-hero__rail dt { font-size: 0.8125em; color: var(--color-text-muted); }
+	.pf-hero__rail dd {
+		font-family: var(--font-heading);
+		font-size: 0.9375em;
+		font-weight: var(--weight-heading);
+		font-variant-numeric: tabular-nums;
+		color: var(--color-contrast);
 	}
 
 	/* ===== Indeks ===== */
@@ -144,14 +214,17 @@ const najstarszy = Math.min(...projekty.map((p) => p.rok));
 		padding-block: var(--spacing-2xl) var(--spacing-section);
 	}
 
-	/* --- Filtr: radio + `~`, zero JS --- */
-	.indeks__filtr {
+	/* --- Filtr w foldzie: radio + `:has()`, zero JS.
+	       `:has()` zamiast `~`, bo radia i siatka są w różnych sekcjach. --- */
+	.pf-hero__filtr {
 		display: flex;
 		flex-wrap: wrap;
 		gap: var(--spacing-sm);
-		margin-bottom: var(--spacing-2xl);
+		margin-top: var(--spacing-xl);
+		padding-top: var(--spacing-xl);
+		border-top: 1px solid var(--color-border);
 	}
-	.indeks__filtr label {
+	.pf-hero__filtr label {
 		display: inline-flex;
 		align-items: center;
 		gap: 0.5em;
@@ -169,36 +242,37 @@ const najstarszy = Math.min(...projekty.map((p) => p.rok));
 			border-color var(--transition-base),
 			color var(--transition-base);
 	}
-	.indeks__filtr label b { font-weight: var(--weight-body); color: var(--color-text-muted); }
-	.indeks__filtr label:hover { border-color: var(--accent-brand); color: var(--color-contrast); }
+	.pf-hero__filtr label b { font-weight: var(--weight-body); color: var(--color-text-muted); }
+	.pf-hero__filtr label:hover { border-color: var(--accent-brand); color: var(--color-contrast); }
 
-	#f-all:checked ~ .indeks__filtr label[for="f-all"],
-	#f-strona:checked ~ .indeks__filtr label[for="f-strona"],
-	#f-seo:checked ~ .indeks__filtr label[for="f-seo"],
-	#f-system:checked ~ .indeks__filtr label[for="f-system"] {
+	.pf-hero__outer:has(#f-all:checked) label[for="f-all"],
+	.pf-hero__outer:has(#f-strona:checked) label[for="f-strona"],
+	.pf-hero__outer:has(#f-seo:checked) label[for="f-seo"],
+	.pf-hero__outer:has(#f-system:checked) label[for="f-system"] {
 		background-color: var(--accent-fill);
 		border-color: var(--accent-fill);
 		color: var(--color-contrast);
 	}
-	#f-all:checked ~ .indeks__filtr label[for="f-all"] b,
-	#f-strona:checked ~ .indeks__filtr label[for="f-strona"] b,
-	#f-seo:checked ~ .indeks__filtr label[for="f-seo"] b,
-	#f-system:checked ~ .indeks__filtr label[for="f-system"] b {
+	.pf-hero__outer:has(#f-all:checked) label[for="f-all"] b,
+	.pf-hero__outer:has(#f-strona:checked) label[for="f-strona"] b,
+	.pf-hero__outer:has(#f-seo:checked) label[for="f-seo"] b,
+	.pf-hero__outer:has(#f-system:checked) label[for="f-system"] b {
 		color: var(--color-contrast);
 		opacity: 0.55;
 	}
 
-	#f-all:focus-visible ~ .indeks__filtr label[for="f-all"],
-	#f-strona:focus-visible ~ .indeks__filtr label[for="f-strona"],
-	#f-seo:focus-visible ~ .indeks__filtr label[for="f-seo"],
-	#f-system:focus-visible ~ .indeks__filtr label[for="f-system"] {
+	.pf-hero__outer:has(#f-all:focus-visible) label[for="f-all"],
+	.pf-hero__outer:has(#f-strona:focus-visible) label[for="f-strona"],
+	.pf-hero__outer:has(#f-seo:focus-visible) label[for="f-seo"],
+	.pf-hero__outer:has(#f-system:focus-visible) label[for="f-system"] {
 		outline: 2px solid var(--accent-deep);
 		outline-offset: 2px;
 	}
 
-	#f-strona:checked ~ .indeks__siatka .kafel:not([data-typ="strona"]),
-	#f-seo:checked ~ .indeks__siatka .kafel:not([data-typ="seo"]),
-	#f-system:checked ~ .indeks__siatka .kafel:not([data-typ="system"]) {
+	/* Filtr steruje siatką z innej sekcji — stąd `:has()` na wspólnym przodku */
+	main:has(#f-strona:checked) .kafel:not([data-typ="strona"]),
+	main:has(#f-seo:checked) .kafel:not([data-typ="seo"]),
+	main:has(#f-system:checked) .kafel:not([data-typ="system"]) {
 		display: none;
 	}
 
@@ -320,9 +394,28 @@ const najstarszy = Math.min(...projekty.map((p) => p.rok));
 	.kafel__link:hover .kafel__cta i { transform: translateX(0.25em); }
 
 	/* ===== Responsywność ===== */
+	@media screen and (max-width: 991px) {
+		.pf-hero__split { grid-template-columns: minmax(0, 1fr); gap: var(--spacing-xl); align-items: start; }
+		/* Szyna traci pionową kreskę i kładzie się w rząd pod nagłówkiem */
+		.pf-hero__rail {
+			grid-auto-flow: column;
+			grid-auto-columns: max-content;
+			justify-content: start;
+			gap: var(--spacing-xl);
+			min-width: 0;
+			padding-left: 0;
+			padding-top: var(--spacing-lg);
+			border-left: 0;
+			border-top: 1px solid var(--color-border);
+		}
+		.pf-hero__rail > div { flex-direction: column; gap: 0.2em; justify-content: flex-start; }
+	}
+
 	@media screen and (max-width: 767px) {
-		.pf-hero__outer { padding-block: var(--spacing-4xl) var(--spacing-2xl); }
+		.pf-hero__outer { padding-block: var(--spacing-2xl) var(--spacing-lg); }
 		.pf-hero__title { letter-spacing: -0.5px; }
+		.pf-hero__corner { display: none; }
+		.pf-hero__rail { gap: var(--spacing-lg); }
 		.indeks__outer { padding-block: var(--spacing-lg) var(--spacing-4xl); }
 		.indeks__siatka { grid-template-columns: minmax(0, 1fr); gap: var(--spacing-md); }
 		.kafel__body { padding: var(--spacing-md); }
