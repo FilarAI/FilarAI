@@ -29,7 +29,9 @@ interface Props {
 }
 
 const { projekt, nastepny } = Astro.props;
-const ratio = proporcjeTypu[projekt.typ];
+// Typ wiodący (pierwszy) wyznacza sylwetkę płyty
+const ratio = proporcjeTypu[projekt.typy[0]];
+const kategorie = projekt.typy.map((t) => etykietyTypow[t]).join(" + ");
 
 // Slider ma sens tylko z obiema połówkami. getImage trzyma jeden pipeline obrazów,
 // a PrzedPoSlider zostaje przy stringach (dzięki czemu /strony na SVG działa dalej).
@@ -59,7 +61,7 @@ const poSrc = po ? (await getImage({ src: po, width: 1600 })).src : null;
 					<p class="cs-hero__meta">
 						<span>{projekt.branza}</span>
 						<i aria-hidden="true">·</i>
-						<span>{etykietyTypow[projekt.typ]}</span>
+						<span>{kategorie}</span>
 						<i aria-hidden="true">·</i>
 						<span>{projekt.rok}</span>
 					</p>

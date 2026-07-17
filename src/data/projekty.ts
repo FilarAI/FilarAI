@@ -32,7 +32,9 @@ export interface Projekt {
 	slug: string;
 	klient: string;
 	branza: string;
-	typ: Typ;
+	/** Realizacja może łączyć obszary (np. strona + SEO) — wtedy wpada do obu filtrów.
+	 *  Pierwszy typ jest wiodący: to on wyznacza proporcje płyty na case study. */
+	typy: Typ[];
 	rok: number;
 	/** Fallback gdy brak screena — logo klienta na kaflu. Ścieżka z public/. */
 	logo?: string;
@@ -53,7 +55,7 @@ export const projekty: Projekt[] = [
 		slug: "planeta-mebli",
 		klient: "Planeta Mebli",
 		branza: "Producent mebli na wymiar",
-		typ: "strona",
+		typy: ["strona"],
 		rok: 2024,
 		logo: "/klienci/loga/planeta-mebli.svg",
 		zakres: "Strona sprzedażowa z katalogiem realizacji i formularzem wyceny.",
@@ -71,7 +73,7 @@ export const projekty: Projekt[] = [
 		slug: "elgraf",
 		klient: "Elgraf",
 		branza: "Usługi elektryczne",
-		typ: "system",
+		typy: ["system"],
 		rok: 2025,
 		zakres: "Automatyczne zbieranie opinii Google po zakończonym zleceniu.",
 		efekt: "Opinie zbierają się same, bez przypominania klientom.",
@@ -88,7 +90,7 @@ export const projekty: Projekt[] = [
 		slug: "domki-na-luzie",
 		klient: "Domki na Luzie",
 		branza: "Wynajem domków letniskowych",
-		typ: "system",
+		typy: ["system", "seo"],
 		rok: 2024,
 		logo: "/klienci/loga/domki-na-luzie.svg",
 		zakres: "System rezerwacji online z kalendarzem dostępności.",
@@ -106,7 +108,7 @@ export const projekty: Projekt[] = [
 		slug: "filar-drone",
 		klient: "Filar Drone",
 		branza: "Usługi dronowe",
-		typ: "strona",
+		typy: ["strona"],
 		rok: 2024,
 		logo: "/klienci/loga/filar-drone-light.svg",
 		zakres: "Strona wizytówkowa z portfolio nagrań i formularzem kontaktowym.",
@@ -122,7 +124,7 @@ export const projekty: Projekt[] = [
 		slug: "eden-capital",
 		klient: "Eden Capital",
 		branza: "Doradztwo finansowe",
-		typ: "strona",
+		typy: ["strona"],
 		rok: 2024,
 		logo: "/klienci/loga/eden-capital-light.svg",
 		zakres: "Strona firmowa budująca wiarygodność w branży finansowej.",
@@ -138,7 +140,7 @@ export const projekty: Projekt[] = [
 		slug: "parafia-marii-magdaleny",
 		klient: "Parafia św. Marii Magdaleny",
 		branza: "Instytucja",
-		typ: "strona",
+		typy: ["strona"],
 		rok: 2023,
 		logo: "/klienci/loga/parafia-jasne.svg",
 		zakres: "Strona parafialna z aktualnościami i porządkiem nabożeństw.",
@@ -154,7 +156,7 @@ export const projekty: Projekt[] = [
 		slug: "hc",
 		klient: "HC",
 		branza: "Usługi",
-		typ: "strona",
+		typy: ["strona"],
 		rok: 2024,
 		logo: "/klienci/loga/hc.svg",
 		zakres: "Strona firmowa z prezentacją oferty i kontaktem.",
@@ -169,7 +171,7 @@ export const projekty: Projekt[] = [
 		slug: "filar-uslugi",
 		klient: "Filar Usługi",
 		branza: "Usługi ogólnobudowlane",
-		typ: "strona",
+		typy: ["strona", "seo"],
 		rok: 2023,
 		logo: "/klienci/loga/filar-uslugi.svg",
 		zakres: "Strona wizytówkowa z zakresem usług i formularzem kontaktowym.",

@@ -17,9 +17,11 @@ import { projekty, etykietyTypow, type Typ } from "../data/projekty";
 
 // Renderujemy tylko kategorie, które mają min. 1 realizację — pusty stan nigdy nie
 // powstaje, więc nie trzeba go projektować.
+// Realizacja może mieć kilka typów, więc sumy kategorii nie zsumują się do liczby
+// projektów — i tak ma być: "Strony WWW 6" znaczy 6 realizacji dotyka stron.
 const kolejnoscTypow: Typ[] = ["strona", "seo", "system"];
 const kategorie = kolejnoscTypow
-	.map((typ) => ({ typ, ile: projekty.filter((p) => p.typ === typ).length }))
+	.map((typ) => ({ typ, ile: projekty.filter((p) => p.typy.includes(typ)).length }))
 	.filter((k) => k.ile > 0);
 
 const najstarszy = Math.min(...projekty.map((p) => p.rok));
@@ -81,7 +83,7 @@ const dwucyfrowo = (n: number) => String(n).padStart(2, "0");
 				<ol class="indeks__siatka">
 					{
 						projekty.map((p) => (
-							<li class="kafel" data-typ={p.typ}>
+							<li class="kafel" data-typy={p.typy.join(" ")}>
 								<a class="kafel__link" href={`/portfolio/${p.slug}`}>
 									<div class="kafel__plyta">
 										<PlytaRealizacji
@@ -98,7 +100,7 @@ const dwucyfrowo = (n: number) => String(n).padStart(2, "0");
 										<p class="kafel__meta">
 											<span class="kafel__nr" />
 											<i aria-hidden="true">·</i>
-											<span>{etykietyTypow[p.typ]}</span>
+											<span>{p.typy.map((t) => etykietyTypow[t]).join(" + ")}</span>
 										</p>
 										<h3 class="kafel__klient">{p.klient}</h3>
 										<p class="kafel__branza">{p.branza} · {p.rok}</p>
@@ -269,10 +271,11 @@ const dwucyfrowo = (n: number) => String(n).padStart(2, "0");
 		outline-offset: 2px;
 	}
 
-	/* Filtr steruje siatką z innej sekcji — stąd `:has()` na wspólnym przodku */
-	main:has(#f-strona:checked) .kafel:not([data-typ="strona"]),
-	main:has(#f-seo:checked) .kafel:not([data-typ="seo"]),
-	main:has(#f-system:checked) .kafel:not([data-typ="system"]) {
+	/* Filtr steruje siatką z innej sekcji — stąd `:has()` na wspólnym przodku.
+	   `~=` dopasowuje słowo z listy, więc data-typy="system seo" wpada do obu filtrów. */
+	main:has(#f-strona:checked) .kafel:not([data-typy~="strona"]),
+	main:has(#f-seo:checked) .kafel:not([data-typy~="seo"]),
+	main:has(#f-system:checked) .kafel:not([data-typy~="system"]) {
 		display: none;
 	}
 
