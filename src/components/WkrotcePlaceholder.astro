@@ -1,17 +1,28 @@
 ---
 // WkrotcePlaceholder — reużywalna sekcja "wkrótce" dla podstron w budowie.
-// Props: title, subtitle (opt), desc (opt), icon (opt: nazwa SVG z presetu).
+// Props: title, subtitle (opt), desc (opt), links (opt: karty "przejdź gdzie indziej").
+
+interface LinkKarta {
+	label: string;
+	desc: string;
+	href: string;
+	/** Inline SVG (bez wrappera). */
+	icon: string;
+}
 
 interface Props {
 	title: string;
 	subtitle?: string;
 	desc?: string;
+	/** Gdy podane — pod CTA pojawia się blok "zobacz, co już działa". */
+	links?: LinkKarta[];
 }
 
 const {
 	title,
 	subtitle = "Ta podstrona jest w budowie.",
 	desc = "Aktualnie rozbudowuję ten obszar. W międzyczasie napisz do mnie bezpośrednio – odpowiadam w 24h.",
+	links = [],
 } = Astro.props;
 ---
 
@@ -48,6 +59,28 @@ const {
 				<span>Wróć na główną</span>
 			</a>
 		</div>
+
+		{
+			links.length > 0 && (
+				<nav class="wkrotce__nav" aria-label="Przejdź do innych obszarów">
+					<p class="wkrotce__nav-label">W międzyczasie zobacz, co już działa</p>
+					<ul class="wkrotce__nav-list">
+						{links.map((l) => (
+							<li>
+								<a class="wkrotce__nav-card" href={l.href}>
+									<span class="wkrotce__nav-icon" set:html={l.icon} />
+									<span class="wkrotce__nav-copy">
+										<b>{l.label}</b>
+										<span>{l.desc}</span>
+									</span>
+									<span class="wkrotce__nav-arrow" aria-hidden="true">→</span>
+								</a>
+							</li>
+						))}
+					</ul>
+				</nav>
+			)
+		}
 	</div>
 </section>
 
@@ -170,6 +203,85 @@ const {
 		color: var(--color-contrast);
 		border: 1px solid var(--color-border);
 	}
+
+	/* ===== Blok "przejdź gdzie indziej" ===== */
+	.wkrotce__nav {
+		width: 100%;
+		max-width: 34em;
+		margin-top: 2.5em;
+		padding-top: 2em;
+		border-top: 1px solid var(--color-border);
+	}
+
+	.wkrotce__nav-label {
+		font-size: 0.75em;
+		font-weight: 600;
+		letter-spacing: 1.5px;
+		text-transform: uppercase;
+		color: var(--color-text-muted);
+		margin-bottom: 1em;
+	}
+
+	.wkrotce__nav-list {
+		display: grid;
+		gap: 0.625em;
+		list-style: none;
+	}
+
+	.wkrotce__nav-card {
+		display: grid;
+		grid-template-columns: auto minmax(0, 1fr) auto;
+		align-items: center;
+		gap: 1em;
+		padding: 1em 1.25em;
+		text-align: left;
+		text-decoration: none;
+		background-color: var(--color-canvas);
+		border: 1px solid var(--color-border);
+		border-radius: 1em;
+		transition:
+			border-color 180ms ease,
+			transform 180ms ease,
+			box-shadow 180ms ease;
+	}
+
+	.wkrotce__nav-card:hover {
+		border-color: var(--accent-brand);
+		transform: translateY(-1px);
+		box-shadow: var(--elevation-1);
+	}
+
+	.wkrotce__nav-icon {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 2.5em;
+		height: 2.5em;
+		border-radius: 0.75em;
+		background-color: var(--wk-accent-soft);
+		color: var(--accent-deep);
+	}
+	.wkrotce__nav-icon svg { width: 1.25em; height: 1.25em; }
+
+	.wkrotce__nav-copy { display: grid; gap: 0.15em; }
+	.wkrotce__nav-copy b {
+		font-family: var(--font-heading);
+		font-size: 1em;
+		font-weight: 600;
+		color: var(--color-contrast);
+	}
+	.wkrotce__nav-copy span {
+		font-size: 0.8125em;
+		line-height: 1.4;
+		color: var(--color-text-secondary);
+	}
+
+	.wkrotce__nav-arrow {
+		color: var(--accent-deep);
+		font-size: 1.125em;
+		transition: transform 180ms ease;
+	}
+	.wkrotce__nav-card:hover .wkrotce__nav-arrow { transform: translateX(0.25em); }
 
 	@media screen and (max-width: 767px) {
 		.wkrotce__title {
