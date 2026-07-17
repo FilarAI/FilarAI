@@ -1,9 +1,11 @@
 ---
-// Portfolio — indeks realizacji. Ledger, nie siatka kart: rzędy na widocznej siatce
-// 12-kolumnowej, rozdzielone hairline'ami. Czyta się jak spis prac wykonawcy.
+// Portfolio — indeks realizacji jako siatka kafli, w języku wizualnym kart ze strony
+// głównej (numer + kategoria, klient, zakres, efekt jako badge).
 //
-// Poszarpana prawa krawędź jest sterowana danymi (proporcje płyty wg `typ`), zero kodu
-// per projekt. Filtr: radio + kombinator `~`, bez grama JS.
+// Kafle jadą z projekty.ts i PlytaRealizacji — tego samego źródła co case studies,
+// więc obie strony nie mogą się rozjechać, a screeny podmienią się na obu naraz.
+//
+// Filtr: radio + kombinator `~`, bez grama JS.
 
 import Layout from "../layouts/Layout.astro";
 import Oferta from "../components/Oferta.astro";
@@ -11,7 +13,7 @@ import JakWygladaWspolpraca from "../components/JakWygladaWspolpraca.astro";
 import Cta from "../components/Cta.astro";
 import Footer from "../components/Footer.astro";
 import PlytaRealizacji from "../components/PlytaRealizacji.astro";
-import { projekty, etykietyTypow, proporcjeTypu, type Typ } from "../data/projekty";
+import { projekty, etykietyTypow, type Typ } from "../data/projekty";
 
 // Renderujemy tylko kategorie, które mają min. 1 realizację — pusty stan nigdy nie
 // powstaje, więc nie trzeba go projektować.
@@ -41,7 +43,7 @@ const najstarszy = Math.min(...projekty.map((p) => p.rok));
 
 		<section class="indeks section--light">
 			<div class="indeks__outer">
-				{/* Radia PRZED listą — wymóg kombinatora `~`. */}
+				{/* Radia PRZED siatką — wymóg kombinatora `~`. */}
 				<input type="radio" name="filtr" id="f-all" class="sr-only" checked />
 				{kategorie.map((k) => <input type="radio" name="filtr" id={`f-${k.typ}`} class="sr-only" />)}
 
@@ -56,32 +58,35 @@ const najstarszy = Math.min(...projekty.map((p) => p.rok));
 					}
 				</div>
 
-				<ol class="indeks__lista">
+				<ol class="indeks__siatka">
 					{
 						projekty.map((p) => (
-							<li class="indeks__rz" data-typ={p.typ}>
-								<a class="indeks__link" href={`/portfolio/${p.slug}`}>
-									<span class="indeks__nr" aria-hidden="true" />
-									<div class="indeks__szyna">
-										<h3 class="indeks__klient">{p.klient}</h3>
-										<p class="indeks__meta">
-											<span>{p.branza}</span>
-											<i aria-hidden="true">·</i>
-											<span>{etykietyTypow[p.typ]}</span>
-											<i aria-hidden="true">·</i>
-											<span>{p.rok}</span>
-										</p>
-										<p class="indeks__zakres">{p.zakres}</p>
-										<p class="indeks__efekt">{p.efekt}</p>
-									</div>
-									<div class="indeks__plyta">
+							<li class="kafel" data-typ={p.typ}>
+								<a class="kafel__link" href={`/portfolio/${p.slug}`}>
+									<div class="kafel__plyta">
 										<PlytaRealizacji
 											slug={p.slug}
 											klient={p.klient}
 											logo={p.logo}
-											ratio={proporcjeTypu[p.typ]}
-											sizes="(max-width: 991px) 100vw, 55vw"
+											ratio="16 / 10"
+											sizes="(max-width: 767px) 100vw, (max-width: 991px) 50vw, 33vw"
+											widths={[360, 560, 760]}
 										/>
+									</div>
+
+									<div class="kafel__body">
+										<p class="kafel__meta">
+											<span class="kafel__nr" />
+											<i aria-hidden="true">·</i>
+											<span>{etykietyTypow[p.typ]}</span>
+										</p>
+										<h3 class="kafel__klient">{p.klient}</h3>
+										<p class="kafel__branza">{p.branza} · {p.rok}</p>
+										<p class="kafel__zakres">{p.zakres}</p>
+										<p class="kafel__efekt">{p.efekt}</p>
+										<span class="kafel__cta">
+											Zobacz projekt <i aria-hidden="true">→</i>
+										</span>
 									</div>
 								</a>
 							</li>
@@ -191,51 +196,83 @@ const najstarszy = Math.min(...projekty.map((p) => p.rok));
 		outline-offset: 2px;
 	}
 
-	#f-strona:checked ~ .indeks__lista .indeks__rz:not([data-typ="strona"]),
-	#f-seo:checked ~ .indeks__lista .indeks__rz:not([data-typ="seo"]),
-	#f-system:checked ~ .indeks__lista .indeks__rz:not([data-typ="system"]) {
+	#f-strona:checked ~ .indeks__siatka .kafel:not([data-typ="strona"]),
+	#f-seo:checked ~ .indeks__siatka .kafel:not([data-typ="seo"]),
+	#f-system:checked ~ .indeks__siatka .kafel:not([data-typ="system"]) {
 		display: none;
 	}
 
-	/* --- Lista: numeracja przez CSS counters. Elementy z display:none nie inkrementują,
-	       więc po filtrowaniu numeracja przelicza się sama na 01, 02, 03. --- */
-	.indeks__lista {
+	/* --- Siatka kafli. auto-fit zamiast breakpointów: liczba kolumn wynika z dostępnej
+	       szerokości, nie z listy media queries. --- */
+	.indeks__siatka {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(17em, 1fr));
+		gap: var(--spacing-lg);
 		counter-reset: rz;
 		list-style: none;
-		border-top: 1px solid var(--color-border);
 	}
-	.indeks__rz {
-		counter-increment: rz;
-		border-bottom: 1px solid var(--color-border);
-		transition: border-color var(--transition-base);
-	}
-	.indeks__rz:hover { border-bottom-color: var(--accent-brand); }
 
-	.indeks__link {
-		display: grid;
-		grid-template-columns: repeat(12, 1fr);
-		column-gap: var(--spacing-lg);
-		align-items: center;
-		padding-block: var(--spacing-2xl);
+	/* Numeracja przez CSS counters — elementy z display:none nie inkrementują,
+	   więc po filtrowaniu numeracja przelicza się sama na 01, 02, 03. */
+	.kafel { counter-increment: rz; }
+
+	.kafel__link {
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+		overflow: hidden;
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-lg);
+		background-color: var(--color-canvas);
+		box-shadow: var(--elevation-1);
 		text-decoration: none;
 		color: inherit;
+		transition:
+			box-shadow var(--transition-base),
+			transform var(--transition-base),
+			border-color var(--transition-base);
+	}
+	.kafel__link:hover {
+		border-color: var(--accent-brand);
+		box-shadow: var(--elevation-2);
+		transform: translateY(-0.25em);
 	}
 
-	.indeks__nr {
-		grid-column: 1 / 2;
-		align-self: start;
-		font-family: var(--font-heading);
-		font-size: var(--text-sm);
-		font-weight: var(--weight-heading);
-		font-variant-numeric: tabular-nums;
+	/* Płyta gubi własną ramkę i radius — kafel je już ma */
+	.kafel__plyta :global(.plyta) {
+		border: 0;
+		border-bottom: 1px solid var(--color-border);
+		border-radius: 0;
+	}
+	.kafel__link:hover .kafel__plyta :global(.plyta__img) { transform: scale(1.04); }
+
+	.kafel__body {
+		display: flex;
+		flex-direction: column;
+		flex-grow: 1;
+		padding: var(--spacing-lg);
+	}
+
+	.kafel__meta {
+		display: flex;
+		align-items: center;
+		gap: 0.45em;
+		font-size: 0.6875em;
+		font-weight: var(--weight-emphasis);
+		letter-spacing: 1px;
+		text-transform: uppercase;
 		color: var(--color-text-muted);
-		transition: color var(--transition-base);
 	}
-	.indeks__nr::before { content: counter(rz, decimal-leading-zero); }
-	.indeks__rz:hover .indeks__nr { color: var(--accent-deep); }
+	.kafel__nr {
+		font-family: var(--font-heading);
+		font-variant-numeric: tabular-nums;
+		color: var(--accent-deep);
+	}
+	.kafel__nr::before { content: counter(rz, decimal-leading-zero); }
+	.kafel__meta i { color: var(--accent-brand); font-style: normal; }
 
-	.indeks__szyna { grid-column: 2 / 5; }
-	.indeks__klient {
+	.kafel__klient {
+		margin-top: 0.5em;
 		font-family: var(--font-heading);
 		font-size: var(--text-h3);
 		font-weight: var(--weight-heading);
@@ -243,72 +280,51 @@ const najstarszy = Math.min(...projekty.map((p) => p.rok));
 		letter-spacing: -0.5px;
 		color: var(--color-contrast);
 	}
-	.indeks__meta {
-		display: flex;
-		flex-wrap: wrap;
-		align-items: center;
-		gap: 0.45em;
-		margin-top: 0.4em;
+	.kafel__branza {
+		margin-top: 0.3em;
 		font-size: 0.8125em;
 		color: var(--color-text-muted);
 	}
-	.indeks__meta i { color: var(--accent-brand); font-style: normal; }
-	.indeks__zakres {
+	.kafel__zakres {
 		margin-top: var(--spacing-md);
 		font-size: var(--text-sm);
-		line-height: 1.55;
+		line-height: 1.5;
 		color: var(--color-text-secondary);
 	}
-	.indeks__efekt {
+
+	/* Efekt jako badge — to on sprzedaje, więc dostaje kolor i wagę */
+	.kafel__efekt {
+		display: inline-block;
+		align-self: flex-start;
 		margin-top: var(--spacing-md);
-		font-size: var(--text-sm);
+		padding: 0.4em 0.7em;
+		border-radius: var(--radius-sm);
+		background-color: var(--accent-wash);
+		font-size: 0.75em;
 		font-weight: var(--weight-emphasis);
-		line-height: 1.5;
+		line-height: 1.4;
 		color: var(--accent-deep);
 	}
 
-	/* Poszarpana prawa krawędź — sterowana `typ`, zero kodu per projekt */
-	.indeks__plyta { overflow: hidden; border-radius: var(--radius-md); }
-	.indeks__rz[data-typ="strona"] .indeks__plyta { grid-column: 5 / 13; }
-	.indeks__rz[data-typ="seo"] .indeks__plyta { grid-column: 6 / 13; }
-	.indeks__rz[data-typ="system"] .indeks__plyta { grid-column: 7 / 13; }
-
-	.indeks__rz:hover .indeks__plyta :global(.plyta__img) { transform: scale(1.03); }
+	.kafel__cta {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5em;
+		margin-top: auto;
+		padding-top: var(--spacing-lg);
+		font-size: var(--text-sm);
+		font-weight: var(--weight-emphasis);
+		color: var(--accent-deep);
+	}
+	.kafel__cta i { font-style: normal; transition: transform var(--transition-base); }
+	.kafel__link:hover .kafel__cta i { transform: translateX(0.25em); }
 
 	/* ===== Responsywność ===== */
-	@media screen and (max-width: 991px) {
-		/* Poszarpana krawędź nie ma sensu przy jednej kolumnie */
-		.indeks__link { grid-template-columns: 2.5em minmax(0, 1fr); row-gap: var(--spacing-lg); }
-		.indeks__nr { grid-column: 1 / 2; grid-row: 1; }
-		.indeks__szyna { grid-column: 2 / 3; grid-row: 1; }
-		.indeks__rz[data-typ="strona"] .indeks__plyta,
-		.indeks__rz[data-typ="seo"] .indeks__plyta,
-		.indeks__rz[data-typ="system"] .indeks__plyta {
-			grid-column: 1 / 3;
-			grid-row: 2;
-			--plyta-ratio: 16 / 10;
-		}
-	}
-
 	@media screen and (max-width: 767px) {
 		.pf-hero__outer { padding-block: var(--spacing-4xl) var(--spacing-2xl); }
 		.pf-hero__title { letter-spacing: -0.5px; }
 		.indeks__outer { padding-block: var(--spacing-lg) var(--spacing-4xl); }
-		.indeks__link { grid-template-columns: minmax(0, 1fr); padding-block: var(--spacing-xl); }
-		/* Numer wchodzi inline przed nazwę klienta */
-		.indeks__nr { display: none; }
-		.indeks__szyna { grid-column: 1 / -1; grid-row: 1; }
-		.indeks__klient::before {
-			content: counter(rz, decimal-leading-zero) " ";
-			margin-right: 0.4em;
-			font-size: 0.7em;
-			font-variant-numeric: tabular-nums;
-			color: var(--color-text-muted);
-		}
-		.indeks__rz[data-typ="strona"] .indeks__plyta,
-		.indeks__rz[data-typ="seo"] .indeks__plyta,
-		.indeks__rz[data-typ="system"] .indeks__plyta {
-			grid-column: 1 / -1;
-		}
+		.indeks__siatka { grid-template-columns: minmax(0, 1fr); gap: var(--spacing-md); }
+		.kafel__body { padding: var(--spacing-md); }
 	}
 </style>
