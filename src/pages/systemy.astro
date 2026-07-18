@@ -1,16 +1,544 @@
 ---
+// Systemy AI — podstrona. Własny układ prowadzący napięciem: obietnica → problem →
+// demo na żywo → co da się zautomatyzować (zasada + szeroka lista + 3 flagowe + drzwi) →
+// proces → cennik (wdrożenie + abonament) → dowód → CTA.
+//
+// Pozycjonowanie: sprzedajemy ZDOLNOŚĆ "zautomatyzuję dowolny powtarzalny proces", nie
+// katalog trzech usług. Trzy nazwane to przykłady potwierdzające regułę.
+//
+// Sekcje specyficzne dla /systemy żyją inline (jedno miejsce użycia). Reuse: DemoSystemu,
+// JakWygladaWspolpraca, Cta, Footer, PlytaRealizacji. Ceny i treści ROBOCZE.
+
 import Layout from "../layouts/Layout.astro";
-import WkrotcePlaceholder from "../components/WkrotcePlaceholder.astro";
+import DemoSystemu from "../components/DemoSystemu.astro";
+import JakWygladaWspolpraca from "../components/JakWygladaWspolpraca.astro";
+import Cta from "../components/Cta.astro";
 import Footer from "../components/Footer.astro";
+import PlytaRealizacji from "../components/PlytaRealizacji.astro";
+import { projekty } from "../data/projekty";
+
+// Szeroka lista — dowód "wszystko". Kolejność bez znaczenia, ostatnia pigułka to drzwi.
+const procesy = [
+	"Odpowiadanie na zapytania",
+	"Umawianie spotkań",
+	"Zbieranie opinii",
+	"Kwalifikacja leadów",
+	"Follow-up po ofercie",
+	"Przypomnienia do klientów",
+	"Wystawianie i wysyłka faktur",
+	"Onboarding nowego klienta",
+	"Obsługa reklamacji",
+	"Aktualizacja CRM",
+	"Segregacja i odpowiedzi na maile",
+	"Raporty i podsumowania",
+	"Potwierdzenia zamówień",
+	"Odzyskiwanie porzuconych koszyków",
+];
+
+// Flagowe przykłady — depth. `mockup` wybiera ilustrację niżej.
+const przyklady = [
+	{
+		nr: "01",
+		mockup: "czat",
+		tytul: "Auto-odpowiedź WhatsApp / czat",
+		opis: "System odbiera zapytanie, odpowiada na najczęstsze pytania i kwalifikuje leada, zanim zdąży ostygnąć.",
+		efekt: "Odpowiedź w mniej niż 5 minut, 24/7",
+	},
+	{
+		nr: "02",
+		mockup: "opinie",
+		tytul: "Zbieranie opinii",
+		opis: "Po zakończonym zleceniu system sam prosi klienta o opinię i prowadzi go jednym kliknięciem do Google.",
+		efekt: "Opinie zbierają się same, bez przypominania",
+	},
+	{
+		nr: "03",
+		mockup: "crm",
+		tytul: "Integracja z CRM",
+		opis: "Każdy lead z formularza, czatu czy telefonu ląduje w CRM z kompletem danych. Bez przeklejania.",
+		efekt: "Zero ręcznego wpisywania, żaden lead nie ginie",
+	},
+];
+
+const problemy = [
+	"Wolna odpowiedź to stracony lead — klient pisze do trzech firm naraz.",
+	"Ręczne przeklejanie danych to błędy i godziny, które przepadają.",
+	"Brak follow-upu to klient, który po prostu zapomniał.",
+];
+
+// Cennik: skala zakresu, nie trzy produkty. Wdrożenie + abonament. Ceny ROBOCZE.
+const pakiety = [
+	{
+		name: "Jeden proces",
+		tagline: "Jedna automatyzacja, która najbardziej boli",
+		wdrozenie: "1 500–3 000",
+		abonament: "99",
+		features: [
+			"Jeden proces przejęty przez system",
+			"Wdrożenie i konfiguracja end-to-end",
+			"Podłączenie pod Twoje kanały",
+			"Utrzymanie i drobne poprawki",
+		],
+	},
+	{
+		name: "Kilka procesów",
+		tagline: "Parę automatyzacji, które grają razem",
+		wdrozenie: "3 000–6 000",
+		abonament: "199",
+		featured: true,
+		features: [
+			"Kilka procesów w jednym systemie",
+			"Integracja z CRM i narzędziami, których używasz",
+			"Wspólny panel i powiadomienia",
+			"Priorytetowe wsparcie",
+			"Monitoring i rozwój systemu",
+		],
+	},
+	{
+		name: "System na miarę",
+		tagline: "Nietypowy proces? Buduję pod niego",
+		wdrozenie: "od 6 000",
+		abonament: "od 299",
+		features: [
+			"Dedykowane wdrożenie pod Twój proces",
+			"Dowolne integracje i logika biznesowa",
+			"Skalowanie w miarę wzrostu",
+			"Stała opieka techniczna",
+		],
+	},
+];
+
+// Dowód — realizacje otagowane jako system.
+const dowody = projekty.filter((p) => p.typy.includes("system"));
 ---
 
-<Layout title="Systemy AI — FilarAI">
+<Layout
+	title="Systemy AI — automatyzacje dla firm | FilarAI"
+	description="Zautomatyzuję dowolny powtarzalny proces w Twojej firmie: odpowiadanie na zapytania, zbieranie opinii, integracje z CRM i więcej. Wdrożenie plus opieka."
+>
 	<main id="main">
-		<WkrotcePlaceholder
-			title="Systemy AI"
-			subtitle="Dedykowana podstrona jest w drodze."
-			desc="Wkrótce znajdziesz tu pełny opis systemów AI, automatyzacji WhatsApp/Email, integracji z CRM i przykłady wdrożeń. Chcesz wiedzieć już teraz? Odezwij się."
-		/>
+		<section class="sys-hero section--atmosphere">
+			<div class="sys-hero__outer">
+				<div class="sys-hero__copy">
+					<p class="sys-hero__eyebrow"><i aria-hidden="true"></i><b>Systemy AI</b><span>/</span> automatyzacje</p>
+					<h1 class="sys-hero__title">Jeśli robisz to samo więcej niż raz,<span>system może to przejąć.</span></h1>
+					<p class="sys-hero__lead">
+						Automatyzuję powtarzalne procesy w firmach usługowych i produkcyjnych. Nie sprzedaję
+						gotowego pudełka — patrzę, co robisz ręcznie, i buduję system, który robi to za Ciebie.
+					</p>
+					<div class="sys-hero__actions">
+						<a href="/kontakt" class="btn btn--primary">Opisz swój proces <span aria-hidden="true">→</span></a>
+						<a href="#demo" class="btn btn--secondary">Zobacz demo</a>
+					</div>
+				</div>
+
+				<div class="sys-hero__flow" aria-hidden="true">
+					<span class="sys-hero__flow-label">Jak działa jeden z systemów</span>
+					<ul class="sys-hero__flow-list">
+						<li><span>01</span> Zapytanie</li>
+						<li><span>02</span> Lead zapisany</li>
+						<li><span>03</span> Odpowiedź</li>
+						<li><span>04</span> Follow-up</li>
+					</ul>
+				</div>
+			</div>
+		</section>
+
+		<section class="sys-problem section--dark">
+			<div class="sys-problem__outer">
+				<p class="sys-problem__punch">Klient pisze o 21:47. Odpisujesz rano. On już kupił gdzie indziej.</p>
+				<ul class="sys-problem__list">
+					{problemy.map((t) => <li>{t}</li>)}
+				</ul>
+			</div>
+		</section>
+
+		<div id="demo">
+			<DemoSystemu />
+		</div>
+
+		<section class="sys-auto section--atmosphere">
+			<div class="sys-auto__outer">
+				<div class="sys-auto__head">
+					<p class="sys-auto__eyebrow"><i aria-hidden="true"></i><b>Co da się zautomatyzować</b></p>
+					<h2 class="sys-auto__title">Jeśli robisz to według schematu, system to przejmie.</h2>
+					<p class="sys-auto__lead">Poniżej wycinek procesów, które da się oddać systemowi — nie cała lista. Twój może być na niej, nawet jeśli go tu nie widzisz.</p>
+				</div>
+
+				<ul class="sys-auto__pills">
+					{procesy.map((p) => <li class="sys-auto__pill">{p}</li>)}
+					<li class="sys-auto__pill sys-auto__pill--more"><a href="/kontakt">+ Twój proces</a></li>
+				</ul>
+
+				<p class="sys-auto__marker">Trzy przykłady, które już wdrożyłem — dla konkretu:</p>
+
+				<ul class="sys-auto__examples">
+					{
+						przyklady.map((e) => (
+							<li class="sys-ex">
+								<span class="sys-ex__nr" aria-hidden="true">{e.nr}</span>
+								<div class="sys-ex__body">
+									<h3 class="sys-ex__title">{e.tytul}</h3>
+									<p class="sys-ex__desc">{e.opis}</p>
+									<p class="sys-ex__efekt"><span aria-hidden="true">→</span> {e.efekt}</p>
+								</div>
+								<div class="sys-ex__mockup" aria-hidden="true">
+									{e.mockup === "czat" && (
+										<div class="mock-czat">
+											<span class="mock-czat__in">Cześć, robicie kuchnie na wymiar?</span>
+											<span class="mock-czat__out">Tak! Podeślij wymiary, przygotuję wycenę w 15 min.</span>
+											<span class="mock-czat__meta">odpowiedź automatyczna · 4:12</span>
+										</div>
+									)}
+									{e.mockup === "opinie" && (
+										<div class="mock-opinie">
+											<span class="mock-opinie__g">G</span>
+											<span class="mock-opinie__stars">★★★★★</span>
+											<span class="mock-opinie__txt">Na podstawie 47 opinii</span>
+											<span class="mock-opinie__pill">+12 w tym miesiącu</span>
+										</div>
+									)}
+									{e.mockup === "crm" && (
+										<div class="mock-crm">
+											<span class="mock-crm__node">Formularz</span>
+											<span class="mock-crm__arrow">→</span>
+											<span class="mock-crm__node">Czat</span>
+											<span class="mock-crm__arrow">→</span>
+											<span class="mock-crm__node mock-crm__node--dest">CRM</span>
+										</div>
+									)}
+								</div>
+							</li>
+						))
+					}
+				</ul>
+
+				<div class="sys-auto__door">
+					<p><b>Nie ma tu Twojego procesu?</b> Opowiedz, co robisz ręcznie — powiem, czy i jak da się to zautomatyzować.</p>
+					<a href="/kontakt" class="btn btn--secondary">Napisz, co Cię męczy <span aria-hidden="true">→</span></a>
+				</div>
+			</div>
+		</section>
+
+		<JakWygladaWspolpraca />
+
+		<section class="sys-cennik section--light">
+			<div class="sys-cennik__outer">
+				<div class="sys-cennik__head">
+					<p class="sys-cennik__eyebrow"><i aria-hidden="true"></i><b>Cennik</b><span>/</span> wdrożenie + opieka</p>
+					<h2 class="sys-cennik__title">Płacisz za wdrożenie i za to, że system działa dalej.</h2>
+					<p class="sys-cennik__lead">Wdrożenie jednorazowo, potem miesięczna opieka: utrzymanie, koszty API, monitoring i poprawki. Widełki orientacyjne — dokładną wycenę dostajesz po rozmowie.</p>
+				</div>
+
+				<ul class="sys-cennik__grid">
+					{
+						pakiety.map((p) => (
+							<li class:list={["sys-pak", p.featured && "sys-pak--featured"]}>
+								{p.featured && <span class="sys-pak__badge">Najczęściej wybierany</span>}
+								<div class="sys-pak__head">
+									<h3 class="sys-pak__name">{p.name}</h3>
+									<p class="sys-pak__tagline">{p.tagline}</p>
+								</div>
+								<div class="sys-pak__price">
+									<p class="sys-pak__wdrozenie"><span class="sys-pak__from">wdrożenie od</span> {p.wdrozenie} <em>zł</em></p>
+									<p class="sys-pak__abonament">+ {p.abonament} <em>zł / mies</em></p>
+								</div>
+								<ul class="sys-pak__features">
+									{p.features.map((f) => (
+										<li>
+											<span class="sys-pak__check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4.5 4.5L19 7"/></svg></span>
+											{f}
+										</li>
+									))}
+								</ul>
+								<a href="/kontakt" class:list={["btn", p.featured ? "btn--primary" : "btn--secondary", "sys-pak__cta"]}>
+									Wyceń wdrożenie <span aria-hidden="true">→</span>
+								</a>
+							</li>
+						))
+					}
+				</ul>
+			</div>
+		</section>
+
+		{
+			dowody.length > 0 && (
+				<section class="sys-dowod section--atmosphere">
+					<div class="sys-dowod__outer">
+						<div class="sys-dowod__head">
+							<h2 class="sys-dowod__title">Systemy, które już działają.</h2>
+							<a class="sys-dowod__all" href="/portfolio">Wszystkie realizacje <span aria-hidden="true">→</span></a>
+						</div>
+						<ul class="sys-dowod__grid">
+							{dowody.map((p) => (
+								<li>
+									<a class="sys-dowod__card" href={`/portfolio/${p.slug}`}>
+										<div class="sys-dowod__plyta">
+											<PlytaRealizacji slug={p.slug} klient={p.klient} logo={p.logo} ratio="16 / 10" sizes="(max-width: 767px) 100vw, 45vw" />
+										</div>
+										<div class="sys-dowod__body">
+											<h3 class="sys-dowod__klient">{p.klient}</h3>
+											<p class="sys-dowod__efekt">{p.efekt}</p>
+											<span class="sys-dowod__link">Zobacz case study <span aria-hidden="true">→</span></span>
+										</div>
+									</a>
+								</li>
+							))}
+						</ul>
+					</div>
+				</section>
+			)
+		}
+
+		<Cta />
 	</main>
 	<Footer />
 </Layout>
+
+<style>
+	/* ===== Hero ===== */
+	.sys-hero__outer {
+		max-width: var(--size-container);
+		margin-inline: auto;
+		padding-inline: var(--container-padding);
+		padding-block: var(--spacing-section) var(--spacing-4xl);
+		display: grid;
+		grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+		align-items: center;
+		gap: var(--spacing-4xl);
+	}
+	.sys-hero__eyebrow {
+		display: inline-flex; align-items: center; gap: 0.65em;
+		font-size: 0.75em; font-weight: var(--weight-emphasis);
+		letter-spacing: 2px; text-transform: uppercase; color: var(--color-text-secondary);
+	}
+	.sys-hero__eyebrow i { width: 0.55em; height: 0.55em; border-radius: 50%; background-color: var(--accent-brand); }
+	.sys-hero__eyebrow b { color: var(--color-contrast); }
+	.sys-hero__eyebrow > span { color: var(--accent-brand); }
+	.sys-hero__title {
+		margin-top: var(--spacing-lg);
+		font-family: var(--font-heading); font-size: var(--text-h1); font-weight: var(--weight-heading);
+		line-height: var(--lh-display); letter-spacing: -1.5px; color: var(--color-contrast); text-wrap: balance;
+	}
+	.sys-hero__title span { display: block; color: var(--accent-text); }
+	.sys-hero__lead {
+		margin-top: var(--spacing-lg); max-width: 34em;
+		font-size: var(--text-lead); line-height: var(--lh-lead); color: var(--color-text-secondary);
+	}
+	.sys-hero__actions { display: flex; flex-wrap: wrap; gap: var(--spacing-md); margin-top: var(--spacing-xl); }
+
+	.sys-hero__flow {
+		padding: var(--spacing-xl);
+		border: 1px solid var(--color-border); border-radius: var(--radius-lg);
+		background-color: var(--color-canvas); box-shadow: var(--elevation-1);
+	}
+	.sys-hero__flow-label { font-size: 0.75em; font-weight: var(--weight-emphasis); letter-spacing: 1px; text-transform: uppercase; color: var(--color-text-muted); }
+	.sys-hero__flow-list { display: grid; gap: 0.75em; margin-top: var(--spacing-md); list-style: none; }
+	.sys-hero__flow-list li {
+		display: flex; align-items: center; gap: 0.75em;
+		padding: 0.75em 1em; border: 1px solid var(--color-border); border-radius: var(--radius-md);
+		font-size: var(--text-sm); font-weight: var(--weight-emphasis); color: var(--color-contrast);
+	}
+	.sys-hero__flow-list span {
+		display: grid; place-items: center; width: 1.75em; height: 1.75em;
+		border-radius: 50%; background-color: var(--accent-wash); color: var(--accent-deep);
+		font-size: 0.75em; font-variant-numeric: tabular-nums;
+	}
+
+	/* ===== Problem (dark) ===== */
+	.sys-problem { background-color: var(--color-atmosphere-dark); color: var(--color-text-on-dark); }
+	.sys-problem__outer {
+		max-width: var(--size-container); margin-inline: auto;
+		padding-inline: var(--container-padding); padding-block: var(--spacing-section);
+	}
+	.sys-problem__punch {
+		max-width: 20em; font-family: var(--font-heading); font-size: var(--text-h2);
+		font-weight: var(--weight-heading); line-height: 1.2; letter-spacing: -1px;
+		color: var(--color-text-on-dark); text-wrap: balance;
+	}
+	.sys-problem__list { display: grid; gap: var(--spacing-md); margin-top: var(--spacing-2xl); max-width: 44em; list-style: none; }
+	.sys-problem__list li {
+		padding-left: 1.5em; position: relative;
+		font-size: var(--text-lead); line-height: 1.5; color: var(--color-text-on-dark-muted);
+	}
+	.sys-problem__list li::before { content: "—"; position: absolute; left: 0; color: var(--accent-brand); }
+
+	/* ===== Co da się zautomatyzować ===== */
+	.sys-auto__outer {
+		max-width: var(--size-container); margin-inline: auto;
+		padding-inline: var(--container-padding); padding-block: var(--spacing-section);
+	}
+	.sys-auto__head { max-width: 40em; margin-bottom: var(--spacing-2xl); }
+	.sys-auto__eyebrow {
+		display: inline-flex; align-items: center; gap: 0.65em;
+		font-size: 0.75em; font-weight: var(--weight-emphasis); letter-spacing: 2px;
+		text-transform: uppercase; color: var(--color-text-secondary);
+	}
+	.sys-auto__eyebrow i { width: 0.55em; height: 0.55em; border-radius: 50%; background-color: var(--accent-brand); }
+	.sys-auto__eyebrow b { color: var(--color-contrast); }
+	.sys-auto__title {
+		margin-top: var(--spacing-md); font-family: var(--font-heading); font-size: var(--text-h2);
+		font-weight: var(--weight-heading); line-height: var(--lh-heading); letter-spacing: -1px;
+		color: var(--color-contrast); text-wrap: balance;
+	}
+	.sys-auto__lead { margin-top: var(--spacing-md); font-size: var(--text-lead); line-height: var(--lh-lead); color: var(--color-text-secondary); }
+
+	.sys-auto__pills { display: flex; flex-wrap: wrap; gap: 0.625em; list-style: none; }
+	.sys-auto__pill {
+		padding: 0.6em 1.1em; border: 1px solid var(--color-border); border-radius: var(--radius-pill);
+		background-color: var(--color-canvas); font-size: var(--text-sm); color: var(--color-text-secondary);
+	}
+	.sys-auto__pill--more { border-style: dashed; border-color: var(--accent-brand); background-color: transparent; }
+	.sys-auto__pill--more a { color: var(--accent-deep); font-weight: var(--weight-emphasis); text-decoration: none; }
+
+	.sys-auto__marker {
+		margin-top: var(--spacing-3xl); font-size: 0.75em; font-weight: var(--weight-emphasis);
+		letter-spacing: 1px; text-transform: uppercase; color: var(--color-text-muted);
+	}
+
+	.sys-auto__examples {
+		margin-top: var(--spacing-lg); list-style: none;
+		border: 1px solid var(--color-border); border-radius: var(--radius-lg);
+		background-color: var(--color-canvas); box-shadow: var(--elevation-1);
+		padding-inline: var(--spacing-xl);
+	}
+	.sys-ex {
+		display: grid; grid-template-columns: 2.5em minmax(0, 1fr) minmax(15em, 20em);
+		align-items: center; gap: var(--spacing-xl); padding-block: var(--spacing-xl);
+	}
+	.sys-ex + .sys-ex { border-top: 1px dashed var(--color-border); }
+	.sys-ex__nr { font-family: var(--font-heading); font-weight: var(--weight-heading); color: var(--accent-deep); font-variant-numeric: tabular-nums; }
+	.sys-ex__title { font-family: var(--font-heading); font-size: var(--text-h3); font-weight: var(--weight-heading); letter-spacing: -0.5px; color: var(--color-contrast); }
+	.sys-ex__desc { margin-top: 0.4em; font-size: var(--text-sm); line-height: 1.55; color: var(--color-text-secondary); max-width: 30em; }
+	.sys-ex__efekt { margin-top: 0.75em; font-size: var(--text-sm); font-weight: var(--weight-emphasis); color: var(--accent-deep); }
+	.sys-ex__efekt span { color: var(--accent-brand); }
+
+	/* --- mini-mockupy --- */
+	.sys-ex__mockup {
+		padding: var(--spacing-md); border: 1px solid var(--color-border); border-radius: var(--radius-md);
+		background-color: var(--color-atmosphere);
+	}
+	.mock-czat { display: grid; gap: 0.5em; }
+	.mock-czat__in, .mock-czat__out {
+		max-width: 85%; padding: 0.6em 0.85em; border-radius: 1em; font-size: 0.8125em; line-height: 1.35;
+	}
+	.mock-czat__in { justify-self: start; background-color: var(--color-canvas); border: 1px solid var(--color-border); border-bottom-left-radius: 0.25em; color: var(--color-text-secondary); }
+	.mock-czat__out { justify-self: end; background-color: var(--accent-deep); color: var(--color-canvas); border-bottom-right-radius: 0.25em; }
+	.mock-czat__meta { justify-self: end; font-size: 0.6875em; color: var(--color-text-muted); }
+
+	.mock-opinie { display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 0.4em 0.75em; }
+	.mock-opinie__g { grid-row: 1 / 3; display: grid; place-items: center; width: 2.5em; height: 2.5em; border-radius: 50%; background-color: var(--color-canvas); border: 1px solid var(--color-border); font-family: var(--font-heading); font-weight: var(--weight-heading); color: var(--accent-text); }
+	.mock-opinie__stars { color: var(--accent-brand); letter-spacing: 2px; font-size: 0.9375em; }
+	.mock-opinie__txt { font-size: 0.75em; color: var(--color-text-muted); }
+	.mock-opinie__pill { grid-column: 2; justify-self: start; margin-top: 0.15em; padding: 0.2em 0.6em; border-radius: var(--radius-sm); background-color: var(--accent-wash); color: var(--accent-deep); font-size: 0.6875em; font-weight: var(--weight-emphasis); }
+
+	.mock-crm { display: flex; align-items: center; justify-content: center; gap: 0.5em; flex-wrap: wrap; }
+	.mock-crm__node { padding: 0.5em 0.85em; border: 1px solid var(--color-border); border-radius: var(--radius-sm); background-color: var(--color-canvas); font-size: 0.75em; font-weight: var(--weight-emphasis); color: var(--color-text-secondary); }
+	.mock-crm__node--dest { border-color: var(--accent-brand); background-color: var(--accent-wash); color: var(--accent-deep); }
+	.mock-crm__arrow { color: var(--accent-brand); }
+
+	.sys-auto__door {
+		display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+		gap: var(--spacing-lg); margin-top: var(--spacing-2xl);
+		padding: var(--spacing-xl); border: 1px dashed var(--color-border); border-radius: var(--radius-lg);
+		background-color: var(--color-canvas);
+	}
+	.sys-auto__door p { font-size: var(--text-body); line-height: 1.5; color: var(--color-text-secondary); max-width: 34em; }
+	.sys-auto__door b { color: var(--color-contrast); }
+
+	/* ===== Cennik ===== */
+	.sys-cennik__outer {
+		max-width: var(--size-container); margin-inline: auto;
+		padding-inline: var(--container-padding); padding-block: var(--spacing-section);
+	}
+	.sys-cennik__head { max-width: 42em; margin-bottom: var(--spacing-3xl); }
+	.sys-cennik__eyebrow {
+		display: inline-flex; align-items: center; gap: 0.65em; font-size: 0.75em;
+		font-weight: var(--weight-emphasis); letter-spacing: 2px; text-transform: uppercase; color: var(--color-text-secondary);
+	}
+	.sys-cennik__eyebrow i { width: 0.55em; height: 0.55em; border-radius: 50%; background-color: var(--accent-brand); }
+	.sys-cennik__eyebrow b { color: var(--color-contrast); }
+	.sys-cennik__eyebrow > span { color: var(--accent-brand); }
+	.sys-cennik__title {
+		margin-top: var(--spacing-md); font-family: var(--font-heading); font-size: var(--text-h2);
+		font-weight: var(--weight-heading); line-height: var(--lh-heading); letter-spacing: -1px; color: var(--color-contrast); text-wrap: balance;
+	}
+	.sys-cennik__lead { margin-top: var(--spacing-md); font-size: var(--text-lead); line-height: var(--lh-lead); color: var(--color-text-secondary); }
+
+	.sys-cennik__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--spacing-lg); list-style: none; align-items: stretch; }
+	.sys-pak {
+		position: relative; display: flex; flex-direction: column; gap: var(--spacing-lg);
+		padding: var(--spacing-2xl); border: 1px solid var(--color-border); border-radius: var(--radius-lg);
+		background-color: var(--color-canvas); box-shadow: var(--elevation-1);
+		transition: box-shadow var(--transition-base), transform var(--transition-base);
+	}
+	.sys-pak:hover { box-shadow: var(--elevation-2); transform: translateY(-0.25em); }
+	.sys-pak--featured { border-color: var(--accent-brand); box-shadow: var(--elevation-3); background-color: var(--color-atmosphere); }
+	.sys-pak__badge {
+		position: absolute; top: 0; left: var(--spacing-2xl); transform: translateY(-50%);
+		padding: 0.4em 0.9em; border-radius: var(--radius-pill); background-color: var(--accent-fill);
+		color: var(--color-contrast); font-size: 0.7em; font-weight: var(--weight-emphasis);
+	}
+	.sys-pak__name { font-family: var(--font-heading); font-size: var(--text-h3); font-weight: var(--weight-heading); color: var(--color-contrast); }
+	.sys-pak__tagline { margin-top: 0.35em; font-size: var(--text-sm); color: var(--color-text-secondary); }
+	.sys-pak__price { display: grid; gap: 0.15em; }
+	.sys-pak__wdrozenie { font-family: var(--font-heading); font-size: 1.875em; font-weight: var(--weight-heading); letter-spacing: -1px; color: var(--color-contrast); line-height: 1.1; }
+	.sys-pak__from { font-size: 0.4em; font-weight: var(--weight-emphasis); letter-spacing: 1px; text-transform: uppercase; color: var(--color-text-muted); vertical-align: middle; }
+	.sys-pak__wdrozenie em { font-size: 0.5em; font-style: normal; font-weight: var(--weight-emphasis); color: var(--color-text-secondary); }
+	.sys-pak__abonament { font-size: var(--text-sm); font-weight: var(--weight-emphasis); color: var(--accent-deep); }
+	.sys-pak__abonament em { font-style: normal; color: var(--color-text-secondary); font-weight: var(--weight-body); }
+
+	.sys-pak__features { display: grid; gap: 0.75em; list-style: none; flex-grow: 1; }
+	.sys-pak__features li { display: grid; grid-template-columns: 1.5em 1fr; gap: 0.6em; align-items: start; font-size: var(--text-sm); line-height: 1.4; color: var(--color-text-secondary); }
+	.sys-pak__check { display: grid; place-items: center; width: 1.5em; height: 1.5em; border-radius: 50%; background-color: var(--accent-wash); color: var(--accent-deep); }
+	.sys-pak__check svg { width: 0.9em; height: 0.9em; }
+	.sys-pak__cta { justify-content: center; margin-top: auto; }
+
+	/* ===== Dowód ===== */
+	.sys-dowod__outer {
+		max-width: var(--size-container); margin-inline: auto;
+		padding-inline: var(--container-padding); padding-block: var(--spacing-section);
+	}
+	.sys-dowod__head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--spacing-md); margin-bottom: var(--spacing-2xl); }
+	.sys-dowod__title { font-family: var(--font-heading); font-size: var(--text-h2); font-weight: var(--weight-heading); line-height: var(--lh-heading); letter-spacing: -1px; color: var(--color-contrast); }
+	.sys-dowod__all { font-size: var(--text-sm); font-weight: var(--weight-emphasis); color: var(--accent-deep); text-decoration: none; }
+	.sys-dowod__all:hover { text-decoration: underline; }
+
+	.sys-dowod__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--spacing-lg); list-style: none; }
+	.sys-dowod__card {
+		display: flex; flex-direction: column; height: 100%; overflow: hidden;
+		border: 1px solid var(--color-border); border-radius: var(--radius-lg);
+		background-color: var(--color-canvas); box-shadow: var(--elevation-1);
+		text-decoration: none; color: inherit;
+		transition: box-shadow var(--transition-base), transform var(--transition-base), border-color var(--transition-base);
+	}
+	.sys-dowod__card:hover { border-color: var(--accent-brand); box-shadow: var(--elevation-2); transform: translateY(-0.25em); }
+	.sys-dowod__plyta :global(.plyta) { border: 0; border-bottom: 1px solid var(--color-border); border-radius: 0; }
+	.sys-dowod__card:hover .sys-dowod__plyta :global(.plyta__img) { transform: scale(1.04); }
+	.sys-dowod__body { display: flex; flex-direction: column; flex-grow: 1; padding: var(--spacing-lg); }
+	.sys-dowod__klient { font-family: var(--font-heading); font-size: var(--text-h3); font-weight: var(--weight-heading); letter-spacing: -0.5px; color: var(--color-contrast); }
+	.sys-dowod__efekt { margin-top: 0.4em; font-size: var(--text-sm); line-height: 1.5; color: var(--color-text-secondary); }
+	.sys-dowod__link { margin-top: var(--spacing-md); font-size: var(--text-sm); font-weight: var(--weight-emphasis); color: var(--accent-deep); }
+
+	/* ===== Responsywność ===== */
+	@media screen and (max-width: 991px) {
+		.sys-hero__outer { grid-template-columns: 1fr; gap: var(--spacing-2xl); }
+		.sys-hero__flow { max-width: 26em; }
+		.sys-cennik__grid { grid-template-columns: 1fr; max-width: 32em; }
+		.sys-pak--featured { order: -1; }
+		.sys-ex { grid-template-columns: 2em minmax(0, 1fr); }
+		.sys-ex__mockup { grid-column: 1 / -1; margin-top: var(--spacing-sm); }
+	}
+	@media screen and (max-width: 767px) {
+		.sys-hero__outer { padding-block: var(--spacing-4xl); }
+		.sys-hero__title { letter-spacing: -0.5px; }
+		.sys-problem__outer, .sys-auto__outer, .sys-cennik__outer, .sys-dowod__outer { padding-block: var(--spacing-4xl); }
+		.sys-problem__punch { font-size: var(--text-h3); }
+		.sys-auto__examples { padding-inline: var(--spacing-md); }
+		.sys-ex { grid-template-columns: minmax(0, 1fr); gap: var(--spacing-sm); padding-block: var(--spacing-lg); }
+		.sys-ex__nr { display: none; }
+		.sys-cennik__grid { max-width: none; }
+		.sys-pak, .sys-auto__door { padding: var(--spacing-xl); }
+		.sys-dowod__grid { grid-template-columns: 1fr; }
+	}
+</style>
