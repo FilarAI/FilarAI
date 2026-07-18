@@ -16,6 +16,8 @@ interface Props {
 	desc?: string;
 	/** Gdy podane — pod CTA pojawia się blok "zobacz, co już działa". */
 	links?: LinkKarta[];
+	/** Gdy true — statyczna ikona klepsydry zamienia się w animowaną (canvas). */
+	animated?: boolean;
 }
 
 const {
@@ -23,6 +25,7 @@ const {
 	subtitle = "Ta podstrona jest w budowie.",
 	desc = "Aktualnie rozbudowuję ten obszar. W międzyczasie napisz do mnie bezpośrednio – odpowiadam w 24h.",
 	links = [],
+	animated = false,
 } = Astro.props;
 ---
 
@@ -33,13 +36,27 @@ const {
 			Wkrótce
 		</div>
 
-		<span class="wkrotce__icon" aria-hidden="true">
-			<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-				<path d="M6 3h12M6 21h12" />
-				<path d="M8 3v3l4 5-4 5v3M16 3v3l-4 5 4 5v3" />
-				<path d="M10 8h4" />
-			</svg>
-		</span>
+		{
+			animated ? (
+				<div class="wkrotce__hourglass">
+					<canvas
+						class="wkrotce__canvas"
+						width="184"
+						height="184"
+						role="img"
+						aria-label="Animowana klepsydra z przesypującym się piaskiem"
+					/>
+				</div>
+			) : (
+				<span class="wkrotce__icon" aria-hidden="true">
+					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+						<path d="M6 3h12M6 21h12" />
+						<path d="M8 3v3l4 5-4 5v3M16 3v3l-4 5 4 5v3" />
+						<path d="M10 8h4" />
+					</svg>
+				</span>
+			)
+		}
 
 		<h1 class="wkrotce__title">{title}</h1>
 		<p class="wkrotce__subtitle">{subtitle}</p>
@@ -143,6 +160,22 @@ const {
 	.wkrotce__icon svg {
 		width: 2em;
 		height: 2em;
+	}
+
+	/* Wariant animowany — canvas z klepsydrą */
+	.wkrotce__hourglass {
+		display: grid;
+		place-items: center;
+		width: 6.5em;
+		height: 6.5em;
+		overflow: hidden;
+		border-radius: 1.5em;
+		background-color: var(--wk-accent-soft);
+	}
+	.wkrotce__canvas {
+		display: block;
+		width: 4em;
+		height: 4em;
 	}
 
 	.wkrotce__title {
@@ -293,3 +326,299 @@ const {
 		}
 	}
 </style>
+
+<script>
+	// Animowana klepsydra (canvas). Aktywna tylko gdy WkrotcePlaceholder dostał
+	// animated={true} — inaczej canvas nie istnieje i guard zwraca early, więc
+	// /systemy (ten sam komponent, bez animacji) się nie wywala.
+	(() => {
+		"use strict";
+
+		const canvas = document.querySelector<HTMLCanvasElement>(".wkrotce__canvas");
+		if (!canvas) return;
+		const ctx = canvas.getContext("2d");
+		if (!ctx) return;
+
+		const CONFIG = {
+			pourDuration: 4200,
+			settleDuration: 280,
+			flipDuration: 900,
+			pauseAfterFlip: 140,
+			lineColor: "#5a7a15", // --accent-deep
+			sandColor: "#a8c447", // --accent-brand
+			lineWidth: 4.2,
+			particleCount: 7,
+		};
+
+		const STATE: any = {
+			phase: "pour",
+			phaseStartedAt: performance.now(),
+			rotation: 0,
+			direction: 1,
+			progress: 0,
+		};
+
+		const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
+
+		function clamp(value: number, min = 0, max = 1) {
+			return Math.min(max, Math.max(min, value));
+		}
+
+		function easeInOutCubic(t: number) {
+			return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+		}
+
+		function resizeCanvas() {
+			const cssWidth = canvas!.clientWidth;
+			const cssHeight = canvas!.clientHeight;
+			const dpr = Math.min(window.devicePixelRatio || 1, 2);
+			canvas!.width = Math.round(cssWidth * dpr);
+			canvas!.height = Math.round(cssHeight * dpr);
+			ctx!.setTransform(dpr, 0, 0, dpr, 0, 0);
+		}
+
+		function traceTopChamber() {
+			ctx!.beginPath();
+			ctx!.moveTo(-17, -23);
+			ctx!.lineTo(17, -23);
+			ctx!.lineTo(13, -13);
+			ctx!.lineTo(4.5, -4.5);
+			ctx!.lineTo(0, 0);
+			ctx!.lineTo(-4.5, -4.5);
+			ctx!.lineTo(-13, -13);
+			ctx!.closePath();
+		}
+
+		function traceBottomChamber() {
+			ctx!.beginPath();
+			ctx!.moveTo(0, 0);
+			ctx!.lineTo(4.5, 4.5);
+			ctx!.lineTo(13, 13);
+			ctx!.lineTo(17, 23);
+			ctx!.lineTo(-17, 23);
+			ctx!.lineTo(-13, 13);
+			ctx!.lineTo(-4.5, 4.5);
+			ctx!.closePath();
+		}
+
+		function drawChamberSand(chamber: string, amount: number, gravity: number, role: string) {
+			amount = clamp(amount);
+			if (amount <= 0.0001) return;
+
+			const isTop = chamber === "top";
+			const height = 23;
+
+			ctx!.save();
+			if (isTop) traceTopChamber();
+			else traceBottomChamber();
+			ctx!.clip();
+			ctx!.fillStyle = CONFIG.sandColor;
+
+			let surfaceY: number;
+			let fillFromY: number;
+			let fillToY: number;
+
+			if (gravity === 1 && isTop) {
+				surfaceY = -height * Math.sqrt(amount);
+				fillFromY = surfaceY;
+				fillToY = 0;
+			} else if (gravity === 1 && !isTop) {
+				surfaceY = height * Math.sqrt(1 - amount);
+				fillFromY = surfaceY;
+				fillToY = height;
+			} else if (gravity === -1 && !isTop) {
+				surfaceY = height * Math.sqrt(amount);
+				fillFromY = 0;
+				fillToY = surfaceY;
+			} else {
+				surfaceY = -height * Math.sqrt(1 - amount);
+				fillFromY = -height;
+				fillToY = surfaceY;
+			}
+
+			ctx!.fillRect(-24, Math.min(fillFromY, fillToY), 48, Math.abs(fillToY - fillFromY) + 0.8);
+
+			if (role === "source") {
+				const widthFactor = Math.max(1.5, (16 * Math.abs(surfaceY)) / height);
+				ctx!.beginPath();
+				ctx!.ellipse(0, surfaceY, widthFactor, 1.15, 0, 0, Math.PI * 2);
+				ctx!.fill();
+			} else {
+				const pileHeight = Math.min(7.5, 2 + 8 * Math.sqrt(amount));
+				const halfWidth = Math.min(13, pileHeight / Math.tan((32 * Math.PI) / 180));
+				const apexY = surfaceY - gravity * pileHeight;
+				ctx!.beginPath();
+				ctx!.moveTo(-halfWidth, surfaceY + gravity * 0.45);
+				ctx!.lineTo(0, apexY);
+				ctx!.lineTo(halfWidth, surfaceY + gravity * 0.45);
+				ctx!.closePath();
+				ctx!.fill();
+			}
+
+			ctx!.restore();
+		}
+
+		function drawSand(progress: number, now: number) {
+			const sourceAmount = 1 - progress;
+			const destinationAmount = progress;
+
+			if (STATE.direction === 1) {
+				drawChamberSand("top", sourceAmount, 1, "source");
+				drawChamberSand("bottom", destinationAmount, 1, "destination");
+			} else {
+				drawChamberSand("bottom", sourceAmount, -1, "source");
+				drawChamberSand("top", destinationAmount, -1, "destination");
+			}
+
+			const streamVisible = STATE.phase === "pour" && progress > 0.01 && progress < 0.992;
+			if (!streamVisible) return;
+
+			ctx!.save();
+			ctx!.fillStyle = CONFIG.sandColor;
+			ctx!.strokeStyle = CONFIG.sandColor;
+			ctx!.lineCap = "round";
+
+			const direction = STATE.direction;
+			const streamLength = 16;
+			const streamStartY = direction * 1.8;
+			const streamEndY = direction * streamLength;
+
+			ctx!.lineWidth = 1.65;
+			ctx!.beginPath();
+			ctx!.moveTo(0, streamStartY);
+			ctx!.lineTo(0, streamEndY);
+			ctx!.stroke();
+
+			for (let i = 0; i < CONFIG.particleCount; i++) {
+				const cycle = 520 + i * 17;
+				const phase = ((now + i * 83) % cycle) / cycle;
+				const accelerated = phase * phase;
+				const y = streamStartY + (streamEndY - streamStartY) * accelerated;
+				const x = Math.sin((phase + i) * 9.4) * 0.35;
+				const radius = 0.65 + (i % 3) * 0.12;
+				ctx!.beginPath();
+				ctx!.arc(x, y, radius, 0, Math.PI * 2);
+				ctx!.fill();
+			}
+
+			ctx!.restore();
+		}
+
+		function drawGlassOutline() {
+			ctx!.save();
+			ctx!.strokeStyle = CONFIG.lineColor;
+			ctx!.lineWidth = CONFIG.lineWidth;
+			ctx!.lineCap = "round";
+			ctx!.lineJoin = "round";
+
+			ctx!.beginPath();
+			ctx!.moveTo(-16, -25);
+			ctx!.lineTo(16, -25);
+			ctx!.moveTo(-16, 25);
+			ctx!.lineTo(16, 25);
+			ctx!.stroke();
+
+			ctx!.beginPath();
+			ctx!.moveTo(-12.5, -21);
+			ctx!.lineTo(-12.5, -14);
+			ctx!.quadraticCurveTo(-8, -8, -2.5, -2.5);
+			ctx!.quadraticCurveTo(0, 0, 2.5, 2.5);
+			ctx!.quadraticCurveTo(8, 8, 12.5, 14);
+			ctx!.lineTo(12.5, 21);
+			ctx!.moveTo(12.5, -21);
+			ctx!.lineTo(12.5, -14);
+			ctx!.quadraticCurveTo(8, -8, 2.5, -2.5);
+			ctx!.quadraticCurveTo(0, 0, -2.5, 2.5);
+			ctx!.quadraticCurveTo(-8, 8, -12.5, 14);
+			ctx!.lineTo(-12.5, 21);
+			ctx!.stroke();
+
+			ctx!.restore();
+		}
+
+		function update(now: number) {
+			const elapsed = now - STATE.phaseStartedAt;
+
+			if (reducedMotion.matches) {
+				STATE.phase = "pour";
+				STATE.progress = 0.55;
+				return;
+			}
+
+			if (STATE.phase === "pour") {
+				STATE.progress = clamp(elapsed / CONFIG.pourDuration);
+				if (STATE.progress >= 1) {
+					STATE.phase = "settle";
+					STATE.phaseStartedAt = now;
+				}
+				return;
+			}
+
+			if (STATE.phase === "settle") {
+				STATE.progress = 1;
+				if (elapsed >= CONFIG.settleDuration) {
+					STATE.phase = "flip";
+					STATE.phaseStartedAt = now;
+				}
+				return;
+			}
+
+			if (STATE.phase === "flip") {
+				const t = clamp(elapsed / CONFIG.flipDuration);
+				const eased = easeInOutCubic(t);
+				STATE.rotation = STATE.baseRotation + Math.PI * eased;
+				STATE.progress = 1;
+				if (t >= 1) {
+					STATE.rotation = STATE.baseRotation + Math.PI;
+					STATE.direction *= -1;
+					STATE.phase = "pause";
+					STATE.phaseStartedAt = now;
+				}
+				return;
+			}
+
+			if (STATE.phase === "pause") {
+				STATE.progress = 0;
+				if (elapsed >= CONFIG.pauseAfterFlip) {
+					STATE.phase = "pour";
+					STATE.phaseStartedAt = now;
+				}
+			}
+		}
+
+		function draw(now: number) {
+			const width = canvas!.clientWidth;
+			const height = canvas!.clientHeight;
+
+			ctx!.clearRect(0, 0, width, height);
+			ctx!.save();
+			ctx!.translate(width / 2, height / 2);
+
+			if (STATE.phase === "flip" && STATE.baseRotation === undefined) {
+				STATE.baseRotation = STATE.rotation;
+			}
+			if (STATE.phase !== "flip") {
+				STATE.baseRotation = STATE.rotation;
+			}
+
+			ctx!.rotate(STATE.rotation);
+			drawSand(STATE.progress, now);
+			drawGlassOutline();
+			ctx!.restore();
+		}
+
+		function frame(now: number) {
+			update(now);
+			draw(now);
+			requestAnimationFrame(frame);
+		}
+
+		resizeCanvas();
+		addEventListener("resize", resizeCanvas, { passive: true });
+		reducedMotion.addEventListener?.("change", () => {
+			STATE.phaseStartedAt = performance.now();
+		});
+
+		requestAnimationFrame(frame);
+	})();
+</script>
