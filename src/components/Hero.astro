@@ -33,7 +33,6 @@ const icon = {
 	nodes: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="6" r="2"/><circle cx="5" cy="18" r="2"/><circle cx="18" cy="12" r="2"/><path d="M7 6.6h3.5a4 4 0 0 1 4 4v0M7 17.4h3.5a4 4 0 0 0 4-4v0"/></svg>`,
 	browser: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/><circle cx="6.5" cy="6.5" r="0.7" fill="currentColor" stroke="none"/><circle cx="9" cy="6.5" r="0.7" fill="currentColor" stroke="none"/></svg>`,
 	trend: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17l5-5 4 4 7-8"/><path d="M14 8h6v6"/></svg>`,
-	megaphone: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10v4h4l7 5V5l-7 5H4z"/><path d="M18 8a4 4 0 0 1 0 8"/></svg>`,
 	person: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-3.5 3-6 7-6s7 2.5 7 6"/></svg>`,
 	sparkle: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8L12 3z"/></svg>`,
 	filter: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16l-6 7v6l-4 2v-8L4 5z"/></svg>`,
@@ -80,14 +79,6 @@ const services: Service[] = [
 		tabIcon: icon.trend,
 		tagline: "Widoczność w Google i AI Search — tam gdzie szukają klienci.",
 		headerIcon: icon.trend,
-	},
-	{
-		id: "meta-ads",
-		name: "Meta Ads",
-		tabLabel: "Meta Ads",
-		tabIcon: icon.megaphone,
-		tagline: "Kampanie reklamowe na Facebooku i Instagramie, ze zwrotem 3-5x.",
-		headerIcon: icon.megaphone,
 	},
 ];
 
@@ -278,37 +269,6 @@ const pipeline = [
 									</div>
 								)}
 
-								{svc.id === "meta-ads" && (
-									<div class="hero__preview hero__preview--ads">
-										<div class="hero__ads-panel">
-											<div class="hero__ads-row">
-												<div>
-													<p class="hero__ads-label">Leady</p>
-													<p class="hero__ads-value">47</p>
-												</div>
-												<div>
-													<p class="hero__ads-label">Koszt leada</p>
-													<p class="hero__ads-value">102 zł <span class="hero__ads-delta">↓18%</span></p>
-												</div>
-											</div>
-											<span class="hero__ads-spark" set:html={icon.sparkline} />
-										</div>
-										<div class="hero__kpi-row">
-											<div class="hero__kpi">
-												<span class="hero__kpi-label">CTR</span>
-												<span class="hero__kpi-value hero__kpi-value--accent">4.2%</span>
-											</div>
-											<div class="hero__kpi">
-												<span class="hero__kpi-label">ROAS</span>
-												<span class="hero__kpi-value">3.8x</span>
-											</div>
-											<div class="hero__kpi">
-												<span class="hero__kpi-label">Zasięg / tydz.</span>
-												<span class="hero__kpi-value">24k</span>
-											</div>
-										</div>
-									</div>
-								)}
 							</article>
 						))
 					}
@@ -1035,55 +995,6 @@ const pipeline = [
 		font-size: 0.6875em;
 		color: var(--color-text-muted);
 		margin-top: 0.25em;
-	}
-
-	/* ===== Preview: Ads panel ===== */
-
-	.hero__ads-panel {
-		display: flex;
-		flex-direction: column;
-		gap: 0.75em;
-		padding: 1em;
-		border-radius: 0.625em;
-		background-color: #fafafa;
-		border: 1px solid var(--color-border);
-	}
-
-	.hero__ads-row {
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-		gap: 1em;
-	}
-
-	.hero__ads-label {
-		font-size: 0.75em;
-		color: var(--color-text-muted);
-	}
-
-	.hero__ads-value {
-		font-family: var(--font-heading);
-		font-size: 1.5em;
-		font-weight: 700;
-		color: var(--color-contrast);
-	}
-
-	.hero__ads-delta {
-		font-size: 0.55em;
-		color: var(--accent-deep);
-		vertical-align: middle;
-		margin-left: 0.25em;
-	}
-
-	.hero__ads-spark {
-		display: inline-flex;
-		width: 100%;
-		height: 2em;
-		color: var(--accent-deep);
-	}
-
-	.hero__ads-spark svg {
-		width: 100%;
-		height: 100%;
 	}
 
 	/* ===== Switcher (pill tabs pod stackiem) ===== */
