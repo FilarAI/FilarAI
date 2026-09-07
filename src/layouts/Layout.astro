@@ -10,13 +10,16 @@ interface Props {
 	ogImage?: string;
 	/** Wyłącz indeksowanie (strony robocze, podglądy). */
 	noindex?: boolean;
+	/** Ukryj globalny header (np. dla ekranów powitalnych). */
+	hideHeader?: boolean;
 }
 
 const {
-	title = "FilarAI — Strony, systemy AI i marketing dla małych firm",
+	title = "FilarAI - System, strony, SEO",
 	description = "Buduję strony WWW, systemy AI i SEO/GEO dla małych firm. Konkret zamiast obietnic — pierwsza rozmowa bez zobowiązań, odpowiadam w 15 minut.",
 	ogImage = "/og-default.png",
 	noindex = false,
+	hideHeader = false,
 } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site ?? "https://filarai.com");
@@ -50,9 +53,12 @@ const ogImageUrl = new URL(ogImage, Astro.site ?? "https://filarai.com");
 		<meta name="twitter:description" content={description} />
 		<meta name="twitter:image" content={ogImageUrl} />
 
+		<link rel="icon" href="/favicon.ico" sizes="any" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" type="image/svg+xml" href="/favicon-light.svg" media="(prefers-color-scheme: light)" />
 		<link rel="icon" type="image/svg+xml" href="/favicon-dark.svg" media="(prefers-color-scheme: dark)" />
-		<link rel="icon" type="image/svg+xml" href="/favicon-light.svg" />
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+		<link rel="manifest" href="/site.webmanifest" />
 		<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff" />
 		<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0a0a0a" />
 
@@ -65,8 +71,56 @@ const ogImageUrl = new URL(ogImage, Astro.site ?? "https://filarai.com");
 	</head>
 	<body>
 		<a href="#main" class="sr-only">Przejdź do treści</a>
-		<Header />
+		{!hideHeader && <Header />}
 		<slot />
 		<CookieBanner />
+		<script is:inline>
+			(() => {
+				let marqueeTimer = null;
+				let originalTitle = document.title;
+				const alertText = "⚠️ TĘSKNIMY    ";
+
+				const getGraphemes = (str) => {
+					if (typeof Intl !== "undefined" && Intl.Segmenter) {
+						return Array.from(
+							new Intl.Segmenter("pl", { granularity: "grapheme" }).segment(str),
+							(s) => s.segment
+						);
+					}
+					return [...str];
+				};
+
+				const startMarquee = () => {
+					if (marqueeTimer) return;
+					originalTitle = document.title;
+					let chars = getGraphemes(alertText);
+					marqueeTimer = setInterval(() => {
+						chars.push(chars.shift());
+						document.title = chars.join("");
+					}, 300);
+				};
+
+				const stopMarquee = () => {
+					if (marqueeTimer) {
+						clearInterval(marqueeTimer);
+						marqueeTimer = null;
+					}
+					if (originalTitle) {
+						document.title = originalTitle;
+					}
+				};
+
+				document.addEventListener("visibilitychange", () => {
+					if (document.hidden) {
+						startMarquee();
+					} else {
+						stopMarquee();
+					}
+				});
+
+				window.addEventListener("pagehide", stopMarquee);
+				window.addEventListener("beforeunload", stopMarquee);
+			})();
+		</script>
 	</body>
 </html>

@@ -1,36 +1,387 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Hero from "../components/Hero.astro";
-import LogoStrip from "../components/LogoStrip.astro";
-import Wprowadzenie from "../components/Wprowadzenie.astro";
-import LiczbyZaufania from "../components/LiczbyZaufania.astro";
-import Oferta from "../components/Oferta.astro";
-import DemoSystemu from "../components/DemoSystemu.astro";
-import Rezultaty from "../components/Rezultaty.astro";
-import JakWygladaWspolpraca from "../components/JakWygladaWspolpraca.astro";
-import Portfolio from "../components/Portfolio.astro";
-import OMnie from "../components/OMnie.astro";
-import Faq from "../components/Faq.astro";
-import Cta from "../components/Cta.astro";
-import Footer from "../components/Footer.astro";
-import ScrollNav from "../components/ScrollNav.astro";
 ---
 
-<Layout title="FilarAI — Strony, systemy AI i marketing dla małych firm">
-	<main id="main">
-		<Hero />
-		<LogoStrip />
-		<Wprowadzenie />
-		<Oferta />
-		<LiczbyZaufania />
-		<Rezultaty />
-		<DemoSystemu />
-		<Portfolio />
-		<JakWygladaWspolpraca />
-		<OMnie />
-		<Faq />
-		<Cta />
-	</main>
-	<ScrollNav />
-	<Footer />
+<Layout title="FilarAI - Jesteśmy w trakcie przebudowy" hideHeader={true}>
+  <main class="coming-soon-container">
+    <!-- Cursor Spotlight -->
+    <div class="cursor-glow" id="cursor-glow" aria-hidden="true"></div>
+
+    <!-- Animated Background Layer -->
+    <div class="orb orb-1" aria-hidden="true"></div>
+    <div class="orb orb-2" aria-hidden="true"></div>
+    <div class="grid-overlay" aria-hidden="true"></div>
+
+    <section class="content-wrapper">
+      <div class="logo-container">
+        <!-- Logo z filtrem invert dla ciemnego tła -->
+        <img src="/logo/filarai-uploaded.png" alt="Filar AI Logo" class="logo-img" />
+      </div>
+
+      <div class="text-content">
+        <h1 class="headline">Jesteśmy w trakcie<br/><span class="accent-text">przebudowy.</span></h1>
+
+        <p class="description">
+          Systemy, strony internetowe i widoczność w sieci dla małych przedsiębiorstw.
+        </p>
+
+        <p class="countdown-label">Do premiery nowej strony pozostało:</p>
+        <div class="countdown" id="countdown">
+          <div class="time-block">
+            <span class="number" id="cd-days">00</span>
+            <span class="label">Dni</span>
+          </div>
+          <span class="separator">:</span>
+          <div class="time-block">
+            <span class="number" id="cd-hours">00</span>
+            <span class="label">Godz</span>
+          </div>
+          <span class="separator">:</span>
+          <div class="time-block">
+            <span class="number" id="cd-minutes">00</span>
+            <span class="label">Min</span>
+          </div>
+          <span class="separator">:</span>
+          <div class="time-block">
+            <span class="number" id="cd-seconds">00</span>
+            <span class="label">Sek</span>
+          </div>
+        </div>
+
+        <div class="social-links">
+          <a href="tel:+48534458418" class="social-btn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+            <span>534 458 418</span>
+          </a>
+          <a href="https://www.linkedin.com/company/filar-ai/about/?viewAsMember=true" target="_blank" rel="noopener noreferrer" class="social-btn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+            <span>LinkedIn</span>
+          </a>
+          <a href="https://www.upwork.com/freelancers/~01b19c821e8eb909ae" target="_blank" rel="noopener noreferrer" class="social-btn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+            <span>Upwork</span>
+          </a>
+        </div>
+
+        <p class="launch-date">Premiera nowej strony: <strong>10.09.2026, 12:00</strong></p>
+      </div>
+    </section>
+  </main>
 </Layout>
+
+<style>
+  :root {
+    --bg-color: #050505;
+    --text-main: #EDEDEC;
+    --text-muted: #8E8D8A;
+    --accent: #D6FD70;
+  }
+
+  .coming-soon-container {
+    position: relative;
+    min-height: 100dvh;
+    width: 100%;
+    background-color: #050505; /* Wymuszenie czarnego tła */
+    color: #EDEDEC;
+    overflow: hidden; /* Zatrzymanie scrolla przez orby */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Geist', system-ui, sans-serif;
+  }
+
+  /* Animated Grid Background */
+  .grid-overlay {
+    position: absolute;
+    inset: -50%;
+    width: 200%;
+    height: 200%;
+    background-image:
+      linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    z-index: 1;
+    transform: perspective(500px) rotateX(60deg) translateY(-100px) translateZ(-200px);
+    animation: gridMove 20s linear infinite;
+    pointer-events: none;
+  }
+
+  @keyframes gridMove {
+    0% { transform: perspective(500px) rotateX(60deg) translateY(0) translateZ(-200px); }
+    100% { transform: perspective(500px) rotateX(60deg) translateY(60px) translateZ(-200px); }
+  }
+
+  /* Cursor Flashlight */
+  .cursor-glow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 5;
+    background: radial-gradient(
+      800px circle at var(--x, 50%) var(--y, 50%),
+      rgba(214, 253, 112, 0.08),
+      transparent 40%
+    );
+    transition: background 0.1s ease;
+  }
+
+  /* Animated Orbs */
+  .orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    z-index: 0;
+    opacity: 0.6;
+    animation: float 20s infinite ease-in-out alternate;
+    pointer-events: none;
+  }
+  .orb-1 {
+    width: 50vw;
+    height: 50vw;
+    background: radial-gradient(circle, rgba(214, 253, 112, 0.15), transparent 70%);
+    top: -10%;
+    left: -10%;
+  }
+  .orb-2 {
+    width: 60vw;
+    height: 60vw;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.08), transparent 70%);
+    bottom: -20%;
+    right: -10%;
+    animation-duration: 25s;
+    animation-delay: -5s;
+    animation-direction: alternate-reverse;
+  }
+
+  @keyframes float {
+    0% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(5vw, 5vh) scale(1.1); }
+    66% { transform: translate(-3vw, 8vh) scale(0.9); }
+    100% { transform: translate(0, 0) scale(1); }
+  }
+
+  .content-wrapper {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+    max-width: 800px;
+    width: 100%;
+  }
+
+  .logo-container {
+    margin-bottom: 4rem;
+    animation: fadeUp 0.8s 0.1s both ease-out;
+  }
+
+  .logo-img {
+    height: 48px;
+    width: auto;
+    filter: invert(1); /* Invert black logo to white */
+  }
+
+  .text-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .headline {
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+    margin: 0;
+    color: #EDEDEC; /* Wymuszenie bieli dla nadpisania stylów globalnych */
+    animation: fadeUp 0.8s 0.2s both ease-out;
+  }
+
+  .accent-text {
+    color: #D6FD70;
+  }
+
+  .description {
+    font-size: clamp(1.1rem, 2vw, 1.3rem);
+    color: #8E8D8A; /* Szary */
+    line-height: 1.6;
+    max-width: 500px;
+    margin: 0;
+    animation: fadeUp 0.8s 0.3s both ease-out;
+  }
+
+  .countdown-label {
+    font-size: 0.85rem;
+    color: #8E8D8A;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-top: 2rem;
+    margin-bottom: -1rem;
+    animation: fadeUp 0.8s 0.35s both ease-out;
+  }
+
+  .countdown {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-top: 1rem;
+    padding: 1.5rem 2.5rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    backdrop-filter: blur(12px);
+    animation: fadeUp 0.8s 0.4s both ease-out;
+  }
+
+  .time-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 70px;
+  }
+
+  .number {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: #EDEDEC;
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+
+  .label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #8E8D8A;
+    margin-top: 0.5rem;
+    font-weight: 500;
+  }
+
+  .separator {
+    font-size: 2rem;
+    color: rgba(255, 255, 255, 0.2);
+    margin-top: -1.2rem;
+  }
+
+  .launch-date {
+    font-size: 0.9rem;
+    color: #8E8D8A;
+    letter-spacing: 0.05em;
+    margin-top: 1rem;
+    animation: fadeUp 0.8s 0.7s both ease-out;
+  }
+
+  .launch-date strong {
+    color: #EDEDEC;
+    font-weight: 500;
+  }
+
+  .social-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 1rem;
+    animation: fadeUp 0.8s 0.5s both ease-out;
+  }
+
+  .social-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.25rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 9999px;
+    color: #EDEDEC;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(12px);
+    z-index: 20; /* Klikalność nad glow */
+  }
+
+  .social-btn:hover {
+    background: rgba(214, 253, 112, 0.1);
+    border-color: rgba(214, 253, 112, 0.3);
+    color: #D6FD70;
+    transform: translateY(-2px);
+  }
+
+  @keyframes fadeUp {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Responsive Adjustments */
+  @media (max-width: 640px) {
+    .countdown {
+      padding: 1rem;
+      gap: 0.5rem;
+    }
+    .time-block {
+      min-width: 50px;
+    }
+    .number {
+      font-size: 1.75rem;
+    }
+    .separator {
+      font-size: 1.5rem;
+      margin-top: -1rem;
+    }
+  }
+</style>
+
+<script>
+  // --- Logika kursora (Flashlight) ---
+  const cursorGlow = document.getElementById('cursor-glow');
+  window.addEventListener('mousemove', (e) => {
+    if(cursorGlow) {
+      cursorGlow.style.setProperty('--x', `${e.clientX}px`);
+      cursorGlow.style.setProperty('--y', `${e.clientY}px`);
+    }
+  });
+
+  // --- Logika Odliczania ---
+  const targetDate = new Date("2026-09-10T12:00:00+02:00").getTime();
+
+  const daysEl = document.getElementById("cd-days");
+  const hoursEl = document.getElementById("cd-hours");
+  const minutesEl = document.getElementById("cd-minutes");
+  const secondsEl = document.getElementById("cd-seconds");
+
+  function updateCountdown() {
+    const now = new Date().getTime();
+    const distance = targetDate - now;
+
+    if (distance < 0) {
+      if (daysEl) daysEl.innerText = "00";
+      if (hoursEl) hoursEl.innerText = "00";
+      if (minutesEl) minutesEl.innerText = "00";
+      if (secondsEl) secondsEl.innerText = "00";
+      return;
+    }
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    if (daysEl) daysEl.innerText = days.toString().padStart(2, '0');
+    if (hoursEl) hoursEl.innerText = hours.toString().padStart(2, '0');
+    if (minutesEl) minutesEl.innerText = minutes.toString().padStart(2, '0');
+    if (secondsEl) secondsEl.innerText = seconds.toString().padStart(2, '0');
+  }
+
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+</script>
